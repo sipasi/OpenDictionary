@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ProjectWord.Views.Controls.CardTestContentView"
+             
+             xmlns:controls="clr-namespace:ProjectWord.Views.Controls"
+             xmlns:models="clr-namespace:ProjectWord.Models" 
+             x:Name="Tessst">
+
+    <ContentView.BindingContext>
+        <x:Reference Name="Tessst"/>
+    </ContentView.BindingContext>
+
+    <ContentView.Content>
+        <StackLayout>
+            <Label Text="{Binding CardTitle, UpdateSourceEventName='PropertyChanged'}" TextColor="White"/>
+            <Label Text="dd" TextColor="White"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

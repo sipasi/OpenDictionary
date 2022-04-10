@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectWord.Views.Pages.WordGroupDetailPage"        
+             
+             xmlns:viewModels="clr-namespace:ProjectWord.ViewModels" 
+             xmlns:models="clr-namespace:ProjectWord.Models"
+             xmlns:fonts="clr-namespace:ProjectWord.Fonts.Icons"
+
+             x:DataType="viewModels:WordGroupDetailViewModel"
+             
+             Padding="20,20,20,0"
+             Title="Group Detail">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding DeleteCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="FontAwesomeRegular"
+                    Glyph="{x:Static fonts:FontAwesomeRegular.TrashCan}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Command="{Binding RedirectToEditCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource 
+                    FontFamily="FontAwesomeRegular"
+                    Glyph="{x:Static fonts:FontAwesomeRegular.PenToSquare}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="5">
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Word">
+                        <StackLayout Padding="0,4">
+                            <Frame CornerRadius="8">
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=ItemTapped}"
+                                            CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label x:Name="sss" Text="{Binding Origin}" />
+                                    <Label Text="{Binding Translation}"/>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

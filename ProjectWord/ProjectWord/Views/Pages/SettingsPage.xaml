@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ProjectWord.Views.Pages.SettingsPage"
+             
+             xmlns:viewmodels="clr-namespace:ProjectWord.ViewModels"
+             xmlns:fonts="clr-namespace:ProjectWord.Fonts.Icons"
+             
+             x:DataType="viewmodels:SettingsViewModel"
+              
+             Padding="20"
+             Title="Settings">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame CornerRadius="20">
+                <StackLayout>
+                    <Label Text="Theme Color" FontSize="Medium" FontAttributes="Bold"/>
+
+                    <StackLayout x:Name="radioGroup" RadioButtonGroup.GroupName="theme-color" RadioButtonGroup.SelectedValue="{Binding Current, Mode=TwoWay}">
+                        <RadioButton Content="Day" Value="{x:Static OSAppTheme.Light}"/>
+                        <RadioButton Content="Night" Value="{x:Static OSAppTheme.Dark}"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

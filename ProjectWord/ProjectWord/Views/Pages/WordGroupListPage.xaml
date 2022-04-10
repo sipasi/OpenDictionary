@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             x:Class="ProjectWord.Views.Pages.WordGroupListPage"
+             
+             xmlns:viewModels="clr-namespace:ProjectWord.ViewModels"
+             xmlns:models="clr-namespace:ProjectWord.Models"
+             xmlns:controls="clr-namespace:ProjectWord.Views.Controls"
+             
+             x:DataType="viewModels:WordGroupListViewModel"
+             
+             Title="Word Group">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding RedirectToCreateCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView ItemsSource="{Binding Items}" Margin="10, 0" ItemsLayout="VerticalGrid, 2" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:WordGroup">
+                    <controls:CardContentView ImageSource="https://picsum.photos/300" ImageHeightRequest="80" Padding="10"
+                                              Title="{Binding Name}" Caption="{Binding Path=Words.Count, StringFormat='Count: {0}'}">
+                        <controls:CardContentView.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupListViewModel}}, Path=ItemTapped}"
+                                CommandParameter="{Binding .}"/>
+                        </controls:CardContentView.GestureRecognizers>
+                    </controls:CardContentView>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

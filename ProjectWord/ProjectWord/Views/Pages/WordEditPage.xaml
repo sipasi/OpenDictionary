@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectWord.Views.Pages.WordEditPage"
+             
+             xmlns:viewModels="clr-namespace:ProjectWord.ViewModels"
+             xmlns:fonts="clr-namespace:ProjectWord.Fonts.Icons" xmlns:models="clr-namespace:ProjectWord.Models"
+             x:DataType="viewModels:WordEditViewModel"
+             
+             Title="Word Edit">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Margin="20,10" Spacing="10">
+            <Frame CornerRadius="10">
+                <StackLayout>
+                    <Label Text="Word and translation" FontAttributes="Bold" />
+                    <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
+                    <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+                </StackLayout>
+            </Frame>
+
+            <ScrollView VerticalScrollBarVisibility="Never" >
+                <StackLayout Spacing="10">
+                    <Frame CornerRadius="10">
+                        <StackLayout>
+                            <Label Text="Phonetics" FontAttributes="Bold"/>
+
+                            <StackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" Spacing="20">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="viewModels:PhoneticObservable">
+                                        <StackLayout>
+                                            <Label>
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Pronunciation: " FontAttributes="Bold" 
+                                                                              TextColor="{x:StaticResource Green-200}"/>
+                                                        <Span Text="{Binding Value}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <StackLayout Spacing="10" Orientation="Horizontal">
+                                                <ImageButton HorizontalOptions="Start" BackgroundColor="Transparent">
+                                                    <ImageButton.Source>
+                                                        <FontImageSource 
+                                                            FontFamily="FontAwesomeRegular" 
+                                                            Glyph="{x:Static fonts:FontAwesomeRegular.CirclePlay}"/>
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                                <Label Text="audio source" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="1" CornerRadius="10">
+                        <StackLayout>
+                            <Label Text="Meanings" FontAttributes="Bold"/>
+
+                            <StackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="viewModels:MeaningObservable">
+                                        <StackLayout>
+                                            <Label>
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Part of speech: " FontAttributes="Bold" 
+                                                                              TextColor="{x:StaticResource Green-200}"/>
+                                                        <Span Text="{Binding PartOfSpeech}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <StackLayout BindableLayout.ItemsSource="{Binding Definitions}">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:DefinitionObservable">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="auto"/>
+                                                                <ColumnDefinition Width="auto"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
+
+                                                            <StackLayout Grid.Column="1">
+                                                                <Label>
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <Span Text="Definition: " FontAttributes="Bold" 
+                                                                              TextColor="{x:StaticResource Blue-300}"/>
+                                                                            <Span Text="{Binding Value}"/>
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                                <Label>
+                                                                    <Label.Triggers>
+                                                                        <DataTrigger TargetType="Label" Binding="{Binding Path=Example.Length, FallbackValue=0, TargetNullValue=0}" Value="0">
+                                                                            <Setter Property="IsVisible" Value="False"/>
+                                                                        </DataTrigger>
+                                                                    </Label.Triggers>
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <Span Text="Example: " FontAttributes="Bold" 
+                                                                              TextColor="{x:StaticResource Indigo-300}"/>
+                                                                            <Span Text="{Binding Example}"/>
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                            </StackLayout>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+
+            <Grid VerticalOptions="EndAndExpand" MinimumHeightRequest="50" Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="Load Meta Data" Style="{StaticResource ButtonOutline}"  HorizontalOptions="Fill"/>
+
+                <Button Grid.Column="1" Text="Save" Style="{StaticResource ButtonOutline}" Command="{Binding SaveCommand}" HorizontalOptions="Fill"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
