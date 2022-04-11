@@ -15,6 +15,12 @@
     <None Remove="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
     <None Remove="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
     <None Remove="Resources\Fonts\Icons\remixicon.ttf" />
+    <None Remove="Resources\LottieAnimations\404-page.json" />
+    <None Remove="Resources\LottieAnimations\back-to-school.json" />
+    <None Remove="Resources\LottieAnimations\empty-state.json" />
+    <None Remove="Resources\LottieAnimations\searching-for-word.json" />
+    <None Remove="Resources\LottieAnimations\searching.json" />
+    <None Remove="Resources\LottieAnimations\student.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +28,31 @@
     <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
     <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
     <EmbeddedResource Include="Resources\Fonts\Icons\remixicon.ttf" />
+    <EmbeddedResource Include="Resources\LottieAnimations\404-page.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\back-to-school.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\empty-state.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\searching-for-word.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\searching.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\student.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.23" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
   </ItemGroup>
@@ -54,9 +80,6 @@
     <EmbeddedResource Update="Views\Controls\CardContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Controls\CardTestContentView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\Controls\WordGroupContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -75,5 +98,10 @@
     <EmbeddedResource Update="Views\Pages\WordGroupListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Assets\Audio\" />
   </ItemGroup>
 </Project>

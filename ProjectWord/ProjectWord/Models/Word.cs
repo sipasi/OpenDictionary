@@ -37,9 +37,9 @@ namespace ProjectWord.Models
         public Guid Id { get; }
 
         public string PartOfSpeech { get; set; }
-        public IDefinition[] Definitions { get; set; }
+        public IWordDefinition[] Definitions { get; set; }
     }
-    public class Definition : IDefinition, IEntity
+    public class Definition : IWordDefinition, IEntity
     {
         public Guid Id { get; }
 

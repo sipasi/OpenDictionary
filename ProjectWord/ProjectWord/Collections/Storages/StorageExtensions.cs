@@ -14,7 +14,9 @@ namespace ProjectWord.Collections.Storages.Extensions
         public static Task<T> GetById<T>(this IQueryable<T> query, Guid id)
             where T : IEntity
         {
-            return query.FirstOrDefaultAsync(x => x.Id == id);
+            Task<T> task = query.FirstOrDefaultAsync(x => x.Id == id);
+
+            return task;
         }
         public static IQueryable<WordGroup> OrderByDate(this IQueryable<WordGroup> query)
         {

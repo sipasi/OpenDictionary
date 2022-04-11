@@ -1,5 +1,4 @@
-﻿
-using ProjectWord.Services.Configurators;
+﻿using ProjectWord.Services.Configurators;
 
 using Xamarin.Forms;
 

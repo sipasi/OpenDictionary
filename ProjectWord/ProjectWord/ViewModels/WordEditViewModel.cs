@@ -1,8 +1,6 @@
-﻿
+﻿#nullable enable
+
 using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Framework.Words;
@@ -12,105 +10,26 @@ using Framework.Words.Parsers;
 using ProjectWord.Collections.Storages;
 using ProjectWord.Collections.Storages.Extensions;
 using ProjectWord.Models;
+using ProjectWord.Observables.Words;
+using ProjectWord.Services.Audio;
+using ProjectWord.Services.Collections;
 
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-
 
 namespace ProjectWord.ViewModels
 {
-    public class WordMetadataObservable : ViewModel
-    {
-        private string value;
-        private ObservableCollection<PhoneticObservable> phonetics;
-        private ObservableCollection<MeaningObservable> meanings;
-
-        public string Value { get => value; set => SetProperty(ref this.value, value); }
-
-        public ObservableCollection<PhoneticObservable> Phonetics { get => phonetics; set => SetProperty(ref phonetics, value); }
-        public ObservableCollection<MeaningObservable> Meanings { get => meanings; set => SetProperty(ref meanings, value); }
-
-        public WordMetadataObservable()
-        {
-            Phonetics = new ObservableCollection<PhoneticObservable>();
-            Meanings = new ObservableCollection<MeaningObservable>();
-        }
-
-        public void Set(IWordMetadata metadata)
-        {
-            Value = metadata.Value;
-
-            foreach (var phonetic in metadata.Phonetics)
-            {
-                PhoneticObservable observable = new PhoneticObservable();
-
-                Phonetics.Add(observable);
-
-                observable.Value = phonetic.Value;
-                observable.Audio = phonetic.Audio;
-            }
-            foreach (var meaning in metadata.Meanings)
-            {
-                MeaningObservable observable = new MeaningObservable();
-
-                Meanings.Add(observable);
-
-                observable.PartOfSpeech = meaning.PartOfSpeech;
-
-                foreach (var definition in meaning.Definitions)
-                {
-                    DefinitionObservable definitionObservable = new DefinitionObservable();
-
-                    definitionObservable.Value = definition.Value;
-                    definitionObservable.Example = definition.Example;
-
-                    observable.Definitions.Add(definitionObservable);
-                }
-            }
-        }
-    }
-    public class PhoneticObservable : ViewModel
-    {
-        private string value;
-        private string audio;
-
-        public string Value { get => value; set => SetProperty(ref this.value, value); }
-        public string Audio { get => audio; set => SetProperty(ref this.audio, value); }
-    }
-    public class MeaningObservable : ViewModel
-    {
-        private string partOfSpeech;
-        private ObservableCollection<DefinitionObservable> definitions;
-         
-        public string PartOfSpeech { get => partOfSpeech; set => SetProperty(ref partOfSpeech, value); }
-        public ObservableCollection<DefinitionObservable> Definitions { get => definitions; set => SetProperty(ref definitions, value); }
-
-        public MeaningObservable()
-        {
-            Definitions = new ObservableCollection<DefinitionObservable>();
-        }
-    }
-    public class DefinitionObservable : ViewModel
-    {
-        private string value;
-        private string example;
-        private string[] synonyms;
-        private string[] antonyms;
-
-        public string Value { get => value; set => SetProperty(ref this.value, value); }
-        public string Example { get => example; set => SetProperty(ref example, value); }
-        public string[] Synonyms { get => synonyms; set => SetProperty(ref synonyms, value); }
-        public string[] Antonyms { get => antonyms; set => SetProperty(ref antonyms, value); }
-    }
-
-
     [QueryProperty(nameof(Id), nameof(Id))]
-    public class WordEditViewModel : StorageViewModel
+    public class WordEditViewModel : ViewModel
     {
         private string id;
         private string origin;
         private string translation;
 
-        private WordMetadataObservable metadata;
+        private bool metadataLoading;
+        private bool metadataLoadingComplete;
+
+        private readonly IStorage<Word> wordStorage = StorageService<Word>.Storage;
 
         public string Id
         {
@@ -119,7 +38,7 @@ namespace ProjectWord.ViewModels
             {
                 id = value;
 
-                LoadItems();
+                LoadWordDataCommand.ExecuteAsync();
             }
         }
 
@@ -128,72 +47,140 @@ namespace ProjectWord.ViewModels
         public string Origin { get => origin; set => SetProperty(ref origin, value); }
         public string Translation { get => translation; set => SetProperty(ref translation, value); }
 
-        public WordMetadataObservable Metadata { get => metadata; set => SetProperty(ref metadata, value); }
+        public bool MetadataLoading { get => metadataLoading; set => SetProperty(ref metadataLoading, value); }
+        public bool MetadataLoadingComplete { get => metadataLoadingComplete; set => SetProperty(ref metadataLoadingComplete, value); }
 
-        public Command SaveCommand { get; }
+        public WordMetadataObservable Metadata { get; }
+
+        public AsyncCommand LoadMetaDataCommand { get; }
+        public AsyncCommand LoadWordDataCommand { get; }
+        public AsyncCommand SaveCommand { get; }
         public Command DiscardCommand { get; }
-        public Command LoadMetaDataCommand { get; }
+
+        public AsyncCommand<string> PlayAudioCommand { get; }
 
         public WordEditViewModel()
         {
-            SaveCommand = new Command(OnSave);
+            id = string.Empty;
+            origin = string.Empty;
+            translation = string.Empty;
+
+            LoadWordDataCommand = new AsyncCommand(LoadWord);
+            LoadMetaDataCommand = new AsyncCommand(LoadMetadata);
+
+            SaveCommand = new AsyncCommand(OnSave);
             DiscardCommand = new Command(OnDiscard);
 
+            PlayAudioCommand = new AsyncCommand<string>(PlayAudio);
+
             Metadata = new WordMetadataObservable();
+            MetadataLoading = false;
         }
 
-        private async void OnSave(object obj)
+        private async Task OnSave()
         {
-            IStorage<Word> storage = GetStorage<Word>();
-
             Guid guid = Guid.Parse(id);
 
-            Word word = await storage.Query().GetById(guid);
+            Word word = await wordStorage.Query().GetById(guid);
 
             word.Origin = origin;
             word.Translation = translation;
 
-            await storage.UpdateAsync(word);
+            await wordStorage.UpdateAsync(word);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
-
         private async void OnDiscard(object obj)
         {
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
 
-        protected override async Task Load()
+        private async Task LoadWord()
         {
-            if (IsNew)
+            try
             {
-                throw new NotSupportedException();
+                if (IsNew)
+                {
+                    throw new NotSupportedException();
+                }
+
+                Guid guid = Guid.Parse(id);
+
+                Word word = await wordStorage.Query().GetById(guid);
+
+                Origin = word!.Origin;
+                Translation = word!.Translation;
+            }
+            catch (Exception e)
+            {
+                await ErrorMessage(e);
+
+                await Shell.Current.GoToAsync("..");
+            }
+        }
+        private async Task LoadMetadata()
+        {
+            if (string.IsNullOrWhiteSpace(Origin))
+            {
+                return;
             }
 
             try
             {
-                IStorage<Word> storage = GetStorage<Word>();
+                Metadata.Clear();
 
-                Guid guid = Guid.Parse(id);
+                MetadataLoading = true;
+                MetadataLoadingComplete = false;
 
-                Word word = await storage.Query().GetById(guid);
+                await Task.Delay(1000);
 
-                Origin = word.Origin;
-                Translation = word.Translation;
-
-                DictionaryApiJsonParser parser = new DictionaryApiJsonParser();
-                DictionaryApiRemoteSource source = new DictionaryApiRemoteSource(parser);
-
-                var metadata = await source.GetWord(word.Origin);
+                IWordMetadata? metadata = await GetMetadata(Origin);
 
                 Metadata.Set(metadata);
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Failed to Load Item. {e.Message}");
+                await ErrorMessage(e);
             }
+            finally
+            {
+                MetadataLoading = false;
+
+                MetadataLoadingComplete = true;
+            }
+        }
+
+        private async Task PlayAudio(string? path)
+        {
+            try
+            {
+                IAudioServise audio = DependencyService.Get<IAudioServise>();
+
+                audio.Play(path);
+            }
+            catch (Exception e)
+            {
+                await ErrorMessage(e);
+            }
+        }
+
+        private static Task<IWordMetadata?> GetMetadata(string word)
+        {
+            DictionaryApiJsonParser parser = new DictionaryApiJsonParser();
+            DictionaryApiRemoteSource source = new DictionaryApiRemoteSource(parser);
+
+            return source.GetWord(word);
+        }
+
+        private static Task ErrorMessage(Exception exception)
+        {
+            string title = nameof(WordEditViewModel);
+            string message = exception.Message;
+            string cancel = "Close";
+
+            return Shell.Current.DisplayAlert(title, message, cancel);
         }
     }
 }

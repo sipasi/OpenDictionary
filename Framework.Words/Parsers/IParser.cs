@@ -6,6 +6,6 @@ namespace Framework.Words.Parsers
 {
     public interface IParser<T>
     {
-        ValueTask<IWordMetadata?> Parse(T value);
+        Task<IWordMetadata?> Parse(T value);
     }
 }

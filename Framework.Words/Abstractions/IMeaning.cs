@@ -5,6 +5,6 @@ namespace Framework.Words
     {
         public string PartOfSpeech { get; }
 
-        public IDefinition[] Definitions { get; }
+        public IWordDefinition[] Definitions { get; }
     }
 }

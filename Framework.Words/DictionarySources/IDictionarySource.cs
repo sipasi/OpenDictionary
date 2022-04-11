@@ -3,6 +3,6 @@ namespace Framework.Words.DictionarySources
 {
     public interface IDictionarySource
     {
-        ValueTask<IWordMetadata?> GetWord(string value);
+        Task<IWordMetadata?> GetWord(string value);
     }
 }

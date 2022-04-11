@@ -22,7 +22,7 @@ namespace Framework.Words.DictionarySources
             this.parser = parser;
         }
 
-        public async ValueTask<IWordMetadata?> GetWord(string value)
+        public async Task<IWordMetadata?> GetWord(string value)
         {
             Uri uri = GetUri(value);
 

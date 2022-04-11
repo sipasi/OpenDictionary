@@ -10,7 +10,7 @@ namespace Framework.Words.Parsers
     /// https://dictionaryapi.dev
     public class DictionaryApiJsonParser : IJsonParser
     {
-        public ValueTask<IWordMetadata?> Parse(string json)
+        public Task<IWordMetadata?> Parse(string json)
         {
             var value = SolveArraySymbols(json);
 
@@ -18,14 +18,14 @@ namespace Framework.Words.Parsers
             {
                 IWordMetadata? word = JsonConvert.DeserializeObject<Word>(value);
 
-                return new ValueTask<IWordMetadata?>(word);
+                return Task.FromResult(word);
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
             }
 
-            return new ValueTask<IWordMetadata?>();
+            return Task.FromResult<IWordMetadata?>(default);
         }
 
         private string SolveArraySymbols(string text)
@@ -84,7 +84,7 @@ namespace Framework.Words.Parsers
         private class Meaning : IMeaning
         {
             public string PartOfSpeech { get; }
-            public IDefinition[] Definitions { get; }
+            public IWordDefinition[] Definitions { get; }
 
             public Meaning(string partOfSpeech, Definition[] definitions)
             {
@@ -98,7 +98,7 @@ namespace Framework.Words.Parsers
             }
         }
 
-        public class Definition : IDefinition
+        public class Definition : IWordDefinition
         {
             [JsonProperty("definition")]
             public string Value { get; }

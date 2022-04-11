@@ -1,7 +1,7 @@
 ﻿
 namespace Framework.Words
 {
-    public interface IDefinition
+    public interface IWordDefinition
     {
         public string Value { get; }
         public string Example { get; }
