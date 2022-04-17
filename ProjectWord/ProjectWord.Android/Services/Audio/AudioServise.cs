@@ -2,15 +2,15 @@
 
 using Android.Media;
 
-using ProjectWord.Droid.Services.Audio;
-using ProjectWord.Services.Audio;
+using OpenDictionary.Droid.Services.Audio;
+using OpenDictionary.Services.Audio;
 
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(AudioServise))]
-namespace ProjectWord.Droid.Services.Audio
+namespace OpenDictionary.Droid.Services.Audio
 {
-    internal class AudioServise : IAudioServise
+    internal class AudioServise : IAudioPlayerServise
     {
         private readonly MediaPlayer player = new MediaPlayer();
 

@@ -1,12 +1,15 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 
-using ProjectWord.Models;
+using OpenDictionary.Models;
 
-namespace ProjectWord.AppDatabase
+namespace OpenDictionary.AppDatabase
 {
     internal sealed class WordStorage : DatabaseStorage<Word>
     {
+        public WordStorage(IDatabasePath path)
+            : base(path) { }
+
         protected override DbSet<Word> GetContext(DatabaseContext context) => context.Words;
     }
 }

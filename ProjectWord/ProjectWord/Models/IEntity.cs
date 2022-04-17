@@ -1,8 +1,10 @@
 ﻿using System;
-namespace ProjectWord.Models
+namespace OpenDictionary.Models
 {
-    public interface IEntity
+    public interface IEntity<T>
     {
-        Guid Id { get; }
+        T Id { get; }
     }
+
+    public interface IEntity : IEntity<Guid> { }
 }

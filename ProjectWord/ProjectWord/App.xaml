@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectWord.App">
+             
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             
+             x:Class="OpenDictionary.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
@@ -113,23 +116,31 @@
 
 
 
-            <Style TargetType="Label">
+            <Style x:Key="DefaultLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
             </Style>
-            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+            <Style x:Key="DefaultContentPage" TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray-100}, Dark={StaticResource Black}}"/>
             </Style>
-            <Style TargetType="Frame">
+            <Style x:Key="DefaultFrame" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"/>
             </Style>
-            <Style TargetType="Entry">
+            <Style x:Key="DefaultEntry" TargetType="Entry">
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
                 <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray-600}, Dark={StaticResource Gray-600}}"/>
             </Style>
-            <Style TargetType="Button">
+            <Style x:Key="DefaultButton" TargetType="Button">
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
+
+            <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}"/>
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True" BasedOn="{x:StaticResource DefaultContentPage}"/>
+            <Style TargetType="Frame" BasedOn="{x:StaticResource DefaultFrame}"/>
+            <Style TargetType="Entry" BasedOn="{x:StaticResource DefaultEntry}"/>
+            <Style TargetType="Button" BasedOn="{x:StaticResource DefaultButton}"/>
+            <Style TargetType="controls:ButtonLowercase" BasedOn="{x:StaticResource DefaultButton}"/>
+
             <Style x:Key="ButtonOutline" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
 
@@ -143,7 +154,7 @@
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="Normal" />
                             <VisualState x:Name="Pressed">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{StaticResource Blue-300}"/>

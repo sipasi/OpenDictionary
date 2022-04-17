@@ -8,7 +8,7 @@ using Framework.Words.Parsers;
 
 using NUnit.Framework;
 
-namespace ProjectWord.Words.Tests
+namespace OpenDictionary.Words.Tests
 {
     public class DictionaryApiParserTests
     {

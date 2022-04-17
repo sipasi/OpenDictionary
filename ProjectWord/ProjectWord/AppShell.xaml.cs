@@ -1,8 +1,8 @@
-﻿using ProjectWord.Views.Pages;
+﻿using OpenDictionary.Views.Pages;
 
 using Xamarin.Forms;
 
-namespace ProjectWord
+namespace OpenDictionary
 {
     public partial class AppShell : Shell
     {
@@ -12,7 +12,13 @@ namespace ProjectWord
 
             Routing.RegisterRoute(nameof(WordGroupCreatePage), typeof(WordGroupCreatePage));
             Routing.RegisterRoute(nameof(WordGroupDetailPage), typeof(WordGroupDetailPage));
+            Routing.RegisterRoute(nameof(WordDetailPage), typeof(WordDetailPage));
             Routing.RegisterRoute(nameof(WordEditPage), typeof(WordEditPage));
+
+            Routing.RegisterRoute(nameof(GameOriginToTranslationPage), typeof(GameOriginToTranslationPage));
+            Routing.RegisterRoute(nameof(GameTranslationToOriginPage), typeof(GameTranslationToOriginPage));
+
+            tabBar.CurrentItem = defautTab;
         }
     }
 }

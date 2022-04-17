@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games" 
+             xmlns:models="clr-namespace:OpenDictionary.Models"
+             
+             x:DataType="viewModels:GameListViewModel" 
+             
+             Title="Games"
+            
+             x:Class="OpenDictionary.Views.Pages.GameListPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <StackLayout BindableLayout.ItemsSource="{Binding Collection}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:GameInfo">
+                        <Frame CornerRadius="8" >
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="{Binding Image}" HeightRequest="40"/>
+
+                                <StackLayout Grid.Column="1">
+                                    <Label Text="{Binding Name}" FontSize="Body" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Description}" FontSize="Caption"/>
+                                </StackLayout>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1" 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:GameListViewModel}}, Path=TappedCommand}"
+                                            CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

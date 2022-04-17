@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using ProjectWord.Collections.Storages;
-using ProjectWord.Models;
+using OpenDictionary.Collections.Storages;
+using OpenDictionary.Models;
 
-using Xamarin.Forms;
-
-namespace ProjectWord.AppDatabase
+namespace OpenDictionary.AppDatabase
 {
     internal abstract class DatabaseStorage<T> : IStorage<T>
         where T : class, IEntity
     {
-        private readonly string path = DependencyService.Get<IDatabasePath>().Path;
+        private readonly string path;
+
+        public DatabaseStorage(IDatabasePath path)
+        {
+            this.path = path.Path;
+        }
 
         public async ValueTask<T> GetAsync(Guid id)
         {

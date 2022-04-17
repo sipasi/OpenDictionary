@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectWord.Android", "ProjectWord\ProjectWord.Android\ProjectWord.Android.csproj", "{A7AF7757-7A5F-4662-9707-06FF35ECAB5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Android", "ProjectWord\ProjectWord.Android\OpenDictionary.Android.csproj", "{A7AF7757-7A5F-4662-9707-06FF35ECAB5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectWord", "ProjectWord\ProjectWord\ProjectWord.csproj", "{5469861D-E15D-41D8-9FB8-BF9FBFC40FE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary", "ProjectWord\ProjectWord\OpenDictionary.csproj", "{5469861D-E15D-41D8-9FB8-BF9FBFC40FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Words", "Framework.Words\Framework.Words.csproj", "{92D8194E-4B16-4B89-9271-A34D2DF32B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Words", "Framework.Words\Framework.Words.csproj", "{92D8194E-4B16-4B89-9271-A34D2DF32B1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Words.Tests", "ProjectWord.Words.Tests\Framework.Words.Tests.csproj", "{70C0C49B-31D1-4228-90A8-C266E71E162E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Words.Tests", "ProjectWord.Words.Tests\Framework.Words.Tests.csproj", "{70C0C49B-31D1-4228-90A8-C266E71E162E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.DependencyInjection", "Framework.DependencyInjections\Framework.DependencyInjection.csproj", "{A93C4B78-8C56-4115-8155-9128EDEAAE60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.States", "Framework.States\Framework.States.csproj", "{44286B16-195C-48DD-BFB4-73018D06EFCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,14 @@ Global
 		{70C0C49B-31D1-4228-90A8-C266E71E162E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70C0C49B-31D1-4228-90A8-C266E71E162E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70C0C49B-31D1-4228-90A8-C266E71E162E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

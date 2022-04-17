@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectWord.Collections.Storages
+namespace OpenDictionary.Collections.Storages
 {
     public interface IStorage<T>
     {

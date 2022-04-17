@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectWord.Views.Pages.WordGroupCreatePage" 
+             x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" 
              
-             xmlns:viewModels="clr-namespace:ProjectWord.ViewModels" 
-             xmlns:models="clr-namespace:ProjectWord.Models"
-             xmlns:fonts="clr-namespace:ProjectWord.Fonts.Icons"
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:models="clr-namespace:OpenDictionary.Models"
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
 
              x:DataType="viewModels:WordGroupEditViewModel"
              
-             Title="Create Group"
+             Title="{Binding Name, TargetNullValue='Create Group'}"
              
              Padding="20,20,20,0">
 

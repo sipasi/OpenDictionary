@@ -1,8 +1,9 @@
-﻿using ProjectWord.Services.Configurators;
+﻿
+using OpenDictionary.DependencyInjection;
 
 using Xamarin.Forms;
 
-namespace ProjectWord
+namespace OpenDictionary
 {
     public partial class App : Application
     {
@@ -10,22 +11,17 @@ namespace ProjectWord
         {
             InitializeComponent();
 
-            DatabaseConfigurator.Configure();
+            DiContainer.Init();
 
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
-        {
 
-        }
 
-        protected override void OnSleep()
-        {
-        }
+        protected override void OnStart() { }
 
-        protected override void OnResume()
-        {
-        }
+        protected override void OnSleep() { }
+
+        protected override void OnResume() { }
     }
 }

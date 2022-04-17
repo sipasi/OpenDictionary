@@ -1,7 +1,7 @@
 ﻿
 using Xamarin.Forms;
 
-namespace ProjectWord.ViewModels
+namespace OpenDictionary.ViewModels
 {
     public class SettingsViewModel : ViewModel
     {

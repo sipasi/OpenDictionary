@@ -1,9 +1,9 @@
-﻿using ProjectWord.ViewModels;
+﻿using OpenDictionary.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace ProjectWord.Views.Pages
+namespace OpenDictionary.Views.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage

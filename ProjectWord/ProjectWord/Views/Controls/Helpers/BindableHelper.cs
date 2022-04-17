@@ -1,7 +1,7 @@
 ﻿
 using Xamarin.Forms;
 
-namespace ProjectWord.Views.Controls.Helpers
+namespace OpenDictionary.Views.Controls.Helpers
 {
     public static class BindableHelper
     {

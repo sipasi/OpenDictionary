@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games"
+             xmlns:observables="clr-namespace:OpenDictionary.Observables.Games"
+             
+             x:DataType="viewModels:WordConformityViewModel"
+              
+             x:Class="OpenDictionary.Views.Controls.WordConformityControl">
+
+    <ContentView.Resources>
+        <Style TargetType="controls:ButtonLowercase" BasedOn="{x:StaticResource ButtonOutline}">
+            <Setter Property="HeightRequest" Value="80"/>
+        </Style>
+        <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
+            <Setter Property="FontSize" Value="Title"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        </Style>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <StackLayout Padding="20,0" Spacing="20">
+            <StackLayout Padding="0,20,0,0" Spacing="0">
+                <Label Text="{Binding Properties.GroupName}" MaxLines="2" LineBreakMode="TailTruncation"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="Title" HorizontalOptions="StartAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Properties.Correct}" TextColor="{x:StaticResource Green-400}"/>
+                                <Span Text="/"/>
+                                <Span Text="{Binding Properties.Uncorrect}" TextColor="{x:StaticResource Red-400}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="Title" HorizontalOptions="EndAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Properties.Answered}"/>
+                                <Span Text="/"/>
+                                <Span Text="{Binding Words.Count}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Padding="0,0,0,20" Spacing="20" VerticalOptions="EndAndExpand">
+                <Label Text="{Binding Properties.Question}" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Dark={x:StaticResource Blue-300}, Light={x:StaticResource Blue-400}}"/>
+
+                <Grid x:Name="answerButtons">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="0"/>
+                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="0"/>
+                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="1"/>
+                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="1"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

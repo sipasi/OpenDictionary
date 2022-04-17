@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -46,8 +47,8 @@ namespace Framework.Words.Parsers
             [JsonProperty("word")]
             public string Value { get; }
             [JsonProperty("phonetics")]
-            public IPhonetic[] Phonetics { get; }
-            public IMeaning[] Meanings { get; }
+            public IEnumerable<IPhonetic> Phonetics { get; }
+            public IEnumerable<IMeaning> Meanings { get; }
 
             public Word(string value, Phonetic[] phonetics, Meaning[] meanings)
             {
@@ -58,7 +59,7 @@ namespace Framework.Words.Parsers
 
             public override string ToString()
             {
-                return $"Value: {Value}, Phonetics: {Phonetics.Length}, Meanings: {Meanings.Length}";
+                return $"Value: {Value}";
             }
         }
 
@@ -84,7 +85,7 @@ namespace Framework.Words.Parsers
         private class Meaning : IMeaning
         {
             public string PartOfSpeech { get; }
-            public IWordDefinition[] Definitions { get; }
+            public IEnumerable<IWordDefinition> Definitions { get; }
 
             public Meaning(string partOfSpeech, Definition[] definitions)
             {
@@ -94,7 +95,7 @@ namespace Framework.Words.Parsers
 
             public override string ToString()
             {
-                return $"PartOfSpeech: {PartOfSpeech}, Definitions: {Definitions.Length}";
+                return $"PartOfSpeech: {PartOfSpeech}";
             }
         }
 
@@ -103,8 +104,8 @@ namespace Framework.Words.Parsers
             [JsonProperty("definition")]
             public string Value { get; }
             public string Example { get; }
-            public string[] Synonyms { get; }
-            public string[] Antonyms { get; }
+            public IEnumerable<string> Synonyms { get; }
+            public IEnumerable<string> Antonyms { get; }
 
             public Definition(string value, string? example, string[] synonyms, string[] antonyms)
             {
@@ -116,7 +117,7 @@ namespace Framework.Words.Parsers
 
             public override string ToString()
             {
-                return $"Value: {Value}, Example: {Example}, Synonyms: {Synonyms.Length}, Antonyms: {Antonyms.Length}";
+                return $"Value: {Value}, Example: {Example}";
             }
         }
     }

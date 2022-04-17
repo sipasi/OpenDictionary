@@ -1,31 +1,60 @@
 ﻿
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 
-namespace ProjectWord.ViewModels
+namespace OpenDictionary.ViewModels
 {
-    public abstract class CollectionViewModel<T> : StorageViewModel
+    public abstract class CollectionViewModel<T> : ViewModel
     {
-        public ObservableCollection<T> Items { get; }
+        private bool isBusy;
 
-        public Command LoadItemsCommand { get; }
-        public Command<T> ItemTapped { get; }
+        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
+
+        public ObservableRangeCollection<T> Items { get; }
+
+        public AsyncCommand LoadItemsCommand { get; }
+        public AsyncCommand<T> ItemTapped { get; }
 
         public CollectionViewModel()
         {
-            Items = new ObservableCollection<T>();
+            Items = new ObservableRangeCollection<T>();
 
-            LoadItemsCommand = new Command(async () => await LoadItems());
+            LoadItemsCommand = new AsyncCommand(LoadItemsAsync);
 
-            ItemTapped = new Command<T>(OnItemSelected);
+            ItemTapped = new AsyncCommand<T>(OnItemSelected);
         }
 
-        public virtual void OnAppearing()
+        public virtual async void OnAppearing()
+        {
+            await LoadItemsAsync();
+        }
+
+        private async Task LoadItemsAsync()
         {
             IsBusy = true;
+
+            try
+            {
+                Items.Clear();
+
+                IEnumerable<T> items = await Load();
+
+                Items.AddRange(items);
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        protected abstract void OnItemSelected(T item);
+        protected abstract Task<IEnumerable<T>> Load();
+
+        protected abstract Task OnItemSelected(T item);
     }
 }

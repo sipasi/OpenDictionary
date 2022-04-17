@@ -1,13 +1,13 @@
 ﻿
 using System;
 
-using ProjectWord.AppDatabase;
-using ProjectWord.Droid.Database;
+using OpenDictionary.AppDatabase;
+using OpenDictionary.Droid.Database;
 
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(AndroidDatabasePath))]
-namespace ProjectWord.Droid.Database
+namespace OpenDictionary.Droid.Database
 {
     internal class AndroidDatabasePath : IDatabasePath
     {

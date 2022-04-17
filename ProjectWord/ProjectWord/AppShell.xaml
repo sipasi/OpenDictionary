@@ -2,9 +2,9 @@
 <Shell 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="ProjectWord.AppShell"
+    x:Class="OpenDictionary.AppShell"
          
-    xmlns:pages="clr-namespace:ProjectWord.Views.Pages">
+    xmlns:pages="clr-namespace:OpenDictionary.Views.Pages">
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
     
@@ -29,8 +29,9 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar>
-        <ShellContent Title="Dictionary" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}" />
+    <TabBar x:Name="tabBar">
+        <ShellContent Title="Games" Icon="icon_gamepad_2.png" ContentTemplate="{DataTemplate pages:GameListPage}" />
+        <ShellContent Title="Dictionary" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}" x:Name="defautTab"/>
         <ShellContent Title="Settings" Icon="icon_settings.png" ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </TabBar>
 

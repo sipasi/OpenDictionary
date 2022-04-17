@@ -1,9 +1,8 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ProjectWord.ViewModels
+namespace OpenDictionary.ViewModels
 {
     public class ViewModel : INotifyPropertyChanged
     {

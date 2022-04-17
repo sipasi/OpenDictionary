@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.projectword" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
-	<application android:label="ProjectWord.Android" android:theme="@style/MainTheme" android:icon="@mipmap/ic_launcher"></application>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="OpenDictionary.Android">
+	<uses-sdk />
+	<application android:label="OpenDictionary.Android"></application>
 </manifest>

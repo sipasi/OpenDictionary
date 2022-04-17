@@ -3,7 +3,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ProjectWord.Words.Tests
+namespace OpenDictionary.Words.Tests
 {
     static class InsistWordJson
     {

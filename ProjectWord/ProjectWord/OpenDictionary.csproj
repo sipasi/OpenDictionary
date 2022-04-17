@@ -1,0 +1,131 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
+    <None Remove="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
+    <None Remove="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
+    <None Remove="Resources\Fonts\Icons\remixicon.ttf" />
+    <None Remove="Resources\LottieAnimations\404-page.json" />
+    <None Remove="Resources\LottieAnimations\back-to-school.json" />
+    <None Remove="Resources\LottieAnimations\cat-sleep.json" />
+    <None Remove="Resources\LottieAnimations\check-mark-success-animation.json" />
+    <None Remove="Resources\LottieAnimations\empty-state.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-1.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-2.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-3.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-4.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-5.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-6.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-7.json" />
+    <None Remove="Resources\LottieAnimations\Error\error-404-not-found.json" />
+    <None Remove="Resources\LottieAnimations\searching-for-word.json" />
+    <None Remove="Resources\LottieAnimations\searching.json" />
+    <None Remove="Resources\LottieAnimations\student.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Icons\remixicon.ttf" />
+    <EmbeddedResource Include="Resources\LottieAnimations\back-to-school.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\cat-sleep.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\check-mark-success-animation.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\empty-state.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-1.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-2.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-3.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-4.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-5.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-6.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-7.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\Error\error-404-not-found.json" />
+    <EmbeddedResource Include="Resources\LottieAnimations\searching-for-word.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\searching.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LottieAnimations\student.json">
+      <CustomToolNamespace>MSBuild:UpdateGeneratedFiles</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\Framework.States\Framework.States.csproj" />
+    <ProjectReference Include="..\..\Framework.Words\Framework.Words.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AppShell.xaml.cs">
+      <DependentUpon>AppShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\WordEditPage.xaml.cs">
+      <DependentUpon>WordEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\WordGroupDetailPage.xaml.cs">
+      <DependentUpon>WordGroupDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Controls\WordConformityControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\GameListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\GameOriginToTranslationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\GameTranslationToOriginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\SettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\WordDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\WordEditPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\WordGroupCreatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\WordGroupDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\WordGroupListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Configurators\" />
+  </ItemGroup>
+</Project>

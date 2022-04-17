@@ -1,16 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectWord.Views.Pages.WordGroupDetailPage"        
+             x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage"        
              
-             xmlns:viewModels="clr-namespace:ProjectWord.ViewModels" 
-             xmlns:models="clr-namespace:ProjectWord.Models"
-             xmlns:fonts="clr-namespace:ProjectWord.Fonts.Icons"
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:models="clr-namespace:OpenDictionary.Models"
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
 
              x:DataType="viewModels:WordGroupDetailViewModel"
              
-             Padding="20,20,20,0"
-             Title="Group Detail">
+             Padding="10,10,10,0"
+             Title="{Binding Name}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="WordItemTemplate" x:DataType="models:Word">
+                <StackLayout Padding="0,4">
+                    <Frame CornerRadius="8">
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                                    NumberOfTapsRequired="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=ItemTapped}"
+                                                    CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
+                            <Label Text="{Binding Origin}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding DeleteCommand}">
@@ -30,27 +53,25 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Spacing="5">
-            <CollectionView ItemsSource="{Binding Items}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Word">
-                        <StackLayout Padding="0,4">
-                            <Frame CornerRadius="8">
-                                <StackLayout>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                            NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=ItemTapped}"
-                                            CommandParameter="{Binding .}"/>
-                                    </StackLayout.GestureRecognizers>
-                                    <Label x:Name="sss" Text="{Binding Origin}" />
-                                    <Label Text="{Binding Translation}"/>
-                                </StackLayout>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+        <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{x:StaticResource WordItemTemplate}">
+            <CollectionView.EmptyView>
+                <StackLayout>
+                    <Label HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Add your first word " FontAttributes="Bold" FontSize="Title"/>
+                                <Span Text="{x:Static fonts:FontAwesomeRegular.FaceSmileWink}" 
+                                  FontFamily="FontAwesomeRegular" FontSize="Title" TextColor="{x:StaticResource Green-400}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
+                                  Animation="Resources.LottieAnimations.back-to-school.json"
+                                  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                                  HeightRequest="100" Command="{Binding RedirectToEditCommand}"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
     </ContentPage.Content>
 </ContentPage>

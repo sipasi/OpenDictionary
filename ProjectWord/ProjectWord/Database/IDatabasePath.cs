@@ -1,5 +1,5 @@
 ﻿
-namespace ProjectWord.AppDatabase
+namespace OpenDictionary.AppDatabase
 {
     public interface IDatabasePath
     {

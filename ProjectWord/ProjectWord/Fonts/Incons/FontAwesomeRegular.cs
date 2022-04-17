@@ -1,4 +1,4 @@
-﻿namespace ProjectWord.Fonts.Icons
+﻿namespace OpenDictionary.Fonts.Icons
 {
     internal static class FontAwesomeRegular
     {

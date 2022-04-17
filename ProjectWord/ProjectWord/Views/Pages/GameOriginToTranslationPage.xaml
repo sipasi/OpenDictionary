@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games"
+             xmlns:observables="clr-namespace:OpenDictionary.Observables.Games"
+             
+             x:DataType="viewModels:WordConformityViewModel"
+             
+             Title="Origin to Translation"
+              
+             x:Class="OpenDictionary.Views.Pages.GameOriginToTranslationPage">
+
+    <ContentPage.Content>
+        <controls:WordConformityControl WordConformity="{Binding .}"/>
+    </ContentPage.Content>
+</ContentPage>

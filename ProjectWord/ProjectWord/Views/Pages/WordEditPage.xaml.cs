@@ -1,9 +1,10 @@
-﻿using ProjectWord.ViewModels;
+﻿using OpenDictionary.DependencyInjection;
+using OpenDictionary.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace ProjectWord.Views.Pages
+namespace OpenDictionary.Views.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WordEditPage : ContentPage
@@ -12,7 +13,7 @@ namespace ProjectWord.Views.Pages
         {
             InitializeComponent();
 
-            BindingContext = new WordEditViewModel();
+            BindingContext = DiContainer.Get<WordEditViewModel>();
         }
     }
 }

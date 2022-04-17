@@ -1,172 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectWord.Views.Pages.WordEditPage"
+             x:Class="OpenDictionary.Views.Pages.WordEditPage"
              
-             xmlns:viewModels="clr-namespace:ProjectWord.ViewModels"
-             xmlns:observables="clr-namespace:ProjectWord.Observables.Words"
-             xmlns:fonts="clr-namespace:ProjectWord.Fonts.Icons"
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              
              x:DataType="viewModels:WordEditViewModel"
              
-             Title="Word Edit">
+             Title="{Binding Word.Origin}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}"/>
     </ContentPage.ToolbarItems>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
-                <StackLayout>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Pronunciation: " FontAttributes="Bold" 
-                                      TextColor="{x:StaticResource Green-200}"/>
-                                <Span Text="{Binding Value}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                    <StackLayout Spacing="10" Orientation="Horizontal">
-                        <ImageButton HorizontalOptions="Start" BackgroundColor="Transparent" 
-                                     Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}}"
-                                     CommandParameter="{Binding Audio}">
-                            <ImageButton.Source>
-                                <FontImageSource FontFamily="FontAwesomeRegular" 
-                                                 Glyph="{x:Static fonts:FontAwesomeRegular.CirclePlay}"
-                                                 Color="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
-                            </ImageButton.Source>
-                        </ImageButton>
-                        <StackLayout.Triggers>
-                            <DataTrigger TargetType="StackLayout" Binding="{Binding Audio}" Value="">
-                                <Setter Property="IsVisible" Value="False"/>
-                            </DataTrigger>
-                        </StackLayout.Triggers>
-                    </StackLayout>
-                </StackLayout>
-            </DataTemplate>
-
-            <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
-
-                    <StackLayout Grid.Column="1">
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Definition: " FontAttributes="Bold" 
-                                          TextColor="{x:StaticResource Blue-300}"/>
-                                    <Span Text="{Binding Value}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label>
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Path=Example.Length, FallbackValue=0, TargetNullValue=0}" Value="0">
-                                    <Setter Property="IsVisible" Value="False"/>
-                                </DataTrigger>
-                            </Label.Triggers>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Example: " FontAttributes="Bold" 
-                                                                              TextColor="{x:StaticResource Indigo-300}"/>
-                                    <Span Text="{Binding Example}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate x:Key="MeaningObservableItemTemplate" x:DataType="observables:MeaningObservable">
-                <StackLayout>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Part of speech: " FontAttributes="Bold" 
-                                      TextColor="{x:StaticResource Green-200}"/>
-                                <Span Text="{Binding PartOfSpeech}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <StackLayout BindableLayout.ItemsSource="{Binding Definitions}"
-                                 BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
-                </StackLayout>
-            </DataTemplate>
-
-            <Style TargetType="ActivityIndicator">
-                <Setter Property="Color" Value="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource Green-400}}"/>
-                <Style.Triggers>
-                    <DataTrigger TargetType="ActivityIndicator" Binding="{Binding MetadataLoading}" Value="True">
-                        <Setter Property="IsRunning" Value="True"/>
-                        <Setter Property="IsVisible" Value="True"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="ActivityIndicator" Binding="{Binding MetadataLoading}" Value="False">
-                        <Setter Property="IsRunning" Value="False"/>
-                        <Setter Property="IsVisible" Value="False"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout Margin="20,10" Spacing="10">
             <Frame CornerRadius="10">
                 <StackLayout>
-                    <Label Text="Word and translation" FontAttributes="Bold" />
-                    <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
-                    <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+                    <Label Text="Translation" FontAttributes="Bold" FontSize="Medium"/>
+                    <Entry Text="{Binding Word.Translation}" Placeholder="Enter translation"/>
                 </StackLayout>
             </Frame>
 
             <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
-                                  Animation="Resources.LottieAnimations.searching-for-word.json"
+                                  Animation="Resources.LottieAnimations.student.json"
                                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                                  HeightRequest="210" IsVisible="{Binding MetadataLoading}"/>
+                                  HeightRequest="200" />
 
-            <ScrollView VerticalScrollBarVisibility="Never" IsVisible="{Binding MetadataLoadingComplete}">
-                <StackLayout Spacing="10">
-                    <Frame CornerRadius="10">
-                        <StackLayout>
-                            <Label Text="Phonetics" FontAttributes="Bold" />
-
-                            <StackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
-                                         BindableLayout.ItemTemplate="{x:StaticResource PhoneticObservableItemTemplate}" 
-                                         Spacing="20"/>
-
-                            <ActivityIndicator />
-                        </StackLayout>
-                    </Frame>
-
-                    <Frame Grid.Row="1" CornerRadius="10">
-                        <StackLayout>
-                            <Label Text="Meanings" FontAttributes="Bold"/>
-
-                            <StackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
-                                         BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"/>
-
-                            <ActivityIndicator />
-                        </StackLayout>
-                    </Frame>
-                </StackLayout>
-            </ScrollView>
-
-            <Grid VerticalOptions="EndAndExpand" MinimumHeightRequest="50" Margin="10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Text="Load Meta Data" Style="{StaticResource ButtonOutline}" Command="{Binding LoadMetaDataCommand}"  HorizontalOptions="Fill"/>
-
-                <Button Grid.Column="1" Text="Save" Style="{StaticResource ButtonOutline}" Command="{Binding SaveCommand}" HorizontalOptions="Fill"/>
+            <Grid VerticalOptions="EndAndExpand" Margin="10,0">
+                <Button Text="Save" Style="{x:StaticResource ButtonOutline}" Command="{Binding SaveCommand}" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>
