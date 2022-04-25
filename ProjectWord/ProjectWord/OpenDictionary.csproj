@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Json\Dictionaries.json" />
     <None Remove="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
     <None Remove="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
     <None Remove="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
@@ -34,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Json\Dictionaries.json" />
     <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
     <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
     <EmbeddedResource Include="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
@@ -69,6 +72,7 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />
@@ -84,6 +88,9 @@
     <Compile Update="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Cells\WordGroupInfoCardCell.xaml.cs">
+      <DependentUpon>WordGroupInfoCardCell.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\WordEditPage.xaml.cs">
       <DependentUpon>WordEditPage.xaml</DependentUpon>
     </Compile>
@@ -93,6 +100,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\Cells\WordGroupInfoCardCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Controls\WordConformityControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

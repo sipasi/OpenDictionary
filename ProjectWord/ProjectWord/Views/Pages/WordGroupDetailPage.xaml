@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage"        
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"      
              
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
              xmlns:models="clr-namespace:OpenDictionary.Models"
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
-             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
 
              x:DataType="viewModels:WordGroupDetailViewModel"
              
              Padding="10,10,10,0"
-             Title="{Binding Name}">
+             Title="{Binding Name}"
+             
+             x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage"  >
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -23,7 +23,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
                                                     NumberOfTapsRequired="1"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=ItemTapped}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=Words.TappedCommand}"
                                                     CommandParameter="{Binding .}"/>
                             </StackLayout.GestureRecognizers>
                             <Label Text="{Binding Origin}" FontAttributes="Bold"/>
@@ -50,10 +50,11 @@
                     Glyph="{x:Static fonts:FontAwesomeRegular.PenToSquare}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
+        <ToolbarItem Command="{Binding RedirectToGameCommand}" IconImageSource="icon_gamepad_4.png"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{x:StaticResource WordItemTemplate}">
+        <CollectionView ItemsSource="{Binding Words.Collection}" ItemTemplate="{x:StaticResource WordItemTemplate}">
             <CollectionView.EmptyView>
                 <StackLayout>
                     <Label HorizontalTextAlignment="Center">

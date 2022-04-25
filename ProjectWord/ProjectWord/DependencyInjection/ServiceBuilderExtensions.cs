@@ -6,7 +6,9 @@ using OpenDictionary.AppDatabase;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.Dialogs;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.Services.ToastMessages;
 using OpenDictionary.ViewModels;
 using OpenDictionary.ViewModels.Games;
 
@@ -45,6 +47,20 @@ namespace OpenDictionary.DependencyInjection.Extensions
 
             return builder;
         }
+        public static ServiceBuilder ConfigureDialogs(this ServiceBuilder builder)
+        {
+            builder.singleton
+                .Add<IDialogWindowService, DialogWindowService>();
+
+            return builder;
+        }
+        public static ServiceBuilder ConfigureToastMessages(this ServiceBuilder builder)
+        {
+            builder.singleton
+                .Add<IToastMessageService, ToastMessageService>();
+
+            return builder;
+        }
         public static ServiceBuilder ConfigureOnlineDictionary(this ServiceBuilder builder)
         {
             builder.singleton
@@ -61,7 +77,7 @@ namespace OpenDictionary.DependencyInjection.Extensions
 
                 .Add<WordGroupDetailViewModel>()
                 .Add<WordGroupEditViewModel>()
-                .Add<WordGroupListViewModel>()
+                .Add<WordGroupInfoList>()
 
                 .Add<GameListViewModel>()
                 .Add<OriginToTranslationViewModel>()

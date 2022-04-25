@@ -10,13 +10,11 @@ namespace OpenDictionary.Views.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WordDetailPage : ContentPage
     {
-        private readonly WordDetailViewModel viewModel;
-
         public WordDetailPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = DiContainer.Get<WordDetailViewModel>();
+            BindingContext = DiContainer.Get<WordDetailViewModel>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using OpenDictionary.ViewModels;
+﻿using OpenDictionary.DependencyInjection;
+using OpenDictionary.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,14 +15,14 @@ namespace OpenDictionary.Views.Pages
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new SettingsViewModel();
+            BindingContext = viewModel = DiContainer.Get<SettingsViewModel>();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            viewModel.UpdateRadioButtonsGroup(radioGroup);
+            viewModel.AppTheme.UpdateRadioButtonsCommand.Execute(radioGroup);
         }
     }
 }

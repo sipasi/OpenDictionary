@@ -1,5 +1,8 @@
-﻿using OpenDictionary.Animations;
+﻿
+using OpenDictionary.Animations;
+using OpenDictionary.Collections.Storages;
 using OpenDictionary.DependencyInjection;
+using OpenDictionary.Models;
 using OpenDictionary.ViewModels;
 
 using Xamarin.Forms;
@@ -12,7 +15,7 @@ namespace OpenDictionary.Views.Pages
     {
         private readonly ShakingAnimation animation;
 
-        private readonly WordGroupListViewModel viewModel;
+        private readonly WordGroupInfoList viewModel;
 
         public WordGroupListPage()
         {
@@ -20,14 +23,16 @@ namespace OpenDictionary.Views.Pages
 
             animation = new ShakingAnimation(animationView);
 
-            BindingContext = viewModel = DiContainer.Get<WordGroupListViewModel>();
+            BindingContext = viewModel = DiContainer.Get<WordGroupInfoList>();
+
+            IStorage<WordGroup> groupStorage = DiContainer.Get<IStorage<WordGroup>>();
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
 
-            viewModel.OnAppearing();
+            await viewModel.Groups.Load();
         }
 
         private async void AnimationView_Clicked(object sender, System.EventArgs e)

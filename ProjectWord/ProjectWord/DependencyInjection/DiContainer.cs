@@ -16,6 +16,8 @@ namespace OpenDictionary.DependencyInjection
 
             builder
                 .ConfigureViewModels()
+                .ConfigureDialogs()
+                .ConfigureToastMessages()
                 .ConfigureNavigation()
                 .ConfigureOnlineDictionary()
                 .ConfigureAudio()

@@ -22,24 +22,6 @@ namespace OpenDictionary.AppDatabase
             this.path = path.Path;
         }
 
-        public async ValueTask<T> GetAsync(Guid id)
-        {
-            try
-            {
-                Open(out DatabaseContext database, out DbSet<T> context);
-
-                T entity = await context.FirstOrDefaultAsync(item => item.Id == id);
-
-                return entity;
-            }
-            catch (Exception e)
-            {
-                WritenException(e);
-            }
-
-            return null;
-        }
-
         public async ValueTask<bool> AddAsync(T item)
         {
             try
@@ -149,7 +131,7 @@ namespace OpenDictionary.AppDatabase
         {
             Open(out DatabaseContext _, out DbSet<T> context);
 
-            IQueryable<T> query = context.AsQueryable();
+            IQueryable<T> query = context.AsNoTracking();
 
             return query;
         }

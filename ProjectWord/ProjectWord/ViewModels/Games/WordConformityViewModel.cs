@@ -14,9 +14,11 @@ using OpenDictionary.Models;
 using OpenDictionary.Observables.Games;
 
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels.Games
 {
+    [QueryProperty(nameof(Id), nameof(Id))]
     public abstract class WordConformityViewModel : ViewModel
     {
         private string id;

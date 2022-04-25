@@ -44,7 +44,7 @@ namespace OpenDictionary.Collections.Storages.Extensions
 
         public static Task<WordMetadata> GetByWord(this IQueryable<WordMetadata> query, string word)
         {
-            return query.FirstOrDefaultAsync(entity => EF.Functions.Like(entity.Value, $"%{word}%"));
+            return query.FirstOrDefaultAsync(entity => EF.Functions.Like(entity.Value, word));
         }
     }
 }

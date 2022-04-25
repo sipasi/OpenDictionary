@@ -12,7 +12,9 @@ using OpenDictionary.Models;
 using OpenDictionary.Models.Extensions;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.Dialogs;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
 
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -25,11 +27,13 @@ namespace OpenDictionary.ViewModels
     [QueryProperty(nameof(Id), nameof(Id))]
     public class WordDetailViewModel : WordViewModel
     {
+        private readonly IStorage<Word> wordStorage;
+        private readonly IStorage<WordMetadata> metadataStorage;
         private readonly INavigationService navigation;
-        private readonly IDictionarySource source;
+        private readonly IDialogWindowService dialog;
         private readonly IAudioPlayerServise audioPlayer;
         private readonly IPhoneticStorageService phoneticStorage;
-        private readonly IStorage<WordMetadata> metadataStorage;
+        private readonly IDictionarySource source;
 
         private LayoutState metadataLoadState;
         private string? metadataCustomState;
@@ -47,6 +51,8 @@ namespace OpenDictionary.ViewModels
 
         public WordMetadataObservable Metadata { get; }
 
+        public AsyncCommand DeleteCommand { get; }
+
         public AsyncCommand RedirectToEditCommand { get; }
         public AsyncCommand LoadMetaDataCommand { get; }
 
@@ -56,19 +62,24 @@ namespace OpenDictionary.ViewModels
             IStorage<Word> wordStorage,
             IStorage<WordMetadata> metadataStorage,
             INavigationService navigation,
+            IDialogWindowService dialog,
             IAudioPlayerServise audioPlayer,
             IPhoneticStorageService phoneticStorage,
             IDictionarySource source) : base(wordStorage, navigation)
         {
+            this.wordStorage = wordStorage;
             this.metadataStorage = metadataStorage;
-            this.source = source;
             this.navigation = navigation;
+            this.dialog = dialog;
             this.audioPlayer = audioPlayer;
             this.phoneticStorage = phoneticStorage;
+            this.source = source;
 
             Metadata = new WordMetadataObservable();
             MetadataLoadState = LayoutState.None;
             MetadataCustomState = null;
+
+            DeleteCommand = new AsyncCommand(OnDelete);
 
             RedirectToEditCommand = new AsyncCommand(RedirectToEdit);
 
@@ -151,6 +162,24 @@ namespace OpenDictionary.ViewModels
             catch (Exception e)
             {
                 await ErrorMessage(e);
+            }
+        }
+
+        private async Task OnDelete()
+        {
+            IStorage<Word> storage = wordStorage;
+
+            Guid id = Guid.Parse(Id);
+
+            DialogResult result = await EntityDeleteDialog.Show(dialog);
+
+            if (result is DialogResult.Ok)
+            {
+                Word group = await storage.Query().GetById(id);
+
+                await storage.DeleteAsync(group);
+
+                await navigation.GoBackAsync();
             }
         }
 

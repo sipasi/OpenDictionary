@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="OpenDictionary.Views.Pages.SettingsPage"
              
-             xmlns:viewmodels="clr-namespace:OpenDictionary.ViewModels"
-             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+             xmlns:viewmodels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
              
              x:DataType="viewmodels:SettingsViewModel"
               
              Padding="20"
-             Title="Settings">
+             Title="Settings"
+             
+             x:Class="OpenDictionary.Views.Pages.SettingsPage">
 
     <ContentPage.Content>
         <StackLayout>
@@ -17,10 +18,31 @@
                 <StackLayout>
                     <Label Text="Theme Color" FontSize="Medium" FontAttributes="Bold"/>
 
-                    <StackLayout x:Name="radioGroup" RadioButtonGroup.GroupName="theme-color" RadioButtonGroup.SelectedValue="{Binding Current, Mode=TwoWay}">
+                    <StackLayout x:Name="radioGroup" 
+                                 RadioButtonGroup.GroupName="theme-color" 
+                                 RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}">
                         <RadioButton Content="Day" Value="{x:Static OSAppTheme.Light}"/>
                         <RadioButton Content="Night" Value="{x:Static OSAppTheme.Dark}"/>
                     </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="20">
+                <StackLayout>
+                    <Label Text="Share" FontSize="Medium" FontAttributes="Bold"/>
+
+                    <controls:ButtonLowercase Text="As Json File" 
+                                              Style="{x:StaticResource ButtonOutline}" 
+                                              Command="{Binding ImportExport.ShareCommand}" 
+                                              CommandParameter="{x:Static viewmodels:ShareOptions.JsonFile}"/>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="20">
+                <StackLayout>
+                    <Label Text="Import" FontSize="Medium" FontAttributes="Bold"/>
+
+                    <controls:ButtonLowercase Text="Json File" 
+                                              Style="{x:StaticResource ButtonOutline}" 
+                                              Command="{Binding ImportExport.ImportCommand}"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

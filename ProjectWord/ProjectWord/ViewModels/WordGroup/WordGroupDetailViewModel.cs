@@ -1,49 +1,66 @@
 ﻿
 using System;
+using System.Threading.Tasks;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
+using OpenDictionary.Services.Dialogs;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
 
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels
 {
     [QueryProperty(nameof(Id), nameof(Id))]
-    public class WordGroupDetailViewModel : WordGroupBaseViewModel
+    public sealed class WordGroupDetailViewModel : WordGroupViewModel
     {
         private readonly IStorage<WordGroup> wordGroupStorage;
         private readonly INavigationService navigation;
+        private readonly IDialogWindowService dialog;
 
-        public Command RedirectToEditCommand { get; }
-        public Command DeleteCommand { get; }
+        public AsyncCommand RedirectToGameCommand { get; }
+        public AsyncCommand RedirectToEditCommand { get; }
+        public AsyncCommand DeleteCommand { get; }
 
-        public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation) : base(wordGroupStorage, navigation)
+        public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation, IDialogWindowService dialog) : base(wordGroupStorage, navigation)
         {
             this.wordGroupStorage = wordGroupStorage;
             this.navigation = navigation;
+            this.dialog = dialog;
 
-            RedirectToEditCommand = new Command(OnRedirectToEdit);
-            DeleteCommand = new Command(OnDelete);
+            RedirectToGameCommand = new AsyncCommand(OnRedirectToGame);
+            RedirectToEditCommand = new AsyncCommand(OnRedirectToEdit);
+            DeleteCommand = new AsyncCommand(OnDelete);
         }
 
-        private async void OnRedirectToEdit(object obj)
+        private async Task OnRedirectToGame()
+        {
+            await navigation.GoToAsync<GameListPage>(parameter: nameof(WordGroup.Id), value: Id);
+        }
+        private async Task OnRedirectToEdit()
         {
             await navigation.GoToAsync<WordGroupCreatePage>(parameter: nameof(WordGroup.Id), value: Id);
         }
-        private async void OnDelete(object obj)
+        private async Task OnDelete()
         {
             IStorage<WordGroup> storage = wordGroupStorage;
 
             Guid id = Guid.Parse(Id);
 
-            WordGroup group = await storage.Query().IncludeAll().GetById(id);
+            DialogResult result = await EntityDeleteDialog.Show(dialog);
 
-            await storage.DeleteAsync(group);
+            if (result is DialogResult.Ok)
+            {
+                WordGroup group = await storage.Query().IncludeAll().GetById(id);
 
-            await navigation.GoBackAsync();
+                await storage.DeleteAsync(group);
+
+                await navigation.GoBackAsync();
+            }
         }
     }
 }

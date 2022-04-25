@@ -10,11 +10,4 @@ namespace Framework.Words
         public IEnumerable<string> Synonyms { get; }
         public IEnumerable<string> Antonyms { get; }
     }
-
-    class A
-    {
-
-    }
-    class B : A { }
-
 }

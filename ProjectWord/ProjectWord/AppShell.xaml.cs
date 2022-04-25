@@ -15,6 +15,7 @@ namespace OpenDictionary
             Routing.RegisterRoute(nameof(WordDetailPage), typeof(WordDetailPage));
             Routing.RegisterRoute(nameof(WordEditPage), typeof(WordEditPage));
 
+            Routing.RegisterRoute(nameof(GameListPage), typeof(GameListPage));
             Routing.RegisterRoute(nameof(GameOriginToTranslationPage), typeof(GameOriginToTranslationPage));
             Routing.RegisterRoute(nameof(GameTranslationToOriginPage), typeof(GameTranslationToOriginPage));
 

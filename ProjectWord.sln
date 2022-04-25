@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Words.Tests", "Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.DependencyInjection", "Framework.DependencyInjections\Framework.DependencyInjection.csproj", "{A93C4B78-8C56-4115-8155-9128EDEAAE60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.States", "Framework.States\Framework.States.csproj", "{44286B16-195C-48DD-BFB4-73018D06EFCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.States", "Framework.States\Framework.States.csproj", "{44286B16-195C-48DD-BFB4-73018D06EFCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.ConsoleApp", "OpenDictionary.ConsoleApp\OpenDictionary.ConsoleApp.csproj", "{0BAD40FE-3E17-45BB-8619-D538448FC464}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BAD40FE-3E17-45BB-8619-D538448FC464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BAD40FE-3E17-45BB-8619-D538448FC464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BAD40FE-3E17-45BB-8619-D538448FC464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BAD40FE-3E17-45BB-8619-D538448FC464}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

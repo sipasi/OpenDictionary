@@ -30,9 +30,7 @@
     </Shell.Resources>
 
     <TabBar x:Name="tabBar">
-        <ShellContent Title="Games" Icon="icon_gamepad_2.png" ContentTemplate="{DataTemplate pages:GameListPage}" />
         <ShellContent Title="Dictionary" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}" x:Name="defautTab"/>
         <ShellContent Title="Settings" Icon="icon_settings.png" ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </TabBar>
-
 </Shell>

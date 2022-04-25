@@ -7,36 +7,82 @@ using OpenDictionary.Models;
 using OpenDictionary.Observables.Games;
 using OpenDictionary.Structures.Randoms;
 
+using Xamarin.CommunityToolkit.ObjectModel;
+
 namespace OpenDictionary.ViewModels.Games
 {
-    public class AnswerButtonCollection : InteractbleCollection<AnswerButtonObservable>
+    public class AnswerButtonCollection : CollectionViewModel<AnswerButtonObservable>
     {
-        public AnswerButtonCollection(Func<AnswerButtonObservable, Task> tappedCommand)
-            : base(tappedCommand) { }
+        private readonly HashSet<Word> hash;
+        private readonly List<Word> words;
 
-        public void Fill(IReadOnlyList<Word> words, Word correct, Func<Word, string> textVisualize)
+        public AnswerButtonCollection(Func<AnswerButtonObservable, Task> tappedCommand)
         {
+            TappedCommand = new AsyncCommand<AnswerButtonObservable>(tappedCommand);
+
+            int count = Collection.Count;
+
+            int capacity = count == 0 ? 4 : count;
+
+            hash = new HashSet<Word>(capacity);
+            words = new List<Word>(capacity);
+        }
+
+        public void Fill(IReadOnlyList<Word> all, Word correct, Func<Word, string> questionText)
+        {
+            FillIncorrectWords(all, correct);
+
             int buttonsCount = Collection.Count;
-            int wordsCount = words.Count;
 
             int replaceIndex = RandomNumbers.Range(0, buttonsCount);
 
+            words.Insert(replaceIndex, correct);
+
             for (int i = 0; i < buttonsCount; i++)
             {
-                int ramdom = RandomNumbers.Range(i, wordsCount);
-
-                bool isCorrect = i == replaceIndex;
-
-                Word word = isCorrect ? correct : words[ramdom];
-
                 AnswerButtonObservable info = Collection[i];
 
-                SetButton(info, word, isCorrect, textVisualize);
+                Word word = words[i];
+
+                SetButton(info, word, isCorrect: word == correct, questionText);
             }
         }
-        private static void SetButton(AnswerButtonObservable info, Word word, bool isCorrect, Func<Word, string> textVisualize)
+
+        private void FillIncorrectWords(IReadOnlyList<Word> all, Word correct)
         {
-            info.Text = textVisualize.Invoke(word);
+            int allCount = all.Count;
+            int buttonsCount = Collection.Count;
+            int countWithoutCorrect = buttonsCount - 1;
+
+            hash.Clear();
+            words.Clear();
+
+            while (words.Count != countWithoutCorrect)
+            {
+                int random = RandomNumbers.Range(0, allCount);
+
+                Word word = all[random];
+
+                bool isCorrect = word.Origin == correct.Origin;
+
+                if (isCorrect)
+                {
+                    continue;
+                }
+
+                if (hash.Contains(word))
+                {
+                    continue;
+                }
+
+                hash.Add(word);
+                words.Add(word);
+            }
+        }
+
+        private static void SetButton(AnswerButtonObservable info, Word word, bool isCorrect, Func<Word, string> questionText)
+        {
+            info.Text = questionText.Invoke(word);
 
             info.IsCorrect = isCorrect;
         }

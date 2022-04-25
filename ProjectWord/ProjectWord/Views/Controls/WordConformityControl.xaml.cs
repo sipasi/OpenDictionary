@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-
-using OpenDictionary.Collections.Storages;
-using OpenDictionary.DependencyInjection;
-using OpenDictionary.Models;
-using OpenDictionary.Observables.Games;
+﻿using OpenDictionary.Observables.Games;
 using OpenDictionary.ViewModels.Games;
 
 using Xamarin.Forms;
@@ -39,18 +33,7 @@ namespace OpenDictionary.Views.Controls
                 return;
             }
 
-            control.Load();
-        }
-
-        private void Load()
-        {
-            var storage = DiContainer.Get<IStorage<WordGroup>>();
-
-            Guid id = storage.Query().First().Id;
-
-            BindButtons();
-
-            WordConformity.Id = id.ToString();
+            control.BindButtons();
         }
 
         private void BindButtons()

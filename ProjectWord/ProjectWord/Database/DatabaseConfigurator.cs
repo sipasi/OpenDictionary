@@ -18,7 +18,7 @@ namespace OpenDictionary.AppDatabase.Configurators
 
             if (context.WordGroups.Any() == false)
             {
-                WordGroup[] groups = WordGroupCreator.CreateRange(count: 4);
+                WordGroup[] groups = WordGroupJsonFile.Load();
 
                 context.WordGroups.AddRange(groups);
 

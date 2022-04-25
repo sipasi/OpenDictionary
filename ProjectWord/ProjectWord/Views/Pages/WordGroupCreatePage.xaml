@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
              xmlns:models="clr-namespace:OpenDictionary.Models"
@@ -11,7 +10,9 @@
              
              Title="{Binding Name, TargetNullValue='Create Group'}"
              
-             Padding="20,20,20,0">
+             Padding="20,20,20,0"
+             
+             x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}" />
@@ -30,7 +31,7 @@
             <Button Text="Add" Command="{Binding AddWordCommand}" Style="{StaticResource ButtonOutline}" Margin="20"
                     TextColor="{x:StaticResource Blue}"/>
 
-            <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView ItemsSource="{Binding Words.Collection}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="0,4">

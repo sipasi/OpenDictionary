@@ -1,9 +1,10 @@
-﻿
+﻿#nullable enable
+
 using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels
 {
-    public class SettingsViewModel : ViewModel
+    public class AppThemeObservable : ViewModel
     {
         private OSAppTheme current;
 
@@ -18,12 +19,16 @@ namespace OpenDictionary.ViewModels
             }
         }
 
-        public SettingsViewModel()
+        public Command<IViewContainer<View>> UpdateRadioButtonsCommand { get; }
+
+        public AppThemeObservable()
         {
-            current = Application.Current.RequestedTheme;
+            Current = Application.Current.RequestedTheme;
+
+            UpdateRadioButtonsCommand = new Command<IViewContainer<View>>(UpdateRadioButtonsGroup);
         }
 
-        public void UpdateRadioButtonsGroup(IViewContainer<View> container)
+        private void UpdateRadioButtonsGroup(IViewContainer<View> container)
         {
             var children = container.Children;
 

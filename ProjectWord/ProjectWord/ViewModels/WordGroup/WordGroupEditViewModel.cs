@@ -13,7 +13,7 @@ using Xamarin.Forms;
 namespace OpenDictionary.ViewModels
 {
     [QueryProperty(nameof(Id), nameof(Id))]
-    public class WordGroupEditViewModel : WordGroupBaseViewModel
+    public sealed class WordGroupEditViewModel : WordGroupViewModel
     {
         private readonly IStorage<WordGroup> wordGroupStorage;
         private readonly IStorage<Word> wordStorage;
@@ -89,7 +89,7 @@ namespace OpenDictionary.ViewModels
             Origin = null;
             Translation = null;
 
-            Items.Add(word);
+            Words.Collection.Add(word);
             created.Add(word);
         }
         private void OnDeleteWord(Word word)
@@ -99,7 +99,7 @@ namespace OpenDictionary.ViewModels
                 return;
             }
 
-            Items.Remove(word);
+            Words.Collection.Remove(word);
 
             if (created.Contains(word) is false)
             {
@@ -115,7 +115,7 @@ namespace OpenDictionary.ViewModels
                 {
                     Date = DateTime.Now,
                     Name = Name,
-                    Words = Items?.ToList()
+                    Words = Words.Collection.ToList()
                 };
 
                 await wordGroupStorage.AddAsync(group);
@@ -126,7 +126,7 @@ namespace OpenDictionary.ViewModels
 
                 WordGroup group = await wordGroupStorage.Query().GetById(id);
 
-                group.Words = Items?.ToList();
+                group.Words = Words.Collection.ToList();
 
                 foreach (var word in deleted)
                 {

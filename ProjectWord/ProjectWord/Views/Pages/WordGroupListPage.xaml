@@ -2,48 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             x:Class="OpenDictionary.Views.Pages.WordGroupListPage"
-             
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
-             xmlns:models="clr-namespace:OpenDictionary.Models"
-             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:models="clr-namespace:OpenDictionary.Models" 
+             xmlns:cells="clr-namespace:OpenDictionary.Views.Cells" 
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
              
-             x:DataType="viewModels:WordGroupListViewModel"
+             x:DataType="viewModels:WordGroupInfoList"
              
-             Title="Dictionaries">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Frame">
-                <Setter Property="Padding" Value="10"/>
-                <Setter Property="CornerRadius" Value="6"/>
-                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
-                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
-            </Style>
-            <Style x:Key="WordGroupTitleLabel" BasedOn="{x:StaticResource DefaultLabel}" TargetType="Label">
-                <Setter Property="FontSize" Value="Subtitle"/>
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="MaxLines" Value="2"/>
-                <Setter Property="LineBreakMode" Value="TailTruncation"/>
-                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            </Style>
-            <Style x:Key="WordGroupCaptionLabel" BasedOn="{x:StaticResource DefaultLabel}" TargetType="Label">
-                <Setter Property="FontSize" Value="Caption"/>
-                <Setter Property="TextColor" Value="{x:StaticResource Gray-500}"/>
-                <Setter Property="VerticalOptions" Value="EndAndExpand"/>
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
+             Title="Dictionaries"
+             
+             x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}" />
     </ContentPage.ToolbarItems>
 
-    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Padding="10">
-        <CollectionView ItemsSource="{Binding Items}" SelectionMode="None">
+    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}" Padding="10">
+        <CollectionView ItemsSource="{Binding Groups.Collection}"  
+                        SelectionMode="None">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2"
                                  HorizontalItemSpacing="10"
@@ -51,22 +26,15 @@
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:WordGroup">
-                    <StackLayout HeightRequest="80">
-                        <Frame>
-                            <StackLayout>
-                                <Label Text="{Binding Name}" Style="{x:StaticResource WordGroupTitleLabel}"/>
-                                <Label Text="{Binding Path=Words.Count, StringFormat='Count: {0}'}" Style="{x:StaticResource WordGroupCaptionLabel}"/>
-                            </StackLayout>
-                        </Frame>
-
-                        <StackLayout.GestureRecognizers>
+                <DataTemplate>
+                    <cells:WordGroupInfoCardCell x:DataType="models:WordGroupInfo">
+                        <cells:WordGroupInfoCardCell.GestureRecognizers>
                             <TapGestureRecognizer 
-                                            NumberOfTapsRequired="1" 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupListViewModel}}, Path=ItemTapped}"
-                                            CommandParameter="{Binding .}"/>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                                NumberOfTapsRequired="1" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </cells:WordGroupInfoCardCell.GestureRecognizers>
+                    </cells:WordGroupInfoCardCell>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
