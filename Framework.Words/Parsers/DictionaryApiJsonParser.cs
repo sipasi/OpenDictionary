@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -13,46 +15,92 @@ namespace Framework.Words.Parsers
     {
         public Task<IWordMetadata?> Parse(string json)
         {
-            var value = SolveArraySymbols(json);
-
             try
             {
-                IWordMetadata? word = JsonConvert.DeserializeObject<Word>(value);
+                bool isArray = IsArray(json);
+
+                IWordMetadata? word = isArray
+                    ? ParseArray(json)
+                    : ParseSingleObject(json);
 
                 return Task.FromResult(word);
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.Message);
+                string message = GetMessage(exception);
+
+                Debug.WriteLine(message);
             }
 
             return Task.FromResult<IWordMetadata?>(default);
         }
 
-        private string SolveArraySymbols(string text)
+        private bool IsArray(string json)
         {
             const char openArraySymbol = '[';
             const char closeArraySymbol = ']';
 
-            if (text.StartsWith(openArraySymbol) && text.EndsWith(closeArraySymbol))
+            bool isArray = json.StartsWith(openArraySymbol) && json.EndsWith(closeArraySymbol);
+
+            return isArray;
+        }
+
+        private IWordMetadata? ParseArray(string json)
+        {
+            Word[] words = JsonConvert.DeserializeObject<Word[]>(json) ?? Array.Empty<Word>();
+
+            if (words.Length == 0)
             {
-                return text.Remove(startIndex: text.Length - 1, count: 1).Remove(startIndex: 0, count: 1);
+                return null;
             }
 
-            return text;
+            var phoneticComparer = new PhoneticComparer();
+
+            string value = words[0].Value;
+
+            IEnumerable<IPhonetic> phonetics = words
+                .SelectMany(word => word.Phonetics)
+                .Distinct(phoneticComparer)
+                .Where(phonetic =>
+                    string.IsNullOrWhiteSpace(phonetic.Value) is false &&
+                    string.IsNullOrWhiteSpace(phonetic.Audio) is false)
+                ?? words.Select(word => word.Phonetics).FirstOrDefault();
+
+            IEnumerable<IMeaning> meanings = words.SelectMany(word => word.Meanings);
+
+            Word result = new Word(value, phonetics, meanings);
+
+            return result;
+        }
+
+        private IWordMetadata? ParseSingleObject(string json)
+        {
+            return JsonConvert.DeserializeObject<Word>(json);
+        }
+
+        private string GetMessage(Exception exception)
+        {
+            string message = exception.Message;
+            string? inner = exception.InnerException?.Message;
+
+            return $"{message}. {inner ?? null}";
         }
 
         private class Word : IWordMetadata
         {
-            [JsonProperty("word")]
             public string Value { get; }
-            [JsonProperty("phonetics")]
             public IEnumerable<IPhonetic> Phonetics { get; }
             public IEnumerable<IMeaning> Meanings { get; }
 
-            public Word(string value, Phonetic[] phonetics, Meaning[] meanings)
+            public Word(string word, IEnumerable<Phonetic> phonetics, IEnumerable<Meaning> meanings)
             {
-                Value = value;
+                Value = word;
+                Phonetics = phonetics;
+                Meanings = meanings;
+            }
+            internal Word(string word, IEnumerable<IPhonetic> phonetics, IEnumerable<IMeaning> meanings)
+            {
+                Value = word;
                 Phonetics = phonetics;
                 Meanings = meanings;
             }
@@ -65,14 +113,12 @@ namespace Framework.Words.Parsers
 
         private class Phonetic : IPhonetic
         {
-            [JsonProperty("text")]
             public string Value { get; }
-            [JsonProperty("audio")]
             public string Audio { get; }
 
-            public Phonetic(string value, string audio)
+            public Phonetic(string text, string audio)
             {
-                Value = value;
+                Value = text;
                 Audio = audio;
             }
 
@@ -86,11 +132,15 @@ namespace Framework.Words.Parsers
         {
             public string PartOfSpeech { get; }
             public IEnumerable<IWordDefinition> Definitions { get; }
+            public IEnumerable<string> Synonyms { get; }
+            public IEnumerable<string> Antonyms { get; }
 
-            public Meaning(string partOfSpeech, Definition[] definitions)
+            public Meaning(string partOfSpeech, Definition[] definitions, IEnumerable<string> synonyms, IEnumerable<string> antonyms)
             {
                 PartOfSpeech = partOfSpeech;
                 Definitions = definitions;
+                Synonyms = synonyms;
+                Antonyms = antonyms;
             }
 
             public override string ToString()
@@ -101,23 +151,32 @@ namespace Framework.Words.Parsers
 
         public class Definition : IWordDefinition
         {
-            [JsonProperty("definition")]
             public string Value { get; }
             public string Example { get; }
-            public IEnumerable<string> Synonyms { get; }
-            public IEnumerable<string> Antonyms { get; }
 
-            public Definition(string value, string? example, string[] synonyms, string[] antonyms)
+            public Definition(string definition, string? example)
             {
-                Value = value;
+                Value = definition;
                 Example = example ?? string.Empty;
-                Synonyms = synonyms;
-                Antonyms = antonyms;
             }
 
             public override string ToString()
             {
                 return $"Value: {Value}, Example: {Example}";
+            }
+        }
+
+        private class PhoneticComparer : IEqualityComparer<IPhonetic>
+        {
+            public bool Equals(IPhonetic first, IPhonetic second)
+            {
+                return first.Value == second.Value &&
+                       first.Audio == second.Audio;
+            }
+
+            public int GetHashCode(IPhonetic phonetic)
+            {
+                return (phonetic.Value, phonetic.Value).GetHashCode();
             }
         }
     }

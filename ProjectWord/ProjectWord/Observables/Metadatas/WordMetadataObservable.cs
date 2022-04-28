@@ -63,7 +63,10 @@ namespace OpenDictionary.Observables.Metadatas
                 var observable = new MeaningObservable
                 {
                     PartOfSpeech = meaning.PartOfSpeech,
+                    Synonyms = string.Join(", ", meaning.Synonyms),
+                    Antonyms = string.Join(", ", meaning.Antonyms),
                 };
+
 
                 AddDefinitions(meaning.Definitions, observable);
 

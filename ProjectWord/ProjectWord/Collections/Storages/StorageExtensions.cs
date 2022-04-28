@@ -36,10 +36,12 @@ namespace OpenDictionary.Collections.Storages.Extensions
             return query.Include(entity => entity.Phonetics)
                     .Include(entity => entity.Meanings)
                         .ThenInclude(entity => entity.Definitions)
+                    .Include(entity => entity.Meanings)
                         .ThenInclude(entity => entity.Synonyms)
                     .Include(entity => entity.Meanings)
-                        .ThenInclude(entity => entity.Definitions)
-                        .ThenInclude(entity => entity.Antonyms);
+                        .ThenInclude(entity => entity.Antonyms)
+                    .Include(entity => entity.Meanings)
+                        .ThenInclude(entity => entity.Definitions);
         }
 
         public static Task<WordMetadata> GetByWord(this IQueryable<WordMetadata> query, string word)

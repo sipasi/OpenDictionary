@@ -16,7 +16,6 @@ using OpenDictionary.Services.ToastMessages.Extensions;
 
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels
 {

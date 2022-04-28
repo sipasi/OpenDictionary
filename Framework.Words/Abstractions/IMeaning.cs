@@ -8,5 +8,8 @@ namespace Framework.Words
         public string PartOfSpeech { get; }
 
         public IEnumerable<IWordDefinition> Definitions { get; }
+
+        public IEnumerable<string> Synonyms { get; }
+        public IEnumerable<string> Antonyms { get; }
     }
 }

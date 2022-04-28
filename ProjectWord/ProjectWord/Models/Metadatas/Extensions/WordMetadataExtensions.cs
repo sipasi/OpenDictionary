@@ -23,12 +23,13 @@ namespace OpenDictionary.Models.Extensions
             {
                 PartOfSpeech = meaning.PartOfSpeech,
 
+                Synonyms = meaning.Synonyms.Select(entity => new Synonym { Value = entity }).ToList(),
+                Antonyms = meaning.Antonyms.Select(entity => new Antonym { Value = entity }).ToList(),
+
                 Definitions = meaning.Definitions.Select(definition => new Definition
                 {
                     Value = definition.Value,
                     Example = definition.Example,
-                    Synonyms = definition.Synonyms.Select(entity => new Synonym { Value = entity }).ToList(),
-                    Antonyms = definition.Antonyms.Select(entity => new Antonym { Value = entity }).ToList(),
                 }).ToList(),
             }).ToList();
 

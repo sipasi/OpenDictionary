@@ -75,8 +75,7 @@
                             </Label.Triggers>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Example: " FontAttributes="Bold" 
-                                                                              TextColor="{x:StaticResource Indigo-300}"/>
+                                    <Span Text="Example: " FontAttributes="Bold" TextColor="{x:StaticResource Indigo-300}"/>
                                     <Span Text="{Binding Example}"/>
                                 </FormattedString>
                             </Label.FormattedText>
@@ -95,6 +94,34 @@
                                 <Span Text="{Binding PartOfSpeech}"/>
                             </FormattedString>
                         </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Synonyms: " FontAttributes="Bold" 
+                                      TextColor="{x:StaticResource Green-200}"/>
+                                <Span Text="{Binding Synonyms}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding Synonyms.Length}" Value="0">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Antonyms: " FontAttributes="Bold" 
+                                      TextColor="{x:StaticResource Green-200}"/>
+                                <Span Text="{Binding Antonyms}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding Antonyms.Length}" Value="0">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </Label.Triggers>
                     </Label>
                     <StackLayout BindableLayout.ItemsSource="{Binding Definitions}"
                                  BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>

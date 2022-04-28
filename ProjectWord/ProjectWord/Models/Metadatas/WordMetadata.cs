@@ -8,7 +8,7 @@ namespace OpenDictionary.Models
 {
     public class WordMetadata : IWordMetadata, IEntity
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         public string Value { get; set; }
 

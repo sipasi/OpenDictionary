@@ -11,7 +11,7 @@ namespace OpenDictionary.AppDatabase.Configurators
 
             DatabaseContext context = new DatabaseContext(path.Path);
 
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
     }

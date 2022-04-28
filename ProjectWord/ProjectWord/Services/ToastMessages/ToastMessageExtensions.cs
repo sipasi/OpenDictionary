@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using OpenDictionary.Collections.Storages;
-
 using Xamarin.Forms;
 
 namespace OpenDictionary.Services.ToastMessages.Extensions

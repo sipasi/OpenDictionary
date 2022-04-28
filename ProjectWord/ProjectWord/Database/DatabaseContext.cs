@@ -19,32 +19,49 @@ namespace OpenDictionary.AppDatabase
             this.databasePath = databasePath;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            optionsBuilder.UseSqlite($"Filename={databasePath}");
+            builder.UseSqlite($"Filename={databasePath}");
+
+            builder.EnableSensitiveDataLogging(true);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            //builder.Entity<WordMetadata>().HasKey(metadata => metadata.Id);
+            builder
+                .Entity<WordGroup>()
+                .HasMany(entity => entity.Words)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .Entity<WordMetadata>()
-                .HasMany(entity => entity.Phonetics);
+                .HasMany(entity => entity.Phonetics)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
             builder
                 .Entity<WordMetadata>()
-                .HasMany(entity => entity.Meanings);
+                .HasMany(entity => entity.Meanings)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
             builder
                 .Entity<Meaning>()
-                .HasMany(entity => entity.Definitions);
+                .HasMany(entity => entity.Definitions)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder
-                .Entity<Definition>()
-                .HasMany(entity => entity.Synonyms);
+                .Entity<Meaning>()
+                .HasMany(entity => entity.Synonyms)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
             builder
-                .Entity<Definition>()
-                .HasMany(entity => entity.Antonyms);
+                .Entity<Meaning>()
+                .HasMany(entity => entity.Antonyms)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

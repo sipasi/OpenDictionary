@@ -1,9 +1,6 @@
 ﻿#nullable enable
 
-using System.Linq;
-
 using OpenDictionary.DependencyInjection;
-using OpenDictionary.Models;
 using OpenDictionary.ViewModels;
 
 using Xamarin.Forms;
