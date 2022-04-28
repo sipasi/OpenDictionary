@@ -11,11 +11,9 @@ using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
 
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels
 {
-    [QueryProperty(nameof(Id), nameof(Id))]
     public sealed class WordGroupDetailViewModel : WordGroupViewModel
     {
         private readonly IStorage<WordGroup> wordGroupStorage;

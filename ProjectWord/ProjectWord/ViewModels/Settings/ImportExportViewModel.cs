@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.ToastMessages;
+using OpenDictionary.Services.ToastMessages.Extensions;
 
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
@@ -21,10 +22,6 @@ namespace OpenDictionary.ViewModels
 {
     public class ImportExportViewModel : ViewModel
     {
-        private static readonly Color red = Color.FromHex("#dc3545");
-        private static readonly Color white = Color.FromHex("#fff");
-        private static readonly Color green = Color.FromHex("#198754");
-
         private readonly IStorage<WordGroup> storage;
         private readonly IToastMessageService toast;
 
@@ -52,23 +49,14 @@ namespace OpenDictionary.ViewModels
 
             if (picked.FileName.EndsWith("json", StringComparison.OrdinalIgnoreCase) is false)
             {
-                await ErrorMessage(message: "Please select a json file");
+                await toast.ShowError(message: "Please select a json file");
 
                 return;
             }
 
-            bool added = await ShareAsJson(picked.FullPath);
-
-            if (added)
-            {
-                await SuccessMessage(message: "Successfull");
-            }
-            else
-            {
-                await ErrorMessage(message: "Unsuccessfull");
-            }
+            await toast.ShowAfter(() => ShareAsJson(picked.FullPath));
         }
-        private async Task<bool> ShareAsJson(string path)
+        private async ValueTask<bool> ShareAsJson(string path)
         {
             StreamReader reader = new StreamReader(path);
 
@@ -78,13 +66,13 @@ namespace OpenDictionary.ViewModels
 
             if (groups is null)
             {
-                await ErrorMessage(message: "Json file have incorrect format");
+                await toast.ShowError(message: "Json file have incorrect format");
 
                 return false;
             }
             if (groups.Length is 0)
             {
-                await ErrorMessage(message: "Dictionaries are empty");
+                await toast.ShowError(message: "Dictionaries are empty");
 
                 return false;
             }
@@ -130,16 +118,6 @@ namespace OpenDictionary.ViewModels
             await file.FlushAsync();
 
             await file.DisposeAsync();
-        }
-
-        private Task SuccessMessage(string message)
-        {
-            return toast.Show(message, background: green, foreground: white);
-        }
-        private Task ErrorMessage(string message)
-        {
-
-            return toast.Show(message, background: red, foreground: white);
         }
     }
 }

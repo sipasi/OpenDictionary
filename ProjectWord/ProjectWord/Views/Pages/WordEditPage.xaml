@@ -8,6 +8,7 @@
              x:DataType="viewModels:WordEditViewModel"
              
              Title="{Binding Word.Origin}"
+             Padding="10"
              
              x:Class="OpenDictionary.Views.Pages.WordEditPage">
     <ContentPage.ToolbarItems>
@@ -15,7 +16,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Margin="20,10" Spacing="10">
+        <StackLayout Spacing="10">
             <Frame CornerRadius="10">
                 <StackLayout>
                     <Label Text="Translation" FontAttributes="Bold" FontSize="Medium"/>

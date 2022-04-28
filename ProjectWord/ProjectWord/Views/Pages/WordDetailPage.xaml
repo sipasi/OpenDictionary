@@ -10,7 +10,8 @@
              
              x:DataType="viewModels:WordDetailViewModel"
              
-             Title="Word Details"
+             Title="Word Details" 
+             Padding="10,10,10,10"
              
              x:Class="OpenDictionary.Views.Pages.WordDetailPage">
 
@@ -120,8 +121,8 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content >
-        <StackLayout Margin="20,10" Spacing="10">
-            <Frame CornerRadius="10">
+        <StackLayout Spacing="10">
+            <Frame>
                 <StackLayout>
                     <Label>
                         <Label.FormattedText>
@@ -154,7 +155,7 @@
                     <toolkit:StateView StateKey="Success">
                         <ScrollView VerticalScrollBarVisibility="Never">
                             <StackLayout Spacing="10">
-                                <Frame CornerRadius="10">
+                                <Frame>
                                     <StackLayout>
                                         <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
 
@@ -164,7 +165,7 @@
                                     </StackLayout>
                                 </Frame>
 
-                                <Frame Grid.Row="1" CornerRadius="10">
+                                <Frame Grid.Row="1">
                                     <StackLayout>
                                         <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
 

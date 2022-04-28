@@ -12,7 +12,6 @@ using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels
 {
-    [QueryProperty(nameof(Id), nameof(Id))]
     public sealed class WordGroupEditViewModel : WordGroupViewModel
     {
         private readonly IStorage<WordGroup> wordGroupStorage;

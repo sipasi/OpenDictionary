@@ -10,7 +10,7 @@
              
              Title="{Binding Name, TargetNullValue='Create Group'}"
              
-             Padding="20,20,20,0"
+             Padding="10,10,10,0"
              
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 

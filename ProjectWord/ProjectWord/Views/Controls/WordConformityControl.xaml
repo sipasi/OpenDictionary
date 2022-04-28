@@ -22,8 +22,8 @@
     </ContentView.Resources>
 
     <ContentView.Content>
-        <StackLayout Padding="20,0" Spacing="20">
-            <StackLayout Padding="0,20,0,0" Spacing="0">
+        <StackLayout Spacing="20">
+            <StackLayout >
                 <Label Text="{Binding Properties.GroupName}" MaxLines="2" LineBreakMode="TailTruncation"/>
                 <StackLayout Orientation="Horizontal">
                     <Label FontSize="Title" HorizontalOptions="StartAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
@@ -47,7 +47,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout Padding="0,0,0,20" Spacing="20" VerticalOptions="EndAndExpand">
+            <StackLayout Spacing="20" VerticalOptions="EndAndExpand">
                 <Label Text="{Binding Properties.Question}" FontAttributes="Bold"
                        TextColor="{AppThemeBinding Dark={x:StaticResource Blue-300}, Light={x:StaticResource Blue-400}}"/>
 

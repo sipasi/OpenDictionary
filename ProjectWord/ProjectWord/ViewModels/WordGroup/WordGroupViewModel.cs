@@ -22,6 +22,8 @@ namespace OpenDictionary.ViewModels
         private readonly IStorage<WordGroup> wordGroupStorage;
         private readonly INavigationService navigation;
 
+        public Word TappedWord { get; private set; }
+
         public CollectionViewModel<Word> Words { get; }
 
         public string Id
@@ -50,6 +52,8 @@ namespace OpenDictionary.ViewModels
 
         private Task OnTapped(Word item)
         {
+            TappedWord = item;
+
             return navigation.GoToAsync<WordDetailPage>(parameter: nameof(Word.Id), value: item.Id.ToString());
         }
 

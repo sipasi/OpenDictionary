@@ -7,6 +7,7 @@
              x:DataType="viewModels:GameListViewModel" 
              
              Title="Games"
+             Padding="10"
             
              x:Class="OpenDictionary.Views.Pages.GameListPage">
 
@@ -40,7 +41,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Padding="10">
+        <StackLayout>
             <StackLayout BindableLayout.ItemsSource="{Binding Games.Collection}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:GameInfo">

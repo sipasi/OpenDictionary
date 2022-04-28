@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
@@ -14,12 +15,24 @@ namespace OpenDictionary.Models
 
         public static WordGroup[]? Load()
         {
-            using Stream stream = GetStream();
-
-            using StreamReader reader = new StreamReader(stream);
+            using StreamReader reader = GetReader();
 
             string json = reader.ReadToEnd();
 
+            return DeserializeAndFillDates(json);
+        }
+
+        public static async Task<WordGroup[]?> LoadAsync()
+        {
+            using StreamReader reader = GetReader();
+
+            string json = await reader.ReadToEndAsync();
+
+            return DeserializeAndFillDates(json);
+        }
+
+        public static WordGroup[]? DeserializeAndFillDates(string json)
+        {
             var result = JsonConvert.DeserializeObject<WordGroup[]>(json);
 
             FillDates(result);
@@ -60,6 +73,14 @@ namespace OpenDictionary.Models
             Stream stream = assembly.GetManifestResourceStream(embeddedPath);
 
             return stream;
+        }
+        private static StreamReader GetReader()
+        {
+            Stream stream = GetStream();
+
+            StreamReader reader = new StreamReader(stream);
+
+            return reader;
         }
     }
 }

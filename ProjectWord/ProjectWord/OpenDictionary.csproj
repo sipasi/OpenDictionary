@@ -137,5 +137,6 @@
 
   <ItemGroup>
     <Folder Include="Services\Configurators\" />
+    <Folder Include="Views\Dialogs\" />
   </ItemGroup>
 </Project>

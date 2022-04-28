@@ -9,6 +9,7 @@
              x:DataType="viewModels:WordConformityViewModel"
              
              Title="Origin to Translation"
+             Padding="10"
               
              x:Class="OpenDictionary.Views.Pages.GameOriginToTranslationPage">
 
