@@ -11,7 +11,7 @@ namespace OpenDictionary.Models
 {
     internal static class WordGroupJsonFile
     {
-        private static readonly string embeddedPath = "OpenDictionary.Assets.Json.Dictionaries.json";
+        private static readonly string embeddedPath = "OpenDictionary.XamarinApp.Assets.Json.Dictionaries.json";
 
         public static WordGroup[]? Load()
         {

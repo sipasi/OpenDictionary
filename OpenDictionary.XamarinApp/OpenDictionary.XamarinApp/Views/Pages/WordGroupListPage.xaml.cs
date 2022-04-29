@@ -33,19 +33,6 @@ namespace OpenDictionary.Views.Pages
             base.OnAppearing();
 
             await viewModel.Groups.Load();
-
-            //DatabaseContext database = new DatabaseContext(DiContainer.Get<IDatabasePath>().Path);
-
-            //database.Words.RemoveRange(database.Words.AsEnumerable());
-            //database.SaveChanges();
-
-            var groupStorage = DiContainer.Get<IStorage<WordGroup>>();
-            var wordStorage = DiContainer.Get<IStorage<Word>>();
-            var metadataStorage = DiContainer.Get<IStorage<WordMetadata>>();
-
-            var c_1 = groupStorage.Query().Count();
-            var c_2 = wordStorage.Query().Count();
-            var c_3 = metadataStorage.Query().Count();
         }
 
         private async void AnimationView_Clicked(object sender, System.EventArgs e)
