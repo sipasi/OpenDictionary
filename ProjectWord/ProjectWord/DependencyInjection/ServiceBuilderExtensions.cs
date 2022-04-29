@@ -23,7 +23,7 @@ namespace OpenDictionary.DependencyInjection.Extensions
             IAudioPlayerServise audioPlayer = DependencyService.Get<IAudioPlayerServise>();
 
             builder.singleton
-                .Add<IPhoneticStorageService, PhoneticStorageService>()
+                .Add<IPhoneticFilesService, PhoneticFilesService>()
                 .Add<IAudioPlayerServise>(audioPlayer);
 
             return builder;

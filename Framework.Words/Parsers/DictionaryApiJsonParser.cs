@@ -54,7 +54,7 @@ namespace Framework.Words.Parsers
                 return null;
             }
 
-            var phoneticComparer = new PhoneticComparer();
+            var phoneticComparer = new AudioEqualityComparer();
 
             string value = words[0].Value;
 
@@ -166,17 +166,16 @@ namespace Framework.Words.Parsers
             }
         }
 
-        private class PhoneticComparer : IEqualityComparer<IPhonetic>
+        private class AudioEqualityComparer : IEqualityComparer<IPhonetic>
         {
             public bool Equals(IPhonetic first, IPhonetic second)
             {
-                return first.Value == second.Value &&
-                       first.Audio == second.Audio;
+                return first.Audio == second.Audio;
             }
 
             public int GetHashCode(IPhonetic phonetic)
             {
-                return (phonetic.Value, phonetic.Value).GetHashCode();
+                return phonetic.Audio.GetHashCode();
             }
         }
     }

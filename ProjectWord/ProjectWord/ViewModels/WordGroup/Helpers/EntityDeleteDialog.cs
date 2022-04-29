@@ -6,7 +6,7 @@ namespace OpenDictionary.ViewModels.Helpers
 {
     internal static class EntityDeleteDialog
     {
-        public static ValueTask<DialogResult> Show(IDialogWindowService dialog)
+        public static Task<DialogResult> Show(IDialogWindowService dialog)
         {
             string title = "Delete";
 

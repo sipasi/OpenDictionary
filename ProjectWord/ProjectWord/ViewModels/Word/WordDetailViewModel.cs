@@ -32,7 +32,7 @@ namespace OpenDictionary.ViewModels
         private readonly INavigationService navigation;
         private readonly IDialogWindowService dialog;
         private readonly IAudioPlayerServise audioPlayer;
-        private readonly IPhoneticStorageService phoneticStorage;
+        private readonly IPhoneticFilesService phoneticFiles;
         private readonly IDictionarySource source;
 
         private LayoutState metadataLoadState;
@@ -64,7 +64,7 @@ namespace OpenDictionary.ViewModels
             INavigationService navigation,
             IDialogWindowService dialog,
             IAudioPlayerServise audioPlayer,
-            IPhoneticStorageService phoneticStorage,
+            IPhoneticFilesService phoneticStorage,
             IDictionarySource source) : base(wordStorage, navigation)
         {
             this.wordStorage = wordStorage;
@@ -72,7 +72,7 @@ namespace OpenDictionary.ViewModels
             this.navigation = navigation;
             this.dialog = dialog;
             this.audioPlayer = audioPlayer;
-            this.phoneticStorage = phoneticStorage;
+            this.phoneticFiles = phoneticStorage;
             this.source = source;
 
             Metadata = new WordMetadataObservable();
@@ -143,17 +143,17 @@ namespace OpenDictionary.ViewModels
 
             try
             {
-                if (phoneticStorage.Contains(Word.Origin))
+                if (phoneticFiles.Contains(path, Word.Origin))
                 {
-                    source = phoneticStorage.GetFilePath(Word.Origin);
+                    source = phoneticFiles.GetFilePath(path, Word.Origin);
                 }
                 else
                 {
-                    bool added = await phoneticStorage.AddFromWebAsync(path, Word.Origin);
+                    bool added = await phoneticFiles.AddFromWebAsync(path, Word.Origin);
 
                     if (added)
                     {
-                        source = phoneticStorage.GetFilePath(Word.Origin);
+                        source = phoneticFiles.GetFilePath(path, Word.Origin);
                     }
                 }
 
@@ -212,20 +212,5 @@ namespace OpenDictionary.ViewModels
 
             return metadata;
         }
-
-        public void OnAppearing()
-        {
-            //LayoutState cacheCurrent = MetadataLoadState;
-            //string? cacheCustom = MetadataCustomState;
-
-            //MetadataLoadState = LayoutState.None;
-            //MetadataCustomState = null;
-
-            //MetadataLoadState = cacheCurrent;
-            //MetadataCustomState = cacheCustom;
-        }
-
-        private class NoInternerException : Exception { }
-        private class NotFoundException : Exception { }
     }
 }

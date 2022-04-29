@@ -7,7 +7,7 @@ namespace OpenDictionary.Services.Dialogs
 {
     internal class DialogWindowService : IDialogWindowService
     {
-        public async ValueTask<DialogResult> Show(string title, string message, string accept, string cancel)
+        public async Task<DialogResult> Show(string title, string message, string accept, string cancel)
         {
             var userAnswer = await Shell.Current.DisplayAlert(title, message, accept, cancel);
 
