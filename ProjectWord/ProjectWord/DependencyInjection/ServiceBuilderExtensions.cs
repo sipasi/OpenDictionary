@@ -6,7 +6,7 @@ using OpenDictionary.AppDatabase;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Services.Dialogs;
+using OpenDictionary.Services.MessageDisplays;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.ToastMessages;
 using OpenDictionary.ViewModels;
@@ -50,7 +50,8 @@ namespace OpenDictionary.DependencyInjection.Extensions
         public static ServiceBuilder ConfigureDialogs(this ServiceBuilder builder)
         {
             builder.singleton
-                .Add<IDialogWindowService, DialogWindowService>();
+                .Add<IAlertMessageService, AlertMessageService>()
+                .Add<IDialogMessageService, DialogMessageService>();
 
             return builder;
         }

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-using OpenDictionary.Services.Dialogs;
+using OpenDictionary.Services.MessageDisplays;
 
 namespace OpenDictionary.ViewModels.Helpers
 {
     internal static class EntityDeleteDialog
     {
-        public static Task<DialogResult> Show(IDialogWindowService dialog)
+        public static Task<DialogResult> Show(IDialogMessageService dialog)
         {
             string title = "Delete";
 

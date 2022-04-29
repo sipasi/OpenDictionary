@@ -12,7 +12,7 @@ using OpenDictionary.Models;
 using OpenDictionary.Models.Extensions;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Services.Dialogs;
+using OpenDictionary.Services.MessageDisplays;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
@@ -30,7 +30,7 @@ namespace OpenDictionary.ViewModels
         private readonly IStorage<Word> wordStorage;
         private readonly IStorage<WordMetadata> metadataStorage;
         private readonly INavigationService navigation;
-        private readonly IDialogWindowService dialog;
+        private readonly IDialogMessageService dialog;
         private readonly IAudioPlayerServise audioPlayer;
         private readonly IPhoneticFilesService phoneticFiles;
         private readonly IDictionarySource source;
@@ -62,7 +62,7 @@ namespace OpenDictionary.ViewModels
             IStorage<Word> wordStorage,
             IStorage<WordMetadata> metadataStorage,
             INavigationService navigation,
-            IDialogWindowService dialog,
+            IDialogMessageService dialog,
             IAudioPlayerServise audioPlayer,
             IPhoneticFilesService phoneticStorage,
             IDictionarySource source) : base(wordStorage, navigation)

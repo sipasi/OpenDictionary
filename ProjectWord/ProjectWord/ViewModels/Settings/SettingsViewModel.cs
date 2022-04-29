@@ -2,7 +2,7 @@
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
-using OpenDictionary.Services.Dialogs;
+using OpenDictionary.Services.MessageDisplays;
 using OpenDictionary.Services.ToastMessages;
 
 namespace OpenDictionary.ViewModels
@@ -13,7 +13,7 @@ namespace OpenDictionary.ViewModels
         public ImportExportViewModel ImportExport { get; }
         public WordGroupDictionaryViewModel WordGroup { get; }
 
-        public SettingsViewModel(IStorage<WordGroup> storage, IDialogWindowService dialog, IToastMessageService toast)
+        public SettingsViewModel(IStorage<WordGroup> storage, IDialogMessageService dialog, IToastMessageService toast)
         {
             AppTheme = new AppThemeObservable();
             ImportExport = new ImportExportViewModel(storage, toast);

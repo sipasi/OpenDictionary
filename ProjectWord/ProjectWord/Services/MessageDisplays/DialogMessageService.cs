@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace OpenDictionary.Services.Dialogs
+namespace OpenDictionary.Services.MessageDisplays
 {
-    internal class DialogWindowService : IDialogWindowService
+    internal class DialogMessageService : IDialogMessageService
     {
         public async Task<DialogResult> Show(string title, string message, string accept, string cancel)
         {

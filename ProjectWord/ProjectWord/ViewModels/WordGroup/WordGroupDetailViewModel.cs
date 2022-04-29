@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Services.Dialogs;
+using OpenDictionary.Services.MessageDisplays;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
@@ -18,13 +18,13 @@ namespace OpenDictionary.ViewModels
     {
         private readonly IStorage<WordGroup> wordGroupStorage;
         private readonly INavigationService navigation;
-        private readonly IDialogWindowService dialog;
+        private readonly IDialogMessageService dialog;
 
         public AsyncCommand RedirectToGameCommand { get; }
         public AsyncCommand RedirectToEditCommand { get; }
         public AsyncCommand DeleteCommand { get; }
 
-        public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation, IDialogWindowService dialog) : base(wordGroupStorage, navigation)
+        public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation, IDialogMessageService dialog) : base(wordGroupStorage, navigation)
         {
             this.wordGroupStorage = wordGroupStorage;
             this.navigation = navigation;

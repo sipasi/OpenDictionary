@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Services.Dialogs;
+using OpenDictionary.Services.MessageDisplays;
 using OpenDictionary.Services.ToastMessages;
 using OpenDictionary.Services.ToastMessages.Extensions;
 using OpenDictionary.ViewModels.Helpers;
@@ -20,13 +20,13 @@ namespace OpenDictionary.ViewModels
     public class WordGroupDictionaryViewModel : ViewModel
     {
         private readonly IStorage<WordGroup> storage;
-        private readonly IDialogWindowService dialog;
+        private readonly IDialogMessageService dialog;
         private readonly IToastMessageService toast;
 
         public AsyncCommand AddPreinstalledlCommand { get; }
         public AsyncCommand DeleteAllCommand { get; }
 
-        public WordGroupDictionaryViewModel(IStorage<WordGroup> storage, IDialogWindowService dialog, IToastMessageService toast)
+        public WordGroupDictionaryViewModel(IStorage<WordGroup> storage, IDialogMessageService dialog, IToastMessageService toast)
         {
             this.storage = storage;
             this.dialog = dialog;
