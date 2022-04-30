@@ -7,6 +7,9 @@
              
              x:DataType="viewModels:TranslationToOriginViewModel"
              
+             Title="Translation to Origin"
+             Padding="10"
+             
              x:Class="OpenDictionary.Views.Pages.GameTranslationToOriginPage">
     <ContentPage.Content>
         <controls:WordConformityControl WordConformity="{Binding .}"/>

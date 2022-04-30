@@ -63,7 +63,7 @@ namespace OpenDictionary.ViewModels.Games
 
                 Word word = all[random];
 
-                bool isCorrect = word.Origin == correct.Origin;
+                bool isCorrect = word.Id == correct.Id;
 
                 if (isCorrect)
                 {

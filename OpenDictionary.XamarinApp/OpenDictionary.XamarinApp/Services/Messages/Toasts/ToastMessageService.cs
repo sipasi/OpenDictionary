@@ -24,7 +24,7 @@ namespace OpenDictionary.XamarinApp.Services.Messages.Toasts
             {
                 BackgroundColor = background,
                 CornerRadius = new Thickness(10),
-                Duration = System.TimeSpan.FromSeconds(2),
+                Duration = System.TimeSpan.FromSeconds(1),
                 MessageOptions = messageOptions
             };
 

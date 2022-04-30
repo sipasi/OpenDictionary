@@ -61,10 +61,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="0"/>
-                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="0"/>
-                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="1"/>
-                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="1"/>
+                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="0" Padding="10"/>
+                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="0" Padding="10"/>
+                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="1" Padding="10"/>
+                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="1" Padding="10"/>
                 </Grid>
             </StackLayout>
         </StackLayout>
