@@ -12,8 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Configurators\**" />
     <Compile Remove="Views\Dialogs\**" />
+    <EmbeddedResource Remove="Services\Configurators\**" />
     <EmbeddedResource Remove="Views\Dialogs\**" />
+    <None Remove="Services\Configurators\**" />
     <None Remove="Views\Dialogs\**" />
   </ItemGroup>
 
@@ -141,6 +144,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Configurators\" />
+    <Folder Include="Services\MessageDisplays\" />
   </ItemGroup>
 </Project>

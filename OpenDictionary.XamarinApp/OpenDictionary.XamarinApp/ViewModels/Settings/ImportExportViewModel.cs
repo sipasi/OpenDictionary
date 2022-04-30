@@ -11,8 +11,8 @@ using Newtonsoft.Json;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
-using OpenDictionary.Services.ToastMessages;
-using OpenDictionary.Services.ToastMessages.Extensions;
+using OpenDictionary.Services.Messages.Toasts;
+using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;

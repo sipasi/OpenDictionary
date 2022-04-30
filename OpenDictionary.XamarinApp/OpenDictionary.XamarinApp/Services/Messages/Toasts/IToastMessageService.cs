@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace OpenDictionary.Services.ToastMessages
+namespace OpenDictionary.Services.Messages.Toasts
 {
     public interface IToastMessageService
     {

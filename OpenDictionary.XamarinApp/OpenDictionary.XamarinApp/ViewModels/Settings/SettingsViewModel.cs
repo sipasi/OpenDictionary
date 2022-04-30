@@ -2,8 +2,8 @@
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
-using OpenDictionary.Services.MessageDisplays;
-using OpenDictionary.Services.ToastMessages;
+using OpenDictionary.Services.Messages.Dialogs;
+using OpenDictionary.Services.Messages.Toasts;
 
 namespace OpenDictionary.ViewModels
 {

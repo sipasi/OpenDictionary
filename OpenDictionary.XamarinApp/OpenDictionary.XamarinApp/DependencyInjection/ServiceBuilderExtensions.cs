@@ -6,11 +6,15 @@ using OpenDictionary.AppDatabase;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Services.MessageDisplays;
+using OpenDictionary.Services.Messages.Alerts;
+using OpenDictionary.Services.Messages.Dialogs;
+using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
-using OpenDictionary.Services.ToastMessages;
 using OpenDictionary.ViewModels;
 using OpenDictionary.ViewModels.Games;
+using OpenDictionary.XamarinApp.Services.Messages.Alerts;
+using OpenDictionary.XamarinApp.Services.Messages.Dialogs;
+using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 using Xamarin.Forms;
 

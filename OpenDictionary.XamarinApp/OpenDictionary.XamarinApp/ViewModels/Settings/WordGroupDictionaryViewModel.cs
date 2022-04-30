@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Services.MessageDisplays;
-using OpenDictionary.Services.ToastMessages;
-using OpenDictionary.Services.ToastMessages.Extensions;
+using OpenDictionary.Services.Messages.Dialogs;
+using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.ViewModels.Helpers;
+using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 using Xamarin.CommunityToolkit.ObjectModel;
 

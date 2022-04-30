@@ -1,11 +1,13 @@
 ﻿
 using System.Threading.Tasks;
 
+using OpenDictionary.Services.Messages.Toasts;
+
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 
-namespace OpenDictionary.Services.ToastMessages
+namespace OpenDictionary.XamarinApp.Services.Messages.Toasts
 {
     public class ToastMessageService : IToastMessageService
     {

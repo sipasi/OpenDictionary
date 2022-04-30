@@ -12,7 +12,7 @@ using OpenDictionary.Models;
 using OpenDictionary.Models.Extensions;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Services.MessageDisplays;
+using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-using OpenDictionary.Services.MessageDisplays;
+using OpenDictionary.Services.Messages.Dialogs;
 
 namespace OpenDictionary.ViewModels.Helpers
 {

@@ -1,5 +1,4 @@
-﻿
-namespace OpenDictionary.Services.MessageDisplays
+﻿namespace OpenDictionary.Services.Messages.Dialogs
 {
     public enum DialogResult
     {

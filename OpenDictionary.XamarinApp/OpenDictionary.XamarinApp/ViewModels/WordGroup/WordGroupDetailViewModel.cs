@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Services.MessageDisplays;
+using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;

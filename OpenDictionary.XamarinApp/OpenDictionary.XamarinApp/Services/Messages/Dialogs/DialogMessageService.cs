@@ -1,9 +1,11 @@
 ﻿#nullable enable
 using System.Threading.Tasks;
 
+using OpenDictionary.Services.Messages.Dialogs;
+
 using Xamarin.Forms;
 
-namespace OpenDictionary.Services.MessageDisplays
+namespace OpenDictionary.XamarinApp.Services.Messages.Dialogs
 {
     internal class DialogMessageService : IDialogMessageService
     {

@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using System.Threading.Tasks;
 
-namespace OpenDictionary.Services.MessageDisplays
+namespace OpenDictionary.Services.Messages.Dialogs
 {
     public interface IDialogMessageService
     {
