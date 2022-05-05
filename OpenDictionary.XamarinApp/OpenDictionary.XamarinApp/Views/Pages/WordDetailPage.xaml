@@ -10,8 +10,7 @@
              
              x:DataType="viewModels:WordDetailViewModel"
              
-             Title="Word Details" 
-             Padding="10,10,10,0"
+             Title="Word Details"
              
              x:Class="OpenDictionary.Views.Pages.WordDetailPage">
 
@@ -147,40 +146,40 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <ContentPage.Content >
-        <StackLayout Spacing="10">
-            <Frame>
-                <StackLayout>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Origin: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Origin}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Translation: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Translation}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
-            </Frame>
+    <ContentPage.Content>
+        <ScrollView VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="10" Padding="10">
+                <Frame>
+                    <StackLayout>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Origin: " FontAttributes="Bold"/>
+                                    <Span Text="{Binding Word.Origin}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Translation: " FontAttributes="Bold"/>
+                                    <Span Text="{Binding Word.Translation}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </Frame>
 
-            <StackLayout toolkit:StateLayout.CurrentState="{Binding MetadataLoadState, Mode=TwoWay}" 
+                <StackLayout toolkit:StateLayout.CurrentState="{Binding MetadataLoadState, Mode=TwoWay}" 
                          toolkit:StateLayout.CurrentCustomStateKey="{Binding MetadataCustomState, Mode=TwoWay}">
-                <toolkit:StateLayout.StateViews>
-                    <toolkit:StateView StateKey="Loading">
-                        <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
+                    <toolkit:StateLayout.StateViews>
+                        <toolkit:StateView StateKey="Loading">
+                            <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
                                   Animation="Resources.LottieAnimations.searching-for-word.json"
                                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
                                   HeightRequest="210"/>
-                    </toolkit:StateView>
-                    <toolkit:StateView StateKey="Success">
-                        <ScrollView VerticalScrollBarVisibility="Never">
+                        </toolkit:StateView>
+                        <toolkit:StateView StateKey="Success">
                             <StackLayout Spacing="10">
                                 <Frame>
                                     <StackLayout>
@@ -200,30 +199,29 @@
                                          BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"/>
                                     </StackLayout>
                                 </Frame>
-                                <StackLayout/>
                             </StackLayout>
-                        </ScrollView>
-                    </toolkit:StateView>
-                    <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NoInternetConnection}">
-                        <StackLayout>
-                            <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-                            <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
+                        </toolkit:StateView>
+                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NoInternetConnection}">
+                            <StackLayout>
+                                <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
+                                <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
                                   Animation="Resources.LottieAnimations.Error.error-404-5.json"
                                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
                                   HeightRequest="300"/>
-                        </StackLayout>
-                    </toolkit:StateView>
-                    <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NotFound}">
-                        <StackLayout>
-                            <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-                            <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
+                            </StackLayout>
+                        </toolkit:StateView>
+                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NotFound}">
+                            <StackLayout>
+                                <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
+                                <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
                                   Animation="Resources.LottieAnimations.Error.error-404-5.json"
                                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
                                   HeightRequest="300"/>
-                        </StackLayout>
-                    </toolkit:StateView>
-                </toolkit:StateLayout.StateViews>
+                            </StackLayout>
+                        </toolkit:StateView>
+                    </toolkit:StateLayout.StateViews>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

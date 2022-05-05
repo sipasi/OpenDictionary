@@ -46,14 +46,7 @@ namespace OpenDictionary.ViewModels
 
                 return;
             }
-
-            if (storage.Any() == false)
-            {
-                await toast.ShowAfter(() => storage.AddRangeAsync(groups), success: GetSuccessMessage(count: groups.Length));
-
-                return;
-            }
-
+             
             int count = 0;
 
             foreach (var group in groups)
