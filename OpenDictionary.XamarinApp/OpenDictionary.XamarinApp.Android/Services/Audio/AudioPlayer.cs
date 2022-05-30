@@ -7,10 +7,10 @@ using OpenDictionary.Services.Audio;
 
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(AudioServise))]
+[assembly: Dependency(typeof(AudioPlayer))]
 namespace OpenDictionary.Droid.Services.Audio
 {
-    internal class AudioServise : IAudioPlayerServise
+    internal class AudioPlayer : IAudioPlayerServise
     {
         private readonly MediaPlayer player = new MediaPlayer();
 

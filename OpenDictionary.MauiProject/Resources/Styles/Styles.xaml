@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+     
+    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"  
+    xmlns:models="clr-namespace:OpenDictionary.Models"
+    
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!--Default Styles-->
+    <ResourceDictionary>
+        <Style x:Key="DefaultLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
+        </Style>
+        <Style x:Key="DefaultContentPage" TargetType="ContentPage" ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray-100}, Dark={StaticResource Black}}"/>
+        </Style>
+        <Style x:Key="DefaultFrame" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style x:Key="DefaultEntry" TargetType="Entry">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray-600}, Dark={StaticResource Gray-600}}"/>
+        </Style>
+        <Style x:Key="DefaultButton" TargetType="Button">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+
+        <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}"/>
+        <Style TargetType="ContentPage" ApplyToDerivedTypes="True" BasedOn="{x:StaticResource DefaultContentPage}"/>
+        <Style TargetType="Frame" BasedOn="{x:StaticResource DefaultFrame}"/>
+        <Style TargetType="Entry" BasedOn="{x:StaticResource DefaultEntry}"/>
+        <Style TargetType="Button" BasedOn="{x:StaticResource DefaultButton}"/>
+        <Style TargetType="controls:ButtonLowercase" BasedOn="{x:StaticResource DefaultButton}"/>
+
+        <Style x:Key="ButtonOutline" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Blue-500}, Dark={StaticResource Blue-500}}"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+
+            <Setter Property="BorderColor" Value="{StaticResource Blue-500}"/>
+            <Setter Property="BorderWidth" Value="2"/>
+            <Setter Property="CornerRadius" Value="10"/>
+
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource Blue-300}"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="{StaticResource Gray-500}"/>
+                                <Setter Property="TextColor" Value="{StaticResource Gray-500}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonOutlineRed" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Red-500}, Dark={StaticResource Red-500}}"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+
+            <Setter Property="BorderColor" Value="{StaticResource Red-500}"/>
+            <Setter Property="BorderWidth" Value="2"/>
+            <Setter Property="CornerRadius" Value="10"/>
+
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource Red-300}"/>
+                                <Setter Property="TextColor" Value="White"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="{StaticResource Gray-500}"/>
+                                <Setter Property="TextColor" Value="{StaticResource Gray-500}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
+        </Style>
+    </ResourceDictionary>
+    <!--WordGroupInfo Collection-->
+    <ResourceDictionary>
+        <ResourceDictionary>
+            <Style x:Key="WordGroupInfoFrame" TargetType="Frame">
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style x:Key="WordGroupInfoTitleLabel" BasedOn="{x:StaticResource DefaultLabel}" TargetType="Label" x:DataType="models:WordGroupInfo">
+                <Setter Property="FontSize" Value="Subtitle"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="MaxLines" Value="2"/>
+                <Setter Property="LineBreakMode" Value="TailTruncation"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="Text" Value="{Binding Name}"/>
+            </Style>
+            <Style x:Key="WordGroupInfoCaptionLabel" BasedOn="{x:StaticResource DefaultLabel}" TargetType="Label" x:DataType="models:WordGroupInfo">
+                <Setter Property="FontSize" Value="Caption"/>
+                <Setter Property="TextColor" Value="{x:StaticResource Gray-500}"/>
+                <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+                <Setter Property="Text" Value="{Binding Path=Count, StringFormat='Count: {0}'}"/>
+            </Style>
+        </ResourceDictionary>
+    </ResourceDictionary>
+</ResourceDictionary>

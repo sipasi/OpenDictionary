@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
+             xmlns:models="clr-namespace:OpenDictionary.Models" 
+             xmlns:cells="clr-namespace:OpenDictionary.Views.Cells" 
+             
+             x:DataType="viewModels:WordGroupInfoList"
+             
+             Title="Dictionaries" 
+             Padding="10,0,10,0"
+             
+             x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
+        <CollectionView ItemsSource="{Binding Groups.Collection}"  
+                        SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2"
+                                 HorizontalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <cells:WordGroupInfoCardCell x:DataType="models:WordGroupInfo" Padding="0,10,0,0">
+                        <cells:WordGroupInfoCardCell.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </cells:WordGroupInfoCardCell.GestureRecognizers>
+                    </cells:WordGroupInfoCardCell>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.Footer>
+                <StackLayout Padding="5"/>
+            </CollectionView.Footer>
+
+            <CollectionView.EmptyView>
+                <Label Text="Empty"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

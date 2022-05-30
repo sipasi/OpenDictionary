@@ -1,16 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Shell 
-    xmlns="http://xamarin.com/schemas/2014/forms"
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:OpenDictionary.MauiProject"
     
     xmlns:pages="clr-namespace:OpenDictionary.Views.Pages"
+
+    Shell.FlyoutBehavior="Disabled"
     
-    x:Class="OpenDictionary.AppShell" >
-    <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-    
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
+    x:Class="OpenDictionary.MauiProject.AppShell">
 
     <Shell.Resources>
         <ResourceDictionary>

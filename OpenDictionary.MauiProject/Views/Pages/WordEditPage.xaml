@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             
+             x:DataType="viewModels:WordEditViewModel"
+             
+             Title="{Binding Word.Origin}"
+             Padding="10"
+             
+             x:Class="OpenDictionary.Views.Pages.WordEditPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="10">
+            <Frame CornerRadius="10">
+                <StackLayout>
+                    <Label Text="Translation" FontAttributes="Bold" FontSize="Medium"/>
+                    <Entry Text="{Binding Word.Translation}" Placeholder="Enter translation"/>
+                </StackLayout>
+            </Frame>
+
+            <Grid VerticalOptions="EndAndExpand" Margin="10,0">
+                <Button Text="Save" Style="{x:StaticResource ButtonOutline}" Command="{Binding SaveCommand}" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,207 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!--<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>-->
+		<TargetFrameworks>net6.0-android;</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!--
+		-->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>OpenDictionary.MauiProject</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>Open Dictionary</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.opendictionary.mauiproject</ApplicationId>
+		<ApplicationIdGuid>D892684D-4E74-4922-80A5-5F0337D5EEA1</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>-->
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\icon_book.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_gamepad_1.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_gamepad_2.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_gamepad_3.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_gamepad_4.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_gamepad_5.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_origin_to_translation.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_settings.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_translation_to_origin.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\ic_launcher_web.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\playstore_icon.png">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</MauiImage>
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\AppIcon\appicon.png" />
+	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
+	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
+	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
+	  <None Remove="Resources\Fonts\Icons\remixicon.ttf" />
+	  <None Remove="Resources\Images\icon_book.png" />
+	  <None Remove="Resources\Images\icon_gamepad_1.png" />
+	  <None Remove="Resources\Images\icon_gamepad_2.png" />
+	  <None Remove="Resources\Images\icon_gamepad_3.png" />
+	  <None Remove="Resources\Images\icon_gamepad_4.png" />
+	  <None Remove="Resources\Images\icon_gamepad_5.png" />
+	  <None Remove="Resources\Images\icon_origin_to_translation.png" />
+	  <None Remove="Resources\Images\icon_settings.png" />
+	  <None Remove="Resources\Images\icon_translation_to_origin.png" />
+	  <None Remove="Resources\Images\ic_launcher_web.png" />
+	  <None Remove="Resources\Images\playstore_icon.png" />
+	  <None Remove="Resources\Raw\Json\Dictionaries.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\appicon.png" ForegroundFile="Resources\AppIcon\appicon_foreground.png">
+	    <SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </MauiIcon>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiFont Include="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
+	  <MauiFont Include="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
+	  <MauiFont Include="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
+	  <MauiFont Include="Resources\Fonts\Icons\remixicon.ttf">
+	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	  </MauiFont>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+	  <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="2.0.2-preview1013" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
+	  <ProjectReference Include="..\Framework.States\Framework.States.csproj" />
+	  <ProjectReference Include="..\Framework.Words\Framework.Words.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Resources\AppIcon\appicon_foreground.png">
+	    <SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </None>
+	  <None Update="Resources\AppIcon\appicon_round.png">
+	    <SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\Popups\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Platforms\Windows\AudioPlayer.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\MauiStyles.xaml">
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Cells\WordGroupInfoCardCell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\WordConformityControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\GameListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\GameOriginToTranslationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\GameTranslationToOriginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\WordDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\WordEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\WordGroupCreatePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\WordGroupDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\WordGroupListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

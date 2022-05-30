@@ -54,7 +54,7 @@ namespace OpenDictionary.ViewModels
                 var result = await storage
                     .Query()
                     .Select(entity => new { Name = entity.Name })
-                    .FirstAsync(entity => entity.Name == group.Name);
+                    .FirstOrDefaultAsync(entity => entity.Name == group.Name);
 
                 if (result == null)
                 {

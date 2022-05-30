@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games"
+             
+             x:DataType="viewModels:GameListViewModel" 
+             
+             Title="Games"
+             Padding="10"
+             
+             x:Class="OpenDictionary.Views.Pages.GameListPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:DataType="viewModels:GameInfo">
+                <Setter Property="IsEnabled" Value="{Binding IsUnlock}"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ErrorLabel" x:DataType="viewModels:GameInfo">
+                <Setter Property="IsVisible" Value="{Binding IsLock}"/>
+                <Setter Property="TextColor" Value="{x:StaticResource Red-500}"/>
+                <Setter Property="FontSize" Value="Caption"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="NameLabel" x:DataType="viewModels:GameInfo">
+                <Setter Property="Text" Value="{Binding Name}"/>
+                <Setter Property="FontSize" Value="Body"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="DescriptionLabel" x:DataType="viewModels:GameInfo">
+                <Setter Property="Text" Value="{Binding Description}"/>
+                <Setter Property="FontSize" Value="Caption"/>
+
+                <Style.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Description.Length}" Value="0">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BindableLayout.ItemsSource="{Binding Games.Collection}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:GameInfo">
+                        <Frame>
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="{Binding Image}" HeightRequest="40"/>
+
+                                <StackLayout Grid.Column="1">
+                                    <Label Style="{x:StaticResource NameLabel}"/>
+                                    <Label Style="{x:StaticResource DescriptionLabel}"/>
+
+                                    <Label Style="{x:StaticResource ErrorLabel}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="You need at least "/>
+                                                <Span Text="{Binding CountToUnlock}"/>
+                                                <Span Text=" words in your dictionary to play this game. Current count is "/>
+                                                <Span Text="{Binding WordCount}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1" 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:GameListViewModel}}, Path=Games.TappedCommand}"
+                                            CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

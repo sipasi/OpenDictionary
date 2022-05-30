@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:models="clr-namespace:OpenDictionary.Models"
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+
+             x:DataType="viewModels:WordGroupEditViewModel"
+             
+             Title="{Binding Name, TargetNullValue='Create Group'}"
+             
+             Padding="10,10,10,0"
+             
+             x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}" />
+        <ToolbarItem Text="Done" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="5">
+            <Label Text="Name" FontSize="Medium" FontAttributes="Bold"/>
+            <Entry Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
+
+            <Label Text="Words" FontSize="Medium" FontAttributes="Bold"/>
+            <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
+            <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+
+            <Button Text="Add" Command="{Binding AddWordCommand}" Style="{StaticResource ButtonOutline}" Margin="20"
+                    TextColor="{x:StaticResource Blue}"/>
+
+            <CollectionView ItemsSource="{Binding Words.Collection}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="0,4">
+                            <Frame IsClippedToBounds="True" HasShadow="True" CornerRadius="8">
+                                <StackLayout x:DataType="models:Word" Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Origin}"/>
+                                        <Label Text="{Binding Translation}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Spacing="20" Padding="20,0,0,0">
+                                        <ImageButton BackgroundColor="Transparent" 
+                                                     Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
+                                                     CommandParameter="{Binding .}">
+                                            <ImageButton.Source>
+                                                <FontImageSource FontFamily="FontAwesomeRegular" 
+                                                                 Glyph="{x:Static fonts:FontAwesomeRegular.TrashCan}"
+                                                                 Color="{AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
+                                                                 Size="32"/>
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
