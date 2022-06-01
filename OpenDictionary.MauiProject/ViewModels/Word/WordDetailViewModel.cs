@@ -3,6 +3,8 @@
 using System;
 using System.Threading.Tasks;
 
+using CommunityToolkit.Maui.Converters;
+
 using Framework.Words;
 using Framework.Words.DictionarySources;
 
@@ -21,8 +23,6 @@ using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
-
-using Xamarin.CommunityToolkit.UI.Views;
 
 namespace OpenDictionary.ViewModels;
 
@@ -111,11 +111,11 @@ public class WordDetailViewModel : WordViewModel
 
         try
         {
-            IWordMetadata? metadata = await GetMetadataFrom(Word.Origin);
+            IWordMetadata? metadata = await GetMetadataFrom(Word.Origin) ?? throw new Exception();
 
             Metadata.Set(metadata);
         }
-        catch (Exception)
+        catch (Exception e)
         {
             MetadataLoadState = LayoutState.Custom;
 

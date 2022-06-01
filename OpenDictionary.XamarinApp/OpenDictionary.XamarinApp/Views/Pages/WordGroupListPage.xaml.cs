@@ -1,10 +1,5 @@
-﻿
-using System.Linq;
-
-using OpenDictionary.Animations;
-using OpenDictionary.Collections.Storages;
+﻿using OpenDictionary.Animations;
 using OpenDictionary.DependencyInjection;
-using OpenDictionary.Models;
 using OpenDictionary.ViewModels;
 
 using Xamarin.Forms;

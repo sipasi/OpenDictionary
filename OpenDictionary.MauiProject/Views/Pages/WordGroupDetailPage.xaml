@@ -31,43 +31,42 @@
         <ToolbarItem Command="{Binding RedirectToGameCommand}" IconImageSource="icon_gamepad_4.png"/>
     </ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding Words.Collection}" x:Name="collectionView">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Word">
-                    <StackLayout Padding="0,10,0,0">
-                        <Frame>
-                            <StackLayout>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer 
+    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words.Collection}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Word">
+                <VerticalStackLayout Padding="0,10,0,0">
+                    <Frame>
+                        <VerticalStackLayout>
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
                                                     NumberOfTapsRequired="1"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=Words.TappedCommand}"
                                                     CommandParameter="{Binding .}"/>
-                                </StackLayout.GestureRecognizers>
-                                <Label Text="{Binding Origin}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
-                            </StackLayout>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                            </VerticalStackLayout.GestureRecognizers>
 
-            <CollectionView.Footer>
-                <StackLayout Padding="5"/>
-            </CollectionView.Footer>
-            <CollectionView.EmptyView>
-                <StackLayout>
-                    <Label HorizontalTextAlignment="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Add your first word " FontAttributes="Bold" FontSize="Title"/>
-                                <Span Text="{x:Static fonts:FontAwesomeRegular.FaceSmileWink}" 
+                            <Label Text="{Binding Origin}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+        <CollectionView.Footer>
+            <StackLayout Padding="5"/>
+        </CollectionView.Footer>
+        <CollectionView.EmptyView>
+            <StackLayout>
+                <Label HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Add your first word " FontAttributes="Bold" FontSize="Title"/>
+                            <Span Text="{x:Static fonts:FontAwesomeRegular.FaceSmileWink}" 
                                   FontFamily="FontAwesomeRegular" FontSize="Title" TextColor="{x:StaticResource Green-400}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
-            </CollectionView.EmptyView>
-        </CollectionView>
-    </ContentPage.Content>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </CollectionView.EmptyView>
+    </CollectionView>
 </ContentPage>

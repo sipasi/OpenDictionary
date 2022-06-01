@@ -17,8 +17,7 @@
     </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
-        <CollectionView ItemsSource="{Binding Groups.Collection}"  
-                        SelectionMode="None">
+        <CollectionView ItemsSource="{Binding Groups.Collection}" SelectionMode="None">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2"
                                  HorizontalItemSpacing="10" />
@@ -26,14 +25,27 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <cells:WordGroupInfoCardCell x:DataType="models:WordGroupInfo" Padding="0,10,0,0">
+                    <Frame Style="{x:StaticResource WordGroupInfoFrame}" Margin="0,10,0,0">
+                        <VerticalStackLayout x:DataType="models:WordGroupInfo">
+                            <Label Style="{x:StaticResource WordGroupInfoTitleLabel}" Margin="0,0,0,10"/>
+                            <Label Style="{x:StaticResource WordGroupInfoCaptionLabel}" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
+                                CommandParameter="{Binding .}"/>
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <!--<cells:WordGroupInfoCardCell x:DataType="models:WordGroupInfo" Padding="0,10,0,0">
                         <cells:WordGroupInfoCardCell.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1" 
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
                                 CommandParameter="{Binding .}"/>
                         </cells:WordGroupInfoCardCell.GestureRecognizers>
-                    </cells:WordGroupInfoCardCell>
+                    </cells:WordGroupInfoCardCell>-->
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 

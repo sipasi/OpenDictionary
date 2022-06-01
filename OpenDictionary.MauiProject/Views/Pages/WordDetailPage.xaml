@@ -4,8 +4,8 @@
              
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
              xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas" 
-             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              
              x:DataType="viewModels:WordDetailViewModel"
              
@@ -15,8 +15,12 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
+
+            <toolkit:EnumToBoolConverter x:Key="LoadingConverter"/>
+            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter"/>
+
             <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
-                <StackLayout>
+                <VerticalStackLayout Spacing="10">
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
@@ -27,7 +31,7 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <StackLayout Spacing="10" Orientation="Horizontal">
+                    <HorizontalStackLayout IsVisible="{Binding Audio, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                         <ImageButton HorizontalOptions="Start" BackgroundColor="Transparent" 
                                      Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
                                      CommandParameter="{Binding Audio}">
@@ -37,21 +41,16 @@
                                                  Color="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
                             </ImageButton.Source>
                         </ImageButton>
-                        <StackLayout.Triggers>
-                            <DataTrigger TargetType="StackLayout" Binding="{Binding Audio}" Value="">
-                                <Setter Property="IsVisible" Value="False"/>
-                            </DataTrigger>
-                        </StackLayout.Triggers>
-                    </StackLayout>
-                </StackLayout>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
             </DataTemplate>
 
             <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
-                <Grid>
+                <Grid ColumnSpacing="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
+                    </Grid.ColumnDefinitions> 
 
                     <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
 
@@ -65,12 +64,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label>
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Path=Example.Length, FallbackValue=0, TargetNullValue=0}" Value="0">
-                                    <Setter Property="IsVisible" Value="False"/>
-                                </DataTrigger>
-                            </Label.Triggers>
+                        <Label IsVisible="{Binding Example, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Example: " FontAttributes="Bold" TextColor="{x:StaticResource Indigo-300}"/>
@@ -93,7 +87,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Label>
+                    <Label IsVisible="{Binding Synonyms, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Synonyms: " FontAttributes="Bold" 
@@ -101,13 +95,8 @@
                                 <Span Text="{Binding Synonyms}"/>
                             </FormattedString>
                         </Label.FormattedText>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding Synonyms.Length}" Value="0">
-                                <Setter Property="IsVisible" Value="False"/>
-                            </DataTrigger>
-                        </Label.Triggers>
                     </Label>
-                    <Label>
+                    <Label IsVisible="{Binding Antonyms, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Antonyms: " FontAttributes="Bold" 
@@ -115,16 +104,37 @@
                                 <Span Text="{Binding Antonyms}"/>
                             </FormattedString>
                         </Label.FormattedText>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding Antonyms.Length}" Value="0">
-                                <Setter Property="IsVisible" Value="False"/>
-                            </DataTrigger>
-                        </Label.Triggers>
                     </Label>
-                    <StackLayout BindableLayout.ItemsSource="{Binding Definitions}"
-                                 BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
+                    <VerticalStackLayout Spacing="10" 
+                                         BindableLayout.ItemsSource="{Binding Definitions}"
+                                         BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
                 </StackLayout>
             </DataTemplate>
+
+            <Style x:Key="LayoutStateLoadingSection" TargetType="VerticalStackLayout">
+                <Setter Property="IsVisible" Value="{Binding 
+                    MetadataLoadState, 
+                    Converter={x:StaticResource LoadingConverter}, 
+                    ConverterParameter={x:Static toolkit:LayoutState.Loading}}"/>
+            </Style>
+            <Style x:Key="LayoutStateSuccessSection" TargetType="VerticalStackLayout">
+                <Setter Property="IsVisible" Value="{Binding 
+                    MetadataLoadState, 
+                    Converter={x:StaticResource LoadingConverter}, 
+                    ConverterParameter={x:Static toolkit:LayoutState.Success}}"/>
+            </Style>
+            <Style x:Key="LayoutStateNotFoundSection" TargetType="VerticalStackLayout">
+                <Setter Property="IsVisible" Value="{Binding 
+                    MetadataLoadState, 
+                    Converter={x:StaticResource LoadingConverter}, 
+                    ConverterParameter={x:Static toolkit:LayoutState.Error}}"/>
+            </Style>
+            <Style x:Key="LayoutStateNotInternetSection" TargetType="VerticalStackLayout">
+                <Setter Property="IsVisible" Value="{Binding 
+                    MetadataLoadState, 
+                    Converter={x:StaticResource LoadingConverter}, 
+                    ConverterParameter={x:Static toolkit:LayoutState.Error}}"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -147,9 +157,9 @@
 
     <ContentPage.Content>
         <ScrollView VerticalScrollBarVisibility="Never">
-            <StackLayout Spacing="10" Padding="10">
+            <VerticalStackLayout Spacing="10" Padding="10">
                 <Frame>
-                    <StackLayout>
+                    <VerticalStackLayout>
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
@@ -166,53 +176,41 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                    </StackLayout>
+                    </VerticalStackLayout>
                 </Frame>
 
-                <StackLayout toolkit:StateLayout.CurrentState="{Binding MetadataLoadState, Mode=TwoWay}" 
-                         toolkit:StateLayout.CurrentCustomStateKey="{Binding MetadataCustomState, Mode=TwoWay}">
-                    <toolkit:StateLayout.StateViews>
-                        <toolkit:StateView StateKey="Loading">
-                            <StackLayout>
-                                <ActivityIndicator IsRunning="True"/>
-                                <Label Text="Finding..."/>
-                            </StackLayout>
-                        </toolkit:StateView>
-                        <toolkit:StateView StateKey="Success">
-                            <StackLayout Spacing="10">
-                                <Frame>
-                                    <StackLayout>
-                                        <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+                <VerticalStackLayout Style="{x:StaticResource LayoutStateLoadingSection}">
+                    <ActivityIndicator IsRunning="True"/>
+                    <Label Text="Finding..." HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
 
-                                        <StackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
+                <Frame>
+                    <VerticalStackLayout>
+                        <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
                                          BindableLayout.ItemTemplate="{x:StaticResource PhoneticObservableItemTemplate}" 
                                          Spacing="20"/>
-                                    </StackLayout>
-                                </Frame>
+                    </VerticalStackLayout>
+                </Frame>
 
-                                <Frame Grid.Row="1">
-                                    <StackLayout>
-                                        <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
 
-                                        <StackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
                                          BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"/>
-                                    </StackLayout>
-                                </Frame>
-                            </StackLayout>
-                        </toolkit:StateView>
-                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NoInternetConnection}">
-                            <StackLayout>
-                                <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-                            </StackLayout>
-                        </toolkit:StateView>
-                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NotFound}">
-                            <StackLayout>
-                                <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-                            </StackLayout>
-                        </toolkit:StateView>
-                    </toolkit:StateLayout.StateViews>
-                </StackLayout>
-            </StackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <VerticalStackLayout Style="{x:StaticResource LayoutStateNotInternetSection}">
+                    <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Style="{x:StaticResource LayoutStateNotFoundSection}">
+                    <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

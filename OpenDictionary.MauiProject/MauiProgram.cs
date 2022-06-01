@@ -22,10 +22,10 @@ public static class MauiProgram
                 fonts.AddFont(filename: "OpenSans-Regular.ttf", alias: "OpenSansRegular");
                 fonts.AddFont(filename: "OpenSans-Semibold.ttf", alias: "OpenSansSemibold");
 
-                fonts.AddFont(filename: "Icons/Font Awesome 6 Brands-Regular-400.otf", alias: nameof(FontAwesomeBrands));
-                fonts.AddFont(filename: "Icons/Font Awesome 6 Regular-400.otf", alias: nameof(FontAwesomeRegular));
-                fonts.AddFont(filename: "Icons/Font Awesome 6 Solid-900.otf", alias: nameof(FontAwesomeSolid));
-                fonts.AddFont(filename: "Icons/remixicon.ttf", alias: nameof(RemixIcon));
+                fonts.AddFont(filename: "Font Awesome 6 Brands-Regular-400.otf", alias: nameof(FontAwesomeBrands));
+                fonts.AddFont(filename: "Font Awesome 6 Regular-400.otf", alias: nameof(FontAwesomeRegular));
+                fonts.AddFont(filename: "Font Awesome 6 Solid-900.otf", alias: nameof(FontAwesomeSolid));
+                fonts.AddFont(filename: "remixicon.ttf", alias: nameof(RemixIcon));
             });
 
         return builder.Build();

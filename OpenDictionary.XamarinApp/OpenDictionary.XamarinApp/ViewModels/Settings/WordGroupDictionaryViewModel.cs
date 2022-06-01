@@ -46,7 +46,7 @@ namespace OpenDictionary.ViewModels
 
                 return;
             }
-             
+
             int count = 0;
 
             foreach (var group in groups)

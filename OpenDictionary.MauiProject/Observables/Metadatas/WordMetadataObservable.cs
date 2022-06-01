@@ -51,7 +51,7 @@ public class WordMetadataObservable : ViewModel
         {
             Value = phonetic.Value,
             Audio = phonetic.Audio,
-        });
+        }).ToArray();
 
         Phonetics.AddRange(observables);
     }
