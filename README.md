@@ -4,15 +4,14 @@ A simple implementation of dictionary that allows you writing and grouping words
 
 
 ## Screenshots
-
-![Dictionaries Page](Screenshots\dictionaries.png)
-![Dictionary Details Page](Screenshots\dictionary-details.png)
-![Word Details Page](Screenshots\word-details.png)
-![Games Page](Screenshots\games.png)
-![Game Origin To Translation Page](Screenshots\game-origin-to-translation.png)
-![Settings Page](Screenshots\settings.png)
-
-
+ 
+<img src="Screenshots/dictionaries.png" height="400"><img/> 
+<img src="Screenshots/dictionary-details.png" height="400"><img/> 
+<img src="Screenshots/word-details.png" height="400"><img/> 
+<img src="Screenshots/games.png" height="400"><img/> 
+<img src="Screenshots/game-origin-to-translation.png" height="400"><img/> 
+<img src="Screenshots/settings.png" height="400"><img/>  
+ 
 ## ToDo List
 
 - [ ] Migrate to Maui
