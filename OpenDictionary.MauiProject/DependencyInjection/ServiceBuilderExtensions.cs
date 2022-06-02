@@ -1,12 +1,12 @@
 ﻿using Framework.DependencyInjection;
-using Framework.Words.DictionarySources;
-using Framework.Words.Parsers;
 
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.AppDatabase;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
+using OpenDictionary.RemoteDictionaries.Parsers;
+using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;

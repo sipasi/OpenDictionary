@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Maui.Converters;
 
-using Framework.Words;
-using Framework.Words.DictionarySources;
-
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Networking;
 
@@ -16,8 +13,8 @@ using MvvmHelpers.Commands;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Models.Extensions;
 using OpenDictionary.Observables.Metadatas;
+using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
@@ -111,7 +108,7 @@ public class WordDetailViewModel : WordViewModel
 
         try
         {
-            IWordMetadata? metadata = await GetMetadataFrom(Word.Origin) ?? throw new Exception();
+            WordMetadata? metadata = await GetMetadataFrom(Word.Origin) ?? throw new Exception();
 
             Metadata.Set(metadata);
         }
@@ -190,9 +187,9 @@ public class WordDetailViewModel : WordViewModel
         return navigation.GoToAsync<WordEditPage>(parameter: nameof(IEntity.Id), Id);
     }
 
-    private async Task<IWordMetadata?> GetMetadataFrom(string word)
+    private async Task<WordMetadata?> GetMetadataFrom(string word)
     {
-        IWordMetadata? metadata = await metadataStorage
+        WordMetadata? metadata = await metadataStorage
             .Query()
             .IncludeAll()
             .GetByWord(word);
@@ -206,11 +203,8 @@ public class WordDetailViewModel : WordViewModel
                 return null;
             }
 
-            WordMetadata clone = metadata.Clone();
-
-            await metadataStorage.AddAsync(clone);
+            await metadataStorage.AddAsync(metadata);
         }
-
 
         return metadata;
     }

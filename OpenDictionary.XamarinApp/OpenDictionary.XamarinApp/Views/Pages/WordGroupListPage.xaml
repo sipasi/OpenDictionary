@@ -2,11 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
-             xmlns:models="clr-namespace:OpenDictionary.Models" 
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:cells="clr-namespace:OpenDictionary.Views.Cells" 
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
-             
              x:DataType="viewModels:WordGroupInfoList"
              
              Title="Dictionaries" 

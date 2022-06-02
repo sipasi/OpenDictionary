@@ -3,14 +3,11 @@
 using System;
 using System.Threading.Tasks;
 
-using Framework.Words;
-using Framework.Words.DictionarySources;
-
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Models.Extensions;
 using OpenDictionary.Observables.Metadatas;
+using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
@@ -109,7 +106,7 @@ namespace OpenDictionary.ViewModels
 
             try
             {
-                IWordMetadata? metadata = await GetMetadataFrom(Word.Origin);
+                WordMetadata? metadata = await GetMetadataFrom(Word.Origin);
 
                 Metadata.Set(metadata);
             }
@@ -188,9 +185,9 @@ namespace OpenDictionary.ViewModels
             return navigation.GoToAsync<WordEditPage>(parameter: nameof(IEntity.Id), Id);
         }
 
-        private async Task<IWordMetadata?> GetMetadataFrom(string word)
+        private async Task<WordMetadata?> GetMetadataFrom(string word)
         {
-            IWordMetadata? metadata = await metadataStorage
+            WordMetadata? metadata = await metadataStorage
                 .Query()
                 .IncludeAll()
                 .GetByWord(word);
@@ -204,11 +201,8 @@ namespace OpenDictionary.ViewModels
                     return null;
                 }
 
-                WordMetadata clone = metadata.Clone();
-
-                await metadataStorage.AddAsync(clone);
+                await metadataStorage.AddAsync(metadata);
             }
-
 
             return metadata;
         }

@@ -15,7 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.XamarinApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.XamarinApp.Android", "OpenDictionary.XamarinApp\OpenDictionary.XamarinApp.Android\OpenDictionary.XamarinApp.Android.csproj", "{A7AF7757-7A5F-4662-9707-06FF35ECAB5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.MauiProject", "OpenDictionary.MauiProject\OpenDictionary.MauiProject.csproj", "{FBFB8773-9346-4DD2-99C7-50B598F43587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.MauiProject", "OpenDictionary.MauiProject\OpenDictionary.MauiProject.csproj", "{FBFB8773-9346-4DD2-99C7-50B598F43587}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Shared", "OpenDictionary.Shared\OpenDictionary.Shared.csproj", "{1310C445-F8F4-490F-A400-3EBFF0C5311D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.RemoteDictionaries", "OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj", "{C791528D-F9F4-4F3A-B4E5-51A29265D665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Models", "OpenDictionary.Models\OpenDictionary.Models.csproj", "{3C058127-E65F-4D8D-9602-CDBE0F77F92B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.RemoteDictionaries.Tests", "OpenDictionary.RemoteDictionaries.Tests\OpenDictionary.RemoteDictionaries.Tests.csproj", "{AD90A4EA-284E-4A77-8100-184595C1EA91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,9 +65,35 @@ Global
 		{FBFB8773-9346-4DD2-99C7-50B598F43587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBFB8773-9346-4DD2-99C7-50B598F43587}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBFB8773-9346-4DD2-99C7-50B598F43587}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C058127-E65F-4D8D-9602-CDBE0F77F92B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C058127-E65F-4D8D-9602-CDBE0F77F92B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C058127-E65F-4D8D-9602-CDBE0F77F92B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C058127-E65F-4D8D-9602-CDBE0F77F92B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{92D8194E-4B16-4B89-9271-A34D2DF32B1F} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{A93C4B78-8C56-4115-8155-9128EDEAAE60} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{44286B16-195C-48DD-BFB4-73018D06EFCC} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{1310C445-F8F4-490F-A400-3EBFF0C5311D} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{C791528D-F9F4-4F3A-B4E5-51A29265D665} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{3C058127-E65F-4D8D-9602-CDBE0F77F92B} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{AD90A4EA-284E-4A77-8100-184595C1EA91} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21D67BBD-9611-4551-8913-FD16833412F1}

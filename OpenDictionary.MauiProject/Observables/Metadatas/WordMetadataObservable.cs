@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Framework.Words;
-
 using MvvmHelpers;
 
+using OpenDictionary.Models;
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Observables.Metadatas;
@@ -24,7 +23,7 @@ public class WordMetadataObservable : ViewModel
         Meanings = new ObservableRangeCollection<MeaningObservable>();
     }
 
-    public void Set(IWordMetadata metadata)
+    public void Set(WordMetadata metadata)
     {
         Value = metadata.Value;
 
@@ -45,7 +44,7 @@ public class WordMetadataObservable : ViewModel
         Meanings.Clear();
     }
 
-    private void AddPhonetics(IEnumerable<IPhonetic> phonetics)
+    private void AddPhonetics(IEnumerable<Phonetic> phonetics)
     {
         var observables = phonetics.Select(phonetic => new PhoneticObservable
         {
@@ -56,15 +55,15 @@ public class WordMetadataObservable : ViewModel
         Phonetics.AddRange(observables);
     }
 
-    private void AddMeanings(IEnumerable<IMeaning> meanings)
+    private void AddMeanings(IEnumerable<Meaning> meanings)
     {
         var observables = meanings.Select(meaning =>
         {
             var observable = new MeaningObservable
             {
                 PartOfSpeech = meaning.PartOfSpeech,
-                Synonyms = string.Join(", ", meaning.Synonyms),
-                Antonyms = string.Join(", ", meaning.Antonyms),
+                Synonyms = string.Join(", ", meaning.Synonyms.Select(entity => entity.Value)),
+                Antonyms = string.Join(", ", meaning.Antonyms.Select(entity => entity.Value)),
             };
 
 
@@ -75,7 +74,7 @@ public class WordMetadataObservable : ViewModel
 
         Meanings.AddRange(observables);
     }
-    private void AddDefinitions(IEnumerable<IWordDefinition> definitions, MeaningObservable meaning)
+    private void AddDefinitions(IEnumerable<Definition> definitions, MeaningObservable meaning)
     {
         var observables = definitions.Select(definition => new DefinitionObservable
         {

@@ -140,7 +140,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
 	  <ProjectReference Include="..\Framework.States\Framework.States.csproj" />
-	  <ProjectReference Include="..\Framework.Words\Framework.Words.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
