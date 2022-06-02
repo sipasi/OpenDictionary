@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
+    <ProjectReference Include="..\OpenDictionary.Structures\OpenDictionary.Structures.csproj" />
+    <ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

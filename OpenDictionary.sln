@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Words", "Framework.Words\Framework.Words.csproj", "{92D8194E-4B16-4B89-9271-A34D2DF32B1F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.DependencyInjection", "Framework.DependencyInjections\Framework.DependencyInjection.csproj", "{A93C4B78-8C56-4115-8155-9128EDEAAE60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.States", "Framework.States\Framework.States.csproj", "{44286B16-195C-48DD-BFB4-73018D06EFCC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Words.Tests", "Framework.Words.Tests\Framework.Words.Tests.csproj", "{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.XamarinApp", "OpenDictionary.XamarinApp\OpenDictionary.XamarinApp\OpenDictionary.XamarinApp.csproj", "{2B21E90D-7D89-49B3-B5ED-DF1275A66A28}"
 EndProject
@@ -21,11 +17,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Shared", "Op
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.RemoteDictionaries", "OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj", "{C791528D-F9F4-4F3A-B4E5-51A29265D665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.RemoteDictionaries", "OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj", "{C791528D-F9F4-4F3A-B4E5-51A29265D665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Models", "OpenDictionary.Models\OpenDictionary.Models.csproj", "{3C058127-E65F-4D8D-9602-CDBE0F77F92B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Models", "OpenDictionary.Models\OpenDictionary.Models.csproj", "{3C058127-E65F-4D8D-9602-CDBE0F77F92B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.RemoteDictionaries.Tests", "OpenDictionary.RemoteDictionaries.Tests\OpenDictionary.RemoteDictionaries.Tests.csproj", "{AD90A4EA-284E-4A77-8100-184595C1EA91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.RemoteDictionaries.Tests", "OpenDictionary.RemoteDictionaries.Tests\OpenDictionary.RemoteDictionaries.Tests.csproj", "{AD90A4EA-284E-4A77-8100-184595C1EA91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.ViewModels", "OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj", "{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Collections", "OpenDictionary.Collections\OpenDictionary.Collections.csproj", "{FB158D60-16EE-4972-951B-35CF3E159F66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Services", "OpenDictionary.Services\OpenDictionary.Services.csproj", "{587A68D3-16E9-4E0F-91D0-F90386F21E54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Structures", "OpenDictionary.Structures\OpenDictionary.Structures.csproj", "{F477EAB8-5B13-4743-A465-582939E4E103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Observables", "OpenDictionary.Observables\OpenDictionary.Observables.csproj", "{6CA2B514-0B68-4994-9195-3F9D623FD7D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Games", "OpenDictionary.Games\OpenDictionary.Games.csproj", "{55EFED1B-0832-4112-9DB4-B2105346005F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +41,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{92D8194E-4B16-4B89-9271-A34D2DF32B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92D8194E-4B16-4B89-9271-A34D2DF32B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92D8194E-4B16-4B89-9271-A34D2DF32B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92D8194E-4B16-4B89-9271-A34D2DF32B1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A93C4B78-8C56-4115-8155-9128EDEAAE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,10 +49,6 @@ Global
 		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44286B16-195C-48DD-BFB4-73018D06EFCC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B21E90D-7D89-49B3-B5ED-DF1275A66A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B21E90D-7D89-49B3-B5ED-DF1275A66A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B21E90D-7D89-49B3-B5ED-DF1275A66A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,19 +81,47 @@ Global
 		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD90A4EA-284E-4A77-8100-184595C1EA91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB158D60-16EE-4972-951B-35CF3E159F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB158D60-16EE-4972-951B-35CF3E159F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB158D60-16EE-4972-951B-35CF3E159F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB158D60-16EE-4972-951B-35CF3E159F66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{587A68D3-16E9-4E0F-91D0-F90386F21E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{587A68D3-16E9-4E0F-91D0-F90386F21E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{587A68D3-16E9-4E0F-91D0-F90386F21E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{587A68D3-16E9-4E0F-91D0-F90386F21E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F477EAB8-5B13-4743-A465-582939E4E103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F477EAB8-5B13-4743-A465-582939E4E103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F477EAB8-5B13-4743-A465-582939E4E103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F477EAB8-5B13-4743-A465-582939E4E103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA2B514-0B68-4994-9195-3F9D623FD7D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA2B514-0B68-4994-9195-3F9D623FD7D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA2B514-0B68-4994-9195-3F9D623FD7D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA2B514-0B68-4994-9195-3F9D623FD7D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EFED1B-0832-4112-9DB4-B2105346005F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EFED1B-0832-4112-9DB4-B2105346005F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EFED1B-0832-4112-9DB4-B2105346005F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EFED1B-0832-4112-9DB4-B2105346005F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{92D8194E-4B16-4B89-9271-A34D2DF32B1F} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{A93C4B78-8C56-4115-8155-9128EDEAAE60} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{44286B16-195C-48DD-BFB4-73018D06EFCC} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
-		{2F72D677-2B12-4D58-9D35-5FEE4F07BD5B} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{1310C445-F8F4-490F-A400-3EBFF0C5311D} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{C791528D-F9F4-4F3A-B4E5-51A29265D665} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{3C058127-E65F-4D8D-9602-CDBE0F77F92B} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{AD90A4EA-284E-4A77-8100-184595C1EA91} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{FB158D60-16EE-4972-951B-35CF3E159F66} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{587A68D3-16E9-4E0F-91D0-F90386F21E54} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{F477EAB8-5B13-4743-A465-582939E4E103} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{6CA2B514-0B68-4994-9195-3F9D623FD7D6} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
+		{55EFED1B-0832-4112-9DB4-B2105346005F} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21D67BBD-9611-4551-8913-FD16833412F1}

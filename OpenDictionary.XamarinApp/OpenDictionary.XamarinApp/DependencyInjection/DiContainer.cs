@@ -6,9 +6,11 @@ using OpenDictionary.DependencyInjection.Extensions;
 
 namespace OpenDictionary.DependencyInjection
 {
-    internal class DiContainer
+    internal sealed class DiContainer
     {
         private static IDiContainer container;
+
+        private DiContainer() { }
 
         public static void Init()
         {
@@ -18,8 +20,9 @@ namespace OpenDictionary.DependencyInjection
                 .ConfigureViewModels()
                 .ConfigureDialogs()
                 .ConfigureToastMessages()
-                .ConfigureNavigation()
                 .ConfigureOnlineDictionary()
+                .ConfigureNavigation()
+                .ConfigureIO()
                 .ConfigureAudio()
                 .ConfigureDatabase();
 

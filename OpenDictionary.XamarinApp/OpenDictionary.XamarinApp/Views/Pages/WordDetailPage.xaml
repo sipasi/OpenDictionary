@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
-             xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas" 
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
+             xmlns:viewModelsError="clr-namespace:OpenDictionary.ViewModels;assembly=OpenDictionary.ViewModels"
+             xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-             
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit" 
              x:DataType="viewModels:WordDetailViewModel"
              
              Title="Word Details"
@@ -201,7 +201,7 @@
                                 </Frame>
                             </StackLayout>
                         </toolkit:StateView>
-                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NoInternetConnection}">
+                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModelsError:ErrorStates.NoInternetConnection}">
                             <StackLayout>
                                 <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
                                 <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"
@@ -210,7 +210,7 @@
                                   HeightRequest="300"/>
                             </StackLayout>
                         </toolkit:StateView>
-                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModels:ErrorStates.NotFound}">
+                        <toolkit:StateView StateKey="Custom" CustomStateKey="{x:Static viewModelsError:ErrorStates.NotFound}">
                             <StackLayout>
                                 <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
                                 <lottie:AnimationView AnimationSource="EmbeddedResource" RepeatMode="Infinite"

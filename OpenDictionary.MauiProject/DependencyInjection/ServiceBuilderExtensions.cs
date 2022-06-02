@@ -1,6 +1,7 @@
 ﻿using Framework.DependencyInjection;
 
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
 
 using OpenDictionary.AppDatabase;
 using OpenDictionary.Collections.Storages;
@@ -8,6 +9,7 @@ using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Toasts;
@@ -63,6 +65,14 @@ internal static class ServiceBuilderExtensions
         builder.singleton
             .Add<IAlertMessageService, AlertMessageService>()
             .Add<IDialogMessageService, DialogMessageService>();
+
+        return builder;
+    }
+    public static ServiceBuilder ConfigureIO(this ServiceBuilder builder)
+    {
+        IAppDirectoryService appDirectory = new AppDirectoryService(FileSystem.AppDataDirectory, FileSystem.CacheDirectory);
+
+        builder.singleton.Add<IAppDirectoryService>(appDirectory);
 
         return builder;
     }

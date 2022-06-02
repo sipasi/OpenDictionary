@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using Framework.States;
 
-
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Collections.Tools;

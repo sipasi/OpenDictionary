@@ -96,6 +96,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Views\Popups\**" />
+	  <Compile Remove="Views\Popups\**" />
+	  <EmbeddedResource Remove="Views\Popups\**" />
+	  <MauiCss Remove="Views\Popups\**" />
+	  <MauiXaml Remove="Views\Popups\**" />
+	  <None Remove="Views\Popups\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.png" />
 	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
 	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
@@ -140,8 +149,13 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
 	  <ProjectReference Include="..\Framework.States\Framework.States.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.csproj" />
 	  <ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
 	  <ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
+	  <ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -153,10 +167,6 @@
 	    <SubType>Designer</SubType>
 	    <Generator></Generator>
 	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\Popups\" />
 	</ItemGroup>
 
 	<ItemGroup>

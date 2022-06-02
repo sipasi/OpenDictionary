@@ -6,6 +6,7 @@ using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Toasts;
@@ -16,6 +17,7 @@ using OpenDictionary.XamarinApp.Services.Messages.Alerts;
 using OpenDictionary.XamarinApp.Services.Messages.Dialogs;
 using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace OpenDictionary.DependencyInjection.Extensions
@@ -56,6 +58,14 @@ namespace OpenDictionary.DependencyInjection.Extensions
             builder.singleton
                 .Add<IAlertMessageService, AlertMessageService>()
                 .Add<IDialogMessageService, DialogMessageService>();
+
+            return builder;
+        }
+        public static ServiceBuilder ConfigureIO(this ServiceBuilder builder)
+        {
+            IAppDirectoryService appDirectory = new AppDirectoryService(FileSystem.AppDataDirectory, FileSystem.CacheDirectory);
+
+            builder.singleton.Add<IAppDirectoryService>(appDirectory);
 
             return builder;
         }

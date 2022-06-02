@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
-             xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas" 
+             xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              
@@ -50,7 +50,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions> 
+                    </Grid.ColumnDefinitions>
 
                     <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
 

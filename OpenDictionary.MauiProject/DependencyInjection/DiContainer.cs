@@ -20,6 +20,7 @@ internal class DiContainer
             .ConfigureToastMessages()
             .ConfigureNavigation()
             .ConfigureOnlineDictionary()
+            .ConfigureIO()
             .ConfigureAudio()
             .ConfigureDatabase();
 

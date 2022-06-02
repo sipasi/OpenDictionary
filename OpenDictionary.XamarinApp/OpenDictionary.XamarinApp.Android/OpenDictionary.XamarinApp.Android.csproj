@@ -247,6 +247,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\OpenDictionary.Services\OpenDictionary.Services.csproj">
+      <Project>{587A68D3-16E9-4E0F-91D0-F90386F21E54}</Project>
+      <Name>OpenDictionary.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenDictionary.XamarinApp\OpenDictionary.XamarinApp.csproj">
       <Project>{2b21e90d-7d89-49b3-b5ed-df1275a66a28}</Project>
       <Name>OpenDictionary.XamarinApp</Name>

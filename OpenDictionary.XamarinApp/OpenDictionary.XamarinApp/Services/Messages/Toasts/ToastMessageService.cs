@@ -11,18 +11,18 @@ namespace OpenDictionary.XamarinApp.Services.Messages.Toasts
 {
     public class ToastMessageService : IToastMessageService
     {
-        public Task Show(string message, Color background, Color foreground)
+        public Task Show(string message)
         {
             MessageOptions messageOptions = new MessageOptions()
             {
                 Font = Font.SystemFontOfSize(20),
-                Foreground = foreground,
+                Foreground = Color.White,
                 Message = message,
             };
 
             ToastOptions options = new ToastOptions
             {
-                BackgroundColor = background,
+                BackgroundColor = Color.Black,
                 CornerRadius = new Thickness(10),
                 Duration = System.TimeSpan.FromSeconds(1),
                 MessageOptions = messageOptions
