@@ -1,6 +1,7 @@
 ﻿using Framework.States;
 
-using OpenDictionary.Observables.Games;
+using OpenDictionary.Games.WordConformities.Observables;
+
 namespace OpenDictionary.Games.WordConformities.States
 {
     public class WaitAnswerState : WordConformityState

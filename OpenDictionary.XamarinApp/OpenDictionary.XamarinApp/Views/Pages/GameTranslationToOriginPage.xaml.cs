@@ -9,13 +9,11 @@ namespace OpenDictionary.Views.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GameTranslationToOriginPage : ContentPage
     {
-        private readonly TranslationToOriginViewModel viewModel;
-
         public GameTranslationToOriginPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = DiContainer.Get<TranslationToOriginViewModel>();
+            BindingContext = DiContainer.Get<TranslationToOriginViewModel>();
         }
     }
 }

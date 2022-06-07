@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
      
     xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"  
-    xmlns:models="clr-namespace:OpenDictionary.Models"
+    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
     
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--Default Styles-->
@@ -33,7 +33,6 @@
         <Style TargetType="Frame" BasedOn="{x:StaticResource DefaultFrame}"/>
         <Style TargetType="Entry" BasedOn="{x:StaticResource DefaultEntry}"/>
         <Style TargetType="Button" BasedOn="{x:StaticResource DefaultButton}"/>
-        <Style TargetType="controls:ButtonLowercase" BasedOn="{x:StaticResource DefaultButton}"/>
 
         <Style x:Key="ButtonOutline" TargetType="Button">
             <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -104,7 +103,7 @@
         <ResourceDictionary>
             <Style x:Key="WordGroupInfoFrame" TargetType="Frame">
                 <Setter Property="Padding" Value="10"/>
-                <Setter Property="Margin" Value="0,10,0,0"/> 
+                <Setter Property="Margin" Value="0,10,0,0"/>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="VerticalOptions" Value="FillAndExpand"/>
             </Style>

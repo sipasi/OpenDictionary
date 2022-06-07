@@ -5,7 +5,7 @@ using Microsoft.Maui.Controls;
 
 using OpenDictionary.Services.Messages.Alerts;
 
-namespace OpenDictionary.XamarinApp.Services.Messages.Alerts;
+namespace OpenDictionary.MauiProject.Services.Messages.Alerts;
 
 internal class AlertMessageService : IAlertMessageService
 {

@@ -18,6 +18,7 @@ using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
 
@@ -184,7 +185,7 @@ public class WordDetailViewModel : WordViewModel
 
     private Task RedirectToEdit()
     {
-        return navigation.GoToAsync<WordEditPage>(parameter: nameof(IEntity.Id), Id);
+        return navigation.GoToAsync(AppRoutes.Word.Edit, parameter: nameof(IEntity.Id), Id);
     }
 
     private async Task<WordMetadata?> GetMetadataFrom(string word)

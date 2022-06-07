@@ -1,7 +1,7 @@
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.Observables.Games;
-using OpenDictionary.ViewModels.Games;
+using OpenDictionary.Games.WordConformities.Observables;
+using OpenDictionary.Games.WordConformities.ViewModels;
 
 namespace OpenDictionary.Views.Controls;
 

@@ -6,7 +6,7 @@ using CommunityToolkit.Maui.Core;
 
 using OpenDictionary.Services.Messages.Toasts;
 
-namespace OpenDictionary.XamarinApp.Services.Messages.Toasts;
+namespace OpenDictionary.MauiProject.Services.Messages.Toasts;
 
 public class ToastMessageService : IToastMessageService
 {

@@ -9,7 +9,7 @@ using OpenDictionary.Models;
 using OpenDictionary.Structures.Randoms;
 using OpenDictionary.ViewModels;
 
-namespace OpenDictionary.Observables.Games
+namespace OpenDictionary.Games.WordConformities.Observables
 {
     public class AnswerButtonCollection : CollectionViewModel<AnswerButtonObservable>
     {

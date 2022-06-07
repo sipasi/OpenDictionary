@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 
+using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.Views.Pages;
 
 namespace OpenDictionary.MauiProject;
@@ -10,13 +11,13 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
-        Routing.RegisterRoute(nameof(WordGroupCreatePage), typeof(WordGroupCreatePage));
-        Routing.RegisterRoute(nameof(WordGroupDetailPage), typeof(WordGroupDetailPage));
-        Routing.RegisterRoute(nameof(WordDetailPage), typeof(WordDetailPage));
-        Routing.RegisterRoute(nameof(WordEditPage), typeof(WordEditPage));
+        Routing.RegisterRoute(AppRoutes.WordGroup.Create, typeof(WordGroupCreatePage));
+        Routing.RegisterRoute(AppRoutes.WordGroup.Detail, typeof(WordGroupDetailPage));
+        Routing.RegisterRoute(AppRoutes.Word.Detail, typeof(WordDetailPage));
+        Routing.RegisterRoute(AppRoutes.Word.Edit, typeof(WordEditPage));
 
-        Routing.RegisterRoute(nameof(GameListPage), typeof(GameListPage));
-        Routing.RegisterRoute(nameof(GameOriginToTranslationPage), typeof(GameOriginToTranslationPage));
-        Routing.RegisterRoute(nameof(GameTranslationToOriginPage), typeof(GameTranslationToOriginPage));
+        Routing.RegisterRoute(AppRoutes.Game.List, typeof(GameListPage));
+        Routing.RegisterRoute(AppRoutes.Game.OriginToTranslation, typeof(GameOriginToTranslationPage));
+        Routing.RegisterRoute(AppRoutes.Game.TranslationToOrigin, typeof(GameTranslationToOriginPage));
     }
 }

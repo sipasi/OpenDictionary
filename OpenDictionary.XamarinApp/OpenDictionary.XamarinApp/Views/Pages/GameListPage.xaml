@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              
+             xmlns:observables="clr-namespace:OpenDictionary.Games.WordConformities.Observables;assembly=OpenDictionary.Games" 
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games"
              
              x:DataType="viewModels:GameListViewModel" 
@@ -13,21 +14,21 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="Frame" x:DataType="viewModels:GameInfo">
+            <Style TargetType="Frame" x:DataType="observables:GameInfo">
                 <Setter Property="IsEnabled" Value="{Binding IsUnlock}"/>
             </Style>
-            <Style TargetType="Label" x:Key="ErrorLabel" x:DataType="viewModels:GameInfo">
+            <Style TargetType="Label" x:Key="ErrorLabel" x:DataType="observables:GameInfo">
                 <Setter Property="IsVisible" Value="{Binding IsLock}"/>
                 <Setter Property="TextColor" Value="{x:StaticResource Red-500}"/>
                 <Setter Property="FontSize" Value="Caption"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
-            <Style TargetType="Label" x:Key="NameLabel" x:DataType="viewModels:GameInfo">
+            <Style TargetType="Label" x:Key="NameLabel" x:DataType="observables:GameInfo">
                 <Setter Property="Text" Value="{Binding Name}"/>
                 <Setter Property="FontSize" Value="Body"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
-            <Style TargetType="Label" x:Key="DescriptionLabel" x:DataType="viewModels:GameInfo">
+            <Style TargetType="Label" x:Key="DescriptionLabel" x:DataType="observables:GameInfo">
                 <Setter Property="Text" Value="{Binding Description}"/>
                 <Setter Property="FontSize" Value="Caption"/>
 
@@ -44,7 +45,7 @@
         <StackLayout>
             <StackLayout BindableLayout.ItemsSource="{Binding Games.Collection}">
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="viewModels:GameInfo">
+                    <DataTemplate x:DataType="observables:GameInfo">
                         <Frame>
                             <Grid ColumnSpacing="20">
                                 <Grid.ColumnDefinitions>

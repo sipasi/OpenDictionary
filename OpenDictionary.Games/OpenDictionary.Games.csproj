@@ -9,6 +9,7 @@
     <ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
     <ProjectReference Include="..\Framework.States\Framework.States.csproj" />
     <ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
+    <ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
   </ItemGroup>
 
 </Project>

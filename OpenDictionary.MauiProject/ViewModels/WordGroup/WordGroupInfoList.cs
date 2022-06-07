@@ -5,6 +5,7 @@ using MvvmHelpers.Commands;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.Views.Pages;
 
 namespace OpenDictionary.ViewModels;
@@ -26,13 +27,13 @@ public sealed class WordGroupInfoList : WordGroupInfoListBase
 
     private Task OnCreateItemReditected()
     {
-        return navigation.GoToAsync<WordGroupCreatePage>();
+        return navigation.GoToAsync(AppRoutes.WordGroup.Create);
     }
 
     protected override Task OnTapped(WordGroupInfo item)
     {
         if (item == null) return Task.CompletedTask;
 
-        return navigation.GoToAsync<WordGroupDetailPage>(parameter: nameof(WordGroup.Id), value: item.Id.ToString());
+        return navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString());
     }
 }

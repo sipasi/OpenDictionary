@@ -2,9 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games"
-             xmlns:observables="clr-namespace:OpenDictionary.Observables.Games"
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
+             xmlns:viewModels="clr-namespace:OpenDictionary.Games.WordConformities.ViewModels;assembly=OpenDictionary.Games"
              
              x:DataType="viewModels:WordConformityViewModel"
              

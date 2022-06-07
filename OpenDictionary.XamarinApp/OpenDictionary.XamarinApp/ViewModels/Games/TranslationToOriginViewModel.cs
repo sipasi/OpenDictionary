@@ -1,17 +1,14 @@
-﻿
-
-using OpenDictionary.Collections.Storages;
+﻿using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
+
+using Xamarin.Forms;
 
 namespace OpenDictionary.ViewModels.Games
 {
-    public class TranslationToOriginViewModel : WordConformityViewModel
+    [QueryProperty(nameof(Id), nameof(Id))]
+    internal class TranslationToOriginViewModel : OpenDictionary.Games.WordConformities.ViewModels.TranslationToOriginViewModel
     {
         public TranslationToOriginViewModel(IStorage<WordGroup> storage)
             : base(storage) { }
-
-        protected override string GetButtonText(Word word) => word.Origin;
-
-        protected override string GetQuestionText(Word word) => word.Translation;
     }
 }

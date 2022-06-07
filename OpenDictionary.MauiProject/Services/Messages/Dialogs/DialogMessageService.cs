@@ -5,7 +5,7 @@ using Microsoft.Maui.Controls;
 
 using OpenDictionary.Services.Messages.Dialogs;
 
-namespace OpenDictionary.XamarinApp.Services.Messages.Dialogs;
+namespace OpenDictionary.MauiProject.Services.Messages.Dialogs;
 
 internal class DialogMessageService : IDialogMessageService
 {

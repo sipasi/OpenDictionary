@@ -9,7 +9,7 @@ using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
-using OpenDictionary.Views.Pages;
+using OpenDictionary.Services.Navigations.Routes; 
 
 namespace OpenDictionary.ViewModels;
 
@@ -54,7 +54,7 @@ public class WordGroupViewModel : ViewModel
     {
         TappedWord = item;
 
-        return navigation.GoToAsync<WordDetailPage>(parameter: nameof(Word.Id), value: item.Id.ToString());
+        return navigation.GoToAsync(AppRoutes.Word.Detail, parameter: nameof(Word.Id), value: item.Id.ToString());
     }
 
     public async Task Load()

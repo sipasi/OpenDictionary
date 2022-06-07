@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.XamarinApp.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.MauiProject", "OpenDictionary.MauiProject\OpenDictionary.MauiProject.csproj", "{FBFB8773-9346-4DD2-99C7-50B598F43587}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Shared", "OpenDictionary.Shared\OpenDictionary.Shared.csproj", "{1310C445-F8F4-490F-A400-3EBFF0C5311D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.RemoteDictionaries", "OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj", "{C791528D-F9F4-4F3A-B4E5-51A29265D665}"
@@ -23,17 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Models", "Op
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.RemoteDictionaries.Tests", "OpenDictionary.RemoteDictionaries.Tests\OpenDictionary.RemoteDictionaries.Tests.csproj", "{AD90A4EA-284E-4A77-8100-184595C1EA91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.ViewModels", "OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj", "{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.ViewModels", "OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj", "{7A010E41-7BA6-4D92-A0B9-7257BD1E6F80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Collections", "OpenDictionary.Collections\OpenDictionary.Collections.csproj", "{FB158D60-16EE-4972-951B-35CF3E159F66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Collections", "OpenDictionary.Collections\OpenDictionary.Collections.csproj", "{FB158D60-16EE-4972-951B-35CF3E159F66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Services", "OpenDictionary.Services\OpenDictionary.Services.csproj", "{587A68D3-16E9-4E0F-91D0-F90386F21E54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Services", "OpenDictionary.Services\OpenDictionary.Services.csproj", "{587A68D3-16E9-4E0F-91D0-F90386F21E54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Structures", "OpenDictionary.Structures\OpenDictionary.Structures.csproj", "{F477EAB8-5B13-4743-A465-582939E4E103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Structures", "OpenDictionary.Structures\OpenDictionary.Structures.csproj", "{F477EAB8-5B13-4743-A465-582939E4E103}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Observables", "OpenDictionary.Observables\OpenDictionary.Observables.csproj", "{6CA2B514-0B68-4994-9195-3F9D623FD7D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Observables", "OpenDictionary.Observables\OpenDictionary.Observables.csproj", "{6CA2B514-0B68-4994-9195-3F9D623FD7D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Games", "OpenDictionary.Games\OpenDictionary.Games.csproj", "{55EFED1B-0832-4112-9DB4-B2105346005F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Games", "OpenDictionary.Games\OpenDictionary.Games.csproj", "{55EFED1B-0832-4112-9DB4-B2105346005F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +63,6 @@ Global
 		{FBFB8773-9346-4DD2-99C7-50B598F43587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBFB8773-9346-4DD2-99C7-50B598F43587}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBFB8773-9346-4DD2-99C7-50B598F43587}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1310C445-F8F4-490F-A400-3EBFF0C5311D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C791528D-F9F4-4F3A-B4E5-51A29265D665}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -112,7 +106,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A93C4B78-8C56-4115-8155-9128EDEAAE60} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{44286B16-195C-48DD-BFB4-73018D06EFCC} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
-		{1310C445-F8F4-490F-A400-3EBFF0C5311D} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{C791528D-F9F4-4F3A-B4E5-51A29265D665} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{3C058127-E65F-4D8D-9602-CDBE0F77F92B} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}
 		{AD90A4EA-284E-4A77-8100-184595C1EA91} = {5B18D3E4-3F15-42FE-B9BD-C473D119FFD7}

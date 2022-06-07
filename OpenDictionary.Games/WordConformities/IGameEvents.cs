@@ -1,6 +1,6 @@
 ﻿using System;
 
-using OpenDictionary.Observables.Games;
+using OpenDictionary.Games.WordConformities.Observables;
 
 namespace OpenDictionary.Games.WordConformities
 {

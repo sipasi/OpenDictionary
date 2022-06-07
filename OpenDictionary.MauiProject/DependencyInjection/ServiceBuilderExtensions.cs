@@ -5,6 +5,9 @@ using Microsoft.Maui.Storage;
 
 using OpenDictionary.AppDatabase;
 using OpenDictionary.Collections.Storages;
+using OpenDictionary.MauiProject.Services.Messages.Alerts;
+using OpenDictionary.MauiProject.Services.Messages.Dialogs;
+using OpenDictionary.MauiProject.Services.Messages.Toasts;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;
@@ -16,9 +19,6 @@ using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
 using OpenDictionary.ViewModels.Games;
-using OpenDictionary.XamarinApp.Services.Messages.Alerts;
-using OpenDictionary.XamarinApp.Services.Messages.Dialogs;
-using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 namespace OpenDictionary.DependencyInjection.Extensions;
 

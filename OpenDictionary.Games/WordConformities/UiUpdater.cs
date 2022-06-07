@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using OpenDictionary.Games.WordConformities.Observables;
 using OpenDictionary.Models;
-using OpenDictionary.Observables.Games;
 
 namespace OpenDictionary.Games.WordConformities
 {

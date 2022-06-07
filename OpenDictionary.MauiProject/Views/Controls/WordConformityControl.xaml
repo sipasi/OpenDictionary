@@ -2,16 +2,15 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Games"
-             xmlns:observables="clr-namespace:OpenDictionary.Observables.Games"
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
+             xmlns:viewModels="clr-namespace:OpenDictionary.Games.WordConformities.ViewModels;assembly=OpenDictionary.Games"
              
              x:DataType="viewModels:WordConformityViewModel"
              
              x:Class="OpenDictionary.Views.Controls.WordConformityControl">
-    
+
     <ContentView.Resources>
-        <Style TargetType="controls:ButtonLowercase" BasedOn="{x:StaticResource ButtonOutline}">
+        <Style TargetType="Button" BasedOn="{x:StaticResource ButtonOutline}">
             <Setter Property="HeightRequest" Value="80"/>
         </Style>
         <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
@@ -51,7 +50,7 @@
                 <Label Text="{Binding Properties.Question}" FontAttributes="Bold"
                        TextColor="{AppThemeBinding Dark={x:StaticResource Blue-300}, Light={x:StaticResource Blue-400}}"/>
 
-                <Grid x:Name="answerButtons">
+                <Grid x:Name="answerButtons" ColumnSpacing="10" RowSpacing="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -60,11 +59,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
- 
-                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="0" Padding="10"/>
-                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="0" Padding="10"/>
-                    <controls:ButtonLowercase Grid.Column="0" Grid.Row="1" Padding="10"/>
-                    <controls:ButtonLowercase Grid.Column="1" Grid.Row="1" Padding="10"/>
+
+                    <Button Grid.Column="0" Grid.Row="0" />
+                    <Button Grid.Column="1" Grid.Row="0" />
+                    <Button Grid.Column="0" Grid.Row="1" />
+                    <Button Grid.Column="1" Grid.Row="1" />
                 </Grid>
             </StackLayout>
         </StackLayout>

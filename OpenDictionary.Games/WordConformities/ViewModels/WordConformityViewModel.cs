@@ -4,20 +4,18 @@ using System.Threading.Tasks;
 
 using Framework.States;
 
+using MvvmHelpers;
+
 using OpenDictionary.Collections.Storages;
-using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Collections.Tools;
-using OpenDictionary.Games.WordConformities;
+using OpenDictionary.Games.WordConformities.Observables;
 using OpenDictionary.Games.WordConformities.States;
 using OpenDictionary.Models;
-using OpenDictionary.Observables.Games;
+using OpenDictionary.ViewModels;
 
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
 
-namespace OpenDictionary.ViewModels.Games
+namespace OpenDictionary.Games.WordConformities.ViewModels
 {
-    [QueryProperty(nameof(Id), nameof(Id))]
     public abstract class WordConformityViewModel : ViewModel
     {
         private string id;
@@ -64,14 +62,15 @@ namespace OpenDictionary.ViewModels.Games
             machine = creator.Create(Properties, events, ui);
         }
 
-        private async void Load()
+        private void Load()
         {
             Guid guid = Guid.Parse(id);
 
-            WordGroup group = await storage
+            WordGroup group = storage
                 .Query()
-                .IncludeAll()
-                .GetById(guid);
+                .Where(x => x.Id == guid)
+                .Select(entity => new WordGroup { Name = entity.Name, Words = entity.Words })
+                .First();
 
             Word[] array = group.Words.ToArray();
 

@@ -1,5 +1,5 @@
-﻿using OpenDictionary.Observables.Games;
-using OpenDictionary.ViewModels.Games;
+﻿using OpenDictionary.Games.WordConformities.Observables;
+using OpenDictionary.Games.WordConformities.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

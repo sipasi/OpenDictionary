@@ -7,6 +7,7 @@ using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels.Helpers;
 using OpenDictionary.Views.Pages;
 
@@ -37,11 +38,11 @@ namespace OpenDictionary.ViewModels
 
         private async Task OnRedirectToGame()
         {
-            await navigation.GoToAsync<GameListPage>(parameter: nameof(WordGroup.Id), value: Id);
+            await navigation.GoToAsync(AppRoutes.Game.List, parameter: nameof(WordGroup.Id), value: Id);
         }
         private async Task OnRedirectToEdit()
         {
-            await navigation.GoToAsync<WordGroupCreatePage>(parameter: nameof(WordGroup.Id), value: Id);
+            await navigation.GoToAsync(AppRoutes.WordGroup.Create, parameter: nameof(WordGroup.Id), value: Id);
         }
         private async Task OnDelete()
         {

@@ -12,17 +12,6 @@ namespace OpenDictionary.Models;
 
 internal static class WordGroupJsonFile
 {
-    private static readonly string embeddedPath = "OpenDictionary.XamarinApp.Assets.Json.Dictionaries.json";
-
-    public static async Task<WordGroup[]?> Load()
-    {
-        using StreamReader reader = await GetReader();
-
-        string json = reader.ReadToEnd();
-
-        return DeserializeAndFillDates(json);
-    }
-
     public static async Task<WordGroup[]?> LoadAsync()
     {
         using StreamReader reader = await GetReader();
@@ -69,7 +58,9 @@ internal static class WordGroupJsonFile
 
     private static Task<Stream> GetStream()
     {
-        Task<Stream> stream = FileSystem.OpenAppPackageFileAsync("Json/Dictionaries.json");
+        const string path = "Json/Dictionaries.json";
+
+        Task<Stream> stream = FileSystem.OpenAppPackageFileAsync(path);
 
         return stream;
     }
