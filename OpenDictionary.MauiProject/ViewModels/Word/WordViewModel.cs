@@ -3,73 +3,75 @@
 using System;
 using System.Threading.Tasks;
 
-using Microsoft.Maui.Controls;
-
-using MvvmHelpers.Commands;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Words;
+using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
 
-public class WordViewModel : ViewModel
+[INotifyPropertyChanged]
+public partial class WordViewModel
 {
     private string id;
 
+    [ObservableProperty]
+    private WordObservable word;
+
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;
+    private readonly IAlertMessageService alert;
 
     public string Id
     {
         get => id;
         set
         {
-            id = value;
+            SetProperty(ref id, value);
 
-            _ = Load();
+            LoadWordDataCommand.ExecuteAsync(default);
         }
     }
 
-    public bool IsNew => string.IsNullOrWhiteSpace(id);
-
-    public WordObservable Word { get; }
-    public AsyncCommand LoadWordDataCommand { get; }
-
-    public WordViewModel(IStorage<Word> wordStorage, INavigationService navigation)
+    public WordViewModel(IStorage<Word> wordStorage, INavigationService navigation, IAlertMessageService alert)
     {
         this.wordStorage = wordStorage;
         this.navigation = navigation;
+        this.alert = alert;
 
         id = string.Empty;
 
-        Word = new WordObservable();
-
-        LoadWordDataCommand = new AsyncCommand(LoadWord);
+        word = new WordObservable();
     }
 
-    protected virtual async ValueTask Load()
+    protected virtual Task OnWordLoaded()
     {
-        await LoadWord();
+        return Task.CompletedTask;
     }
 
-    private async Task LoadWord()
+    [RelayCommand]
+    private async Task LoadWordData()
     {
         try
         {
-            if (IsNew)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 throw new NotSupportedException();
             }
 
             Guid guid = Guid.Parse(id);
 
-            Word word = await wordStorage.Query().GetById(guid);
+            Word loaded = await wordStorage.Query().GetById(guid);
 
-            Word.Origin = word!.Origin;
-            Word.Translation = word!.Translation;
+            word.Origin = loaded!.Origin;
+            word.Translation = loaded!.Translation;
+
+            await OnWordLoaded();
         }
         catch (Exception e)
         {
@@ -79,12 +81,12 @@ public class WordViewModel : ViewModel
         }
     }
 
-    protected static Task ErrorMessage(Exception exception)
+    protected Task ErrorMessage(Exception exception)
     {
         string title = nameof(WordEditViewModel);
         string message = exception.Message;
         string cancel = "Close";
 
-        return Shell.Current.DisplayAlert(title, message, cancel);
+        return alert.Show(title, message, cancel);
     }
 }

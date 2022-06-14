@@ -4,6 +4,8 @@
              
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
              
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
+             
              x:DataType="viewModels:WordEditViewModel"
              
              Title="{Binding Word.Origin}"
@@ -11,7 +13,13 @@
              
              x:Class="OpenDictionary.Views.Pages.WordEditPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}"/>
+        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="RemixIcon"
+                    Glyph="{x:Static fonts:RemixIcon.ArrowGoBackLine}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

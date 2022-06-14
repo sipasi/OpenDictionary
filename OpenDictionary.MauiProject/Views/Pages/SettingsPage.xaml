@@ -5,6 +5,7 @@
              xmlns:maui="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials" 
              xmlns:viewmodels="clr-namespace:OpenDictionary.ViewModels" 
              xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
              
              x:DataType="viewmodels:SettingsViewModel"
                
@@ -14,8 +15,20 @@
              x:Class="OpenDictionary.Views.Pages.SettingsPage">
 
     <ContentPage.Resources>
-        <Style TargetType="Label">
+        <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
             <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style TargetType="VerticalStackLayout">
+            <Setter Property="Spacing" Value="14"/>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonOutline}">
+
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={x:StaticResource White}, Dark={x:StaticResource Dark}}"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
             <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
     </ContentPage.Resources>
@@ -27,7 +40,7 @@
                     <VerticalStackLayout>
                         <Label Text="Theme Color"/>
 
-                        <VerticalStackLayout x:Name="radioGroup" 
+                        <VerticalStackLayout x:Name="radioGroup" Spacing="5"
                                  RadioButtonGroup.GroupName="theme-color" 
                                  RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}">
                             <RadioButton Content="Day" Value="{x:Static maui:AppTheme.Light}"/>
@@ -40,7 +53,6 @@
                         <Label Text="Share As"/>
 
                         <Button Text="Json File"
-                                Style="{x:StaticResource ButtonOutline}" 
                                 Command="{Binding ImportExport.ShareCommand}" 
                                 CommandParameter="{x:Static viewmodels:ShareOptions.JsonFile}"/>
                     </VerticalStackLayout>
@@ -49,8 +61,7 @@
                     <VerticalStackLayout>
                         <Label Text="Import From"/>
 
-                        <Button Text="Json File"
-                                Style="{x:StaticResource ButtonOutline}" 
+                        <Button Text="Json File" 
                                 Command="{Binding ImportExport.ImportCommand}"/>
                     </VerticalStackLayout>
                 </Frame>
@@ -58,13 +69,14 @@
                     <VerticalStackLayout>
                         <Label Text="Dictionaries"/>
 
-                        <Button Text="Add preinstalled" 
-                                Style="{x:StaticResource ButtonOutline}"
+                        <VerticalStackLayout Spacing="0"> 
+                            <Button Text="Add preinstalled"
                                 Command="{Binding WordGroup.AddPreinstalledlCommand}"
                                 Margin="0,0,0,10"/>
-                        <Button Text="Delete All" 
+                            <Button Text="Delete All" 
                                 Style="{x:StaticResource ButtonOutlineRed}"
                                 Command="{Binding WordGroup.DeleteAllCommand}"/>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>

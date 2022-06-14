@@ -36,8 +36,8 @@
                                      Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
                                      CommandParameter="{Binding Audio}">
                             <ImageButton.Source>
-                                <FontImageSource FontFamily="FontAwesomeRegular" 
-                                                 Glyph="{x:Static fonts:FontAwesomeRegular.CirclePlay}"
+                                <FontImageSource FontFamily="RemixIcon" 
+                                                 Glyph="{x:Static fonts:RemixIcon.PlayCircleLine}"
                                                  Color="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
                             </ImageButton.Source>
                         </ImageButton>
@@ -54,7 +54,7 @@
 
                     <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
 
-                    <StackLayout Grid.Column="1">
+                    <VerticalStackLayout Grid.Column="1">
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
@@ -72,12 +72,12 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                    </StackLayout>
+                    </VerticalStackLayout>
                 </Grid>
             </DataTemplate>
 
             <DataTemplate x:Key="MeaningObservableItemTemplate" x:DataType="observables:MeaningObservable">
-                <StackLayout>
+                <VerticalStackLayout>
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
@@ -108,7 +108,7 @@
                     <VerticalStackLayout Spacing="10" 
                                          BindableLayout.ItemsSource="{Binding Definitions}"
                                          BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
-                </StackLayout>
+                </VerticalStackLayout>
             </DataTemplate>
 
             <Style x:Key="LayoutStateLoadingSection" TargetType="VerticalStackLayout">
@@ -139,78 +139,76 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding DeleteCommand}">
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="FontAwesomeRegular"
-                    Glyph="{x:Static fonts:FontAwesomeRegular.TrashCan}"/>
+                    FontFamily="RemixIcon"
+                    Glyph="{x:Static fonts:RemixIcon.DeleteBinLine}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
-        <ToolbarItem Command="{Binding RedirectToEditCommand}">
+        <ToolbarItem Text="Edit" Command="{Binding RedirectToEditCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="FontAwesomeRegular"
-                    Glyph="{x:Static fonts:FontAwesomeRegular.PenToSquare}"/>
+                    FontFamily="RemixIcon"
+                    Glyph="{x:Static fonts:RemixIcon.EditLine}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
-        <ScrollView VerticalScrollBarVisibility="Never">
-            <VerticalStackLayout Spacing="10" Padding="10">
-                <Frame>
-                    <VerticalStackLayout>
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Origin: " FontAttributes="Bold"/>
-                                    <Span Text="{Binding Word.Origin}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Translation: " FontAttributes="Bold"/>
-                                    <Span Text="{Binding Word.Translation}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <VerticalStackLayout Style="{x:StaticResource LayoutStateLoadingSection}">
-                    <ActivityIndicator IsRunning="True"/>
-                    <Label Text="Finding..." HorizontalTextAlignment="Center"/>
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="10" Padding="10">
+            <Frame>
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Origin: " FontAttributes="Bold"/>
+                                <Span Text="{Binding Word.Origin}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Translation: " FontAttributes="Bold"/>
+                                <Span Text="{Binding Word.Translation}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </VerticalStackLayout>
+            </Frame>
 
-                <Frame>
-                    <VerticalStackLayout>
-                        <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+            <VerticalStackLayout Style="{x:StaticResource LayoutStateLoadingSection}">
+                <ActivityIndicator IsRunning="True"/>
+                <Label Text="Finding..." HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
 
-                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
+            <Frame>
+                <VerticalStackLayout>
+                    <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
                                          BindableLayout.ItemTemplate="{x:StaticResource PhoneticObservableItemTemplate}" 
                                          Spacing="20"/>
-                    </VerticalStackLayout>
-                </Frame>
+                </VerticalStackLayout>
+            </Frame>
 
-                <Frame>
-                    <VerticalStackLayout>
-                        <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
+            <Frame>
+                <VerticalStackLayout>
+                    <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
 
-                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
                                          BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"/>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <VerticalStackLayout Style="{x:StaticResource LayoutStateNotInternetSection}">
-                    <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
                 </VerticalStackLayout>
+            </Frame>
 
-                <VerticalStackLayout Style="{x:StaticResource LayoutStateNotFoundSection}">
-                    <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-                </VerticalStackLayout>
+            <VerticalStackLayout Style="{x:StaticResource LayoutStateNotInternetSection}">
+                <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
             </VerticalStackLayout>
-        </ScrollView>
-    </ContentPage.Content>
+
+            <VerticalStackLayout Style="{x:StaticResource LayoutStateNotFoundSection}">
+                <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

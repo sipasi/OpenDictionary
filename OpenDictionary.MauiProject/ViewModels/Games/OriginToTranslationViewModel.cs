@@ -10,8 +10,4 @@ public class OriginToTranslationViewModel : OpenDictionary.Games.WordConformitie
 {
     public OriginToTranslationViewModel(IStorage<WordGroup> storage)
         : base(storage) { }
-
-    protected override string GetButtonText(Word word) => word.Translation;
-
-    protected override string GetQuestionText(Word word) => word.Origin;
 }

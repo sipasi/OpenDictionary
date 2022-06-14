@@ -18,6 +18,7 @@
         <Style x:Key="DefaultFrame" TargetType="Frame">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"/>
             <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="HasShadow" Value="False"/>
         </Style>
         <Style x:Key="DefaultEntry" TargetType="Entry">
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>

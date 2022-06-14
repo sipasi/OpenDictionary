@@ -18,6 +18,10 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="Span">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
     </ContentView.Resources>
 
     <ContentView.Content>
@@ -25,7 +29,7 @@
             <StackLayout >
                 <Label Text="{Binding Properties.GroupName}" MaxLines="2" LineBreakMode="TailTruncation"/>
                 <StackLayout Orientation="Horizontal">
-                    <Label FontSize="Title" HorizontalOptions="StartAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
+                    <Label HorizontalOptions="StartAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{Binding Properties.Correct}" TextColor="{x:StaticResource Green-400}"/>
@@ -34,7 +38,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Label FontSize="Title" HorizontalOptions="EndAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
+                    <Label HorizontalOptions="EndAndExpand" FontAttributes="Bold" HorizontalTextAlignment="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{Binding Properties.Answered}"/>

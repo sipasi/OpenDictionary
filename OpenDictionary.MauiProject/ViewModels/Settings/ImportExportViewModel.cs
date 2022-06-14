@@ -54,15 +54,36 @@ public class ImportExportViewModel : ViewModel
             return;
         }
 
-        await toast.ShowAfter(() => ShareAsJson(picked.FullPath));
+        await toast.ShowAfter(() => ImportFromJson(picked.FullPath));
     }
-    private async ValueTask<bool> ShareAsJson(string path)
+    private async ValueTask<bool> ImportFromJson(string path)
     {
         StreamReader reader = new StreamReader(path);
 
         string json = await reader.ReadToEndAsync();
 
-        WordGroup[]? groups = JsonConvert.DeserializeObject<WordGroup[]>(json);
+        WordGroup[]? groups = default;
+
+        try
+        {
+            bool isArray = json.StartsWith('[');
+
+            if (isArray)
+            {
+                groups = JsonConvert.DeserializeObject<WordGroup[]>(json);
+            }
+
+            var group = JsonConvert.DeserializeObject<WordGroup>(json);
+
+            if (group is not null)
+            {
+                groups = new[]
+                {
+                    group
+                };
+            }
+        }
+        catch { }
 
         if (groups is null)
         {

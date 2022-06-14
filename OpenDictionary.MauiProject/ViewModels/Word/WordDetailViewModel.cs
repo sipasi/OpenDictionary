@@ -4,11 +4,11 @@ using System;
 using System.Threading.Tasks;
 
 using CommunityToolkit.Maui.Converters;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Networking;
-
-using MvvmHelpers.Commands;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
@@ -16,16 +16,16 @@ using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels.Helpers;
-using OpenDictionary.Views.Pages;
 
 namespace OpenDictionary.ViewModels;
 
 [QueryProperty(nameof(Id), nameof(Id))]
-public class WordDetailViewModel : WordViewModel
+public sealed partial class WordDetailViewModel : WordViewModel
 {
     private readonly IStorage<Word> wordStorage;
     private readonly IStorage<WordMetadata> metadataStorage;
@@ -35,37 +35,22 @@ public class WordDetailViewModel : WordViewModel
     private readonly IPhoneticFilesService phoneticFiles;
     private readonly IDictionarySource source;
 
+    [ObservableProperty]
     private LayoutState metadataLoadState;
+    [ObservableProperty]
     private string? metadataCustomState;
 
-    public LayoutState MetadataLoadState
-    {
-        get => metadataLoadState;
-        set => SetProperty(ref metadataLoadState, value);
-    }
-    public string? MetadataCustomState
-    {
-        get => metadataCustomState;
-        set => SetProperty(ref metadataCustomState, value);
-    }
-
     public WordMetadataObservable Metadata { get; }
-
-    public AsyncCommand DeleteCommand { get; }
-
-    public AsyncCommand RedirectToEditCommand { get; }
-    public AsyncCommand LoadMetaDataCommand { get; }
-
-    public AsyncCommand<string> PlayAudioCommand { get; }
 
     public WordDetailViewModel(
         IStorage<Word> wordStorage,
         IStorage<WordMetadata> metadataStorage,
         INavigationService navigation,
         IDialogMessageService dialog,
+        IAlertMessageService alert,
         IAudioPlayerServise audioPlayer,
         IPhoneticFilesService phoneticStorage,
-        IDictionarySource source) : base(wordStorage, navigation)
+        IDictionarySource source) : base(wordStorage, navigation, alert)
     {
         this.wordStorage = wordStorage;
         this.metadataStorage = metadataStorage;
@@ -78,23 +63,14 @@ public class WordDetailViewModel : WordViewModel
         Metadata = new WordMetadataObservable();
         MetadataLoadState = LayoutState.None;
         MetadataCustomState = null;
-
-        DeleteCommand = new AsyncCommand(OnDelete);
-
-        RedirectToEditCommand = new AsyncCommand(RedirectToEdit);
-
-        LoadMetaDataCommand = new AsyncCommand(LoadMetadata);
-
-        PlayAudioCommand = new AsyncCommand<string>(PlayAudio);
     }
 
-    protected override async ValueTask Load()
+    protected override Task OnWordLoaded()
     {
-        await base.Load();
-
-        await LoadMetadata();
+        return LoadMetadata();
     }
 
+    [RelayCommand]
     private async Task LoadMetadata()
     {
         if (string.IsNullOrWhiteSpace(Word.Origin))
@@ -126,12 +102,15 @@ public class WordDetailViewModel : WordViewModel
                 MetadataCustomState = ErrorStates.NoInternetConnection;
             }
 
+            await ErrorMessage(e);
+
             return;
         }
 
         MetadataLoadState = LayoutState.Success;
     }
 
+    [RelayCommand]
     private async Task PlayAudio(string? path)
     {
         string? source = path;
@@ -165,6 +144,7 @@ public class WordDetailViewModel : WordViewModel
         }
     }
 
+    [RelayCommand]
     private async Task OnDelete()
     {
         IStorage<Word> storage = wordStorage;
@@ -183,6 +163,7 @@ public class WordDetailViewModel : WordViewModel
         }
     }
 
+    [RelayCommand]
     private Task RedirectToEdit()
     {
         return navigation.GoToAsync(AppRoutes.Word.Edit, parameter: nameof(IEntity.Id), Id);

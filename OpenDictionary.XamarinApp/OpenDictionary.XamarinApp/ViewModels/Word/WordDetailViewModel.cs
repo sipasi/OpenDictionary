@@ -13,7 +13,6 @@ using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels.Helpers;
-using OpenDictionary.Views.Pages;
 
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UI.Views;

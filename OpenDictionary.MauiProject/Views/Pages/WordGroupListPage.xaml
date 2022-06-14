@@ -5,47 +5,42 @@
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:cells="clr-namespace:OpenDictionary.Views.Cells" 
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
              
              x:DataType="viewModels:WordGroupInfoList"
-             
-             Title="Dictionaries" 
+              
              Padding="10,0,10,0"
              
              x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}" />
+        <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
         <CollectionView ItemsSource="{Binding Groups.Collection}" SelectionMode="None">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2"
-                                 HorizontalItemSpacing="10" />
+                <GridItemsLayout Orientation="Vertical" 
+                                 Span="{x:OnIdiom Phone=2, Tablet=3, Desktop=4}" 
+                                 HorizontalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Style="{x:StaticResource WordGroupInfoFrame}" Margin="0,10,0,0">
-                        <VerticalStackLayout x:DataType="models:WordGroupInfo">
-                            <Label Style="{x:StaticResource WordGroupInfoTitleLabel}" Margin="0,0,0,10"/>
-                            <Label Style="{x:StaticResource WordGroupInfoCaptionLabel}" />
+                    <Grid>
+                        <Frame Style="{x:StaticResource WordGroupInfoFrame}" >
+                            <VerticalStackLayout x:DataType="models:WordGroupInfo" Spacing="20">
+                                <Label Style="{x:StaticResource WordGroupInfoTitleLabel}" />
+                                <Label Style="{x:StaticResource WordGroupInfoCaptionLabel}" />
+                            </VerticalStackLayout>
 
-                            <VerticalStackLayout.GestureRecognizers>
+                            <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
                                 NumberOfTapsRequired="1" 
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
                                 CommandParameter="{Binding .}"/>
-                            </VerticalStackLayout.GestureRecognizers>
-                        </VerticalStackLayout>
-                    </Frame>
-                    <!--<cells:WordGroupInfoCardCell x:DataType="models:WordGroupInfo" Padding="0,10,0,0">
-                        <cells:WordGroupInfoCardCell.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1" 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
-                                CommandParameter="{Binding .}"/>
-                        </cells:WordGroupInfoCardCell.GestureRecognizers>
-                    </cells:WordGroupInfoCardCell>-->
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
@@ -54,7 +49,7 @@
             </CollectionView.Footer>
 
             <CollectionView.EmptyView>
-                <Label Text="Empty"/>
+                <Label Text="Empty" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
         </CollectionView>
     </RefreshView>

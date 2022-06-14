@@ -11,62 +11,75 @@
              Title="{Binding Name}"
              Padding="10,0,10,0"
              
-             x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage"  >
+             x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="FontImageSource">
+                <Setter Property="Size" Value="24"/>
+            </Style>
+            <DataTemplate x:Key="WordGroupInfoDataTemplate" x:DataType="models:Word">
+                <Grid>
+                    <Frame Style="{StaticResource WordGroupInfoFrame}">
+                        <VerticalStackLayout Spacing="20">
+                            <Label Text="{Binding Origin}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
+                        </VerticalStackLayout>
+                         
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=Words.TappedCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="EmptyViewDataTemplate">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="Add your first word" 
+                       FontAttributes="Bold" FontSize="Title" 
+                       TextColor="{StaticResource Blue-400}"/>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding DeleteCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="FontAwesomeRegular"
-                    Glyph="{x:Static fonts:FontAwesomeRegular.TrashCan}"/>
+                    FontFamily="RemixIcon"
+                    Glyph="{x:Static fonts:RemixIcon.DeleteBinLine}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Command="{Binding RedirectToEditCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource 
-                    FontFamily="FontAwesomeRegular"
-                    Glyph="{x:Static fonts:FontAwesomeRegular.PenToSquare}"/>
+                    FontFamily="RemixIcon"
+                    Glyph="{x:Static fonts:RemixIcon.EditLine}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
-        <ToolbarItem Command="{Binding RedirectToGameCommand}" IconImageSource="icon_gamepad_4.png"/>
+        <ToolbarItem Command="{Binding RedirectToGameCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource 
+                    FontFamily="RemixIcon"
+                    Glyph="{x:Static fonts:RemixIcon.GamepadLine}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words.Collection}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:Word">
-                <VerticalStackLayout Padding="0,10,0,0">
-                    <Frame>
-                        <VerticalStackLayout>
-                            <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                                    NumberOfTapsRequired="1"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=Words.TappedCommand}"
-                                                    CommandParameter="{Binding .}"/>
-                            </VerticalStackLayout.GestureRecognizers>
-
-                            <Label Text="{Binding Origin}" FontAttributes="Bold"/>
-                            <Label Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </VerticalStackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
+    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words.Collection}"
+                    ItemTemplate="{StaticResource WordGroupInfoDataTemplate}"
+                    EmptyViewTemplate="{StaticResource EmptyViewDataTemplate}">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical" 
+                             HorizontalItemSpacing="10"
+                             Span="{OnIdiom Phone=2, Tablet=4,Desktop=5}"/>
+        </CollectionView.ItemsLayout>
 
         <CollectionView.Footer>
-            <StackLayout Padding="5"/>
+            <HorizontalStackLayout Margin="5"/>
         </CollectionView.Footer>
-        <CollectionView.EmptyView>
-            <StackLayout>
-                <Label HorizontalTextAlignment="Center">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Add your first word " FontAttributes="Bold" FontSize="Title"/>
-                            <Span Text="{x:Static fonts:FontAwesomeRegular.FaceSmileWink}" 
-                                  FontFamily="FontAwesomeRegular" FontSize="Title" TextColor="{x:StaticResource Green-400}"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </StackLayout>
-        </CollectionView.EmptyView>
     </CollectionView>
 </ContentPage>

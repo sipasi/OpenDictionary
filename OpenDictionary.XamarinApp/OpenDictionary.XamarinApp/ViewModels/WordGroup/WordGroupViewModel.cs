@@ -8,7 +8,6 @@ using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
-using OpenDictionary.Views.Pages;
 
 using Xamarin.Forms;
 

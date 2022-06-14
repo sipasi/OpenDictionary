@@ -3,39 +3,35 @@
 using System;
 using System.Threading.Tasks;
 
-using MvvmHelpers.Commands;
+using CommunityToolkit.Mvvm.Input;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
+using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
 
 [Microsoft.Maui.Controls.QueryProperty(nameof(Id), nameof(Id))]
-public class WordEditViewModel : WordViewModel
+public partial class WordEditViewModel : WordViewModel
 {
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;
 
-    public AsyncCommand SaveCommand { get; }
-    public Command DiscardCommand { get; }
-
-    public WordEditViewModel(IStorage<Word> wordStorage, INavigationService navigation) : base(wordStorage, navigation)
+    public WordEditViewModel(IStorage<Word> wordStorage, INavigationService navigation, IAlertMessageService alert) : base(wordStorage, navigation, alert)
     {
         this.wordStorage = wordStorage;
         this.navigation = navigation;
 
-        SaveCommand = new AsyncCommand(OnSave, ValidateSave);
-        DiscardCommand = new Command(OnDiscard);
-
         Word.PropertyChanged += (_, __) =>
         {
-            SaveCommand.RaiseCanExecuteChanged();
+            SaveCommand.NotifyCanExecuteChanged();
         };
     }
 
-    private async Task OnSave()
+    [RelayCommand(CanExecute = nameof(ValidateSave))]
+    private async Task Save()
     {
         Guid guid = Guid.Parse(Id);
 
@@ -49,13 +45,14 @@ public class WordEditViewModel : WordViewModel
         // This will pop the current page off the navigation stack
         await navigation.GoBackAsync();
     }
-    private async void OnDiscard()
+    [RelayCommand]
+    private async Task Discard()
     {
         // This will pop the current page off the navigation stack
         await navigation.GoBackAsync();
     }
 
-    private bool ValidateSave(object _)
+    private bool ValidateSave()
     {
         return string.IsNullOrWhiteSpace(Word.Translation) == false;
     }

@@ -9,7 +9,7 @@ using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
-using OpenDictionary.Services.Navigations.Routes; 
+using OpenDictionary.Services.Navigations.Routes;
 
 namespace OpenDictionary.ViewModels;
 
