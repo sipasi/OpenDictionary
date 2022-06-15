@@ -1,8 +1,9 @@
 ﻿
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
-using MvvmHelpers.Commands;
+using CommunityToolkit.Mvvm.Input;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
@@ -14,46 +15,79 @@ using OpenDictionary.ViewModels.Helpers;
 
 namespace OpenDictionary.ViewModels;
 
-public sealed class WordGroupDetailViewModel : WordGroupViewModel
+public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
 {
     private readonly IStorage<WordGroup> wordGroupStorage;
     private readonly INavigationService navigation;
     private readonly IDialogMessageService dialog;
 
-    public AsyncCommand RedirectToGameCommand { get; }
-    public AsyncCommand RedirectToEditCommand { get; }
-    public AsyncCommand DeleteCommand { get; }
+    public Word? TappedItem { get; private set; }
 
-    public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation, IDialogMessageService dialog) : base(wordGroupStorage, navigation)
+    public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation, IDialogMessageService dialog)
     {
         this.wordGroupStorage = wordGroupStorage;
         this.navigation = navigation;
         this.dialog = dialog;
-
-        RedirectToGameCommand = new AsyncCommand(OnRedirectToGame);
-        RedirectToEditCommand = new AsyncCommand(OnRedirectToEdit);
-        DeleteCommand = new AsyncCommand(OnDelete);
     }
-
-    private async Task OnRedirectToGame()
+    protected override void Load()
     {
-        await navigation.GoToAsync(AppRoutes.Game.List, parameter: nameof(WordGroup.Id), value: Id);
+        if (string.IsNullOrWhiteSpace(Id))
+        {
+            return;
+        }
+
+        Guid guid = Guid.Parse(Id);
+
+        var group = wordGroupStorage
+            .Query()
+            .Where(entity => entity.Id == guid)
+            .Select(entity => new { entity.Name, entity.Words })
+            .FirstOrDefault();
+
+        if (group is null)
+        {
+            throw new Exception();
+        }
+
+        Name = group.Name;
+        
+        Words.Clear();
+
+        Words.AddRange(group.Words);
     }
-    private async Task OnRedirectToEdit()
+
+    [RelayCommand]
+    private Task Tapped(Word word)
     {
-        await navigation.GoToAsync(AppRoutes.WordGroup.Create, parameter: nameof(WordGroup.Id), value: Id);
+        TappedItem = word;
+
+        return navigation.GoToAsync(AppRoutes.Word.Detail, parameter: nameof(Word.Id), value: word.Id.ToString());
     }
-    private async Task OnDelete()
+
+    [RelayCommand]
+    private Task RedirectToGame()
+    {
+        return navigation.GoToAsync(AppRoutes.Game.List, parameter: nameof(WordGroup.Id), value: Id!);
+    }
+
+    [RelayCommand]
+    private Task RedirectToEdit()
+    {
+        return navigation.GoToAsync(AppRoutes.WordGroup.Create, parameter: nameof(WordGroup.Id), value: Id!);
+    }
+
+    [RelayCommand]
+    private async Task Delete()
     {
         IStorage<WordGroup> storage = wordGroupStorage;
 
-        Guid id = Guid.Parse(Id);
+        Guid guid = Guid.Parse(Id!);
 
         DialogResult result = await EntityDeleteDialog.Show(dialog);
 
         if (result is DialogResult.Ok)
         {
-            WordGroup group = await storage.Query().IncludeAll().GetById(id);
+            WordGroup group = await storage.Query().IncludeAll().GetById(guid);
 
             await storage.DeleteAsync(group);
 

@@ -1,35 +1,59 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
-using MvvmHelpers.Commands;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+using Microsoft.EntityFrameworkCore;
 
 using OpenDictionary.Collections.Storages;
+using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 
 namespace OpenDictionary.ViewModels;
 
-public sealed class WordGroupInfoList : WordGroupInfoListBase
+[INotifyPropertyChanged]
+public sealed partial class WordGroupInfoList
 {
+    private readonly IStorage<WordGroup> storage;
     private readonly INavigationService navigation;
 
-    public AsyncCommand RedirectToCreateCommand { get; }
+    public CollectionViewModel<WordGroupInfo> Groups { get; }
 
-    public WordGroupInfoList(IStorage<WordGroup> wordGroupStorage, INavigationService navigation)
-        : base(wordGroupStorage)
+    public WordGroupInfoList(IStorage<WordGroup> storage, INavigationService navigation)
     {
+        this.storage = storage;
         this.navigation = navigation;
 
-        RedirectToCreateCommand = new AsyncCommand(OnCreateItemReditected);
+        Groups = new(Load, Tapped);
     }
 
+    private async Task Load()
+    {
+        var groups = await storage.Query().OrderByDateDescending().Select(group => new WordGroupInfo
+        {
+            Id = group.Id,
+            Name = group.Name,
+            Count = group.Words.Count,
+            Date = group.Date
+        }).ToArrayAsync();
 
-    private Task OnCreateItemReditected()
+        Groups.Collection.Clear();
+
+        Groups.Collection.AddRange(groups);
+
+        Groups.IsBusy = false;
+    }
+
+    [RelayCommand]
+    private Task RedirectToCreate()
     {
         return navigation.GoToAsync(AppRoutes.WordGroup.Create);
     }
 
-    protected override Task OnTapped(WordGroupInfo item)
+    private Task Tapped(WordGroupInfo item)
     {
         if (item == null) return Task.CompletedTask;
 

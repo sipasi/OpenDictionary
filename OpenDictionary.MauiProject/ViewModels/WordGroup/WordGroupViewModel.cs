@@ -1,82 +1,40 @@
 ﻿
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.Maui.Controls;
 
+using MvvmHelpers;
+
 using OpenDictionary.Collections.Storages;
-using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Services.Navigations;
-using OpenDictionary.Services.Navigations.Routes;
 
 namespace OpenDictionary.ViewModels;
 
+[INotifyPropertyChanged]
 [QueryProperty(nameof(Id), nameof(Id))]
-public class WordGroupViewModel : ViewModel
+public abstract partial class WordGroupViewModel
 {
-    private string id;
-    private string name;
+    private string? id;
 
-    private readonly IStorage<WordGroup> wordGroupStorage;
-    private readonly INavigationService navigation;
+    [ObservableProperty]
+    private string? name;
 
-    public Word TappedWord { get; private set; }
+    public ObservableRangeCollection<Word> Words { get; } = new();
 
-    public CollectionViewModel<Word> Words { get; }
-
-    public string Id
+    public string? Id
     {
         get => id;
         set
         {
             id = value;
 
-            Words.LoadCommand.ExecuteAsync();
+            Load();
         }
     }
-    public string Name
-    {
-        get => name;
-        set => SetProperty(ref name, value);
-    }
 
-    public WordGroupViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation)
-    {
-        this.wordGroupStorage = wordGroupStorage;
-        this.navigation = navigation;
-
-        Words = new CollectionViewModel<Word>(Load, OnTapped);
-    }
-
-    private Task OnTapped(Word item)
-    {
-        TappedWord = item;
-
-        return navigation.GoToAsync(AppRoutes.Word.Detail, parameter: nameof(Word.Id), value: item.Id.ToString());
-    }
-
-    public async Task Load()
-    {
-        if (string.IsNullOrWhiteSpace(id))
-        {
-            return;
-        }
-
-        Guid guid = Guid.Parse(id);
-
-        WordGroup group = await wordGroupStorage
-            .Query()
-            .IncludeAll()
-            .GetById(guid);
-
-        Name = group.Name;
-
-        var items = group.Words.OrderByDescending(word => word.Date);
-
-        Words.Collection.Clear();
-
-        Words.Collection.AddRange(items);
-    }
+    protected abstract void Load();
 }

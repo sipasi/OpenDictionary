@@ -6,37 +6,36 @@
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:cells="clr-namespace:OpenDictionary.Views.Cells" 
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
-             
-             x:DataType="viewModels:WordGroupInfoList"
               
-             Padding="10,0,10,0"
-             
+             x:DataType="viewModels:WordGroupInfoList"
+               
              x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
-        <CollectionView ItemsSource="{Binding Groups.Collection}" SelectionMode="None">
+    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}"
+                 Margin="10,0">
+        <CollectionView ItemsSource="{Binding Groups.Collection}" SelectionMode="None" >
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" 
-                                 Span="{x:OnIdiom Phone=2, Tablet=3, Desktop=4}" 
-                                 HorizontalItemSpacing="10"/>
+                                 HorizontalItemSpacing="10"
+                                 Span="{x:OnIdiom Phone=2, Tablet=3, Desktop=4}"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid >
                         <Frame Style="{x:StaticResource WordGroupInfoFrame}" >
-                            <VerticalStackLayout x:DataType="models:WordGroupInfo" Spacing="20">
+                            <StackLayout x:DataType="models:WordGroupInfo" MinimumHeightRequest="70">
                                 <Label Style="{x:StaticResource WordGroupInfoTitleLabel}" />
-                                <Label Style="{x:StaticResource WordGroupInfoCaptionLabel}" />
-                            </VerticalStackLayout>
+                                <Label Style="{x:StaticResource WordGroupInfoCaptionLabel}"/> 
+                            </StackLayout>
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
                                 NumberOfTapsRequired="1" 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoListBase}}, Path=Groups.TappedCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
                                 CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                         </Frame>

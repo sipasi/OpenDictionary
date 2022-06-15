@@ -1,8 +1,5 @@
-using System;
-
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.Collections.Extensions;
 using OpenDictionary.DependencyInjection;
 using OpenDictionary.ViewModels;
 
@@ -22,22 +19,20 @@ public partial class WordGroupDetailPage : ContentPage
     {
         base.OnAppearing();
 
-        var tapped = viewModel.TappedWord;
+        var (tapped, collection) = (viewModel.TappedItem, viewModel.Words);
 
-        if (tapped is null) //  || viewModel.Words.Collection.Contains(lastSelected) is false
+        if (tapped is null || collection.Contains(tapped) is false)
         {
             return;
         }
 
-        var collection = viewModel.Words.Collection;
-
-        int? index = collection.IndexOf(word => word.Origin == tapped.Origin);
+        int? index = collection.IndexOf(tapped);
 
         if (index is null or < 0)
         {
             return;
         }
 
-        collectionView.ScrollTo(index, position: ScrollToPosition.Start, animate: false);
+        collectionView.ScrollTo(index, position: ScrollToPosition.Start, animate: true);
     }
 }

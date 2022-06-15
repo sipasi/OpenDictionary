@@ -1,9 +1,10 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-using Microsoft.Maui.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
@@ -12,109 +13,85 @@ using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
 
-public sealed class WordGroupEditViewModel : WordGroupViewModel
+public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 {
+    [ObservableProperty]
+    private string? origin;
+    [ObservableProperty]
+    private string? translation;
+
     private readonly IStorage<WordGroup> wordGroupStorage;
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;
 
-    private string origin;
-    private string translation;
-
-    private readonly List<Word> created;
-    private readonly List<Word> deleted;
-
-    public string Origin
-    {
-        get => origin;
-        set => SetProperty(ref origin, value);
-    }
-    public string Translation
-    {
-        get => translation;
-        set => SetProperty(ref translation, value);
-    }
-
-    public bool IsNew => string.IsNullOrWhiteSpace(Id);
-
-    public Command AddWordCommand { get; }
-    public Command<Word> DeleteWordCommand { get; }
-
-    public Command SaveCommand { get; }
-    public Command DiscardCommand { get; }
-
     public WordGroupEditViewModel(IStorage<WordGroup> wordGroupStorage, IStorage<Word> wordStorage, INavigationService navigation)
-        : base(wordGroupStorage, navigation)
     {
         this.wordGroupStorage = wordGroupStorage;
         this.wordStorage = wordStorage;
         this.navigation = navigation;
 
-        created = new List<Word>();
-        deleted = new List<Word>();
-
-        AddWordCommand = new Command(OnAddWord, ValidateAdd);
-        SaveCommand = new Command(OnSave, ValidateSave);
-        DiscardCommand = new Command(OnDiscard);
-
-        DeleteWordCommand = new Command<Word>(OnDeleteWord);
-
         PropertyChanged += (_, __) =>
         {
-            AddWordCommand.ChangeCanExecute();
-            SaveCommand.ChangeCanExecute();
+            AddWordCommand.NotifyCanExecuteChanged();
+            SaveCommand.NotifyCanExecuteChanged();
         };
     }
 
-    private bool ValidateAdd()
+    protected override void Load()
     {
-        return string.IsNullOrWhiteSpace(origin) == false &&
-               string.IsNullOrWhiteSpace(translation) == false;
-    }
-    private bool ValidateSave()
-    {
-        return string.IsNullOrWhiteSpace(Name) == false;
+        if (string.IsNullOrWhiteSpace(Id))
+        {
+            return;
+        }
+
+        Guid guid = Guid.Parse(Id);
+
+        var group = wordGroupStorage
+            .Query()
+            .Where(entity => entity.Id == guid)
+            .Select(entity => new { entity.Name })
+            .FirstOrDefault();
+
+        Name = group?.Name ?? throw new Exception();
     }
 
-    private void OnAddWord()
+    [RelayCommand(CanExecute = nameof(ValidateCanAdd))]
+    private void AddWord()
     {
         Word word = new Word
         {
             Date = DateTime.Now,
-            Origin = origin,
-            Translation = translation
+            Origin = origin!,
+            Translation = translation!
         };
 
         Origin = null;
         Translation = null;
 
-        Words.Collection.Add(word);
-        created.Add(word);
+        Words.Add(word);
     }
-    private void OnDeleteWord(Word word)
+
+    [RelayCommand]
+    private void DeleteWord(Word word)
     {
         if (word is null)
         {
             return;
         }
 
-        Words.Collection.Remove(word);
-
-        if (created.Contains(word) is false)
-        {
-            deleted.Add(word);
-        }
+        Words.Remove(word);
     }
 
-    private async void OnSave()
+    [RelayCommand(CanExecute = nameof(ValidateCanSave))]
+    private async Task Save()
     {
-        if (IsNew)
+        if (string.IsNullOrWhiteSpace(Id))
         {
             WordGroup group = new WordGroup()
             {
                 Date = DateTime.Now,
-                Name = Name,
-                Words = Words.Collection.ToList()
+                Name = Name!,
+                Words = Words.ToList()
             };
 
             await wordGroupStorage.AddAsync(group);
@@ -125,12 +102,7 @@ public sealed class WordGroupEditViewModel : WordGroupViewModel
 
             WordGroup group = await wordGroupStorage.Query().GetById(id);
 
-            group.Words = Words.Collection.ToList();
-
-            foreach (var word in deleted)
-            {
-                await wordStorage.DeleteAsync(word);
-            }
+            group.Words = Words.ToList();
 
             await wordGroupStorage.UpdateAsync(group);
         }
@@ -138,8 +110,20 @@ public sealed class WordGroupEditViewModel : WordGroupViewModel
 
         await navigation.GoBackAsync();
     }
-    private async void OnDiscard()
+
+    [RelayCommand]
+    private Task OnDiscard()
     {
-        await navigation.GoBackAsync();
+        return navigation.GoBackAsync();
+    }
+
+    private bool ValidateCanAdd()
+    {
+        return string.IsNullOrWhiteSpace(origin) == false &&
+               string.IsNullOrWhiteSpace(translation) == false;
+    }
+    private bool ValidateCanSave()
+    {
+        return string.IsNullOrWhiteSpace(Name) == false;
     }
 }

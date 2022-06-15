@@ -105,7 +105,9 @@ internal static class ServiceBuilderExtensions
             .Add<OriginToTranslationViewModel>()
             .Add<TranslationToOriginViewModel>()
 
-            .Add<SettingsViewModel>();
+            .Add<SettingsViewModel>()
+            .Add<ExportViewModel>()
+            .Add<ImportViewModel>();
 
         return builder;
     }

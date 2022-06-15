@@ -43,7 +43,7 @@
                         Margin="10" TextColor="{x:StaticResource Blue}"/>
             </VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding Words.Collection}" 
+            <CollectionView ItemsSource="{Binding Words}" 
                             SelectionMode="None" VerticalScrollBarVisibility="Never"
                             Grid.Row="1">
                 <CollectionView.ItemTemplate>

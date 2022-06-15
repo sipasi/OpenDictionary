@@ -20,6 +20,8 @@ public partial class WordGroupListPage : ContentPage
     {
         base.OnAppearing();
 
-        await viewModel.Groups.Load();
+        var load = viewModel.Groups.LoadCommand!;
+
+        await load.ExecuteAsync();
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
+             xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
+             
+             x:DataType="viewModels:ExportViewModel"
+              
+             Title="ExportPage" 
+             
+             x:Class="OpenDictionary.Views.Pages.Settings.ExportPage">
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Items}" SelectedItems="{Binding SelectedItems}" 
+                        VerticalOptions="FillAndExpand" SelectionMode="Multiple" >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="{OnIdiom Phone=2, Tablet=3,Desktop=3}"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:WordGroupInfo">
+                    <Grid Padding="10" Margin="5" HeightRequest="80" BackgroundColor="{StaticResource Dark}">
+
+                        <Label Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" MaxLines="2"/>
+                        <Label Grid.Row="1" Text="{Binding Count}" VerticalOptions="End"/>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={x:StaticResource Blue-500}, Dark={x:StaticResource Blue-500}}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout Margin="10" Spacing="10" VerticalOptions="End">
+            <Editor Text="{Binding Name}" Placeholder="Enter name" />
+            <Button Text="Export" Command="{Binding ExportCommand}" 
+                Style="{StaticResource ButtonOutline}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage> 
