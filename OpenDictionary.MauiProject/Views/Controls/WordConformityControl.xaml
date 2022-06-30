@@ -64,10 +64,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0" Grid.Row="0" />
-                    <Button Grid.Column="1" Grid.Row="0" />
-                    <Button Grid.Column="0" Grid.Row="1" />
-                    <Button Grid.Column="1" Grid.Row="1" />
+                    <Button Grid.Column="0" Grid.Row="0" LineBreakMode="WordWrap"/>
+                    <Button Grid.Column="1" Grid.Row="0" LineBreakMode="WordWrap"/>
+                    <Button Grid.Column="0" Grid.Row="1" LineBreakMode="WordWrap"/>
+                    <Button Grid.Column="1" Grid.Row="1" LineBreakMode="WordWrap"/>
                 </Grid>
             </StackLayout>
         </StackLayout>

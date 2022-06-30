@@ -19,21 +19,20 @@
                 <Setter Property="Size" Value="24"/>
             </Style>
             <DataTemplate x:Key="WordGroupInfoDataTemplate" x:DataType="models:Word">
-                <Grid>
-                    <Frame Style="{StaticResource WordGroupInfoFrame}">
-                        <VerticalStackLayout Spacing="20">
-                            <Label Text="{Binding Origin}" FontAttributes="Bold"/>
-                            <Label Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
-                        </VerticalStackLayout>
-                         
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer 
+                <Frame Style="{StaticResource WordGroupInfoFrame}">
+                    <Grid RowDefinitions="*,*">
+                        <Label Grid.Row="0" 
+                               Text="{Binding Origin}" FontAttributes="Bold"/>
+                        <Label Grid.Row="1" 
+                               Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
+                    </Grid>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=TappedCommand}"
                                 CommandParameter="{Binding .}"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                </Grid>
+                    </Frame.GestureRecognizers>
+                </Frame>
             </DataTemplate>
             <DataTemplate x:Key="EmptyViewDataTemplate">
                 <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
@@ -71,7 +70,8 @@
 
     <CollectionView x:Name="collectionView" ItemsSource="{Binding Words}"
                     ItemTemplate="{StaticResource WordGroupInfoDataTemplate}"
-                    EmptyViewTemplate="{StaticResource EmptyViewDataTemplate}">
+                    EmptyViewTemplate="{StaticResource EmptyViewDataTemplate}"
+                    ItemSizingStrategy="MeasureAllItems">
         <CollectionView.ItemsLayout>
             <GridItemsLayout Orientation="Vertical" 
                              HorizontalItemSpacing="10"

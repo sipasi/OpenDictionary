@@ -15,24 +15,24 @@ public partial class WordGroupDetailPage : ContentPage
         BindingContext = viewModel = DiContainer.Get<WordGroupDetailViewModel>();
     }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
+    //protected override void OnAppearing()
+    //{
+    //    base.OnAppearing();
 
-        var (tapped, collection) = (viewModel.TappedItem, viewModel.Words);
+    //    var (tapped, collection) = (viewModel.TappedItem, viewModel.Words);
 
-        if (tapped is null || collection.Contains(tapped) is false)
-        {
-            return;
-        }
+    //    if (tapped is null || collection.Contains(tapped) is false)
+    //    {
+    //        return;
+    //    }
 
-        int? index = collection.IndexOf(tapped);
+    //    int? index = collection.IndexOf(tapped);
 
-        if (index is null or < 0)
-        {
-            return;
-        }
+    //    if (index is null or < 0)
+    //    {
+    //        return;
+    //    }
 
-        collectionView.ScrollTo(index, position: ScrollToPosition.Start, animate: true);
-    }
+    //    collectionView.ScrollTo(index, position: ScrollToPosition.Start, animate: true);
+    //}
 }

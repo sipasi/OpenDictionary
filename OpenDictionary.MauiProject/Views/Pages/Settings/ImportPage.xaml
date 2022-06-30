@@ -19,7 +19,7 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:WordGroup">
-                    <Grid Padding="10" Margin="5" HeightRequest="80" BackgroundColor="{StaticResource Dark}">
+                    <Grid Padding="10" Margin="5" HeightRequest="80" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}">
 
                         <Label Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" MaxLines="2"/>
                         <Label Grid.Row="1" Text="{Binding Words.Count}" VerticalOptions="End"/>

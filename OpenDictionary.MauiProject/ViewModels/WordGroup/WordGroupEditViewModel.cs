@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using Microsoft.Maui.ApplicationModel.DataTransfer;
+using Microsoft.Maui.Devices;
+using Microsoft.Maui.Storage;
+
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
+using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
@@ -23,12 +28,14 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     private readonly IStorage<WordGroup> wordGroupStorage;
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;
+    private readonly IToastMessageService toast;
 
-    public WordGroupEditViewModel(IStorage<WordGroup> wordGroupStorage, IStorage<Word> wordStorage, INavigationService navigation)
+    public WordGroupEditViewModel(IStorage<WordGroup> wordGroupStorage, IStorage<Word> wordStorage, INavigationService navigation, IToastMessageService toast)
     {
         this.wordGroupStorage = wordGroupStorage;
         this.wordStorage = wordStorage;
         this.navigation = navigation;
+        this.toast = toast;
 
         PropertyChanged += (_, __) =>
         {
@@ -116,6 +123,58 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     {
         return navigation.GoBackAsync();
     }
+
+
+    [RelayCommand]
+    private Task OriginCopy() => Copy(origin, toast);
+    [RelayCommand]
+    private Task OriginPaste() => Paste(text => Origin = text);
+
+    [RelayCommand]
+    private Task TranslationCopy() => Copy(translation, toast);
+    [RelayCommand]
+    private Task TranslationPaste() => Paste(text => Translation = text);
+
+    private static async Task Copy(string? text, IToastMessageService toast)
+    {
+        if (text is null)
+        {
+            return;
+        }
+
+        await Clipboard.Default.SetTextAsync(text);
+
+        TryVibrate();
+
+        await toast.Show("Text has been copied");
+    }
+
+    private static async Task Paste(Action<string> propertySet)
+    {
+        string? text = await Clipboard.Default.GetTextAsync();
+
+        if (text is null)
+        {
+            return;
+        }
+
+        propertySet.Invoke(text);
+
+        TryVibrate();
+    }
+
+    private static void TryVibrate()
+    {
+        var vibration = Vibration.Default;
+
+        if (vibration.IsSupported is false)
+        {
+            return;
+        }
+
+        vibration.Vibrate(100);
+    }
+
 
     private bool ValidateCanAdd()
     {

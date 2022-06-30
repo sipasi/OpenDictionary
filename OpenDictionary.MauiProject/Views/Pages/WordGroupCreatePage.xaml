@@ -14,6 +14,35 @@
              
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 
+    <ContentPage.Resources>
+        <Style x:Key="CopyImageStyle" TargetType="ImageButton">
+            <Setter Property="Source">
+                <FontImageSource FontFamily="RemixIcon" 
+                                 Glyph="{x:Static fonts:RemixIcon.FileCopy2Line}"
+                                 Color="{StaticResource Blue}"
+                                 Size="32"/>
+            </Setter>
+        </Style>
+        <Style x:Key="PasteImageStyle" TargetType="ImageButton">
+            <Setter Property="Source">
+                <FontImageSource FontFamily="RemixIcon" 
+                                 Glyph="{x:Static fonts:RemixIcon.ClipboardLine}"
+                                 Color="{StaticResource Blue}"
+                                 Size="32"/>
+            </Setter>
+        </Style>
+        <Style x:Key="DeleteImageStyle" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="BorderWidth" Value="0"/>
+            <Setter Property="Source">
+                <FontImageSource FontFamily="RemixIcon" 
+                                 Glyph="{x:Static fonts:RemixIcon.DeleteBin5Line}"
+                                 Color="{x:AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
+                                 Size="32"/>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}" >
             <ToolbarItem.IconImageSource>
@@ -36,41 +65,40 @@
                 <Entry Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
 
                 <Label Text="Words" FontSize="Medium" FontAttributes="Bold"/>
-                <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
-                <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
- 
+                <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
+                    <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
+                    <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding OriginCopyCommand}"/>
+                    <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding OriginPasteCommand}"/>
+                </Grid>
+                <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
+                    <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+                    <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding TranslationCopyCommand}"/>
+                    <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding TranslationPasteCommand}"/>
+                </Grid>
+
                 <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" 
                         Margin="10" TextColor="{x:StaticResource Blue}"/>
             </VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding Words}" 
-                            SelectionMode="None" VerticalScrollBarVisibility="Never"
-                            Grid.Row="1">
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding Words}" 
+                            SelectionMode="None" VerticalScrollBarVisibility="Never">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="0,4">
-                            <Frame IsClippedToBounds="True" HasShadow="False" CornerRadius="8">
-                                <StackLayout x:DataType="models:Word" Orientation="Horizontal">
-                                    <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                                        <Label Text="{Binding Origin}"/>
-                                        <Label Text="{Binding Translation}"/>
-                                    </StackLayout>
+                        <Frame IsClippedToBounds="True" HasShadow="False" CornerRadius="8">
+                            <Grid RowDefinitions="*,*" ColumnDefinitions="*,32" x:DataType="models:Word">
+                                <Label Grid.Row="0" Text="{Binding Origin}"/>
+                                <Label Grid.Row="1"  Text="{Binding Translation}"/>
 
-                                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Spacing="20" Padding="20,0,0,0">
-                                        <ImageButton BackgroundColor="Transparent" BorderWidth="0"
-                                                     Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
-                                                     CommandParameter="{Binding .}">
-                                            <ImageButton.Source>
-                                                <FontImageSource FontFamily="RemixIcon" 
-                                                                 Glyph="{x:Static fonts:RemixIcon.DeleteBin5Line}"
-                                                                 Color="{x:AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
-                                                                 Size="32"/>
-                                            </ImageButton.Source>
-                                        </ImageButton>
-                                    </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                        </StackLayout>
+                                <ImageButton Grid.RowSpan="2" Grid.Column="1"
+                                             Style="{StaticResource DeleteImageStyle}"
+                                             Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
+                                             CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

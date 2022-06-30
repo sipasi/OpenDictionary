@@ -35,6 +35,32 @@ namespace OpenDictionary.Observables.Metadatas
             AddMeanings(metadata.Meanings);
         }
 
+        public WordMetadata AsMetadata()
+        {
+            WordMetadata metadata = new WordMetadata
+            {
+                Value = value,
+                Phonetics = Phonetics.Select(entity => new Phonetic
+                {
+                    Value = entity.Value,
+                    Audio = entity.Audio,
+                }).ToArray(),
+                Meanings = Meanings.Select(entity => new Meaning
+                {
+                    PartOfSpeech = entity.PartOfSpeech,
+                    Synonyms = new Synonyms { Value = entity.Synonyms },
+                    Antonyms = new Antonyms { Value = entity.Antonyms },
+                    Definitions = entity.Definitions.Select(entity => new Definition
+                    {
+                        Value = entity.Value,
+                        Example = entity.Example
+                    }).ToArray()
+                }).ToArray()
+            };
+
+            return metadata;
+        }
+
         public void Clear()
         {
             Phonetics.Clear();
@@ -53,9 +79,9 @@ namespace OpenDictionary.Observables.Metadatas
             {
                 Value = phonetic.Value,
                 Audio = phonetic.Audio,
-            });
+            }).ToArray();
 
-            Phonetics.AddRange(observables);
+            Phonetics.AddRange(observables, System.Collections.Specialized.NotifyCollectionChangedAction.Add);
         }
 
         private void AddMeanings(IEnumerable<Meaning> meanings)
@@ -65,17 +91,17 @@ namespace OpenDictionary.Observables.Metadatas
                 var observable = new MeaningObservable
                 {
                     PartOfSpeech = meaning.PartOfSpeech,
-                    Synonyms = string.Join(", ", meaning.Synonyms.Select(entity => entity.Value)),
-                    Antonyms = string.Join(", ", meaning.Antonyms.Select(entity => entity.Value)),
+                    Synonyms = meaning.Synonyms.Value,
+                    Antonyms = meaning.Antonyms.Value,
                 };
 
 
                 AddDefinitions(meaning.Definitions, observable);
 
                 return observable;
-            });
+            }).ToArray();
 
-            Meanings.AddRange(observables);
+            Meanings.AddRange(observables, System.Collections.Specialized.NotifyCollectionChangedAction.Add);
         }
         private void AddDefinitions(IEnumerable<Definition> definitions, MeaningObservable meaning)
         {
@@ -83,9 +109,9 @@ namespace OpenDictionary.Observables.Metadatas
             {
                 Value = definition.Value,
                 Example = definition.Example,
-            });
+            }).ToArray();
 
-            meaning.Definitions.AddRange(observables);
+            meaning.Definitions.AddRange(observables, System.Collections.Specialized.NotifyCollectionChangedAction.Add);
         }
     }
 }

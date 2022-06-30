@@ -31,6 +31,59 @@
             <Setter Property="TextColor" Value="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
             <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
+
+        <ControlTemplate x:Key="RadioButtonControlTemplate">
+            <Frame HeightRequest="100" WidthRequest="100">
+                <VisualStateManager.VisualStateGroups >
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource Blue-500}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource Gray-800}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+
+                <Grid >
+                    <ContentPresenter />
+                </Grid>
+            </Frame>
+        </ControlTemplate>
+
+        <Style x:Key="NightRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonControlTemplate}"/>
+            <Setter Property="Content">
+                <VerticalStackLayout>
+                    <Label Text="Night" FontSize="20" TextColor="{StaticResource White}"
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center"/>
+                    <Label FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.MoonLine}" 
+                           TextColor="{StaticResource White}"
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Setter>
+        </Style>
+        <Style x:Key="DayRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonControlTemplate}"/>
+            <Setter Property="Content">
+                <VerticalStackLayout>
+                    <Label Text="Day" FontSize="20" TextColor="{StaticResource White}"
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center"/>
+                    <Label FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.SunLine}" 
+                           TextColor="{StaticResource White}"
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Setter>
+        </Style>
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -40,12 +93,12 @@
                     <VerticalStackLayout>
                         <Label Text="Theme Color"/>
 
-                        <VerticalStackLayout x:Name="radioGroup" Spacing="5"
+                        <HorizontalStackLayout x:Name="radioGroup" Spacing="5"
                                  RadioButtonGroup.GroupName="theme-color" 
                                  RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}">
-                            <RadioButton Content="Day" Value="{x:Static maui:AppTheme.Light}"/>
-                            <RadioButton Content="Night" Value="{x:Static maui:AppTheme.Dark}"/>
-                        </VerticalStackLayout>
+                            <RadioButton Style="{StaticResource NightRadioButtonStyle}" Value="{x:Static maui:AppTheme.Dark}"/>
+                            <RadioButton Style="{StaticResource DayRadioButtonStyle}" Value="{x:Static maui:AppTheme.Light}"/>
+                        </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </Frame>
 

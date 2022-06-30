@@ -11,12 +11,18 @@
                
              x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}"/>
+        <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="RemixIcon"
+                                 Glyph="{Static fonts:RemixIcon.AddFill}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}"
                  Margin="10,0">
-        <CollectionView ItemsSource="{Binding Groups.Collection}" SelectionMode="None" >
+        <CollectionView ItemsSource="{Binding Groups.Collection}" SelectionMode="None" 
+                        ItemSizingStrategy="MeasureAllItems">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" 
                                  HorizontalItemSpacing="10"
@@ -25,21 +31,19 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid >
-                        <Frame Style="{x:StaticResource WordGroupInfoFrame}" >
-                            <StackLayout x:DataType="models:WordGroupInfo" MinimumHeightRequest="70">
-                                <Label Style="{x:StaticResource WordGroupInfoTitleLabel}" />
-                                <Label Style="{x:StaticResource WordGroupInfoCaptionLabel}"/> 
-                            </StackLayout>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer 
+                    <Frame Style="{x:StaticResource WordGroupInfoFrame}">
+                        <Grid RowDefinitions="*,*">
+                            <Label Grid.Row="0" Style="{x:StaticResource WordGroupInfoTitleLabel}" 
+                                   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label Grid.Row="1" Style="{x:StaticResource WordGroupInfoCaptionLabel}"/>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
                                 NumberOfTapsRequired="1" 
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
                                 CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 

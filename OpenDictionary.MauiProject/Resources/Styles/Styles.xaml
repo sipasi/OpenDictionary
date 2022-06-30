@@ -24,6 +24,10 @@
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
             <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray-600}, Dark={StaticResource Gray-600}}"/>
         </Style>
+        <Style x:Key="DefaultEditor" TargetType="Editor">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray-600}, Dark={StaticResource Gray-600}}"/>
+        </Style>
         <Style x:Key="DefaultButton" TargetType="Button">
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"/>
             <Setter Property="FontAttributes" Value="Bold"/>
@@ -33,6 +37,7 @@
         <Style TargetType="ContentPage" ApplyToDerivedTypes="True" BasedOn="{x:StaticResource DefaultContentPage}"/>
         <Style TargetType="Frame" BasedOn="{x:StaticResource DefaultFrame}"/>
         <Style TargetType="Entry" BasedOn="{x:StaticResource DefaultEntry}"/>
+        <Style TargetType="Editor" BasedOn="{x:StaticResource DefaultEditor}"/>
         <Style TargetType="Button" BasedOn="{x:StaticResource DefaultButton}"/>
 
         <Style x:Key="ButtonOutline" TargetType="Button">

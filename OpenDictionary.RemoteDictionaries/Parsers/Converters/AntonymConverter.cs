@@ -11,20 +11,22 @@ using OpenDictionary.Models;
 
 namespace OpenDictionary.RemoteDictionaries.Parsers.Converters
 {
-    internal class AntonymConverter : JsonConverter<IEnumerable<Antonym>>
+    internal class AntonymConverter : JsonConverter<Antonyms>
     {
         public override bool CanWrite => false;
 
-        public override IEnumerable<Antonym>? ReadJson(JsonReader reader, Type objectType, IEnumerable<Antonym>? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Antonyms? ReadJson(JsonReader reader, Type objectType, Antonyms? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var token = JToken.Load(reader);
 
-            var values = token.ToObject<string[]>().Select(value => new Antonym { Value = value });
+            var values = string.Join(", ", token.ToObject<string[]>().Select(value => value));
 
-            return values;
+            Antonyms antonyms = new Antonyms { Value = values };
+
+            return antonyms;
         }
 
-        public override void WriteJson(JsonWriter writer, IEnumerable<Antonym>? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Antonyms? value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

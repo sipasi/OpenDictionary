@@ -54,12 +54,12 @@ namespace OpenDictionary.AppDatabase
 
             builder
                 .Entity<Meaning>()
-                .HasMany(entity => entity.Synonyms)
+                .HasOne(entity => entity.Synonyms)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
             builder
                 .Entity<Meaning>()
-                .HasMany(entity => entity.Antonyms)
+                .HasOne(entity => entity.Antonyms)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
         }

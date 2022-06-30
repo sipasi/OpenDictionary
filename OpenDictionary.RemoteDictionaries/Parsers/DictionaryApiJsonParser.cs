@@ -76,8 +76,8 @@ namespace OpenDictionary.RemoteDictionaries.Parsers
             WordMetadata result = new WordMetadata
             {
                 Value = value,
-                Meanings = meanings,
-                Phonetics = phonetics,
+                Meanings = meanings.ToArray(),
+                Phonetics = phonetics.ToArray(),
             };
 
             return result;

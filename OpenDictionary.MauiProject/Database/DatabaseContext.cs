@@ -54,13 +54,15 @@ internal class DatabaseContext : DbContext
 
         builder
             .Entity<Meaning>()
-            .HasMany(entity => entity.Synonyms)
+            .HasOne(entity => entity.Synonyms)
             .WithOne()
+            .HasForeignKey<Synonyms>(e => e.Id)
             .OnDelete(DeleteBehavior.Cascade);
         builder
             .Entity<Meaning>()
-            .HasMany(entity => entity.Antonyms)
+            .HasOne(entity => entity.Antonyms)
             .WithOne()
+            .HasForeignKey<Antonyms>(e => e.Id)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

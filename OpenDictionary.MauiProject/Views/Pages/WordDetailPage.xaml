@@ -19,6 +19,13 @@
             <toolkit:EnumToBoolConverter x:Key="LoadingConverter"/>
             <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter"/>
 
+            <DataTemplate x:Key="EmptyViewTemplate">
+                <VerticalStackLayout>
+                    <Label Text="Empty" FontAttributes="Bold" FontSize="Medium"
+                           HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </DataTemplate>
+
             <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
                 <VerticalStackLayout Spacing="10">
                     <Label>
@@ -31,8 +38,9 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <HorizontalStackLayout IsVisible="{Binding Audio, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
-                        <ImageButton HorizontalOptions="Start" BackgroundColor="Transparent" 
+                    <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10"
+                          IsVisible="{Binding Audio, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
+                        <ImageButton Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0"
                                      Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
                                      CommandParameter="{Binding Audio}">
                             <ImageButton.Source>
@@ -41,21 +49,21 @@
                                                  Color="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
                             </ImageButton.Source>
                         </ImageButton>
-                    </HorizontalStackLayout>
+                        <Label Grid.Column="1" FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.CloudOffLine}"
+                               HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Gray-700}" 
+                               HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    </Grid>
                 </VerticalStackLayout>
             </DataTemplate>
 
             <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
-                <Grid ColumnSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="10" ColumnDefinitions="5,*" RowDefinitions="*">
 
                     <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
 
                     <VerticalStackLayout Grid.Column="1">
-                        <Label>
+                        <Label LineBreakMode="CharacterWrap">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Definition: " FontAttributes="Bold" 
@@ -77,7 +85,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="MeaningObservableItemTemplate" x:DataType="observables:MeaningObservable">
-                <VerticalStackLayout>
+                <VerticalStackLayout Spacing="10">
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
@@ -188,8 +196,9 @@
                     <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
 
                     <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
-                                         BindableLayout.ItemTemplate="{x:StaticResource PhoneticObservableItemTemplate}" 
-                                         Spacing="20"/>
+                                         BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
+                                         BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                                         Spacing="10"/>
                 </VerticalStackLayout>
             </Frame>
 
@@ -198,7 +207,9 @@
                     <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
 
                     <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
-                                         BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"/>
+                                         BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
+                                         BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                                         Spacing="10"/>
                 </VerticalStackLayout>
             </Frame>
 

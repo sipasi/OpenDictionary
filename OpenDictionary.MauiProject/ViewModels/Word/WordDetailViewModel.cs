@@ -85,9 +85,12 @@ public sealed partial class WordDetailViewModel : WordViewModel
 
         try
         {
-            WordMetadata? metadata = await GetMetadataFrom(Word.Origin) ?? throw new Exception();
+            WordMetadata? metadata = await GetMetadataFrom(Word.Origin);
 
-            Metadata.Set(metadata);
+            if (metadata is not null)
+            {
+                Metadata.Set(metadata);
+            }
         }
         catch (Exception e)
         {

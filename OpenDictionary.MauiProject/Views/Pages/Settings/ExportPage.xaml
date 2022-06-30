@@ -2,24 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              
              x:DataType="viewModels:ExportViewModel"
               
-             Title="ExportPage" 
+             Title="Export" 
              
              x:Class="OpenDictionary.Views.Pages.Settings.ExportPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IntToBoolConverter x:Key="IsNotZeroConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout>
         <CollectionView ItemsSource="{Binding Items}" SelectedItems="{Binding SelectedItems}" 
-                        VerticalOptions="FillAndExpand" SelectionMode="Multiple" >
+                        VerticalOptions="FillAndExpand" SelectionMode="Multiple">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="{OnIdiom Phone=2, Tablet=3,Desktop=3}"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:WordGroupInfo">
-                    <Grid Padding="10" Margin="5" HeightRequest="80" BackgroundColor="{StaticResource Dark}">
+                    <Grid Padding="10" Margin="5" HeightRequest="80" 
+                          BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}">
 
                         <Label Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" MaxLines="2"/>
                         <Label Grid.Row="1" Text="{Binding Count}" VerticalOptions="End"/>
@@ -28,7 +36,7 @@
                             <VisualStateGroup Name="CommonStates">
                                 <VisualState Name="Normal" />
                                 <VisualState Name="Selected">
-                                    <VisualState.Setters>
+                                    <VisualState.Setters> 
                                         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={x:StaticResource Blue-500}, Dark={x:StaticResource Blue-500}}" />
                                     </VisualState.Setters>
                                 </VisualState>
@@ -39,10 +47,16 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout Margin="10" Spacing="10" VerticalOptions="End">
-            <Editor Text="{Binding Name}" Placeholder="Enter name" />
-            <Button Text="Export" Command="{Binding ExportCommand}" 
-                Style="{StaticResource ButtonOutline}" />
-        </StackLayout>
+        <Grid RowDefinitions="*,auto,*" Margin="10" VerticalOptions="End">
+            <Editor Grid.Row="0" Text="{Binding Name}" Placeholder="Enter name"/>
+
+            <Grid Grid.Row="1" ColumnDefinitions="*,80">
+                <Label Text="Multiple files" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Switch Grid.Column="1" IsToggled="{Binding Multiple}" IsEnabled="{Binding CanMultipleExport}"/>
+            </Grid>
+
+            <Button Grid.Row="2" Text="Export" Command="{Binding ExportCommand}" 
+                    Style="{StaticResource ButtonOutline}" />
+        </Grid>
     </StackLayout>
 </ContentPage> 

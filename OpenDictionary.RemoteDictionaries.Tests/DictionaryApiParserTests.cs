@@ -34,8 +34,8 @@ public class DictionaryApiParserTests
         foreach (var meaning in definition.Meanings)
         {
             Assert.That(meaning.PartOfSpeech, Is.Not.Null);
-            Assert.That(meaning.Synonyms.Count(), Is.Not.Zero);
-            Assert.That(meaning.Synonyms.Count(), Is.Not.Zero);
+            Assert.That(meaning.Synonyms, Is.Not.Zero);
+            Assert.That(meaning.Synonyms, Is.Not.Zero);
         }
         foreach (var phonetic in definition.Phonetics)
         {

@@ -2,7 +2,7 @@
 
 namespace OpenDictionary.Models
 {
-    public class Antonym : IEntity
+    public class Synonyms : IEntity
     {
         public Guid Id { get; set; }
 

@@ -11,10 +11,10 @@ namespace OpenDictionary.Collections.Storages.Extensions;
 
 public static class QueryableExtensions
 {
-    public static Task<T> GetById<T>(this IQueryable<T> query, Guid id)
+    public static Task<T?> GetById<T>(this IQueryable<T> query, Guid id)
         where T : IEntity<Guid>
     {
-        Task<T> task = query.FirstOrDefaultAsync(x => x.Id == id);
+        Task<T?> task = query.FirstOrDefaultAsync(x => x.Id == id);
 
         return task;
     }
@@ -44,7 +44,7 @@ public static class QueryableExtensions
                     .ThenInclude(entity => entity.Definitions);
     }
 
-    public static Task<WordMetadata> GetByWord(this IQueryable<WordMetadata> query, string word)
+    public static Task<WordMetadata?> GetByWord(this IQueryable<WordMetadata> query, string word)
     {
         return query.FirstOrDefaultAsync(entity => EF.Functions.Like(entity.Value, word));
     }

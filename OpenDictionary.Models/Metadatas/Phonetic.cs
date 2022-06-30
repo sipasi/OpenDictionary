@@ -7,6 +7,6 @@ namespace OpenDictionary.Models
         public Guid Id { get; set; }
 
         public string Value { get; set; }
-        public string Audio { get; set; }
+        public string? Audio { get; set; }
     }
 }

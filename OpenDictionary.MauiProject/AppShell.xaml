@@ -8,7 +8,7 @@
     xmlns:pages="clr-namespace:OpenDictionary.Views.Pages"
 
     Shell.FlyoutBehavior="Disabled"
-    
+     
     x:Class="OpenDictionary.MauiProject.AppShell">
 
     <Shell.Resources>
@@ -29,7 +29,7 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar x:Name="tabBar">
+    <TabBar x:Name="tabBar" >
         <ShellContent Title="Dictionaries" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}" x:Name="defautTab"/>
         <ShellContent Title="Settings" Icon="icon_settings.png" ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </TabBar>

@@ -11,20 +11,22 @@ using OpenDictionary.Models;
 
 namespace OpenDictionary.RemoteDictionaries.Parsers.Converters
 {
-    internal class SynonymConverter : JsonConverter<IEnumerable<Synonym>>
+    internal class SynonymConverter : JsonConverter<Synonyms>
     {
         public override bool CanWrite => false;
 
-        public override IEnumerable<Synonym>? ReadJson(JsonReader reader, Type objectType, IEnumerable<Synonym>? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Synonyms? ReadJson(JsonReader reader, Type objectType, Synonyms? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var token = JToken.Load(reader);
 
-            var values = token.ToObject<string[]>().Select(value => new Synonym { Value = value });
+            var values = string.Join(", ", token.ToObject<string[]>().Select(value => value));
 
-            return values;
+            Synonyms synonyms = new Synonyms { Value = values };
+
+            return synonyms;
         }
 
-        public override void WriteJson(JsonWriter writer, IEnumerable<Synonym>? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Synonyms? value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

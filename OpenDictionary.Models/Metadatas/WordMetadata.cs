@@ -9,8 +9,8 @@ namespace OpenDictionary.Models
 
         public string Value { get; set; }
 
-        public IEnumerable<Phonetic> Phonetics { get; set; }
+        public ICollection<Phonetic> Phonetics { get; set; }
 
-        public IEnumerable<Meaning> Meanings { get; set; }
+        public ICollection<Meaning> Meanings { get; set; }
     }
 }

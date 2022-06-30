@@ -30,8 +30,6 @@ public sealed partial class ImportViewModel
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
-    private WordGroup[]? loadled;
-
     public ObservableRangeCollection<WordGroup> Items { get; }
     public ObservableRangeCollection<object> SelectedItems { get; }
 
@@ -48,26 +46,33 @@ public sealed partial class ImportViewModel
     [RelayCommand]
     private async Task SelectFile()
     {
-        FileResult? picked = await FilePicker.PickAsync();
+        var picked = await FilePicker.PickMultipleAsync();
 
         if (picked is null)
         {
             return;
         }
 
-        if (picked.FileName.EndsWith("json", StringComparison.OrdinalIgnoreCase) is false)
+        var files = picked
+            .Where(file => file.FileName.EndsWith("json", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+
+        if (files.Length == 0)
         {
-            await toast.ShowError(message: "Please select a json file");
+            await toast.ShowError(message: "Please select a correct json files");
 
             return;
         }
 
-        loadled = await LoadFromJson(picked.FullPath);
-
         Items.Clear();
         SelectedItems.Clear();
 
-        Items.AddRange(loadled);
+        foreach (var file in files)
+        {
+            WordGroup[]? loadled = await LoadFromJson(file.FullPath);
+
+            Items.AddRange(loadled!);
+        }
     }
 
     [RelayCommand]

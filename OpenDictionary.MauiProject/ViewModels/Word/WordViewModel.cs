@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
+using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Observables.Words;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Navigations;
@@ -22,6 +23,8 @@ public partial class WordViewModel
 
     [ObservableProperty]
     private WordObservable word;
+    [ObservableProperty]
+    private WordMetadataObservable? metadata;
 
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;
@@ -46,7 +49,8 @@ public partial class WordViewModel
 
         id = string.Empty;
 
-        word = new WordObservable();
+        word = new();
+        metadata = new();
     }
 
     protected virtual Task OnWordLoaded()
@@ -83,8 +87,8 @@ public partial class WordViewModel
 
     protected Task ErrorMessage(Exception exception)
     {
-        string title = nameof(WordEditViewModel);
-        string message = exception.Message;
+        string title = GetType().Name;
+        string message = $"{exception.Message}. Inner: {exception.InnerException?.Message ?? "Non"}";
         string cancel = "Close";
 
         return alert.Show(title, message, cancel);

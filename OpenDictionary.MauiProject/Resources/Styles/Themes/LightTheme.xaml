@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OpenDictionary.MauiProject.Resources.Styles.Themes.LightTheme">
+    <Color x:Key="Primary">Teal</Color>
+    <Color x:Key="Secondary">White</Color>
+    <Color x:Key="Background">White</Color>
+    <Color x:Key="Surface">White</Color>
+    <Color x:Key="Error">White</Color>
+
+    <Color x:Key="OnPrimary">Teal</Color>
+    <Color x:Key="OnSecondary">White</Color>
+    <Color x:Key="OnBackground">White</Color>
+    <Color x:Key="OnSurface">White</Color>
+    <Color x:Key="OnError">White</Color>
+</ResourceDictionary>

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ using Newtonsoft.Json;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Toasts;
-using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 namespace OpenDictionary.ViewModels;
 
@@ -33,9 +33,15 @@ public sealed partial class ExportViewModel
 
     [ObservableProperty]
     private string? name;
+    [ObservableProperty]
+    private bool multiple;
+
+    public bool CanMultipleExport => SelectedItems.Count > 1;
+
+    private bool MultipleExport => CanMultipleExport && multiple;
 
     public ObservableRangeCollection<WordGroupInfo> Items { get; }
-    public List<object> SelectedItems { get; }
+    public ObservableCollection<object> SelectedItems { get; }
 
     public ExportViewModel(IStorage<WordGroup> storage, IToastMessageService toast)
     {
@@ -44,6 +50,11 @@ public sealed partial class ExportViewModel
 
         Items = new();
         SelectedItems = new();
+
+        SelectedItems.CollectionChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(CanMultipleExport));
+        };
     }
 
     [RelayCommand]
@@ -76,40 +87,127 @@ public sealed partial class ExportViewModel
         var groups = await storage
             .Query()
             .Where(entity => hash.Contains(entity.Id))
-            .Select(entity => new
+            .Select(entity => new GroupData
             {
-                entity.Name,
-                Words = entity.Words.Select(word => new
+                Name = entity.Name,
+                Words = entity.Words.Select(word => new WordData
                 {
-                    word.Origin,
-                    word.Translation
-                })
-            })
-            .ToArrayAsync();
+                    Origin = word.Origin,
+                    Translation = word.Translation
+                }).ToArray()
+            }).ToArrayAsync();
 
-        string? title = name;
+        Task task = MultipleExport
+            ? AsMultipleFiles(groups)
+            : AsSingleFile(groups);
 
-        if (name is null)
+        await task;
+    }
+
+    private static async Task AsSingleFile(GroupData[] datas)
+    {
+        int count = datas.Length;
+
+        string? title = "Dictionaries";
+
+        if (title is null)
         {
-            string groupName = (selected[0] as WordGroupInfo)!.Name!;
+            var info = datas[0];
+
+            string groupName = info.Name;
 
             title = count == 1 ? groupName : "Dictionaries";
         }
 
-        string path = Path.Combine(FileSystem.CacheDirectory, $"{title}.json");
+        string path = await CreateCacheFile(datas, title);
 
-        string json = JsonConvert.SerializeObject(groups, Formatting.Indented);
-
-        await WriteJsonFile(path, json);
-
-        ShareFileRequest request = new ShareFileRequest
+        var request = new ShareFileRequest
         {
             Title = title,
             File = new ShareFile(path)
         };
 
         await Share.RequestAsync(request);
+
+        DeleteCacheFileByName(title);
     }
+    private static async Task AsMultipleFiles(GroupData[] datas)
+    {
+        var tasks = datas.Select(async data =>
+        {
+            string path = await CreateCacheFile(data, data.Name);
+
+            ShareFile file = new ShareFile(path);
+
+            return file;
+        });
+
+        var files = await Task.WhenAll(tasks);
+
+        var request = new ShareMultipleFilesRequest
+        {
+            Title = "Dictionaries",
+            Files = files.ToList()
+        };
+
+        await Share.RequestAsync(request);
+
+        DeleteCacheFiles(files);
+    }
+
+    private static async Task<string> CreateCacheFile<T>(T data, string name)
+    {
+        string path = Path.Combine(FileSystem.CacheDirectory, $"{name}.json");
+
+        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+        await WriteJsonFile(path, json);
+
+        return path;
+    }
+
+    private static void DeleteCacheFiles(params ShareFile[] files)
+    {
+        foreach (var file in files)
+        {
+            DeleteCacheFileByName(file.FileName);
+        }
+    }
+    private static void DeleteCacheFileByName(string name)
+    {
+        string path = Path.Combine(FileSystem.CacheDirectory, $"{name}.json");
+
+        if (File.Exists(path) is false)
+        {
+            return;
+        }
+
+        File.Delete(path);
+    }
+
+    private async Task ExportRequest<T>(T data, ShareRequestBase request, string name)
+    {
+        string path = await CreateCacheFile(data, name);
+
+        Task? task = request switch
+        {
+            ShareFileRequest fileRequest => Share.RequestAsync(fileRequest),
+            ShareMultipleFilesRequest filesRequest => Share.RequestAsync(filesRequest),
+            _ => null
+        };
+
+        if (task is null)
+        {
+            string message = $"[{GetType()}] have not supported the {request?.GetType()} request type";
+
+            throw new NotSupportedException(message);
+        }
+
+        await task;
+
+        DeleteCacheFileByName(name);
+    }
+
     private static async Task WriteJsonFile(string path, string json)
     {
         StreamWriter file = File.CreateText(path);
@@ -119,5 +217,16 @@ public sealed partial class ExportViewModel
         await file.FlushAsync();
 
         await file.DisposeAsync();
+    }
+
+    private readonly struct GroupData
+    {
+        public string Name { get; init; }
+        public WordData[] Words { get; init; }
+    }
+    private readonly struct WordData
+    {
+        public string Origin { get; init; }
+        public string Translation { get; init; }
     }
 }

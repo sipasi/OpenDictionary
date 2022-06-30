@@ -10,10 +10,10 @@ namespace OpenDictionary.Models
 
         public string PartOfSpeech { get; set; }
 
-        public IEnumerable<Definition> Definitions { get; set; }
+        public ICollection<Definition> Definitions { get; set; }
 
-        public IEnumerable<Synonym> Synonyms { get; set; }
+        public Synonyms Synonyms { get; set; }
 
-        public IEnumerable<Antonym> Antonyms { get; set; }
+        public Antonyms Antonyms { get; set; }
     }
 }
