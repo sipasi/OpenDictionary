@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.DependencyInjection;
@@ -19,7 +22,9 @@ public partial class SettingsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+         
+        IList<IView> container = radioGroup;
 
-        viewModel.AppTheme.UpdateRadioButtonsCommand.Execute(radioGroup);
+        viewModel.AppTheme.UpdateRadioButtonsCommand.Execute(container);
     }
 }

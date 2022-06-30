@@ -1,11 +1,22 @@
 ﻿#nullable enable
 
+using System;
+using System.Collections.Generic;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+using Microsoft.Maui;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+
+using OpenDictionary.Services.Keys;
 
 namespace OpenDictionary.ViewModels;
 
-public class AppThemeObservable : ViewModel
+[INotifyPropertyChanged]
+public partial class AppThemeObservable
 {
     private AppTheme current;
 
@@ -16,26 +27,29 @@ public class AppThemeObservable : ViewModel
         get => current;
         set
         {
-            SetProperty(ref current, value);
+            if (SetProperty(ref current, value) is false)
+            {
+                return;
+            }
+
+            Preferences.Set(PreferencesKeys.Theme.UserAppTheme, value.ToString());
 
             UserTheme = value;
         }
     }
 
-
-    public Command<IViewContainer<View>> UpdateRadioButtonsCommand { get; }
-
     public AppThemeObservable()
     {
-        Current = Application.Current!.RequestedTheme;
+        var value = Preferences.Get(PreferencesKeys.Theme.UserAppTheme, nameof(AppTheme.Dark));
 
-        UpdateRadioButtonsCommand = new Command<IViewContainer<View>>(UpdateRadioButtonsGroup);
+        AppTheme theme = (AppTheme)Enum.Parse(typeof(AppTheme), value);
+
+        Current = theme;
     }
 
-    private void UpdateRadioButtonsGroup(IViewContainer<View> container)
+    [RelayCommand]
+    private void UpdateRadioButtons(IList<IView> children)
     {
-        var children = container.Children;
-
         foreach (var item in children)
         {
             var radioButton = item as RadioButton;
@@ -47,7 +61,7 @@ public class AppThemeObservable : ViewModel
 
             AppTheme theme = (AppTheme)radioButton.Value;
 
-            if (theme == Current)
+            if (theme == current)
             {
                 radioButton.IsChecked = true;
 

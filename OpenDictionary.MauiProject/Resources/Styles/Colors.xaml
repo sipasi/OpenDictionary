@@ -23,6 +23,11 @@
     <Color x:Key="Teal">#20c997</Color>
     <Color x:Key="Cyan">#0dcaf0</Color>
 
+    <Color x:Key="Navy">#1e3d59</Color>
+    <Color x:Key="Almond">#f5f0e1</Color>
+    <Color x:Key="Red-Orange">#ff6e40</Color>
+    <Color x:Key="Mango">#ffc13b</Color>
+
     <Color x:Key="White">#fff</Color>
     <Color x:Key="Black">#000</Color>
 

@@ -25,11 +25,11 @@
         <Style TargetType="Button" BasedOn="{StaticResource ButtonOutline}">
 
         </Style>
-        <Style TargetType="RadioButton">
-            <Setter Property="BackgroundColor" 
-                    Value="{AppThemeBinding Light={x:StaticResource White}, Dark={x:StaticResource Dark}}"/>
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
+        <Style x:Key="RadioButtonLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="{StaticResource White}"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
         </Style>
 
         <ControlTemplate x:Key="RadioButtonControlTemplate">
@@ -60,13 +60,9 @@
             <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonControlTemplate}"/>
             <Setter Property="Content">
                 <VerticalStackLayout>
-                    <Label Text="Night" FontSize="20" TextColor="{StaticResource White}"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center"/>
-                    <Label FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.MoonLine}" 
-                           TextColor="{StaticResource White}"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center"/>
+                    <Label Style="{StaticResource RadioButtonLabelStyle}" Text="Night" />
+                    <Label Style="{StaticResource RadioButtonLabelStyle}" 
+                           FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.MoonLine}" />
                 </VerticalStackLayout>
             </Setter>
         </Style>
@@ -74,13 +70,9 @@
             <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonControlTemplate}"/>
             <Setter Property="Content">
                 <VerticalStackLayout>
-                    <Label Text="Day" FontSize="20" TextColor="{StaticResource White}"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center"/>
-                    <Label FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.SunLine}" 
-                           TextColor="{StaticResource White}"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center"/>
+                    <Label Style="{StaticResource RadioButtonLabelStyle}" Text="Day"/>
+                    <Label Style="{StaticResource RadioButtonLabelStyle}" 
+                           FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.SunLine}"/>
                 </VerticalStackLayout>
             </Setter>
         </Style>

@@ -33,12 +33,27 @@
             <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
 
+        <Style x:Key="DefaultShell" TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource Navy}, Dark={StaticResource Dark}}" />
+            <Setter Property="Shell.ForegroundColor" Value="{DynamicResource White}" />
+            <Setter Property="Shell.TitleColor" Value="{StaticResource White}" />
+            <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+            <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Navy}, Dark={StaticResource Dark}}" />
+            <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource White}"/>
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray-500}"/>
+            <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource White}"/>
+        </Style>
+
         <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}"/>
         <Style TargetType="ContentPage" ApplyToDerivedTypes="True" BasedOn="{x:StaticResource DefaultContentPage}"/>
         <Style TargetType="Frame" BasedOn="{x:StaticResource DefaultFrame}"/>
         <Style TargetType="Entry" BasedOn="{x:StaticResource DefaultEntry}"/>
         <Style TargetType="Editor" BasedOn="{x:StaticResource DefaultEditor}"/>
         <Style TargetType="Button" BasedOn="{x:StaticResource DefaultButton}"/>
+
+        <Style TargetType="TabBar" BasedOn="{StaticResource DefaultShell}" />
+        <Style TargetType="FlyoutItem" BasedOn="{StaticResource DefaultShell}" />
 
         <Style x:Key="ButtonOutline" TargetType="Button">
             <Setter Property="BackgroundColor" Value="Transparent"/>
