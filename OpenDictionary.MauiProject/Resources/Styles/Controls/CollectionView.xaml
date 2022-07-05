@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+     
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style x:Key="FlexibleCollection" TargetType="CollectionView">
+        <Setter Property="ItemsLayout">
+            <GridItemsLayout
+                Orientation="Vertical" 
+                HorizontalItemSpacing="5" 
+                VerticalItemSpacing="5" 
+                Span="{x:OnIdiom Phone=2, Tablet=3, Desktop=4}"/>
+        </Setter>
+        <Setter Property="Header">
+            <VerticalStackLayout/>
+        </Setter>
+        <Setter Property="Footer">
+            <VerticalStackLayout/>
+        </Setter>
+        <Setter Property="EmptyView">
+            <Label Text="Empty" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Setter>
+    </Style>
+</ResourceDictionary>

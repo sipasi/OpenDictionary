@@ -10,8 +10,8 @@
     Shell.FlyoutBehavior="Disabled"
      
     x:Class="OpenDictionary.MauiProject.AppShell">
-    <TabBar >
-        <ShellContent Title="Dictionaries" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}" x:Name="defautTab"/>
+    <TabBar>
+        <ShellContent Title="Dictionaries" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}"/>
         <ShellContent Title="Settings" Icon="icon_settings.png" ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </TabBar>
 </Shell>

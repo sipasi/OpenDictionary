@@ -5,42 +5,21 @@
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
-
+             
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
+ 
+             Padding="5,0"
+              
+             Title="{Binding Name}"
+             
              x:DataType="viewModels:WordGroupDetailViewModel"
              
-             Title="{Binding Name}"
-             Padding="10,0,10,0"
-             
              x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage">
-
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="FontImageSource">
                 <Setter Property="Size" Value="24"/>
             </Style>
-            <DataTemplate x:Key="WordGroupInfoDataTemplate" x:DataType="models:Word">
-                <Frame Style="{StaticResource WordGroupInfoFrame}">
-                    <Grid RowDefinitions="*,*">
-                        <Label Grid.Row="0" 
-                               Text="{Binding Origin}" FontAttributes="Bold"/>
-                        <Label Grid.Row="1" 
-                               Text="{Binding Translation}" TextColor="{x:StaticResource Gray-500}"/>
-                    </Grid>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=TappedCommand}"
-                                CommandParameter="{Binding .}"/>
-                    </Frame.GestureRecognizers>
-                </Frame>
-            </DataTemplate>
-            <DataTemplate x:Key="EmptyViewDataTemplate">
-                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <Label Text="Add your first word" 
-                       FontAttributes="Bold" FontSize="Title" 
-                       TextColor="{StaticResource Blue-400}"/>
-                </VerticalStackLayout>
-            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -67,19 +46,23 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
+    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words}" Style="{StaticResource FlexibleCollection}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Word">
+                <controls:CollectionTile 
+                    Title="{Binding Origin}" 
+                    SubTitle="{Binding Translation}" 
+                    Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=TappedCommand}"
+                    CommandParameter="{Binding .}"/>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
 
-    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words}"
-                    ItemTemplate="{StaticResource WordGroupInfoDataTemplate}"
-                    EmptyViewTemplate="{StaticResource EmptyViewDataTemplate}"
-                    ItemSizingStrategy="MeasureAllItems">
-        <CollectionView.ItemsLayout>
-            <GridItemsLayout Orientation="Vertical" 
-                             HorizontalItemSpacing="10"
-                             Span="{OnIdiom Phone=2, Tablet=4,Desktop=5}"/>
-        </CollectionView.ItemsLayout>
-
-        <CollectionView.Footer>
-            <HorizontalStackLayout Margin="5"/>
-        </CollectionView.Footer>
+        <CollectionView.EmptyView>
+            <Label Text="Add your first word" 
+                   FontAttributes="Bold" FontSize="Title" 
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   TextColor="{StaticResource Blue-400}"/>
+        </CollectionView.EmptyView>
     </CollectionView>
 </ContentPage>
