@@ -5,80 +5,79 @@ using System.Linq;
 
 using NUnit.Framework;
 
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+public class ServiceBuilder
 {
-    public class ServiceBuilder
+    private readonly List<ServiceDescriptor> descriptors;
+
+    public readonly Builder singleton;
+    public readonly Builder transient;
+
+    public ServiceBuilder()
     {
-        private readonly List<ServiceDescriptor> descriptors;
-
-        public readonly Builder singleton;
-        public readonly Builder transient;
-
-        public ServiceBuilder()
-        {
-            descriptors = new List<ServiceDescriptor>();
-            singleton = new Builder(descriptors, Lifetime.Singleton);
-            transient = new Builder(descriptors, Lifetime.Transient);
-        }
-
-        public IDiContainer Build()
-        {
-            var pairs = descriptors.ToDictionary(key => key.ServiceType);
-
-            DiContainer container = new DiContainer(pairs);
-
-            return container;
-        }
+        descriptors = new List<ServiceDescriptor>();
+        singleton = new Builder(descriptors, Lifetime.Singleton);
+        transient = new Builder(descriptors, Lifetime.Transient);
     }
 
-    public readonly struct Builder
+    public IDiContainer Build()
     {
-        private readonly List<ServiceDescriptor> descriptors;
-        private readonly Lifetime lifetime;
+        var pairs = descriptors.ToDictionary(key => key.ServiceType);
 
-        public Builder(List<ServiceDescriptor> descriptors, Lifetime lifetime)
-        {
-            this.descriptors = descriptors;
-            this.lifetime = lifetime;
-        }
+        DiContainer container = new DiContainer(pairs);
 
-        public Builder Add<T>() where T : class
-        {
-            return AddService<T, T>();
-        }
-        public Builder Add<T>(T instance) where T : class
-        {
-            Assert.IsNotNull(instance, $"Instance can't be null. Type[{typeof(T)}]");
+        return container;
+    }
+}
 
-            return AddService<T, T>(instance);
-        }
-        public Builder Add<TService, TImplementation>()
-           where TService : class
-           where TImplementation : class, TService
-        {
-            return AddService<TService, TImplementation>();
-        }
-        public Builder Add<TService, TImplementation>(TImplementation instance)
-            where TService : class
-            where TImplementation : class, TService
-        {
-            Assert.IsNotNull(instance, $"Instance can't be null. Type[{typeof(TService)}]");
+public readonly struct Builder
+{
+    private readonly List<ServiceDescriptor> descriptors;
+    private readonly Lifetime lifetime;
 
-            return AddService<TService, TImplementation>(instance);
-        }
+    public Builder(List<ServiceDescriptor> descriptors, Lifetime lifetime)
+    {
+        this.descriptors = descriptors;
+        this.lifetime = lifetime;
+    }
 
-        private Builder AddService<TService, TImplementation>(TImplementation? instance = null)
-            where TService : class
-            where TImplementation : class, TService
-        {
-            var service = typeof(TService);
-            var implementation = typeof(TImplementation);
+    public Builder Add<T>() where T : class
+    {
+        return AddService<T, T>();
+    }
+    public Builder Add<T>(T instance) where T : class
+    {
+        Assert.IsNotNull(instance, $"Instance can't be null. Type[{typeof(T)}]");
 
-            ServiceDescriptor descriptor = new ServiceDescriptor(lifetime, service, implementation, instance);
+        return AddService<T, T>(instance);
+    }
+    public Builder Add<TService, TImplementation>()
+       where TService : class
+       where TImplementation : class, TService
+    {
+        return AddService<TService, TImplementation>();
+    }
+    public Builder Add<TService, TImplementation>(TImplementation instance)
+        where TService : class
+        where TImplementation : class, TService
+    {
+        Assert.IsNotNull(instance, $"Instance can't be null. Type[{typeof(TService)}]");
 
-            descriptors.Add(descriptor);
+        return AddService<TService, TImplementation>(instance);
+    }
 
-            return this;
-        }
+    private Builder AddService<TService, TImplementation>(TImplementation? instance = null)
+        where TService : class
+        where TImplementation : class, TService
+    {
+        var service = typeof(TService);
+        var implementation = typeof(TImplementation);
+
+        ServiceDescriptor descriptor = new ServiceDescriptor(lifetime, service, implementation, instance);
+
+        descriptors.Add(descriptor);
+
+        return this;
     }
 }

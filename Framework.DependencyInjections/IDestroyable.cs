@@ -1,7 +1,6 @@
-﻿namespace Framework.DependencyInjection
+﻿namespace Framework.DependencyInjection;
+
+public interface IDestroyable
 {
-    public interface IDestroyable
-    {
-        void Destroy(IDiContainer container);
-    }
+    void Destroy(IDiContainer container);
 }

@@ -6,42 +6,47 @@ using System.Threading.Tasks;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 
-namespace OpenDictionary.RemoteDictionaries.Sources
+namespace OpenDictionary.RemoteDictionaries.Sources;
+
+/// https://dictionaryapi.dev
+public class DictionaryApiRemoteSource : IDictionarySource
 {
-    /// https://dictionaryapi.dev
-    public class DictionaryApiRemoteSource : IDictionarySource
+    private readonly string source;
+
+    private readonly HttpClient client;
+
+    private readonly IJsonParser parser;
+
+    public DictionaryApiRemoteSource(IJsonParser parser)
     {
-        private readonly string source;
+        source = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+        client = new HttpClient();
+        this.parser = parser;
+    }
 
-        private readonly HttpClient client;
+    public async Task<WordMetadata?> GetWord(string value)
+    {
+        Uri uri = GetUri(value);
 
-        private readonly IJsonParser parser;
+        WordMetadata? result = default;
 
-        public DictionaryApiRemoteSource(IJsonParser parser)
+        try
         {
-            source = "https://api.dictionaryapi.dev/api/v2/entries/en/";
-            client = new HttpClient();
-            this.parser = parser;
-        }
-
-        public async Task<WordMetadata?> GetWord(string value)
-        {
-            Uri uri = GetUri(value);
-
             string response = await client.GetStringAsync(uri);
 
-            WordMetadata? result = await parser.Parse(response);
-
-            return result;
+            result = await parser.Parse(response);
         }
+        catch { }
 
-        private Uri GetUri(string word)
-        {
-            string path = Path.Combine(source, word);
+        return result;
+    }
 
-            Uri uri = new Uri(path);
+    private Uri GetUri(string word)
+    {
+        string path = Path.Combine(source, word);
 
-            return uri;
-        }
+        Uri uri = new Uri(path);
+
+        return uri;
     }
 }

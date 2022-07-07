@@ -1,16 +1,15 @@
-﻿namespace OpenDictionary.Games.WordConformities
+﻿namespace OpenDictionary.Games.WordConformities;
+
+public interface IProperties
 {
-    public interface IProperties
-    {
-        string GroupName { get; set; }
-        string Question { get; set; }
+    string GroupName { get; set; }
+    string Question { get; set; }
 
-        int Total { get; set; }
+    int Total { get; set; }
 
-        int Answered { get; set; }
-        int Correct { get; set; }
-        int Uncorrect { get; set; }
+    int Answered { get; set; }
+    int Correct { get; set; }
+    int Uncorrect { get; set; }
 
-        void Clear();
-    }
+    void Clear();
 }

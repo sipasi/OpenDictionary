@@ -1,11 +1,10 @@
 ﻿using System;
 
 
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+public interface IDiContainer
 {
-    public interface IDiContainer
-    {
-        T Get<T>() where T : class;
-        object Get(Type type);
-    }
+    T Get<T>() where T : class;
+    object Get(Type type);
 }

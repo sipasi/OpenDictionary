@@ -2,12 +2,11 @@
 
 using OpenDictionary.Games.WordConformities.Observables;
 
-namespace OpenDictionary.Games.WordConformities
-{
-    public class GameEvents : IGameEvents
-    {
-        public event Action<AnswerButtonObservable>? Answered;
+namespace OpenDictionary.Games.WordConformities;
 
-        public void InvokeAnswered(AnswerButtonObservable answer) => Answered?.Invoke(answer);
-    }
+public class GameEvents : IGameEvents
+{
+    public event Action<AnswerButtonObservable>? Answered;
+
+    public void InvokeAnswered(AnswerButtonObservable answer) => Answered?.Invoke(answer);
 }

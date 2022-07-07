@@ -1,8 +1,7 @@
-﻿namespace Framework.States
+﻿namespace Framework.States;
+
+public interface IState
 {
-    public interface IState
-    {
-        void Enter();
-        void Exit();
-    }
+    void Enter();
+    void Exit();
 }

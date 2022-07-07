@@ -13,7 +13,6 @@ using Microsoft.Maui.Networking;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
-using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.Messages.Alerts;
@@ -40,8 +39,6 @@ public sealed partial class WordDetailViewModel : WordViewModel
     [ObservableProperty]
     private string? metadataCustomState;
 
-    public WordMetadataObservable Metadata { get; }
-
     public WordDetailViewModel(
         IStorage<Word> wordStorage,
         IStorage<WordMetadata> metadataStorage,
@@ -49,7 +46,7 @@ public sealed partial class WordDetailViewModel : WordViewModel
         IDialogMessageService dialog,
         IAlertMessageService alert,
         IAudioPlayerServise audioPlayer,
-        IPhoneticFilesService phoneticStorage,
+        IPhoneticFilesService phoneticFiles,
         IDictionarySource source) : base(wordStorage, navigation, alert)
     {
         this.wordStorage = wordStorage;
@@ -57,10 +54,9 @@ public sealed partial class WordDetailViewModel : WordViewModel
         this.navigation = navigation;
         this.dialog = dialog;
         this.audioPlayer = audioPlayer;
-        this.phoneticFiles = phoneticStorage;
+        this.phoneticFiles = phoneticFiles;
         this.source = source;
 
-        Metadata = new WordMetadataObservable();
         MetadataLoadState = LayoutState.None;
         MetadataCustomState = null;
     }
@@ -83,16 +79,9 @@ public sealed partial class WordDetailViewModel : WordViewModel
         MetadataLoadState = LayoutState.Loading;
         MetadataCustomState = null;
 
-        try
-        {
-            WordMetadata? metadata = await GetMetadataFrom(Word.Origin);
+        WordMetadata? metadata = await GetMetadataFrom(Word.Origin);
 
-            if (metadata is not null)
-            {
-                Metadata.Set(metadata);
-            }
-        }
-        catch (Exception e)
+        if (metadata is null)
         {
             MetadataLoadState = LayoutState.Custom;
 
@@ -100,15 +89,16 @@ public sealed partial class WordDetailViewModel : WordViewModel
             {
                 MetadataCustomState = ErrorStates.NotFound;
             }
-            else
+            else if (Connectivity.NetworkAccess == NetworkAccess.None)
             {
+
                 MetadataCustomState = ErrorStates.NoInternetConnection;
             }
 
-            await ErrorMessage(e);
-
             return;
         }
+
+        Metadata.Set(metadata);
 
         MetadataLoadState = LayoutState.Success;
     }

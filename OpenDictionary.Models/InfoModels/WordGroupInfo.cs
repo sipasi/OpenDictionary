@@ -2,16 +2,15 @@
 
 using System;
 
-namespace OpenDictionary.Models
+namespace OpenDictionary.Models;
+
+public class WordGroupInfo
 {
-    public class WordGroupInfo
-    {
-        public Guid? Id { get; set; }
+    public Guid? Id { get; set; }
 
-        public DateTime? Date { get; set; }
+    public DateTime? Date { get; set; }
 
-        public string? Name { get; set; }
+    public string? Name { get; set; }
 
-        public int? Count { get; set; }
-    }
+    public int? Count { get; set; }
 }

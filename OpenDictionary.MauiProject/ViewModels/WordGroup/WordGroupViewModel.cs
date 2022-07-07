@@ -1,15 +1,9 @@
-﻿
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.Maui.Controls;
 
 using MvvmHelpers;
 
-using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 
 namespace OpenDictionary.ViewModels;

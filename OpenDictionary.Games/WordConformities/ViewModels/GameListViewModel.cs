@@ -10,78 +10,77 @@ using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels;
 
-namespace OpenDictionary.Games.WordConformities.ViewModels
+namespace OpenDictionary.Games.WordConformities.ViewModels;
+
+public class GameListViewModel
 {
-    public class GameListViewModel : ViewModel
+    private string id;
+
+    private readonly IStorage<WordGroup> storage;
+
+    private readonly INavigationService navigation;
+
+    public string Id
     {
-        private string id;
-
-        private readonly IStorage<WordGroup> storage;
-
-        private readonly INavigationService navigation;
-
-        public string Id
+        get => id;
+        set
         {
-            get => id;
-            set
+            id = value;
+
+            Games.LoadCommand.ExecuteAsync();
+        }
+    }
+
+    public CollectionViewModel<GameInfo> Games { get; }
+
+    public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation)
+    {
+        this.storage = storage;
+        this.navigation = navigation;
+
+        Games = new CollectionViewModel<GameInfo>(OnLoad, OnTapped);
+
+        var infos = new List<GameInfo>()
+        {
+            new GameInfo
             {
-                id = value;
-
-                Games.LoadCommand.ExecuteAsync();
-            }
-        }
-
-        public CollectionViewModel<GameInfo> Games { get; }
-
-        public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation)
-        {
-            this.storage = storage;
-            this.navigation = navigation;
-
-            Games = new CollectionViewModel<GameInfo>(OnLoad, OnTapped);
-
-            var infos = new List<GameInfo>()
+                Image = "icon_origin_to_translation.png",
+                Name = "Origin to translation",
+                Description = "",
+                Route = AppRoutes.Game.OriginToTranslation,
+                CountToUnlock = 8,
+            },
+            new GameInfo
             {
-                new GameInfo
-                {
-                    Image = "icon_origin_to_translation.png",
-                    Name = "Origin to translation",
-                    Description = "",
-                    Route = AppRoutes.Game.OriginToTranslation,
-                    CountToUnlock = 8,
-                },
-                new GameInfo
-                {
-                    Image = "icon_translation_to_origin.png",
-                    Name = "Translation to origin",
-                    Description = "",
-                    Route = AppRoutes.Game.TranslationToOrigin,
-                    CountToUnlock = 8,
-                },
-            };
+                Image = "icon_translation_to_origin.png",
+                Name = "Translation to origin",
+                Description = "",
+                Route = AppRoutes.Game.TranslationToOrigin,
+                CountToUnlock = 8,
+            },
+        };
 
-            Games.Collection.AddRange(infos);
-        }
+        Games.Collection.AddRange(infos);
+    }
 
-        public async Task OnLoad()
+    public async Task OnLoad()
+    {
+        Guid guid = Guid.Parse(id);
+
+        var query = storage
+            .Query()
+            .Select(x => new { x.Id, x.Words.Count });
+
+        var group = await Task.Run(() => query.First(x => x.Id == guid));
+
+        foreach (var game in Games.Collection)
         {
-            Guid guid = Guid.Parse(id);
-
-            var query = storage
-                .Query()
-                .Select(x => new { x.Id, x.Words.Count });
-
-            var group = await Task.Run(() => query.First(x => x.Id == guid));
-
-            foreach (var game in Games.Collection)
-            {
-                game.WordCount = group.Count;
-            }
+            game.WordCount = group.Count;
         }
+    }
 
-        private Task OnTapped(GameInfo game)
-        {
-            return navigation.GoToAsync(game.Route, nameof(WordGroup.Id), id);
-        }
+    private Task OnTapped(GameInfo game)
+    {
+        return navigation.GoToAsync(game.Route, nameof(WordGroup.Id), id);
     }
 }

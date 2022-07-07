@@ -2,10 +2,9 @@
 using System.Reflection;
 
 
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+internal interface IConstructorResolver
 {
-    internal interface IConstructorResolver
-    {
-        ConstructorInfo GetConstructor(Type type);
-    }
+    ConstructorInfo GetConstructor(Type type);
 }

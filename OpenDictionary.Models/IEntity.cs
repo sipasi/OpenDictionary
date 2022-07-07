@@ -1,10 +1,9 @@
 ﻿using System;
-namespace OpenDictionary.Models
-{
-    public interface IEntity<T>
-    {
-        T Id { get; }
-    }
+namespace OpenDictionary.Models;
 
-    public interface IEntity : IEntity<Guid> { }
+public interface IEntity<T>
+{
+    T Id { get; }
 }
+
+public interface IEntity : IEntity<Guid> { }

@@ -2,10 +2,9 @@
 
 using OpenDictionary.Games.WordConformities.Observables;
 
-namespace OpenDictionary.Games.WordConformities
+namespace OpenDictionary.Games.WordConformities;
+
+public interface IGameEvents
 {
-    public interface IGameEvents
-    {
-        event Action<AnswerButtonObservable> Answered;
-    }
+    event Action<AnswerButtonObservable> Answered;
 }

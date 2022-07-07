@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -36,9 +35,9 @@ public sealed partial class ExportViewModel
     [ObservableProperty]
     private bool multiple;
 
-    public bool CanMultipleExport => SelectedItems.Count > 1;
-
     private bool MultipleExport => CanMultipleExport && multiple;
+
+    public bool CanMultipleExport => SelectedItems.Count > 1;
 
     public ObservableRangeCollection<WordGroupInfo> Items { get; }
     public ObservableCollection<object> SelectedItems { get; }

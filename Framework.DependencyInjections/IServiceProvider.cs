@@ -1,8 +1,7 @@
-﻿namespace Framework.DependencyInjection
+﻿namespace Framework.DependencyInjection;
+
+internal interface IServiceProvider
 {
-    internal interface IServiceProvider
-    {
-        object GetSingleton(ServiceDescriptor descriptor, IDiContainer container);
-        object GetTransient(ServiceDescriptor descriptor, IDiContainer container);
-    }
+    object GetSingleton(ServiceDescriptor descriptor, IDiContainer container);
+    object GetTransient(ServiceDescriptor descriptor, IDiContainer container);
 }

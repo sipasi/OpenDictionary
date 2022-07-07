@@ -1,10 +1,9 @@
 ﻿
 using System.Threading.Tasks;
 
-namespace OpenDictionary.Services.Messages.Toasts
+namespace OpenDictionary.Services.Messages.Toasts;
+
+public interface IToastMessageService
 {
-    public interface IToastMessageService
-    {
-        Task Show(string message);
-    }
+    Task Show(string message);
 }

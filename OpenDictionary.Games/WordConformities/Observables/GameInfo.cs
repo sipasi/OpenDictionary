@@ -1,35 +1,28 @@
-﻿using OpenDictionary.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace OpenDictionary.Games.WordConformities.Observables
+namespace OpenDictionary.Games.WordConformities.Observables;
+
+[INotifyPropertyChanged]
+public sealed partial class GameInfo
 {
-    public class GameInfo : ViewModel
-    {
-        private string image;
-        private string name;
-        private string description;
-        private int wordCount;
-        private int countToUnlock;
-        private string route;
+    [ObservableProperty]
+    private string image = string.Empty;
+    [ObservableProperty]
+    private string name = string.Empty;
+    [ObservableProperty]
+    private string description = string.Empty;
 
-        public string Image { get => image; set => SetProperty(ref image, value); }
-        public string Name { get => name; set => SetProperty(ref name, value); }
-        public string Description { get => description; set => SetProperty(ref description, value); }
-        public int WordCount
-        {
-            get => wordCount;
-            set
-            {
-                SetProperty(ref wordCount, value);
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsUnlock))]
+    [NotifyPropertyChangedFor(nameof(IsLock))]
+    private int wordCount;
 
-                OnPropertyChanged(nameof(IsUnlock));
-                OnPropertyChanged(nameof(IsLock));
-            }
-        }
-        public int CountToUnlock { get => countToUnlock; set => SetProperty(ref countToUnlock, value); }
+    [ObservableProperty]
+    private int countToUnlock;
 
-        public bool IsUnlock => WordCount >= CountToUnlock;
-        public bool IsLock => !IsUnlock;
+    [ObservableProperty]
+    private string route = string.Empty;
 
-        public string Route { get => route; set => SetProperty(ref route, value); }
-    }
+    public bool IsUnlock => WordCount >= CountToUnlock;
+    public bool IsLock => !IsUnlock;
 }

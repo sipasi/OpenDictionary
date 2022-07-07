@@ -22,7 +22,7 @@ public partial class SettingsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-         
+
         IList<IView> container = radioGroup;
 
         viewModel.AppTheme.UpdateRadioButtonsCommand.Execute(container);

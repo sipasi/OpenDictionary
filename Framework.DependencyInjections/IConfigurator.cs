@@ -1,8 +1,7 @@
 ﻿
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+public interface IConfigurator
 {
-    public interface IConfigurator
-    {
-        void Configure(ServiceBuilder builder);
-    }
+    void Configure(ServiceBuilder builder);
 }

@@ -6,44 +6,43 @@ using MvvmHelpers.Commands;
 
 using OpenDictionary.Collections.Storages;
 
-namespace OpenDictionary.ViewModels
+namespace OpenDictionary.ViewModels;
+
+public delegate IQueryable<TOut> SelectQueryFactory<TIn, TOut>(IQueryable<TIn> query);
+
+public class SelectableCollection<TStorage, T> : CollectionViewModel<T>
 {
-    public delegate IQueryable<TOut> SelectQueryFactory<TIn, TOut>(IQueryable<TIn> query);
+    private readonly IStorage<TStorage> storage;
 
-    public class SelectableCollection<TStorage, T> : CollectionViewModel<T>
+    public SelectQueryFactory<TStorage, T> Query { get; }
+
+    public SelectableCollection(IStorage<TStorage> storage, SelectQueryFactory<TStorage, T> query, Func<T, Task> tappedCommand)
     {
-        private readonly IStorage<TStorage> storage;
+        this.storage = storage;
 
-        public SelectQueryFactory<TStorage, T> Query { get; }
+        Query = query;
 
-        public SelectableCollection(IStorage<TStorage> storage, SelectQueryFactory<TStorage, T> query, Func<T, Task> tappedCommand)
-        {
-            this.storage = storage;
+        LoadCommand = new AsyncCommand(Load);
 
-            Query = query;
+        TappedCommand = new AsyncCommand<T>(tappedCommand);
+    }
 
-            LoadCommand = new AsyncCommand(Load);
+    public async Task Load()
+    {
+        IsBusy = true;
 
-            TappedCommand = new AsyncCommand<T>(tappedCommand);
-        }
+        IQueryable<TStorage> storageQuery = storage.Query();
 
-        public async Task Load()
-        {
-            IsBusy = true;
+        IQueryable<T> query = Query.Invoke(storageQuery);
 
-            IQueryable<TStorage> storageQuery = storage.Query();
+        var task = Task.Run(query.ToArray);
 
-            IQueryable<T> query = Query.Invoke(storageQuery);
+        var items = await task;
 
-            var task = Task.Run(query.ToArray);
+        Collection.Clear();
 
-            var items = await task;
+        Collection.AddRange(items);
 
-            Collection.Clear();
-
-            Collection.AddRange(items);
-
-            IsBusy = false;
-        }
+        IsBusy = false;
     }
 }

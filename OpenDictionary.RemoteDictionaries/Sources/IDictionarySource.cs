@@ -2,10 +2,9 @@
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.RemoteDictionaries.Sources
+namespace OpenDictionary.RemoteDictionaries.Sources;
+
+public interface IDictionarySource
 {
-    public interface IDictionarySource
-    {
-        Task<WordMetadata?> GetWord(string value);
-    }
+    Task<WordMetadata?> GetWord(string value);
 }

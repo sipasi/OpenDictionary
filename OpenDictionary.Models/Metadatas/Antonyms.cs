@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace OpenDictionary.Models
-{
-    public class Antonyms : IEntity
-    {
-        public Guid Id { get; set; }
+namespace OpenDictionary.Models;
 
-        public string Value { get; set; }
-    }
+public class Antonyms : IEntity
+{
+    public Guid Id { get; set; }
+
+    public string Value { get; set; }
 }

@@ -5,79 +5,78 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+internal class DiContainer : IDiContainer
 {
-    internal class DiContainer : IDiContainer
+    private readonly IServiceProvider provider;
+
+    private readonly Dictionary<Type, ServiceDescriptor> container;
+
+    internal DiContainer(Dictionary<Type, ServiceDescriptor> container)
     {
-        private readonly IServiceProvider provider;
+        ConstructorResolver resolver = new ConstructorResolver();
 
-        private readonly Dictionary<Type, ServiceDescriptor> container;
+        ServiceCreator creator = new ServiceCreator(resolver);
 
-        internal DiContainer(Dictionary<Type, ServiceDescriptor> container)
+        provider = new ServiceProvider(creator);
+
+        this.container = container;
+    }
+    internal DiContainer(IServiceProvider provider, Dictionary<Type, ServiceDescriptor> container)
+    {
+        this.provider = provider;
+        this.container = container;
+    }
+
+    public T Get<T>() where T : class
+    {
+        var type = typeof(T);
+
+        object service = Get(type);
+
+        T result = (service as T)!;
+
+        return result;
+    }
+    public object Get(Type type)
+    {
+        if (container.ContainsKey(type) == false)
         {
-            ConstructorResolver resolver = new ConstructorResolver();
+            string message = $"Container don't have descriptor by type[{type.Name}].";
 
-            ServiceCreator creator = new ServiceCreator(resolver);
-
-            provider = new ServiceProvider(creator);
-
-            this.container = container;
-        }
-        internal DiContainer(IServiceProvider provider, Dictionary<Type, ServiceDescriptor> container)
-        {
-            this.provider = provider;
-            this.container = container;
-        }
-
-        public T Get<T>() where T : class
-        {
-            var type = typeof(T);
-
-            object service = Get(type);
-
-            T result = (service as T)!;
-
-            return result;
-        }
-        public object Get(Type type)
-        {
-            if (container.ContainsKey(type) == false)
+            if (type.IsGenericType)
             {
-                string message = $"Container don't have descriptor by type[{type.Name}].";
+                message += " Generic[";
 
-                if (type.IsGenericType)
+                foreach (var item in type.GenericTypeArguments)
                 {
-                    message += " Generic[";
-
-                    foreach (var item in type.GenericTypeArguments)
-                    {
-                        message += $" {item.Name}";
-                    }
-
-                    message += "]";
+                    message += $" {item.Name}";
                 }
 
-                Assert.IsTrue(false, message);
+                message += "]";
             }
 
-            ServiceDescriptor descriptor = container[type];
-
-            Assert.IsNotNull(descriptor);
-
-            Type implementation = descriptor.ImplementationType;
-
-            Assert.IsNotNull(implementation);
-
-            if (descriptor.IsSingleton())
-            {
-                return provider.GetSingleton(descriptor, this);
-            }
-            if (descriptor.IsTransient())
-            {
-                return provider.GetTransient(descriptor, this);
-            }
-
-            throw new NotSupportedException($"The Lifetime serivce[{descriptor.Lifetime}] is not support");
+            Assert.IsTrue(false, message);
         }
+
+        ServiceDescriptor descriptor = container[type];
+
+        Assert.IsNotNull(descriptor);
+
+        Type implementation = descriptor.ImplementationType;
+
+        Assert.IsNotNull(implementation);
+
+        if (descriptor.IsSingleton())
+        {
+            return provider.GetSingleton(descriptor, this);
+        }
+        if (descriptor.IsTransient())
+        {
+            return provider.GetTransient(descriptor, this);
+        }
+
+        throw new NotSupportedException($"The Lifetime serivce[{descriptor.Lifetime}] is not support");
     }
 }

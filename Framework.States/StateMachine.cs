@@ -4,73 +4,72 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-namespace Framework.States
+namespace Framework.States;
+
+public class StateMachine<TTrigger> : IStateMachine<TTrigger>, IStateMachineDefinition<TTrigger>
 {
-    public class StateMachine<TTrigger> : IStateMachine<TTrigger>, IStateMachineDefinition<TTrigger>
+    private readonly Dictionary<Type, IStateDefinition> states
+        = new Dictionary<Type, IStateDefinition>();
+    private readonly Dictionary<(Type, TTrigger), IStateDefinition> transitions
+        = new Dictionary<(Type, TTrigger), IStateDefinition>();
+
+    private (IStateDefinition Definition, IState State) current;
+
+    public void Fire(TTrigger trigger)
     {
-        private readonly Dictionary<Type, IStateDefinition> states
-            = new Dictionary<Type, IStateDefinition>();
-        private readonly Dictionary<(Type, TTrigger), IStateDefinition> transitions
-            = new Dictionary<(Type, TTrigger), IStateDefinition>();
+        var transition = (current.Definition?.Type, trigger);
 
-        private (IStateDefinition Definition, IState State) current;
+        AssertTransition(transition, trigger);
 
-        public void Fire(TTrigger trigger)
-        {
-            var transition = (current.Definition?.Type, trigger);
+        var definition = transitions[transition];
 
-            AssertTransition(transition, trigger);
+        current.State?.Exit();
+        current = (definition, definition?.GetState());
+        current.State?.Enter();
 
-            var definition = transitions[transition];
+        Assert.IsNotNull(current.State, $"State cant be null. Trigger Type[{typeof(TTrigger).Name}] Key[{trigger.ToString()}]");
+    }
 
-            current.State?.Exit();
-            current = (definition, definition?.GetState());
-            current.State?.Enter();
+    public void DefineState<T>(StateFactory<T> factory) where T : IState
+    {
+        var type = typeof(T);
+        var definition = new StateDefinition<T>(factory);
 
-            Assert.IsNotNull(current.State, $"State cant be null. Trigger Type[{typeof(TTrigger).Name}] Key[{trigger.ToString()}]");
-        }
+        states.Add(type, definition);
+    }
 
-        public void DefineState<T>(StateFactory<T> factory) where T : IState
-        {
-            var type = typeof(T);
-            var definition = new StateDefinition<T>(factory);
+    public void DefineTransition<T1, T2>(TTrigger trigger)
+        where T1 : IState
+        where T2 : IState
+    {
+        var type1 = typeof(T1);
+        var type2 = typeof(T2);
 
-            states.Add(type, definition);
-        }
+        AssertState(type1);
+        AssertState(type2);
 
-        public void DefineTransition<T1, T2>(TTrigger trigger)
-            where T1 : IState
-            where T2 : IState
-        {
-            var type1 = typeof(T1);
-            var type2 = typeof(T2);
+        transitions.Add((type1, trigger), states[type2]);
+    }
 
-            AssertState(type1);
-            AssertState(type2);
+    public void DefineStartTransition<T>(TTrigger trigger) where T : IState
+    {
+        var type = typeof(T);
 
-            transitions.Add((type1, trigger), states[type2]);
-        }
+        AssertState(type);
 
-        public void DefineStartTransition<T>(TTrigger trigger) where T : IState
-        {
-            var type = typeof(T);
+        transitions.Add((null, trigger), states[type]);
+    }
 
-            AssertState(type);
+    private void AssertState(Type type)
+    {
+        string message = $"State of type {type.Name} not defined";
 
-            transitions.Add((null, trigger), states[type]);
-        }
+        Assert.IsTrue(states.ContainsKey(type), message);
+    }
+    private void AssertTransition((Type, TTrigger) transition, TTrigger trigger)
+    {
+        string message = $"Transition from state[{current.State?.GetType().Name ?? "ROOT"}] not found by trigger {trigger}";
 
-        private void AssertState(Type type)
-        {
-            string message = $"State of type {type.Name} not defined";
-
-            Assert.IsTrue(states.ContainsKey(type), message);
-        }
-        private void AssertTransition((Type, TTrigger) transition, TTrigger trigger)
-        {
-            string message = $"Transition from state[{current.State?.GetType().Name ?? "ROOT"}] not found by trigger {trigger}";
-
-            Assert.IsTrue(transitions.ContainsKey(transition), message);
-        }
+        Assert.IsTrue(transitions.ContainsKey(transition), message);
     }
 }

@@ -3,9 +3,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
+using CommunityToolkit.Mvvm.Input;
 
-using MvvmHelpers.Commands;
+using Microsoft.EntityFrameworkCore;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
@@ -17,26 +17,21 @@ using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 namespace OpenDictionary.ViewModels;
 
-public class WordGroupDictionaryViewModel : ViewModel
+public sealed partial class WordGroupDictionaryViewModel
 {
     private readonly IStorage<WordGroup> storage;
     private readonly IDialogMessageService dialog;
     private readonly IToastMessageService toast;
-
-    public AsyncCommand AddPreinstalledlCommand { get; }
-    public AsyncCommand DeleteAllCommand { get; }
 
     public WordGroupDictionaryViewModel(IStorage<WordGroup> storage, IDialogMessageService dialog, IToastMessageService toast)
     {
         this.storage = storage;
         this.dialog = dialog;
         this.toast = toast;
-
-        DeleteAllCommand = new AsyncCommand(OnDelete);
-        AddPreinstalledlCommand = new AsyncCommand(OnAdd);
     }
 
-    private async Task OnAdd()
+    [RelayCommand]
+    private async Task AddPreinstalled()
     {
         WordGroup[]? groups = await WordGroupJsonFile.LoadAsync();
 
@@ -66,7 +61,8 @@ public class WordGroupDictionaryViewModel : ViewModel
 
         await toast.ShowSuccess(message: GetSuccessMessage(count));
     }
-    private async Task OnDelete()
+    [RelayCommand]
+    private async Task DeleteAll()
     {
         DialogResult result = await EntityDeleteDialog.Show(dialog);
 

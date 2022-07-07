@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
     <ProjectReference Include="..\Framework.States\Framework.States.csproj" />
     <ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />

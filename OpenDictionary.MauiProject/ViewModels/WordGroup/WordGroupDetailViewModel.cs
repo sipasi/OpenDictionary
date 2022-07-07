@@ -50,7 +50,7 @@ public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
         }
 
         Name = group.Name;
-        
+
         Words.Clear();
 
         Words.AddRange(group.Words);

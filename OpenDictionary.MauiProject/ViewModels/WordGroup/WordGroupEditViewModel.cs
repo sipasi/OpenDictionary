@@ -8,7 +8,6 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Maui.ApplicationModel.DataTransfer;
 using Microsoft.Maui.Devices;
-using Microsoft.Maui.Storage;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;

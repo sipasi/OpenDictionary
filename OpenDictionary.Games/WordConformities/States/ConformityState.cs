@@ -1,12 +1,11 @@
-﻿namespace OpenDictionary.Games.WordConformities.States
+﻿namespace OpenDictionary.Games.WordConformities.States;
+
+public enum ConformityState
 {
-    public enum ConformityState
-    {
-        GameStart,
-        GameEnd,
-        WaitAnswer,
-        CorrectAnswer,
-        UncorrectAnswer,
-        NextAnswer,
-    }
+    GameStart,
+    GameEnd,
+    WaitAnswer,
+    CorrectAnswer,
+    UncorrectAnswer,
+    NextAnswer,
 }

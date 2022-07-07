@@ -2,27 +2,26 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace OpenDictionary.ViewModels
+namespace OpenDictionary.ViewModels;
+
+public class ViewModel : INotifyPropertyChanged
 {
-    public class ViewModel : INotifyPropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        if (EqualityComparer<T>.Default.Equals(storage, value))
+            return false;
 
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(storage, value))
-                return false;
+        storage = value;
 
-            storage = value;
+        OnPropertyChanged(propertyName);
 
-            OnPropertyChanged(propertyName);
+        return true;
+    }
 
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

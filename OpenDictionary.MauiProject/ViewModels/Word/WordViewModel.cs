@@ -24,7 +24,7 @@ public partial class WordViewModel
     [ObservableProperty]
     private WordObservable word;
     [ObservableProperty]
-    private WordMetadataObservable? metadata;
+    private WordMetadataObservable metadata;
 
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;

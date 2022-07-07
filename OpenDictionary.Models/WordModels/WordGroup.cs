@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenDictionary.Models
+namespace OpenDictionary.Models;
+
+public class WordGroup : IEntity
 {
-    public class WordGroup : IEntity
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public DateTime Date { get; set; }
+    public DateTime Date { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public ICollection<Word> Words { get; set; }
-    }
+    public ICollection<Word> Words { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿namespace OpenDictionary.Services.Messages.Dialogs
+﻿namespace OpenDictionary.Services.Messages.Dialogs;
+
+public enum DialogResult
 {
-    public enum DialogResult
-    {
-        Ok,
-        Cancel,
-    }
+    Ok,
+    Cancel,
 }

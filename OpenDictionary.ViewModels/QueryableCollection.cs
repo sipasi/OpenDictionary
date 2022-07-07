@@ -6,44 +6,43 @@ using MvvmHelpers.Commands;
 
 using OpenDictionary.Collections.Storages;
 
-namespace OpenDictionary.ViewModels
+namespace OpenDictionary.ViewModels;
+
+public delegate IQueryable<T> QueryFactory<T>(IQueryable<T> query);
+
+public class QueryableCollection<T> : CollectionViewModel<T>
 {
-    public delegate IQueryable<T> QueryFactory<T>(IQueryable<T> query);
+    private readonly IStorage<T> storage;
 
-    public class QueryableCollection<T> : CollectionViewModel<T>
+    public QueryFactory<T> Query { get; }
+
+    public QueryableCollection(IStorage<T> storage, QueryFactory<T> query, Func<T, Task> tappedCommand)
     {
-        private readonly IStorage<T> storage;
+        this.storage = storage;
 
-        public QueryFactory<T> Query { get; }
+        Query = query;
 
-        public QueryableCollection(IStorage<T> storage, QueryFactory<T> query, Func<T, Task> tappedCommand)
-        {
-            this.storage = storage;
+        LoadCommand = new AsyncCommand(Load);
 
-            Query = query;
+        TappedCommand = new AsyncCommand<T>(tappedCommand);
+    }
 
-            LoadCommand = new AsyncCommand(Load);
+    public async Task Load()
+    {
+        IsBusy = true;
 
-            TappedCommand = new AsyncCommand<T>(tappedCommand);
-        }
+        IQueryable<T> query = storage.Query();
 
-        public async Task Load()
-        {
-            IsBusy = true;
+        query = Query.Invoke(query);
 
-            IQueryable<T> query = storage.Query();
+        var task = Task.Run(query.ToArray);
 
-            query = Query.Invoke(query);
+        var items = await task;
 
-            var task = Task.Run(query.ToArray);
+        Collection.Clear();
 
-            var items = await task;
+        Collection.AddRange(items);
 
-            Collection.Clear();
-
-            Collection.AddRange(items);
-
-            IsBusy = false;
-        }
+        IsBusy = false;
     }
 }

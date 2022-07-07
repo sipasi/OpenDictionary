@@ -1,7 +1,6 @@
-﻿namespace Framework.DependencyInjection
+﻿namespace Framework.DependencyInjection;
+
+public interface IInitializable
 {
-    public interface IInitializable
-    {
-        void Initialize(IDiContainer container);
-    }
+    void Initialize(IDiContainer container);
 }

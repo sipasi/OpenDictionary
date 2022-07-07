@@ -1,33 +1,32 @@
 ﻿using Framework.States;
 
-namespace OpenDictionary.Games.WordConformities.States
+namespace OpenDictionary.Games.WordConformities.States;
+
+public class NextAnswerState : WordConformityState
 {
-    public class NextAnswerState : WordConformityState
+    private readonly IProperties properties;
+    private readonly IUi ui;
+
+    public NextAnswerState(IStateMachine<ConformityState> machine, IProperties properties, IUi ui)
+        : base(machine)
     {
-        private readonly IProperties properties;
-        private readonly IUi ui;
+        this.properties = properties;
+        this.ui = ui;
+    }
 
-        public NextAnswerState(IStateMachine<ConformityState> machine, IProperties properties, IUi ui)
-            : base(machine)
+    public override void Enter()
+    {
+        base.Enter();
+
+        if (properties.Answered == properties.Total)
         {
-            this.properties = properties;
-            this.ui = ui;
+            NextState(ConformityState.GameEnd);
+
+            return;
         }
 
-        public override void Enter()
-        {
-            base.Enter();
+        ui.UpdateQuestions();
 
-            if (properties.Answered == properties.Total)
-            {
-                NextState(ConformityState.GameEnd);
-
-                return;
-            }
-
-            ui.UpdateQuestions();
-
-            NextState(ConformityState.WaitAnswer);
-        }
+        NextState(ConformityState.WaitAnswer);
     }
 }

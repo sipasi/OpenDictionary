@@ -1,7 +1,6 @@
-﻿namespace OpenDictionary.Games.WordConformities
+﻿namespace OpenDictionary.Games.WordConformities;
+
+public interface IUi
 {
-    public interface IUi
-    {
-        void UpdateQuestions();
-    }
+    void UpdateQuestions();
 }

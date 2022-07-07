@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using Newtonsoft.Json;
@@ -9,26 +8,25 @@ using Newtonsoft.Json.Linq;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.RemoteDictionaries.Parsers.Converters
+namespace OpenDictionary.RemoteDictionaries.Parsers.Converters;
+
+internal class AntonymConverter : JsonConverter<Antonyms>
 {
-    internal class AntonymConverter : JsonConverter<Antonyms>
+    public override bool CanWrite => false;
+
+    public override Antonyms? ReadJson(JsonReader reader, Type objectType, Antonyms? existingValue, bool hasExistingValue, JsonSerializer serializer)
     {
-        public override bool CanWrite => false;
+        var token = JToken.Load(reader);
 
-        public override Antonyms? ReadJson(JsonReader reader, Type objectType, Antonyms? existingValue, bool hasExistingValue, JsonSerializer serializer)
-        {
-            var token = JToken.Load(reader);
+        var values = string.Join(", ", token.ToObject<string[]>().Select(value => value));
 
-            var values = string.Join(", ", token.ToObject<string[]>().Select(value => value));
+        Antonyms antonyms = new Antonyms { Value = values };
 
-            Antonyms antonyms = new Antonyms { Value = values };
+        return antonyms;
+    }
 
-            return antonyms;
-        }
-
-        public override void WriteJson(JsonWriter writer, Antonyms? value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
+    public override void WriteJson(JsonWriter writer, Antonyms? value, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
     }
 }

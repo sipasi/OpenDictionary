@@ -1,10 +1,9 @@
 ﻿using System;
 
 
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+internal interface IServiceCreator
 {
-    internal interface IServiceCreator
-    {
-        object CreateService(Type type, IDiContainer container);
-    }
+    object CreateService(Type type, IDiContainer container);
 }

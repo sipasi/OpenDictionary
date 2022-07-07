@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.RemoteDictionaries.Parsers
+namespace OpenDictionary.RemoteDictionaries.Parsers;
+
+public interface IParser<T>
 {
-    public interface IParser<T>
-    {
-        Task<WordMetadata?> Parse(T value);
-    }
+    Task<WordMetadata?> Parse(T value);
 }

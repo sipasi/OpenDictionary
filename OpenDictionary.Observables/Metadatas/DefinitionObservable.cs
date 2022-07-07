@@ -1,14 +1,13 @@
-﻿using OpenDictionary.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 
-namespace OpenDictionary.Observables.Metadatas
+namespace OpenDictionary.Observables.Metadatas;
+
+[INotifyPropertyChanged]
+public sealed partial class DefinitionObservable
 {
-    public class DefinitionObservable : ViewModel
-    {
-        private string? value = string.Empty;
-        private string? example = string.Empty;
-
-        public string? Value { get => value; set => SetProperty(ref this.value, value); }
-        public string? Example { get => example; set => SetProperty(ref example, value); }
-    }
+    [ObservableProperty]
+    private string? value;
+    [ObservableProperty]
+    private string? example;
 }

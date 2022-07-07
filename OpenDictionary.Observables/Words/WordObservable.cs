@@ -1,13 +1,12 @@
-﻿using OpenDictionary.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace OpenDictionary.Observables.Words
+namespace OpenDictionary.Observables.Words;
+
+[INotifyPropertyChanged]
+public sealed partial class WordObservable
 {
-    public class WordObservable : ViewModel
-    {
-        private string origin = string.Empty;
-        private string translation = string.Empty;
-
-        public string Origin { get => origin; set => SetProperty(ref this.origin, value); }
-        public string Translation { get => translation; set => SetProperty(ref translation, value); }
-    }
+    [ObservableProperty]
+    private string origin = string.Empty;
+    [ObservableProperty]
+    private string translation = string.Empty;
 }

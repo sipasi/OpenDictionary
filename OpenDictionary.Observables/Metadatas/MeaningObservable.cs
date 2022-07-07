@@ -1,26 +1,20 @@
-﻿using MvvmHelpers;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-using OpenDictionary.ViewModels;
+using MvvmHelpers;
 
-namespace OpenDictionary.Observables.Metadatas
+
+namespace OpenDictionary.Observables.Metadatas;
+
+[INotifyPropertyChanged]
+public sealed partial class MeaningObservable
 {
-    public class MeaningObservable : ViewModel
-    {
-        private string? partOfSpeech;
+    [ObservableProperty]
+    private string? partOfSpeech;
 
-        private string? synonyms;
-        private string? antonyms;
+    [ObservableProperty]
+    private string? synonyms;
+    [ObservableProperty]
+    private string? antonyms;
 
-        public string? PartOfSpeech { get => partOfSpeech; set => SetProperty(ref partOfSpeech, value); }
-
-        public ObservableRangeCollection<DefinitionObservable> Definitions { get; }
-
-        public string? Synonyms { get => synonyms; set => SetProperty(ref synonyms, value); }
-        public string? Antonyms { get => antonyms; set => SetProperty(ref antonyms, value); }
-
-        public MeaningObservable()
-        {
-            Definitions = new ObservableRangeCollection<DefinitionObservable>();
-        }
-    }
+    public ObservableRangeCollection<DefinitionObservable> Definitions { get; } = new();
 }

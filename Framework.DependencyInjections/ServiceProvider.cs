@@ -1,40 +1,39 @@
 ﻿using System;
 
 
-namespace Framework.DependencyInjection
+namespace Framework.DependencyInjection;
+
+internal class ServiceProvider : IServiceProvider
 {
-    internal class ServiceProvider : IServiceProvider
+    private readonly IServiceCreator creator;
+
+    public ServiceProvider(IServiceCreator creator)
     {
-        private readonly IServiceCreator creator;
+        this.creator = creator;
+    }
 
-        public ServiceProvider(IServiceCreator creator)
+    public object GetSingleton(ServiceDescriptor descriptor, IDiContainer container)
+    {
+        Type implementation = descriptor.ImplementationType;
+
+        if (descriptor.Instance == null)
         {
-            this.creator = creator;
+            descriptor.Instance = creator.CreateService(implementation, container);
         }
 
-        public object GetSingleton(ServiceDescriptor descriptor, IDiContainer container)
+        return descriptor.Instance!;
+    }
+    public object GetTransient(ServiceDescriptor descriptor, IDiContainer container)
+    {
+        Type implementation = descriptor.ImplementationType;
+
+        ServiceDescriptor.ServiceFactory factory = descriptor.Factory!;
+
+        if (factory != null)
         {
-            Type implementation = descriptor.ImplementationType;
-
-            if (descriptor.Instance == null)
-            {
-                descriptor.Instance = creator.CreateService(implementation, container);
-            }
-
-            return descriptor.Instance!;
+            return factory.Invoke();
         }
-        public object GetTransient(ServiceDescriptor descriptor, IDiContainer container)
-        {
-            Type implementation = descriptor.ImplementationType;
 
-            ServiceDescriptor.ServiceFactory factory = descriptor.Factory!;
-
-            if (factory != null)
-            {
-                return factory.Invoke();
-            }
-
-            return creator.CreateService(implementation, container);
-        }
+        return creator.CreateService(implementation, container);
     }
 }

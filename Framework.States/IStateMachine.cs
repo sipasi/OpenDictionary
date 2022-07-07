@@ -1,7 +1,6 @@
-﻿namespace Framework.States
+﻿namespace Framework.States;
+
+public interface IStateMachine<TTrigger>
 {
-    public interface IStateMachine<TTrigger>
-    {
-        void Fire(TTrigger trigger);
-    }
+    void Fire(TTrigger trigger);
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace Framework.States
+namespace Framework.States;
+
+public interface IStateDefinition
 {
-    public interface IStateDefinition
-    {
-        Type Type { get; }
-        IState GetState();
-    }
+    Type Type { get; }
+    IState GetState();
 }

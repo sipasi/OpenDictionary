@@ -134,7 +134,7 @@
                                 Text="{x:Static fonts:RemixIcon.InstallLine}" />
                             <Button 
                                 Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
-                                Command="{Binding WordGroup.AddPreinstalledlCommand}"/>
+                                Command="{Binding WordGroup.AddPreinstalledCommand}"/>
 
                             <Label 
                                 Grid.Row="4" 

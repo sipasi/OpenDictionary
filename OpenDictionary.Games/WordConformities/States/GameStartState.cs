@@ -1,21 +1,20 @@
 ﻿using Framework.States;
-namespace OpenDictionary.Games.WordConformities.States
+namespace OpenDictionary.Games.WordConformities.States;
+
+public class GameStartState : WordConformityState
 {
-    public class GameStartState : WordConformityState
+    private IProperties properties;
+
+    public GameStartState(IStateMachine<ConformityState> machine, IProperties properties) : base(machine)
     {
-        private IProperties properties;
-
-        public GameStartState(IStateMachine<ConformityState> machine, IProperties properties) : base(machine)
-        {
-            this.properties = properties;
-        }
+        this.properties = properties;
+    }
 
 
-        public override void Enter()
-        {
-            base.Enter();
+    public override void Enter()
+    {
+        base.Enter();
 
-            NextState(ConformityState.NextAnswer);
-        }
+        NextState(ConformityState.NextAnswer);
     }
 }

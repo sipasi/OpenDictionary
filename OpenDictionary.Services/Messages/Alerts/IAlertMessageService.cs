@@ -1,10 +1,9 @@
 ﻿#nullable enable
 using System.Threading.Tasks;
 
-namespace OpenDictionary.Services.Messages.Alerts
+namespace OpenDictionary.Services.Messages.Alerts;
+
+public interface IAlertMessageService
 {
-    public interface IAlertMessageService
-    {
-        Task Show(string title, string message, string ok);
-    }
+    Task Show(string title, string message, string ok);
 }
