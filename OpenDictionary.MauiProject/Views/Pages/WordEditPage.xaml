@@ -75,10 +75,11 @@
                                             <Entry Text="{Binding Audio}" Placeholder="Audio url"/>
                                         </VerticalStackLayout>
 
-                                        <ImageButton Grid.Column="1" Style="{StaticResource DeleteButtonStyle}"
-                                                     HorizontalOptions="Center" VerticalOptions="Start"
-                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=DeletePhoneticCommand}" 
-                                                     CommandParameter="{Binding .}"/>
+                                        <ImageButton 
+                                            Grid.Column="1" Style="{StaticResource DeleteButtonStyle}"
+                                            HorizontalOptions="Center" VerticalOptions="Start"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=DeletePhoneticCommand}" 
+                                            CommandParameter="{Binding .}"/>
                                     </Grid>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
@@ -110,13 +111,15 @@
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate x:DataType="observables:DefinitionObservable">
                                                 <Grid RowDefinitions="*,*" RowSpacing="10">
-                                                    <Label Text="Definition" FontAttributes="Bold" FontSize="Medium"
-                                                               HorizontalTextAlignment="Start"/>
+                                                    <Label 
+                                                        Text="Definition" FontAttributes="Bold" FontSize="Medium"
+                                                        HorizontalTextAlignment="Start"/>
 
-                                                    <ImageButton Style="{StaticResource DeleteButtonStyle}"
-                                                                     HorizontalOptions="End" BorderWidth="0"
-                                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=DeleteDefinitionCommand}" 
-                                                                     CommandParameter="{Binding .}"/>
+                                                    <ImageButton 
+                                                        Style="{StaticResource DeleteButtonStyle}"
+                                                        HorizontalOptions="End" BorderWidth="0"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=DeleteDefinitionCommand}" 
+                                                        CommandParameter="{Binding .}"/>
 
                                                     <VerticalStackLayout Grid.Row="1">
                                                         <Editor Text="{Binding Value}" Placeholder="Definition"/>
@@ -127,64 +130,21 @@
                                         </BindableLayout.ItemTemplate>
                                     </VerticalStackLayout>
 
-                                    <Button Text="Add Definition" Grid.Row="3"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=AddDefinitionCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Clicked="AddEntity_Clicked"/>
+                                    <Button 
+                                        Text="Add Definition" Grid.Row="3"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=AddDefinitionCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="AddEntity_Clicked"/>
                                 </Grid>
                             </Frame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>
 
-                <Button Text="Add Meaning" Command="{Binding AddMeaningCommand}" Clicked="AddEntity_Clicked"/>
-
-                <!--<Frame>
-                    <VerticalStackLayout Spacing="10">
-                        <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
-
-                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="observables:MeaningObservable">
-                                    <Grid Style="{StaticResource BaseGrid}" >
-                                        <VerticalStackLayout Spacing="5">
-                                            <Entry Text="{Binding PartOfSpeech}" Placeholder="Part of speech"/>
-                                            <Editor Text="{Binding Synonyms}" Placeholder="Synonyms"/>
-                                            <Editor Text="{Binding Antonyms}" Placeholder="Antonyms"/>
-
-                                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Definitions}" Padding="5" Spacing="10">
-                                                <BindableLayout.ItemTemplate>
-                                                    <DataTemplate x:DataType="observables:DefinitionObservable">
-                                                        <Grid Style="{StaticResource BaseGrid}">
-                                                            <VerticalStackLayout>
-                                                                <Editor Text="{Binding Value}" Placeholder="Definition"/>
-                                                                <Editor Text="{Binding Example}" Placeholder="Example"/>
-                                                            </VerticalStackLayout>
-
-                                                            <ImageButton Grid.Column="1" Style="{StaticResource DeleteButtonStyle}" 
-                                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=DeleteDefinitionCommand}" 
-                                                                         CommandParameter="{Binding .}"/>
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </BindableLayout.ItemTemplate>
-                                            </VerticalStackLayout>
-
-                                            <Button Text="Add Definition" 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=AddDefinitionCommand}"
-                                                CommandParameter="{Binding .}"/>
-                                        </VerticalStackLayout>
-
-                                        <ImageButton Grid.Column="1" Style="{StaticResource DeleteButtonStyle}" 
-                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordEditViewModel}}, Path=DeleteMeaningCommand}" 
-                                                     CommandParameter="{Binding .}"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </VerticalStackLayout>
-
-                        <Button Text="Add Meaning" Command="{Binding AddMeaningCommand}"/>
-                    </VerticalStackLayout>
-                </Frame>-->
+                <Button 
+                    Text="Add Meaning" 
+                    Command="{Binding AddMeaningCommand}" 
+                    Clicked="AddEntity_Clicked"/>
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>

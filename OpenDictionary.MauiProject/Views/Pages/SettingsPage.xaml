@@ -85,9 +85,10 @@
                     <VerticalStackLayout>
                         <Label Text="Theme Color"/>
 
-                        <HorizontalStackLayout x:Name="radioGroup" Spacing="5"
-                                 RadioButtonGroup.GroupName="theme-color" 
-                                 RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}">
+                        <HorizontalStackLayout 
+                            x:Name="radioGroup" Spacing="5"
+                            RadioButtonGroup.GroupName="theme-color" 
+                            RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}">
                             <RadioButton Style="{StaticResource NightRadioButtonStyle}" Value="{x:Static maui:AppTheme.Dark}"/>
                             <RadioButton Style="{StaticResource DayRadioButtonStyle}" Value="{x:Static maui:AppTheme.Light}"/>
                         </HorizontalStackLayout>
@@ -119,24 +120,30 @@
                             <Button Grid.Row="0" Grid.Column="1" 
                                     Text="Import" Command="{Binding RedirectToImportCommand}"/>
 
-                            <Label Grid.Row="1" 
-                                   Style="{StaticResource IconStyle}" 
-                                   Text="{x:Static fonts:RemixIcon.Upload2Line}" />
-                            <Button Grid.Row="1" Grid.Column="1" 
-                                    Text="Export" Command="{Binding RedirectToExportCommand}"/>
+                            <Label 
+                                Grid.Row="1" 
+                                Style="{StaticResource IconStyle}" 
+                                Text="{x:Static fonts:RemixIcon.Upload2Line}" />
+                            <Button 
+                                Grid.Row="1" Grid.Column="1" 
+                                Text="Export" Command="{Binding RedirectToExportCommand}"/>
 
-                            <Label Grid.Row="3" 
-                                   Style="{StaticResource IconStyle}" 
-                                   Text="{x:Static fonts:RemixIcon.InstallLine}" />
-                            <Button Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
-                                    Command="{Binding WordGroup.AddPreinstalledlCommand}"/>
+                            <Label 
+                                Grid.Row="3" 
+                                Style="{StaticResource IconStyle}" 
+                                Text="{x:Static fonts:RemixIcon.InstallLine}" />
+                            <Button 
+                                Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
+                                Command="{Binding WordGroup.AddPreinstalledlCommand}"/>
 
-                            <Label Grid.Row="4" 
-                                   Style="{StaticResource IconStyle}" 
-                                   Text="{x:Static fonts:RemixIcon.UninstallLine}" />
-                            <Button Grid.Row="4" Grid.Column="1" Text="Delete All" 
-                                    Style="{x:StaticResource ButtonOutlineRed}" 
-                                    Command="{Binding WordGroup.DeleteAllCommand}"/>
+                            <Label 
+                                Grid.Row="4" 
+                                Style="{StaticResource IconStyle}" 
+                                Text="{x:Static fonts:RemixIcon.UninstallLine}" />
+                            <Button 
+                                Grid.Row="4" Grid.Column="1" Text="Delete All" 
+                                Style="{x:StaticResource ButtonOutlineRed}" 
+                                Command="{Binding WordGroup.DeleteAllCommand}"/>
                         </Grid>
                     </VerticalStackLayout>
                 </Frame>

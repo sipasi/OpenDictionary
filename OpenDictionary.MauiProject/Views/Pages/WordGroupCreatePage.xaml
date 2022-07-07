@@ -14,35 +14,6 @@
              
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 
-    <ContentPage.Resources>
-        <Style x:Key="CopyImageStyle" TargetType="ImageButton">
-            <Setter Property="Source">
-                <FontImageSource FontFamily="RemixIcon" 
-                                 Glyph="{x:Static fonts:RemixIcon.FileCopy2Line}"
-                                 Color="{StaticResource Blue}"
-                                 Size="32"/>
-            </Setter>
-        </Style>
-        <Style x:Key="PasteImageStyle" TargetType="ImageButton">
-            <Setter Property="Source">
-                <FontImageSource FontFamily="RemixIcon" 
-                                 Glyph="{x:Static fonts:RemixIcon.ClipboardLine}"
-                                 Color="{StaticResource Blue}"
-                                 Size="32"/>
-            </Setter>
-        </Style>
-        <Style x:Key="DeleteImageStyle" TargetType="ImageButton">
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-            <Setter Property="BorderWidth" Value="0"/>
-            <Setter Property="Source">
-                <FontImageSource FontFamily="RemixIcon" 
-                                 Glyph="{x:Static fonts:RemixIcon.DeleteBin5Line}"
-                                 Color="{x:AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
-                                 Size="32"/>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}" >
             <ToolbarItem.IconImageSource>
@@ -91,12 +62,12 @@
                         <Frame IsClippedToBounds="True" HasShadow="False" CornerRadius="8">
                             <Grid RowDefinitions="*,*" ColumnDefinitions="*,32" x:DataType="models:Word">
                                 <Label Grid.Row="0" Text="{Binding Origin}"/>
-                                <Label Grid.Row="1"  Text="{Binding Translation}"/>
-
-                                <ImageButton Grid.RowSpan="2" Grid.Column="1"
-                                             Style="{StaticResource DeleteImageStyle}"
-                                             Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
-                                             CommandParameter="{Binding .}"/>
+                                <Label Grid.Row="1" Text="{Binding Translation}"/>
+                                <ImageButton 
+                                    Grid.RowSpan="2" Grid.Column="1"
+                                    Style="{StaticResource DeleteImageStyle}"
+                                    Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
+                                    CommandParameter="{Binding .}"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>

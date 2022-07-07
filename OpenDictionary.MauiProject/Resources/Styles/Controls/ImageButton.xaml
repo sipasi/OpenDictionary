@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    
+    xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+     
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style x:Key="ImageButtonBase" TargetType="ImageButton">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal"/>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.8" />
+                            <Setter Property="Opacity" Value="0.9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CopyImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
+        <Setter Property="Source">
+            <FontImageSource 
+                FontFamily="RemixIcon" 
+                Glyph="{x:Static fonts:RemixIcon.FileCopy2Line}"
+                Color="{StaticResource Blue}"
+                Size="32"/>
+        </Setter>
+    </Style>
+    <Style x:Key="PasteImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
+        <Setter Property="Source">
+            <FontImageSource 
+                FontFamily="RemixIcon" 
+                Glyph="{x:Static fonts:RemixIcon.ClipboardLine}"
+                Color="{StaticResource Blue}"
+                Size="32"/>
+        </Setter>
+    </Style>
+    <Style x:Key="DeleteImageStyle" TargetType="ImageButton">
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BorderWidth" Value="0"/>
+        <Setter Property="Source">
+            <FontImageSource 
+                FontFamily="RemixIcon" 
+                Glyph="{x:Static fonts:RemixIcon.DeleteBin5Line}"
+                Color="{x:AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
+                Size="32"/>
+        </Setter>
+    </Style>
+</ResourceDictionary>

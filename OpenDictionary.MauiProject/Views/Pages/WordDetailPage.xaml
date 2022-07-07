@@ -113,9 +113,10 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <VerticalStackLayout Spacing="10" 
-                                         BindableLayout.ItemsSource="{Binding Definitions}"
-                                         BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
+                    <VerticalStackLayout 
+                        Spacing="10" 
+                        BindableLayout.ItemsSource="{Binding Definitions}"
+                        BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
                 </VerticalStackLayout>
             </DataTemplate>
 
@@ -195,10 +196,11 @@
                 <VerticalStackLayout>
                     <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
 
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
-                                         BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
-                                         BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
-                                         Spacing="10"/>
+                    <VerticalStackLayout 
+                        BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
+                        BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
+                        BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                        Spacing="10"/>
                 </VerticalStackLayout>
             </Frame>
 
@@ -206,10 +208,11 @@
                 <VerticalStackLayout>
                     <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
 
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
-                                         BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
-                                         BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
-                                         Spacing="10"/>
+                    <VerticalStackLayout 
+                        BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
+                        BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
+                        BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                        Spacing="10"/>
                 </VerticalStackLayout>
             </Frame>
 

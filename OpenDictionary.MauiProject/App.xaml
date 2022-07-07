@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Controls/Default.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Controls/Button.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Controls/ImageButton.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Controls/CollectionView.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
