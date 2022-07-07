@@ -163,8 +163,6 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
         TryVibrate();
     }
 
-
-    static int count = 0;
     private static void TryVibrate()
     {
         var vibration = HapticFeedback.Default;
@@ -174,14 +172,8 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
             return;
         }
 
-        if (count == 0)
-            vibration.Perform(HapticFeedbackType.Click);
-        if (count == 1)
-            vibration.Perform(HapticFeedbackType.LongPress);
-
-        count++;
+        vibration.Perform(HapticFeedbackType.Click);
     }
-
 
     private bool ValidateCanAdd()
     {
