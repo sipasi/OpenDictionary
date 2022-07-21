@@ -27,7 +27,7 @@ public class GameListViewModel
         {
             id = value;
 
-            Games.LoadCommand.ExecuteAsync();
+            Games.LoadCommand?.ExecuteAsync(default);
         }
     }
 
@@ -35,6 +35,7 @@ public class GameListViewModel
 
     public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation)
     {
+        this.id = string.Empty;
         this.storage = storage;
         this.navigation = navigation;
 
@@ -79,8 +80,10 @@ public class GameListViewModel
         }
     }
 
-    private Task OnTapped(GameInfo game)
+    private Task OnTapped(GameInfo? game)
     {
-        return navigation.GoToAsync(game.Route, nameof(WordGroup.Id), id);
+        return game is null
+            ? Task.CompletedTask
+            : navigation.GoToAsync(game.Route, nameof(WordGroup.Id), id);
     }
 }

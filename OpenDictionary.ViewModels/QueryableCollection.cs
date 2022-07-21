@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using MvvmHelpers.Commands;
-
 using OpenDictionary.Collections.Storages;
 
 namespace OpenDictionary.ViewModels;
@@ -16,15 +14,15 @@ public class QueryableCollection<T> : CollectionViewModel<T>
 
     public QueryFactory<T> Query { get; }
 
-    public QueryableCollection(IStorage<T> storage, QueryFactory<T> query, Func<T, Task> tappedCommand)
+    public QueryableCollection(IStorage<T> storage, QueryFactory<T> query, Func<T?, Task> tappedCommand)
     {
         this.storage = storage;
 
         Query = query;
 
-        LoadCommand = new AsyncCommand(Load);
+        LoadCommand = new(Load);
 
-        TappedCommand = new AsyncCommand<T>(tappedCommand);
+        TappedCommand = new(tappedCommand);
     }
 
     public async Task Load()
@@ -35,9 +33,7 @@ public class QueryableCollection<T> : CollectionViewModel<T>
 
         query = Query.Invoke(query);
 
-        var task = Task.Run(query.ToArray);
-
-        var items = await task;
+        var items = await Task.Run(query.ToArray);
 
         Collection.Clear();
 

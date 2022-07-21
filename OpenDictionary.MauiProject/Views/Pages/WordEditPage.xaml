@@ -28,9 +28,10 @@
         </Style>
         <Style x:Key="DeleteButtonStyle" TargetType="ImageButton">
             <Setter Property="Source">
-                <FontImageSource FontFamily="RemixIcon"
-                                 Glyph="{Static fonts:RemixIcon.DeleteBin5Line}"
-                                 Color="{StaticResource Red}"/>
+                <FontImageSource 
+                    FontFamily="{Binding Source={x:Static fonts:AppIcons.FontFamily}}"
+                    Glyph="{Static fonts:AppIcons.DeleteBin}"
+                    Color="{StaticResource Red}"/>
             </Setter>
         </Style>
     </ContentPage.Resources>
@@ -39,15 +40,15 @@
         <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.ArrowGoBackLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.ArrowGoBack}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Text="Discard" Command="{Binding SaveCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.SaveLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.Save}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>

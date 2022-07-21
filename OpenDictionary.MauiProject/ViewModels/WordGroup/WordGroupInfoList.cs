@@ -32,12 +32,13 @@ public sealed partial class WordGroupInfoList
 
     private async Task Load()
     {
+        Groups.IsBusy = true;
+
         var groups = await storage.Query().OrderByDateDescending().Select(group => new WordGroupInfo
         {
             Id = group.Id,
             Name = group.Name,
             Count = group.Words.Count,
-            Date = group.Date
         }).ToArrayAsync();
 
         Groups.Collection.Clear();
@@ -53,10 +54,10 @@ public sealed partial class WordGroupInfoList
         return navigation.GoToAsync(AppRoutes.WordGroup.Create);
     }
 
-    private Task Tapped(WordGroupInfo item)
+    private Task Tapped(WordGroupInfo? item)
     {
-        if (item == null) return Task.CompletedTask;
+        if (item is null) return Task.CompletedTask;
 
-        return navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString());
+        return navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString()!);
     }
 }

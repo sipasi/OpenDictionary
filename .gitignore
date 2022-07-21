@@ -5,6 +5,7 @@
 OpenDictionary.ConsoleApp/
 OpenDictionary.WordGroupConverter/
 OpenDictionary.XamarinApp/
+OpenDictionary.UnoProject/
 
 ### VisualStudioCode ###
 .vscode/*

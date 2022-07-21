@@ -16,9 +16,9 @@ public class AnswerButtonCollection : CollectionViewModel<AnswerButtonObservable
     private readonly HashSet<Word> hash;
     private readonly List<Word> words;
 
-    public AnswerButtonCollection(Func<AnswerButtonObservable, Task> tappedCommand)
+    public AnswerButtonCollection(Func<AnswerButtonObservable?, Task> tappedCommand)
     {
-        TappedCommand = new AsyncCommand<AnswerButtonObservable>(tappedCommand);
+        TappedCommand = new(tappedCommand);
 
         int count = Collection.Count;
 

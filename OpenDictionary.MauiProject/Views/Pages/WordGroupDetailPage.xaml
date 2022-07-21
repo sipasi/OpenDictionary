@@ -27,22 +27,22 @@
         <ToolbarItem Command="{Binding DeleteCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.DeleteBinLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.DeleteBin}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Command="{Binding RedirectToEditCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource 
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.EditLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.Edit}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Command="{Binding RedirectToGameCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource 
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.GamepadLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.Gamepad}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>

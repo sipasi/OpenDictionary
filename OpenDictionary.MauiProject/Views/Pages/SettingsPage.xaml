@@ -62,7 +62,8 @@
                 <VerticalStackLayout>
                     <Label Style="{StaticResource RadioButtonLabelStyle}" Text="Night" />
                     <Label Style="{StaticResource RadioButtonLabelStyle}" 
-                           FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.MoonLine}" />
+                           FontFamily="{Static fonts:AppIcons.FontFamily}" 
+                           Text="{Static fonts:AppIcons.DarkMode}" />
                 </VerticalStackLayout>
             </Setter>
         </Style>
@@ -72,7 +73,8 @@
                 <VerticalStackLayout>
                     <Label Style="{StaticResource RadioButtonLabelStyle}" Text="Day"/>
                     <Label Style="{StaticResource RadioButtonLabelStyle}" 
-                           FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.SunLine}"/>
+                           FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                           Text="{Static fonts:AppIcons.LightMode}"/>
                 </VerticalStackLayout>
             </Setter>
         </Style>
@@ -115,15 +117,15 @@
                         <Grid RowDefinitions="*,*,20,*,*" ColumnDefinitions="auto,*" 
                               RowSpacing="10" ColumnSpacing="20">
                             <Label Grid.Row="0" 
-                                   Style="{StaticResource IconStyle}" 
-                                   Text="{x:Static fonts:RemixIcon.Download2Line}" />
+                                   Style="{StaticResource IconStyle}"
+                                   Text="{x:Static fonts:AppIcons.Download}" />
                             <Button Grid.Row="0" Grid.Column="1" 
                                     Text="Import" Command="{Binding RedirectToImportCommand}"/>
 
                             <Label 
                                 Grid.Row="1" 
                                 Style="{StaticResource IconStyle}" 
-                                Text="{x:Static fonts:RemixIcon.Upload2Line}" />
+                                Text="{x:Static fonts:AppIcons.Upload}" />
                             <Button 
                                 Grid.Row="1" Grid.Column="1" 
                                 Text="Export" Command="{Binding RedirectToExportCommand}"/>
@@ -131,7 +133,7 @@
                             <Label 
                                 Grid.Row="3" 
                                 Style="{StaticResource IconStyle}" 
-                                Text="{x:Static fonts:RemixIcon.InstallLine}" />
+                                Text="{x:Static fonts:AppIcons.PreinstalledDictionaries}" />
                             <Button 
                                 Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
                                 Command="{Binding WordGroup.AddPreinstalledCommand}"/>
@@ -139,7 +141,7 @@
                             <Label 
                                 Grid.Row="4" 
                                 Style="{StaticResource IconStyle}" 
-                                Text="{x:Static fonts:RemixIcon.UninstallLine}" />
+                                Text="{x:Static fonts:AppIcons.DeleteAllDictionaries}" />
                             <Button 
                                 Grid.Row="4" Grid.Column="1" Text="Delete All" 
                                 Style="{x:StaticResource ButtonOutlineRed}" 

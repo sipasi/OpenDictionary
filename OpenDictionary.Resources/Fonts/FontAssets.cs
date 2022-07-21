@@ -1,0 +1,2 @@
+﻿namespace OpenDictionary.Resources.Fonts;
+ 

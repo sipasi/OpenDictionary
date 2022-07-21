@@ -111,9 +111,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.png" />
-	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
-	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
-	  <None Remove="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
+	  <None Remove="Resources\Fonts\Icons\MaterialIcons-Regular.ttf" />
 	  <None Remove="Resources\Fonts\Icons\remixicon.ttf" />
 	  <None Remove="Resources\Images\icon_book.png" />
 	  <None Remove="Resources\Images\icon_gamepad_1.png" />
@@ -130,6 +128,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiFont Include="Resources\Fonts\Icons\MaterialIcons-Regular.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiIcon Include="Resources\AppIcon\appicon.png" ForegroundFile="Resources\AppIcon\appicon_foreground.png">
 	    <SubType>Designer</SubType>
 	    <Generator></Generator>
@@ -137,18 +139,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiFont Include="Resources\Fonts\Icons\Font Awesome 6 Brands-Regular-400.otf" />
-	  <MauiFont Include="Resources\Fonts\Icons\Font Awesome 6 Regular-400.otf" />
-	  <MauiFont Include="Resources\Fonts\Icons\Font Awesome 6 Solid-900.otf" />
 	  <MauiFont Include="Resources\Fonts\Icons\remixicon.ttf">
 	    <CopyToOutputDirectory></CopyToOutputDirectory>
 	  </MauiFont>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.1.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
 	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	</ItemGroup>
 

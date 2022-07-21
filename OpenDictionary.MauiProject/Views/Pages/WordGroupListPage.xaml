@@ -16,8 +16,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}">
             <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="RemixIcon"
-                                 Glyph="{Static fonts:RemixIcon.AddFill}"/>
+                <FontImageSource FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                                 Glyph="{Static fonts:AppIcons.AddNewEntity}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>

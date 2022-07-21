@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 
 namespace OpenDictionary.ViewModels;
 
-public partial class CollectionViewModel<T> : ViewModel
+[INotifyPropertyChanged]
+public partial class CollectionViewModel<T>
 {
+    [ObservableProperty]
     private bool isBusy;
-    public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
 
     public ObservableRangeCollection<T> Collection { get; }
 
-    public AsyncCommand? LoadCommand { get; protected set; }
+    public AsyncRelayCommand? LoadCommand { get; init; }
 
-    public AsyncCommand<T>? TappedCommand { get; protected set; }
+    public AsyncRelayCommand<T>? TappedCommand { get; init; }
 
     public CollectionViewModel()
     {
-        Collection = new ObservableRangeCollection<T>();
+        Collection = new();
     }
-    public CollectionViewModel(Func<Task> loadCommand, Func<T, Task> tappedCommand) : this()
+    public CollectionViewModel(Func<Task> loadCommand, Func<T?, Task> tappedCommand) : this()
     {
-        LoadCommand = new AsyncCommand(loadCommand);
-        TappedCommand = new AsyncCommand<T>(tappedCommand);
+        LoadCommand = new(loadCommand);
+        TappedCommand = new(tappedCommand);
     }
 }

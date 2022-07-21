@@ -26,8 +26,8 @@
     <Style x:Key="CopyImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
         <Setter Property="Source">
             <FontImageSource 
-                FontFamily="RemixIcon" 
-                Glyph="{x:Static fonts:RemixIcon.FileCopy2Line}"
+                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                Glyph="{x:Static fonts:AppIcons.Copy}"
                 Color="{StaticResource Blue}"
                 Size="32"/>
         </Setter>
@@ -35,8 +35,8 @@
     <Style x:Key="PasteImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
         <Setter Property="Source">
             <FontImageSource 
-                FontFamily="RemixIcon" 
-                Glyph="{x:Static fonts:RemixIcon.ClipboardLine}"
+                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                Glyph="{x:Static fonts:AppIcons.Paste}"
                 Color="{StaticResource Blue}"
                 Size="32"/>
         </Setter>
@@ -46,8 +46,8 @@
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="Source">
             <FontImageSource 
-                FontFamily="RemixIcon" 
-                Glyph="{x:Static fonts:RemixIcon.DeleteBin5Line}"
+                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                Glyph="{x:Static fonts:AppIcons.DeleteBin}"
                 Color="{x:AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
                 Size="32"/>
         </Setter>

@@ -44,12 +44,14 @@
                                      Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
                                      CommandParameter="{Binding Audio}">
                             <ImageButton.Source>
-                                <FontImageSource FontFamily="RemixIcon" 
-                                                 Glyph="{x:Static fonts:RemixIcon.PlayCircleLine}"
+                                <FontImageSource FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                                                 Glyph="{x:Static fonts:AppIcons.Play}"
                                                  Color="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
                             </ImageButton.Source>
                         </ImageButton>
-                        <Label Grid.Column="1" FontFamily="RemixIcon" Text="{Static fonts:RemixIcon.CloudOffLine}"
+                        <Label Grid.Column="1" 
+                               FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                               Text="{Static fonts:AppIcons.Cloud}"
                                HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                         <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Gray-700}" 
                                HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
@@ -151,15 +153,15 @@
         <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.DeleteBinLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.DeleteBin}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Text="Edit" Command="{Binding RedirectToEditCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="RemixIcon"
-                    Glyph="{x:Static fonts:RemixIcon.EditLine}"/>
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                    Glyph="{x:Static fonts:AppIcons.Edit}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
