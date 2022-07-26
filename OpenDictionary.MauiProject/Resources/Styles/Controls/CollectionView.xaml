@@ -10,6 +10,7 @@
                 Orientation="Vertical" 
                 HorizontalItemSpacing="5" 
                 VerticalItemSpacing="5" 
+                SnapPointsType="None"
                 Span="{x:OnIdiom Phone=2, Tablet=3, Desktop=4}"/>
         </Setter>
         <Setter Property="Header">

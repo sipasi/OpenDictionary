@@ -105,7 +105,7 @@
                                 <Setter Property="ColumnSpacing" Value="20"/>
                             </Style>
                             <Style x:Key="IconStyle" TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
-                                <Setter Property="FontFamily" Value="RemixIcon"/>
+                                <Setter Property="FontFamily" Value="{Static fonts:AppIcons.FontFamily}"/>
                                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
                                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                                 <Setter Property="FontSize" Value="24"/>

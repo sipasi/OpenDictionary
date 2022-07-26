@@ -15,19 +15,11 @@
              x:DataType="viewModels:WordGroupDetailViewModel"
              
              x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="FontImageSource">
-                <Setter Property="Size" Value="24"/>
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding DeleteCommand}">
             <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                <FontImageSource 
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
                     Glyph="{x:Static fonts:AppIcons.DeleteBin}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
@@ -40,8 +32,8 @@
         </ToolbarItem>
         <ToolbarItem Command="{Binding RedirectToGameCommand}">
             <ToolbarItem.IconImageSource>
-                <FontImageSource 
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
+                <FontImageSource
+                    FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
                     Glyph="{x:Static fonts:AppIcons.Gamepad}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
