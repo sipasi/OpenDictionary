@@ -1,11 +1,7 @@
-﻿using System;
-
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
+﻿using Microsoft.Maui.Controls; 
 
 using OpenDictionary.DependencyInjection;
-using OpenDictionary.Services.Keys;
+using OpenDictionary.Services.Themes;
 
 namespace OpenDictionary.MauiProject;
 
@@ -15,19 +11,10 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        SetTheme();
+        ApplicationTheme.SetLastTheme();
 
         DiContainer.Init();
 
         MainPage = new AppShell();
-    }
-
-    private void SetTheme()
-    {
-        var value = Preferences.Get(PreferencesKeys.Theme.UserAppTheme, nameof(AppTheme.Dark));
-
-        AppTheme theme = (AppTheme)Enum.Parse(typeof(AppTheme), value);
-
-        UserAppTheme = theme;
     }
 }

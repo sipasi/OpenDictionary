@@ -48,7 +48,7 @@
                 </Grid>
 
                 <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" 
-                        Margin="10" TextColor="{x:StaticResource Blue}"/>
+                        Margin="10" />
             </VerticalStackLayout>
 
             <CollectionView Grid.Row="1"

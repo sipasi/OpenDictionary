@@ -54,7 +54,7 @@
                    FontAttributes="Bold" FontSize="Title" 
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
-                   TextColor="{StaticResource Blue-400}"/>
+                   TextColor="{DynamicResource Primary}"/>
         </CollectionView.EmptyView>
     </CollectionView>
 </ContentPage>

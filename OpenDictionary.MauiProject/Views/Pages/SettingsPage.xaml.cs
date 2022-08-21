@@ -4,7 +4,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.DependencyInjection;
-using OpenDictionary.ViewModels;
+using OpenDictionary.ViewModels.Settings;
 
 namespace OpenDictionary.Views.Pages;
 

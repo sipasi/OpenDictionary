@@ -4,7 +4,7 @@
              x:Class="OpenDictionary.Views.Controls.CollectionTile">
 
     <ContentView.Resources>
-        <Style x:Key="TileFrame" TargetType="Frame">
+        <Style x:Key="TileFrame" BasedOn="{StaticResource DefaultFrame}" TargetType="Frame">
             <Setter Property="Padding" Value="10"/>
         </Style>
         <Style x:Key="DefaultTileLabel" BasedOn="{StaticResource DefaultLabel}" TargetType="Label">
@@ -14,10 +14,11 @@
         <Style x:Key="TileTitle" BasedOn="{StaticResource DefaultTileLabel}" TargetType="Label">
             <Setter Property="FontSize" Value="Subtitle"/>
             <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"/>
         </Style>
         <Style x:Key="TileSubTitle" BasedOn="{StaticResource DefaultTileLabel}" TargetType="Label">
             <Setter Property="FontSize" Value="Caption"/>
-            <Setter Property="TextColor" Value="{x:StaticResource Gray-500}"/>
+            <Setter Property="TextColor" Value="{DynamicResource Secondary}"/>
         </Style>
     </ContentView.Resources>
 

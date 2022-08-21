@@ -12,9 +12,9 @@
     </Style>
 
     <Style x:Key="ButtonOutline" BasedOn="{StaticResource ButtonOutlineBase}" TargetType="Button">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Blue-500}, Dark={StaticResource Blue-500}}"/>
+        <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
 
-        <Setter Property="BorderColor" Value="{StaticResource Blue-500}"/>
+        <Setter Property="BorderColor" Value="{DynamicResource Primary}"/>
 
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -22,8 +22,8 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Pressed">
                         <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource Blue-300}"/>
-                            <Setter Property="TextColor" Value="White"/>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                            <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"/>
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Disabled">
@@ -38,7 +38,7 @@
     </Style>
 
     <Style x:Key="ButtonOutlineRed" BasedOn="{StaticResource ButtonOutlineBase}" TargetType="Button">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Red-500}, Dark={StaticResource Red-500}}"/>
+        <Setter Property="TextColor" Value="{StaticResource Red-500}"/>
 
         <Setter Property="BorderColor" Value="{StaticResource Red-500}"/>
 
@@ -63,9 +63,39 @@
         </Setter>
     </Style>
 
-    <Style TargetType="RadioButton">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="BorderColor" Value="Transparent"/>
+    <ControlTemplate x:Key="FlatRadioButtonTemplate">
+        <Border
+                Background="{DynamicResource Surface}"
+                Stroke="{DynamicResource Secondary}"
+                StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8"/>
+            </Border.StrokeShape>
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="Stroke" Value="{DynamicResource Primary}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="Stroke" Value="{DynamicResource Secondary}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+
+            <ContentPresenter HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Padding="18,8"/>
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="FlatRadioButton" TargetType="RadioButton">
+        <Setter Property="ControlTemplate" Value="{StaticResource FlatRadioButtonTemplate}"/>
+        <Setter Property="TextColor" Value="{DynamicResource OnSurface}"/>
+        <Setter Property="Margin" Value="2"/>
     </Style>
 </ResourceDictionary>

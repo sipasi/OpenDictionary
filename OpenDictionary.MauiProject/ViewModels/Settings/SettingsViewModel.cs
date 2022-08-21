@@ -11,7 +11,7 @@ using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.ViewModels.Settings;
 
 public sealed partial class SettingsViewModel
 {

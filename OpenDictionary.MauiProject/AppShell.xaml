@@ -6,9 +6,7 @@
     xmlns:local="clr-namespace:OpenDictionary.MauiProject"
     
     xmlns:pages="clr-namespace:OpenDictionary.Views.Pages"
-
-    Shell.FlyoutBehavior="Disabled"
-     
+ 
     x:Class="OpenDictionary.MauiProject.AppShell">
     <TabBar>
         <ShellContent Title="Dictionaries" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}"/>

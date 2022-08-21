@@ -20,7 +20,7 @@
             <VerticalStackLayout/>
         </Setter>
         <Setter Property="EmptyView">
-            <Label Text="Empty" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Setter>
     </Style>
 </ResourceDictionary>

@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
              xmlns:maui="clr-namespace:Microsoft.Maui.ApplicationModel;assembly=Microsoft.Maui.Essentials" 
-             xmlns:viewmodels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:themes="clr-namespace:OpenDictionary.Resources.Styles.Themes"
+             xmlns:settings="clr-namespace:OpenDictionary.ViewModels.Settings" 
              xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
              
-             x:DataType="viewmodels:SettingsViewModel"
+             x:DataType="settings:SettingsViewModel"
                
              Title="Settings"
              Padding="10"
@@ -25,131 +26,101 @@
         <Style TargetType="Button" BasedOn="{StaticResource ButtonOutline}">
 
         </Style>
-        <Style x:Key="RadioButtonLabelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="TextColor" Value="{StaticResource White}"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
-        </Style>
-
-        <ControlTemplate x:Key="RadioButtonControlTemplate">
-            <Frame HeightRequest="100" WidthRequest="100">
-                <VisualStateManager.VisualStateGroups >
-                    <VisualStateGroup x:Name="CheckedStates">
-                        <VisualState x:Name="Checked">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="{StaticResource Blue-500}"/>
-                            </VisualState.Setters>
-                        </VisualState>
-
-                        <VisualState x:Name="Unchecked">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="{StaticResource Gray-800}"/>
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-
-                <Grid >
-                    <ContentPresenter />
-                </Grid>
-            </Frame>
-        </ControlTemplate>
-
-        <Style x:Key="NightRadioButtonStyle" TargetType="RadioButton">
-            <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonControlTemplate}"/>
-            <Setter Property="Content">
-                <VerticalStackLayout>
-                    <Label Style="{StaticResource RadioButtonLabelStyle}" Text="Night" />
-                    <Label Style="{StaticResource RadioButtonLabelStyle}" 
-                           FontFamily="{Static fonts:AppIcons.FontFamily}" 
-                           Text="{Static fonts:AppIcons.DarkMode}" />
-                </VerticalStackLayout>
-            </Setter>
-        </Style>
-        <Style x:Key="DayRadioButtonStyle" TargetType="RadioButton">
-            <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonControlTemplate}"/>
-            <Setter Property="Content">
-                <VerticalStackLayout>
-                    <Label Style="{StaticResource RadioButtonLabelStyle}" Text="Day"/>
-                    <Label Style="{StaticResource RadioButtonLabelStyle}" 
-                           FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                           Text="{Static fonts:AppIcons.LightMode}"/>
-                </VerticalStackLayout>
-            </Setter>
-        </Style>
     </ContentPage.Resources>
 
-    <ContentPage.Content>
-        <ScrollView>
-            <VerticalStackLayout Spacing="10">
-                <Frame>
-                    <VerticalStackLayout>
-                        <Label Text="Theme Color"/>
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
+            <!--<Frame>
+                <VerticalStackLayout>
+                    <Label Text="Theme Color"/>
 
-                        <HorizontalStackLayout 
+                    <HorizontalStackLayout 
                             x:Name="radioGroup" Spacing="5"
                             RadioButtonGroup.GroupName="theme-color" 
-                            RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}">
-                            <RadioButton Style="{StaticResource NightRadioButtonStyle}" Value="{x:Static maui:AppTheme.Dark}"/>
-                            <RadioButton Style="{StaticResource DayRadioButtonStyle}" Value="{x:Static maui:AppTheme.Light}"/>
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
-                </Frame>
+                            RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}"
+                            BindableLayout.ItemsSource="{Static themes:ThemeContainer.Values}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="themes:Theme">
+                                <RadioButton Content="{Binding .}" TextColor="{DynamicResource OnSurface}" Value="{Binding .}"/>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>-->
+            <Frame>
+                <VerticalStackLayout>
+                    <Label Text="Theme Color"/>
 
-                <Frame>
-                    <VerticalStackLayout>
-                        <VerticalStackLayout.Resources>
-                            <Style TargetType="Grid">
-                                <Setter Property="ColumnDefinitions" Value="auto,*"/>
-                                <Setter Property="ColumnSpacing" Value="20"/>
-                            </Style>
-                            <Style x:Key="IconStyle" TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
-                                <Setter Property="FontFamily" Value="{Static fonts:AppIcons.FontFamily}"/>
-                                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                                <Setter Property="VerticalTextAlignment" Value="Center"/>
-                                <Setter Property="FontSize" Value="24"/>
-                            </Style>
-                        </VerticalStackLayout.Resources>
+                    <FlexLayout 
+                        x:Name="radioGroup" 
+                        
+                        Direction="Row" Wrap="Wrap" AlignContent="Center"
+                        AlignItems="Center" JustifyContent="Start"
+                        
+                        RadioButtonGroup.GroupName="theme-color" 
+                        RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}"
+                        BindableLayout.ItemsSource="{Static themes:ThemeContainer.Values}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="themes:Theme">
+                                <RadioButton Style="{StaticResource FlatRadioButton}" Content="{Binding ., StringFormat='{0}'}" Value="{Binding .}"/>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Frame>
 
-                        <Label Text="Dictionaries"/>
+            <Frame>
+                <VerticalStackLayout>
+                    <VerticalStackLayout.Resources>
+                        <Style TargetType="Grid">
+                            <Setter Property="ColumnDefinitions" Value="auto,*"/>
+                            <Setter Property="ColumnSpacing" Value="20"/>
+                        </Style>
+                        <Style x:Key="IconStyle" TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
+                            <Setter Property="FontFamily" Value="{Static fonts:AppIcons.FontFamily}"/>
+                            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                            <Setter Property="VerticalTextAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                    </VerticalStackLayout.Resources>
 
-                        <Grid RowDefinitions="*,*,20,*,*" ColumnDefinitions="auto,*" 
+                    <Label Text="Dictionaries"/>
+
+                    <Grid RowDefinitions="*,*,20,*,*" ColumnDefinitions="auto,*" 
                               RowSpacing="10" ColumnSpacing="20">
-                            <Label Grid.Row="0" 
+                        <Label Grid.Row="0" 
                                    Style="{StaticResource IconStyle}"
                                    Text="{x:Static fonts:AppIcons.Download}" />
-                            <Button Grid.Row="0" Grid.Column="1" 
+                        <Button Grid.Row="0" Grid.Column="1" 
                                     Text="Import" Command="{Binding RedirectToImportCommand}"/>
 
-                            <Label 
+                        <Label 
                                 Grid.Row="1" 
                                 Style="{StaticResource IconStyle}" 
                                 Text="{x:Static fonts:AppIcons.Upload}" />
-                            <Button 
+                        <Button 
                                 Grid.Row="1" Grid.Column="1" 
                                 Text="Export" Command="{Binding RedirectToExportCommand}"/>
 
-                            <Label 
+                        <Label 
                                 Grid.Row="3" 
                                 Style="{StaticResource IconStyle}" 
                                 Text="{x:Static fonts:AppIcons.PreinstalledDictionaries}" />
-                            <Button 
+                        <Button 
                                 Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
                                 Command="{Binding WordGroup.AddPreinstalledCommand}"/>
 
-                            <Label 
+                        <Label 
                                 Grid.Row="4" 
                                 Style="{StaticResource IconStyle}" 
                                 Text="{x:Static fonts:AppIcons.DeleteAllDictionaries}" />
-                            <Button 
+                        <Button 
                                 Grid.Row="4" Grid.Column="1" Text="Delete All" 
                                 Style="{x:StaticResource ButtonOutlineRed}" 
                                 Command="{Binding WordGroup.DeleteAllCommand}"/>
-                        </Grid>
-                    </VerticalStackLayout>
-                </Frame>
-            </VerticalStackLayout>
-        </ScrollView>
-    </ContentPage.Content>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

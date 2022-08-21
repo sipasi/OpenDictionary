@@ -52,7 +52,7 @@
 
             <StackLayout Spacing="20" VerticalOptions="EndAndExpand">
                 <Label Text="{Binding Properties.Question}" FontAttributes="Bold"
-                       TextColor="{AppThemeBinding Dark={x:StaticResource Blue-300}, Light={x:StaticResource Blue-400}}"/>
+                       TextColor="{DynamicResource OnSurface}"/>
 
                 <Grid x:Name="answerButtons" ColumnSpacing="10" RowSpacing="10">
                     <Grid.ColumnDefinitions>

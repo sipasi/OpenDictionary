@@ -1,28 +1,24 @@
 ﻿#nullable enable
 
-using System;
 using System.Collections.Generic;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Maui;
-using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
 
-using OpenDictionary.Services.Keys;
+using OpenDictionary.Resources.Styles.Themes;
+using OpenDictionary.Services.Themes;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.ViewModels.Settings;
 
 [INotifyPropertyChanged]
 public partial class AppThemeObservable
 {
-    private AppTheme current;
+    private Theme current;
 
-    private static AppTheme UserTheme { set => Application.Current!.UserAppTheme = value; }
-
-    public AppTheme Current
+    public Theme Current
     {
         get => current;
         set
@@ -32,19 +28,13 @@ public partial class AppThemeObservable
                 return;
             }
 
-            Preferences.Set(PreferencesKeys.Theme.UserAppTheme, value.ToString());
-
-            UserTheme = value;
+            ApplicationTheme.Current = value;
         }
     }
 
     public AppThemeObservable()
     {
-        var value = Preferences.Get(PreferencesKeys.Theme.UserAppTheme, nameof(AppTheme.Dark));
-
-        AppTheme theme = (AppTheme)Enum.Parse(typeof(AppTheme), value);
-
-        Current = theme;
+        current = ApplicationTheme.Current;
     }
 
     [RelayCommand]
@@ -59,13 +49,11 @@ public partial class AppThemeObservable
                 return;
             }
 
-            AppTheme theme = (AppTheme)radioButton.Value;
+            Theme theme = (Theme)radioButton.Value;
 
             if (theme == current)
             {
                 radioButton.IsChecked = true;
-
-                UserTheme = theme;
 
                 return;
             }

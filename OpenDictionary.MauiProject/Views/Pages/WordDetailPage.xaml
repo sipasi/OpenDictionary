@@ -21,7 +21,7 @@
 
             <DataTemplate x:Key="EmptyViewTemplate">
                 <VerticalStackLayout>
-                    <Label Text="Empty" FontAttributes="Bold" FontSize="Medium"
+                    <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Medium"
                            HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
                 </VerticalStackLayout>
             </DataTemplate>
@@ -40,20 +40,22 @@
 
                     <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10"
                           IsVisible="{Binding Audio, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
-                        <ImageButton Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0"
-                                     Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
-                                     CommandParameter="{Binding Audio}">
+                        <ImageButton 
+                            Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0"
+                            Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
+                            CommandParameter="{Binding Audio}">
                             <ImageButton.Source>
-                                <FontImageSource FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                                                 Glyph="{x:Static fonts:AppIcons.Play}"
-                                                 Color="{AppThemeBinding Light={x:StaticResource Dark}, Dark={x:StaticResource White}}"/>
+                                <FontImageSource
+                                    FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
+                                    Glyph="{x:Static fonts:AppIcons.Play}"
+                                    Color="{DynamicResource Primary}"/>
                             </ImageButton.Source>
                         </ImageButton>
                         <Label Grid.Column="1" 
                                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
                                Text="{Static fonts:AppIcons.Cloud}"
                                HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Gray-700}" 
+                        <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Secondary}" 
                                HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                     </Grid>
                 </VerticalStackLayout>
@@ -61,8 +63,7 @@
 
             <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
                 <Grid ColumnSpacing="10" ColumnDefinitions="5,*" RowDefinitions="*">
-
-                    <Rectangle BackgroundColor="{x:StaticResource Green}" WidthRequest="4"/>
+                    <Rectangle BackgroundColor="{DynamicResource Primary}" WidthRequest="4"/>
 
                     <VerticalStackLayout Grid.Column="1">
                         <Label LineBreakMode="CharacterWrap">

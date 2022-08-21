@@ -28,7 +28,7 @@
             <FontImageSource 
                 FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
                 Glyph="{x:Static fonts:AppIcons.Copy}"
-                Color="{StaticResource Blue}"
+                Color="{DynamicResource Primary}"
                 Size="32"/>
         </Setter>
     </Style>
@@ -37,7 +37,7 @@
             <FontImageSource 
                 FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
                 Glyph="{x:Static fonts:AppIcons.Paste}"
-                Color="{StaticResource Blue}"
+                Color="{DynamicResource Primary}"
                 Size="32"/>
         </Setter>
     </Style>
@@ -48,7 +48,7 @@
             <FontImageSource 
                 FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
                 Glyph="{x:Static fonts:AppIcons.DeleteBin}"
-                Color="{x:AppThemeBinding Light={x:StaticResource Red-500}, Dark={x:StaticResource Red-500}}"
+                Color="{StaticResource Red-500}"
                 Size="32"/>
         </Setter>
     </Style>

@@ -19,6 +19,7 @@ using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
 using OpenDictionary.ViewModels.Games;
+using OpenDictionary.ViewModels.Settings;
 
 namespace OpenDictionary.DependencyInjection.Extensions;
 

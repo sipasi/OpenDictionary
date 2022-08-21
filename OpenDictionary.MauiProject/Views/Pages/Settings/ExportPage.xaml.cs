@@ -14,11 +14,6 @@ public partial class ExportPage : ContentPage
         InitializeComponent();
 
         BindingContext = viewModel = DiContainer.Get<ExportViewModel>();
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
 
         viewModel.LoadCommand.Execute(null);
     }
