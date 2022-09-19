@@ -19,7 +19,9 @@ public static class ApplicationTheme
     {
         get
         {
-            var value = Preferences.Get(PreferencesKeys.Theme.UserAppTheme, nameof(Theme.Purple));
+            string defaultTheme = nameof(Theme.Purple);
+
+            string value = Preferences.Get(PreferencesKeys.Theme.UserAppTheme, defaultTheme) ?? defaultTheme;
 
             Theme theme = (Theme)Enum.Parse(typeof(Theme), value);
 
