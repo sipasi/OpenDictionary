@@ -15,8 +15,8 @@ using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
+using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels.Helpers;
@@ -44,10 +44,10 @@ public sealed partial class WordDetailViewModel : WordViewModel
         IStorage<WordMetadata> metadataStorage,
         INavigationService navigation,
         IDialogMessageService dialog,
-        IAlertMessageService alert,
+        IToastMessageService toast,
         IAudioPlayerServise audioPlayer,
         IPhoneticFilesService phoneticFiles,
-        IDictionarySource source) : base(wordStorage, navigation, alert)
+        IDictionarySource source) : base(wordStorage, navigation, toast)
     {
         this.wordStorage = wordStorage;
         this.metadataStorage = metadataStorage;
@@ -129,7 +129,9 @@ public sealed partial class WordDetailViewModel : WordViewModel
                 }
             }
 
-            audioPlayer.Play(source);
+
+
+            audioPlayer.Play(source!);
         }
         catch (Exception e)
         {

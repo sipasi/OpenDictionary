@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Controls; 
+﻿using Microsoft.Maui.Controls;
 
 using OpenDictionary.DependencyInjection;
 using OpenDictionary.Services.Themes;

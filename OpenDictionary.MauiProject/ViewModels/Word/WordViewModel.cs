@@ -11,7 +11,7 @@ using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Observables.Words;
-using OpenDictionary.Services.Messages.Alerts;
+using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
@@ -28,7 +28,7 @@ public partial class WordViewModel
 
     private readonly IStorage<Word> wordStorage;
     private readonly INavigationService navigation;
-    private readonly IAlertMessageService alert;
+    private readonly IToastMessageService toast;
 
     public string Id
     {
@@ -41,11 +41,11 @@ public partial class WordViewModel
         }
     }
 
-    public WordViewModel(IStorage<Word> wordStorage, INavigationService navigation, IAlertMessageService alert)
+    public WordViewModel(IStorage<Word> wordStorage, INavigationService navigation, IToastMessageService toast)
     {
         this.wordStorage = wordStorage;
         this.navigation = navigation;
-        this.alert = alert;
+        this.toast = toast;
 
         id = string.Empty;
 
@@ -70,10 +70,17 @@ public partial class WordViewModel
 
             Guid guid = Guid.Parse(id);
 
-            Word loaded = await wordStorage.Query().GetById(guid);
+            Word? loaded = await wordStorage
+                .Query()
+                .GetById(guid);
 
-            word.Origin = loaded!.Origin;
-            word.Translation = loaded!.Translation;
+            if (loaded is null)
+            {
+                throw new Exception($"Cant load word by id: {id ?? "Empty"}");
+            }
+
+            word.Origin = loaded.Origin;
+            word.Translation = loaded.Translation;
 
             await OnWordLoaded();
         }
@@ -87,10 +94,9 @@ public partial class WordViewModel
 
     protected Task ErrorMessage(Exception exception)
     {
-        string title = GetType().Name;
-        string message = $"{exception.Message}. Inner: {exception.InnerException?.Message ?? "Non"}";
-        string cancel = "Close";
+        string name = GetType().Name;
+        string message = $"ViewModel[{name}]: {exception.Message}. Inner: {exception.InnerException?.Message ?? "Non"}";
 
-        return alert.Show(title, message, cancel);
+        return toast.Show(message);
     }
 }

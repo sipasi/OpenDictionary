@@ -12,7 +12,7 @@ using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
-using OpenDictionary.Services.Messages.Alerts;
+using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
@@ -24,7 +24,7 @@ public partial class WordEditViewModel : WordViewModel
     private readonly IStorage<WordMetadata> metadataStorage;
     private readonly INavigationService navigation;
 
-    public WordEditViewModel(IStorage<Word> wordStorage, IStorage<WordMetadata> metadataStorage, INavigationService navigation, IAlertMessageService alert) : base(wordStorage, navigation, alert)
+    public WordEditViewModel(IStorage<Word> wordStorage, IStorage<WordMetadata> metadataStorage, INavigationService navigation, IToastMessageService toast) : base(wordStorage, navigation, toast)
     {
         this.wordStorage = wordStorage;
         this.metadataStorage = metadataStorage;

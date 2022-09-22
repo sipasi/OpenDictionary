@@ -5,7 +5,7 @@ namespace OpenDictionary.Collections.Extensions;
 
 public static class CollectionExtension
 {
-    public static int? IndexOf<T>(this Collection<T> collection, Func<T, bool> compare)
+    public static int? IndexOf<T>(this Collection<T> collection, T find, Func<T, T, bool> comparison)
     {
         int length = collection.Count;
 
@@ -13,12 +13,28 @@ public static class CollectionExtension
         {
             T item = collection[i];
 
-            if (compare.Invoke(item) is true)
+            if (comparison.Invoke(find, item) is true)
             {
                 return i;
             }
         }
 
         return null;
+    }
+    public static bool Contains<T>(this Collection<T> collection, T find, Func<T, T, bool> comparison)
+    {
+        int length = collection.Count;
+
+        for (int i = 0; i < length; i++)
+        {
+            T item = collection[i];
+
+            if (comparison.Invoke(find, item) is true)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
