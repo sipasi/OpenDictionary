@@ -6,13 +6,20 @@
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models" 
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
              
-             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             
+             xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              
              Padding="5,0"
               
              x:DataType="viewModels:WordGroupInfoList"
                
              x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
+
+    <Page.Behaviors>
+        <behaviors:StatusBarBehavior StatusBarColor="{StaticResource Surface}" StatusBarStyle="LightContent"/>
+    </Page.Behaviors>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}">
             <ToolbarItem.IconImageSource>

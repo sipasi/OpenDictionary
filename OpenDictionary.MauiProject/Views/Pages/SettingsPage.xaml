@@ -8,12 +8,18 @@
              xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
              
+             xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             
              x:DataType="settings:SettingsViewModel"
                
              Title="Settings"
              Padding="10"
              
              x:Class="OpenDictionary.Views.Pages.SettingsPage">
+
+    <Page.Behaviors>
+        <behaviors:StatusBarBehavior StatusBarColor="{DynamicResource Surface}" StatusBarStyle="LightContent"/>
+    </Page.Behaviors>
 
     <ContentPage.Resources>
         <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
@@ -30,23 +36,6 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="10">
-            <!--<Frame>
-                <VerticalStackLayout>
-                    <Label Text="Theme Color"/>
-
-                    <HorizontalStackLayout 
-                            x:Name="radioGroup" Spacing="5"
-                            RadioButtonGroup.GroupName="theme-color" 
-                            RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}"
-                            BindableLayout.ItemsSource="{Static themes:ThemeContainer.Values}">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="themes:Theme">
-                                <RadioButton Content="{Binding .}" TextColor="{DynamicResource OnSurface}" Value="{Binding .}"/>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-            </Frame>-->
             <Frame>
                 <VerticalStackLayout>
                     <Label Text="Theme Color"/>
