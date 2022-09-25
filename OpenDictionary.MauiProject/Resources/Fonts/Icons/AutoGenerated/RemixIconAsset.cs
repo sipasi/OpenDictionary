@@ -6,30 +6,34 @@ internal sealed class RemixIconAsset : IIconAsset
     public const string Alias = nameof(RemixIconAsset);
     public string FontFamily => Alias;
 
-    public string Edit => RemixIcon.Edit2Line;
-    public string DeleteBin => RemixIcon.DeleteBin5Line;
-    public string AddNewEntity => RemixIcon.AddFill;
-    public string Gamepad => RemixIcon.GamepadLine;
-    public string Settings => RemixIcon.Settings3Line;
+    public string Edit => "\uec80";
+    public string DeleteBin => "\uec24";
+    public string AddNewEntity => "\uea12";
+    public string Gamepad => "\uedab";
+    public string Settings => "\uf0e6";
 
-    public string Copy => RemixIcon.FileCopy2Line;
-    public string Paste => RemixIcon.ClipboardLine;
+    public string Copy => "\uecd3";
+    public string Paste => "\ueb91";
 
-    public string Save => RemixIcon.SaveLine;
+    public string Save => "\uf0b3";
 
-    public string DarkMode => RemixIcon.MoonLine;
-    public string LightMode => RemixIcon.SunLine;
+    public string DarkMode => "\uef75";
+    public string LightMode => "\uf1bf";
 
-    public string Download => RemixIcon.Download2Line;
-    public string Upload => RemixIcon.Upload2Line;
+    public string Download => "\uec54";
+    public string Upload => "\uf24a";
 
-    public string PreinstalledDictionaries => RemixIcon.InstallLine;
-    public string DeleteAllDictionaries => RemixIcon.UninstallLine;
+    public string PreinstalledDictionaries => "\uee68";
+    public string DeleteAllDictionaries => "\uf246";
 
-    public string Play => RemixIcon.PlayCircleLine;
+    public string Play => "\uf009";
 
-    public string ArrowGoBack => RemixIcon.ArrowGoBackLine;
+    public string ArrowGoBack => "\uea58";
 
-    public string Cloud => RemixIcon.CloudOffLine;
-    public string CloudDone => RemixIcon.CloudLine;
+    public string Cloud => "\ueb9f";
+    public string CloudDone => "\ueb9d";
+
+    public string CheckboxIndeterminateCircle => "\uee57";
+    public string CheckboxBlankCircle => "\ueb7d";
+    public string CheckboxCircle => "\ueb81";
 }

@@ -22,6 +22,7 @@ internal class DiContainer
             .ConfigureOnlineDictionary()
             .ConfigureIO()
             .ConfigureAudio()
+            .ConfigureDataTransfer()
             .ConfigureDatabase();
 
         IDiContainer container = builder.Build();

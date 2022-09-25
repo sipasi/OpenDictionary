@@ -12,6 +12,7 @@ using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.DataTransfer;
 using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
@@ -30,14 +31,17 @@ internal static class ServiceBuilderExtensions
         IAudioPlayerServise audioPlayer = DependencyService.Get<IAudioPlayerServise>();
 
         builder.singleton
-            .Add<IPhoneticFilesService, PhoneticFilesService>();
+            .Add<IPhoneticFilesService, PhoneticFilesService>()
+            .Add<IAudioPlayerServise, AudioPlayer>();
 
-#if ANDROID
-        builder.singleton.Add<IAudioPlayerServise, Platforms.Android.AudioPlayer>();
-#elif WINDOWS
-        builder.singleton.Add<IAudioPlayerServise, Platforms.Windows.AudioPlayer>();
-#else 
-        throw new System.NotImplementedException("IAudioPlayerServise has not implement");
+        return builder;
+    }
+    public static ServiceBuilder ConfigureDataTransfer(this ServiceBuilder builder)
+    {
+#if WINDOWS
+        builder.singleton.Add<IFileExportService, DataShareServiceWindows>();
+#else
+        builder.singleton.Add<IFileExportService, DataShareService>();
 #endif
 
         return builder;

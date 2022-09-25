@@ -2,32 +2,89 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    
+    xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
+    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
+             
+    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
      
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Style x:Key="FlexibleCollection" TargetType="CollectionView">
         <Setter Property="ItemsLayout">
             <GridItemsLayout
-                Orientation="Vertical" 
-                HorizontalItemSpacing="5" 
-                VerticalItemSpacing="5" 
+                Orientation="Vertical"
+                HorizontalItemSpacing="{x:OnIdiom Phone=5, Tablet=2.5, Desktop=2.5}" 
+                VerticalItemSpacing="0"
                 SnapPointsType="None"
                 Span="{x:OnIdiom Phone=2, Tablet=3, Desktop=4}"/>
         </Setter>
-        <Setter Property="Header">
-            <VerticalStackLayout/>
-        </Setter>
         <Setter Property="Footer">
-            <VerticalStackLayout/>
+            <VerticalStackLayout HeightRequest="5"/>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WordGroupInfoCollection" TargetType="CollectionView" BasedOn="{StaticResource FlexibleCollection}">
+        <Setter Property="ItemTemplate">
+            <DataTemplate x:DataType="models:WordGroupInfo">
+                <controls:CollectionTile Margin="0,5,0,0"
+                        Title="{Binding Name}"
+                        SubTitle="{Binding Count}"
+                        Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
+                        CommandParameter="{Binding .}"/>
+            </DataTemplate>
         </Setter>
         <Setter Property="EmptyView">
-            <Grid>
-                <Label 
-                    Text="Empty" 
-                    TextColor="{DynamicResource Primary}" 
-                    FontAttributes="Bold" FontSize="Large" 
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="Center"/>
-            </Grid>
+            <Label 
+                Text="Empty" 
+                TextColor="{DynamicResource Primary}" 
+                FontAttributes="Bold" FontSize="Large" 
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"/>
+        </Setter>
+    </Style>
+    <Style x:Key="WordCollection" TargetType="CollectionView" BasedOn="{StaticResource FlexibleCollection}">
+        <Setter Property="ItemTemplate">
+            <DataTemplate x:DataType="models:Word">
+                <controls:CollectionTile Margin="0,5,0,0" 
+                    Title="{Binding Origin}" 
+                    SubTitle="{Binding Translation}" 
+                    Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=TappedCommand}"
+                    CommandParameter="{Binding .}"/>
+            </DataTemplate>
+        </Setter>
+        <Setter Property="EmptyView">
+            <Label Text="Add your first word" 
+                   FontAttributes="Bold" FontSize="Title" 
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   TextColor="{DynamicResource Primary}"/>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ExportCollection" TargetType="CollectionView" BasedOn="{StaticResource FlexibleCollection}">
+        <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+        <Setter Property="SelectionMode" Value="Multiple"/>
+        <Setter Property="ItemTemplate">
+            <DataTemplate x:DataType="models:WordGroupInfo">
+                <Border StrokeShape="RoundRectangle 10" Padding="10" Margin="0,5,0,0" BackgroundColor="{DynamicResource Surface}">
+                    <Grid RowDefinitions="*,*" RowSpacing="8">
+                        <Label Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" />
+                        <Label Grid.Row="1" Text="{Binding Count}" TextColor="{DynamicResource SecondaryText}" VerticalOptions="End"/>
+                    </Grid>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal" />
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" 
+                                                Value="{DynamicResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Border>
+            </DataTemplate>
         </Setter>
     </Style>
 </ResourceDictionary>

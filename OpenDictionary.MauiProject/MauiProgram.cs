@@ -23,7 +23,6 @@ public static class MauiProgram
                 fonts.AddFont(filename: "OpenSans-Regular.ttf", alias: "OpenSansRegular");
                 fonts.AddFont(filename: "OpenSans-Semibold.ttf", alias: "OpenSansSemibold");
 
-                fonts.AddFont(filename: "MaterialIconsRegular.otf", alias: MaterialIconAsset.Alias);
                 fonts.AddFont(filename: "remixicon.ttf", alias: RemixIconAsset.Alias);
             });
 

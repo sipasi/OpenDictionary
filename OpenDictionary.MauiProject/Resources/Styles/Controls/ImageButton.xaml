@@ -25,31 +25,19 @@
 
     <Style x:Key="CopyImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
         <Setter Property="Source">
-            <FontImageSource 
-                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                Glyph="{x:Static fonts:AppIcons.Copy}"
-                Color="{DynamicResource Primary}"
-                Size="32"/>
+            <fonts:FontIconExtension Icon="Copy" Color="{DynamicResource Primary}" Size="32"/>
         </Setter>
     </Style>
     <Style x:Key="PasteImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
         <Setter Property="Source">
-            <FontImageSource 
-                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                Glyph="{x:Static fonts:AppIcons.Paste}"
-                Color="{DynamicResource Primary}"
-                Size="32"/>
+            <fonts:FontIconExtension Icon="Paste" Color="{DynamicResource Primary}" Size="32"/>
         </Setter>
     </Style>
     <Style x:Key="DeleteImageStyle" TargetType="ImageButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="Source">
-            <FontImageSource 
-                FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                Glyph="{x:Static fonts:AppIcons.DeleteBin}"
-                Color="{StaticResource Red-500}"
-                Size="32"/>
+            <fonts:FontIconExtension Icon="DeleteBin" Color="{StaticResource Red-500}" Size="32"/>
         </Setter>
     </Style>
 </ResourceDictionary>

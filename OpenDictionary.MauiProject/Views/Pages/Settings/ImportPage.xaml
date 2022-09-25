@@ -10,33 +10,45 @@
              Title="ImportPage"
              
              x:Class="OpenDictionary.Views.Pages.Settings.ImportPage">
-    <Grid RowDefinitions="*,auto" Margin="10,0,10,10">
-        <CollectionView ItemsSource="{Binding Items}" SelectedItems="{Binding SelectedItems}" SelectionMode="Multiple" >
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                 Span="{OnIdiom Phone=2, Tablet=3,Desktop=3}"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
+    <ContentPage.Resources>
+        <Style TargetType="CollectionView">
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="SelectionMode" Value="Multiple"/>
+            <Setter Property="ItemsLayout">
+                <GridItemsLayout 
+                    Orientation="Vertical"
+                    Span="{OnIdiom Phone=2, Tablet=3,Desktop=3}"/>
+            </Setter>
+            <Setter Property="ItemTemplate">
                 <DataTemplate x:DataType="models:WordGroup">
-                    <Grid Padding="10" Margin="5" HeightRequest="80" BackgroundColor="{DynamicResource Surface}">
+                    <Grid Padding="10" Margin="5" HeightRequest="80" 
+                          BackgroundColor="{DynamicResource Surface}">
 
-                        <Label Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" MaxLines="2"/>
-                        <Label Grid.Row="1" Text="{Binding Words.Count}" VerticalOptions="End"/>
+                        <Label Grid.Row="0" Text="{Binding Name}" 
+                               LineBreakMode="TailTruncation" MaxLines="2"/>
+                        <Label Grid.Row="1" Text="{Binding Words.Count}" 
+                               VerticalOptions="End"/>
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
                                 <VisualState Name="Normal" />
                                 <VisualState Name="Selected">
                                     <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                                        <Setter
+                                            Property="BackgroundColor" 
+                                            Value="{DynamicResource Primary}" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,auto" Margin="10,0,10,10">
+        <CollectionView ItemsSource="{Binding Items}" SelectedItems="{Binding SelectedItems}" />
         <Frame Grid.Row="1">
             <StackLayout Margin="10" Spacing="10" VerticalOptions="End">
                 <Button Text="Select File" Command="{Binding SelectFileCommand}" Style="{StaticResource ButtonOutline}" />

@@ -15,18 +15,8 @@
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}" >
-            <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                                 Glyph="{x:Static fonts:AppIcons.ArrowGoBack}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-        <ToolbarItem Text="Done" Command="{Binding SaveCommand}" >
-            <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                                 Glyph="{x:Static fonts:AppIcons.Copy}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
+        <ToolbarItem Text="Discard" IconImageSource="{fonts:FontIcon Icon=ArrowGoBack}" Command="{Binding DiscardCommand}"/>
+        <ToolbarItem Text="Done" IconImageSource="{fonts:FontIcon Icon=Copy}" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

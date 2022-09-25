@@ -4,69 +4,38 @@
              
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              
+             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+             
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
-             xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
+             xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models" 
              
              x:DataType="viewModels:ExportViewModel"
               
-             Title="Export" 
+             Title="{Binding Collection.SelectedItems.Count, StringFormat='Selected: {0}'}" 
              
              x:Class="OpenDictionary.Views.Pages.Settings.ExportPage">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:IntToBoolConverter x:Key="IsNotZeroConverter"/>
-        </ResourceDictionary>
+        <viewModels:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="All" IconImageSource="{Binding Collection.State, Converter={StaticResource SelectionStateToIcon}}"
+                     Command="{Binding Collection.SelectAllCommand}"/>
+    </ContentPage.ToolbarItems>
 
-    <Grid RowDefinitions="*,auto" Margin="10,0,10,10">
-        <CollectionView ItemsSource="{Binding Items}" SelectedItems="{Binding SelectedItems}" 
-                        VerticalOptions="FillAndExpand" SelectionMode="Multiple">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                 Span="{OnIdiom Phone=2, Tablet=3,Desktop=3}"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:WordGroupInfo">
-                    <Grid Padding="10" Margin="5" HeightRequest="80" 
-                          BackgroundColor="{DynamicResource Surface}">
+    <Grid RowDefinitions="*,auto" Padding="5,0">
+        <CollectionView ItemsSource="{Binding Collection.Items}" SelectedItems="{Binding Collection.SelectedItems}" Style="{StaticResource ExportCollection}"/>
 
-                        <Label Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" MaxLines="2"/>
-                        <Label Grid.Row="1" Text="{Binding Count}" VerticalOptions="End"/>
-
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup Name="CommonStates">
-                                <VisualState Name="Normal" />
-                                <VisualState Name="Selected">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <Frame Grid.Row="1">
-            <VerticalStackLayout Spacing="10">
-                <Editor Text="{Binding Name}" Placeholder="Enter name"/>
-
-                <Grid ColumnDefinitions="*,80">
-                    <Label 
-                        Text="Multiple files" 
-                        FontAttributes="Bold" 
-                        VerticalOptions="Center"/>
-                    <Switch 
-                        Grid.Column="1" 
-                        IsToggled="{Binding Multiple}" 
-                        IsEnabled="{Binding CanMultipleExport}"/>
-                </Grid>
-
-                <Button 
-                    Text="Export" Command="{Binding ExportCommand}" 
-                    Style="{StaticResource ButtonOutline}" />
-            </VerticalStackLayout>
+        <Frame Grid.Row="1" Margin="0,0,0,5" IsVisible="{Binding AtLeastOneSelected}">
+            <Grid ColumnDefinitions="*,auto" ColumnSpacing="20">
+                <Button Grid.Column="0" Text="As Single" 
+                        Command="{Binding ExportAsSingleCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource ButtonOutline}" />
+                <Button Grid.Column="1" Text="As Multiple"
+                        Command="{Binding ExportAsMultipleCommand}"
+                        IsVisible="{Binding CanMultipleExport}"
+                        Style="{StaticResource ButtonOutline}"/>
+            </Grid>
         </Frame>
     </Grid>
 </ContentPage> 

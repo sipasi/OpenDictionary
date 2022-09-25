@@ -21,25 +21,10 @@
     </Page.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New" Command="{Binding RedirectToCreateCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                                 Glyph="{Static fonts:AppIcons.AddNewEntity}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
+        <ToolbarItem Text="New" IconImageSource="{fonts:FontIcon Icon=AddNewEntity}" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
-        <CollectionView ItemsSource="{Binding Groups.Collection}" Style="{StaticResource FlexibleCollection}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:WordGroupInfo">
-                    <controls:CollectionTile 
-                        Title="{Binding Name}"
-                        SubTitle="{Binding Count}"
-                        Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
-                        CommandParameter="{Binding .}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <CollectionView ItemsSource="{Binding Groups.Collection}" Style="{StaticResource WordGroupInfoCollection}"/>
     </RefreshView>
 </ContentPage>

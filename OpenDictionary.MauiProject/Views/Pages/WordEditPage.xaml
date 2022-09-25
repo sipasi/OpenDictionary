@@ -28,29 +28,14 @@
         </Style>
         <Style x:Key="DeleteButtonStyle" TargetType="ImageButton">
             <Setter Property="Source">
-                <FontImageSource 
-                    FontFamily="{Binding Source={x:Static fonts:AppIcons.FontFamily}}"
-                    Glyph="{Static fonts:AppIcons.DeleteBin}"
-                    Color="{StaticResource Red}"/>
+                <fonts:FontIconExtension Icon="DeleteBin" Color="{StaticResource Red}"/>
             </Setter>
         </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Discard" Command="{Binding DiscardCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                    Glyph="{x:Static fonts:AppIcons.ArrowGoBack}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-        <ToolbarItem Text="Discard" Command="{Binding SaveCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                    Glyph="{x:Static fonts:AppIcons.Save}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
+        <ToolbarItem Text="Discard" IconImageSource="{fonts:FontIcon Icon=ArrowGoBack}" Command="{Binding DiscardCommand}"/>
+        <ToolbarItem Text="Save" IconImageSource="{fonts:FontIcon Icon=Save}" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

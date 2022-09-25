@@ -1,11 +1,8 @@
-﻿
-using Android.Media;
+﻿using Android.Media;
 
-using OpenDictionary.Services.Audio;
+namespace OpenDictionary.Services.Audio;
 
-namespace OpenDictionary.Platforms.Android;
-
-internal class AudioPlayer : IAudioPlayerServise
+internal sealed partial class AudioPlayer : IAudioPlayerServise
 {
     private readonly MediaPlayer player = new();
 

@@ -1,5 +1,4 @@
-﻿
-namespace OpenDictionary.Fonts.Icons;
+﻿namespace OpenDictionary.Fonts.Icons;
 
 internal interface IIconAsset
 {
@@ -31,4 +30,8 @@ internal interface IIconAsset
 
     string Cloud { get; }
     string CloudDone { get; }
+
+    string CheckboxIndeterminateCircle { get; }
+    string CheckboxBlankCircle { get; }
+    string CheckboxCircle { get; }
 }

@@ -1,60 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
-             xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
-             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
-             
-             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
- 
-             Padding="5,0"
-              
-             Title="{Binding Name}"
-             
-             x:DataType="viewModels:WordGroupDetailViewModel"
-             
-             x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
+    xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
+    
+    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
+    
+    Padding="5,0"
+     
+    Title="{Binding Name}"
+    
+    x:DataType="viewModels:WordGroupDetailViewModel"
+    
+    x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding DeleteCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource 
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                    Glyph="{x:Static fonts:AppIcons.DeleteBin}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-        <ToolbarItem Command="{Binding RedirectToEditCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource 
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                    Glyph="{x:Static fonts:AppIcons.Edit}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-        <ToolbarItem Command="{Binding RedirectToGameCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                    Glyph="{x:Static fonts:AppIcons.Gamepad}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
+        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem Text="Edit" IconImageSource="{fonts:FontIcon Icon=Edit}" Command="{Binding RedirectToEditCommand}"/>
+        <ToolbarItem Text="Game" IconImageSource="{fonts:FontIcon Icon=Gamepad}" Command="{Binding RedirectToGameCommand}"/>
     </ContentPage.ToolbarItems>
-    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words}" Style="{StaticResource FlexibleCollection}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:Word">
-                <controls:CollectionTile 
-                    Title="{Binding Origin}" 
-                    SubTitle="{Binding Translation}" 
-                    Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=TappedCommand}"
-                    CommandParameter="{Binding .}"/>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
 
-        <CollectionView.EmptyView>
-            <Label Text="Add your first word" 
-                   FontAttributes="Bold" FontSize="Title" 
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   TextColor="{DynamicResource Primary}"/>
-        </CollectionView.EmptyView>
-    </CollectionView>
+    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words}" Style="{StaticResource WordCollection}"/>
 </ContentPage>

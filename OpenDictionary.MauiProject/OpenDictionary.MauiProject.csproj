@@ -9,7 +9,7 @@
 		-->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
-		<RootNamespace>OpenDictionary.MauiProject</RootNamespace>
+		<RootNamespace>OpenDictionary</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>disable</ImplicitUsings>
@@ -35,9 +35,39 @@
 		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>-->
 	</PropertyGroup>
 
+	<!-- Android -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) != true">
+		<Compile Remove="**\**\*.Android.cs" />
+		<None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<!-- Both iOS and Mac Catalyst -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true AND $(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
+		<Compile Remove="**\**\*.MaciOS.cs" />
+		<None Include="**\**\*.MaciOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<!-- iOS -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true">
+		<Compile Remove="**\**\*.iOS.cs" />
+		<None Include="**\**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<!-- Mac Catalyst -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
+		<Compile Remove="**\**\*.MacCatalyst.cs" />
+		<None Include="**\**\*.MacCatalyst.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<!-- Windows -->
+	<ItemGroup Condition="$(TargetFramework.Contains('-windows')) != true">
+		<Compile Remove="**\*.Windows.cs" />
+		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
-		
+
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
@@ -45,48 +75,48 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\icon_book.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_gamepad_1.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_gamepad_2.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_gamepad_3.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_gamepad_4.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_gamepad_5.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_origin_to_translation.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_settings.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_translation_to_origin.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\ic_launcher_web.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\playstore_icon.png">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
 		</MauiImage>
 
 		<!-- Custom Fonts -->
@@ -97,180 +127,172 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="Views\Popups\**" />
-	  <Compile Remove="Views\Popups\**" />
-	  <EmbeddedResource Remove="Views\Popups\**" />
-	  <MauiCss Remove="Views\Popups\**" />
-	  <MauiXaml Remove="Views\Popups\**" />
-	  <None Remove="Views\Popups\**" />
+		<AndroidResource Remove="Views\Popups\**" />
+		<Compile Remove="Views\Popups\**" />
+		<EmbeddedResource Remove="Views\Popups\**" />
+		<MauiCss Remove="Views\Popups\**" />
+		<MauiXaml Remove="Views\Popups\**" />
+		<None Remove="Views\Popups\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Remove="Resources\Styles\DefaultControls.xaml" />
+		<MauiXaml Remove="Resources\Styles\DefaultControls.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\AppIcon\appicon.png" />
-	  <None Remove="Resources\Fonts\Icons\MaterialIcons-Regular.ttf" />
-	  <None Remove="Resources\Fonts\Icons\remixicon.ttf" />
-	  <None Remove="Resources\Images\icon_book.png" />
-	  <None Remove="Resources\Images\icon_gamepad_1.png" />
-	  <None Remove="Resources\Images\icon_gamepad_2.png" />
-	  <None Remove="Resources\Images\icon_gamepad_3.png" />
-	  <None Remove="Resources\Images\icon_gamepad_4.png" />
-	  <None Remove="Resources\Images\icon_gamepad_5.png" />
-	  <None Remove="Resources\Images\icon_origin_to_translation.png" />
-	  <None Remove="Resources\Images\icon_settings.png" />
-	  <None Remove="Resources\Images\icon_translation_to_origin.png" />
-	  <None Remove="Resources\Images\ic_launcher_web.png" />
-	  <None Remove="Resources\Images\playstore_icon.png" />
-	  <None Remove="Resources\Raw\Json\Dictionaries.json" />
+		<None Remove="Resources\AppIcon\appicon.png" />
+		<None Remove="Resources\Fonts\Icons\remixicon.ttf" />
+		<None Remove="Resources\Images\icon_book.png" />
+		<None Remove="Resources\Images\icon_gamepad_1.png" />
+		<None Remove="Resources\Images\icon_gamepad_2.png" />
+		<None Remove="Resources\Images\icon_gamepad_3.png" />
+		<None Remove="Resources\Images\icon_gamepad_4.png" />
+		<None Remove="Resources\Images\icon_gamepad_5.png" />
+		<None Remove="Resources\Images\icon_origin_to_translation.png" />
+		<None Remove="Resources\Images\icon_settings.png" />
+		<None Remove="Resources\Images\icon_translation_to_origin.png" />
+		<None Remove="Resources\Images\ic_launcher_web.png" />
+		<None Remove="Resources\Images\playstore_icon.png" />
+		<None Remove="Resources\Raw\Json\Dictionaries.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiFont Include="Resources\Fonts\Icons\MaterialIcons-Regular.ttf" />
+		<MauiIcon Include="Resources\AppIcon\appicon.png" ForegroundFile="Resources\AppIcon\appicon_foreground.png">
+			<SubType>Designer</SubType>
+			<Generator></Generator>
+		</MauiIcon>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiIcon Include="Resources\AppIcon\appicon.png" ForegroundFile="Resources\AppIcon\appicon_foreground.png">
-	    <SubType>Designer</SubType>
-	    <Generator></Generator>
-	  </MauiIcon>
+		<MauiFont Include="Resources\Fonts\Icons\remixicon.ttf">
+			<CopyToOutputDirectory></CopyToOutputDirectory>
+		</MauiFont>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiFont Include="Resources\Fonts\Icons\remixicon.ttf">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
-	  </MauiFont>
+		<PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
+		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
-	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+		<ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
+		<ProjectReference Include="..\Framework.States\Framework.States.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
+		<ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
+		<ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
-	  <ProjectReference Include="..\Framework.States\Framework.States.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
-	  <ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
+		<None Update="Resources\AppIcon\appicon_foreground.png">
+			<SubType>Designer</SubType>
+			<Generator></Generator>
+		</None>
+		<None Update="Resources\AppIcon\appicon_round.png">
+			<SubType>Designer</SubType>
+			<Generator></Generator>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Resources\AppIcon\appicon_foreground.png">
-	    <SubType>Designer</SubType>
-	    <Generator></Generator>
-	  </None>
-	  <None Update="Resources\AppIcon\appicon_round.png">
-	    <SubType>Designer</SubType>
-	    <Generator></Generator>
-	  </None>
+		<Compile Update="Resources\Styles\Themes\BlackTheme.xaml.cs">
+			<DependentUpon>BlackTheme.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Styles\Themes\LightTheme.xaml.cs">
+			<DependentUpon>LightTheme.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Styles\Themes\DraculaTheme.xaml.cs">
+			<DependentUpon>DraculaTheme.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Styles\Themes\PurpleTheme.xaml.cs">
+			<DependentUpon>PurpleTheme.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Platforms\Windows\AudioPlayer.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	  <Compile Update="Resources\Styles\Themes\BlackTheme.xaml.cs">
-	    <DependentUpon>BlackTheme.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Resources\Styles\Themes\LightTheme.xaml.cs">
-	    <DependentUpon>LightTheme.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Resources\Styles\Themes\DraculaTheme.xaml.cs">
-	    <DependentUpon>DraculaTheme.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Resources\Styles\Themes\PurpleTheme.xaml.cs">
-	    <DependentUpon>PurpleTheme.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Resources\Styles\Colors.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Controls\ImageButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Controls\Button.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Controls\CollectionView.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Controls\Default.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\MauiStyles.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Themes\BlackTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Themes\LightTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Themes\DraculaTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Themes\PurpleTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\Themes\DarkTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\CollectionTile.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\RefreshCollectionView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\WordConformityControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\Settings\ExportPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\GameListPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\GameOriginToTranslationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\GameTranslationToOriginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\Settings\ImportPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\SettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\WordDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\WordEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\WordGroupCreatePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\WordGroupDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\WordGroupListPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Resources\Styles\Colors.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Controls\ImageButton.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Controls\Button.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Controls\CollectionView.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Controls\Default.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\MauiStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Themes\BlackTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Themes\LightTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Themes\DraculaTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Themes\PurpleTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Themes\DarkTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\CollectionTile.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\RefreshCollectionView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\WordConformityControl.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\Settings\ExportPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\GameListPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\GameOriginToTranslationPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\GameTranslationToOriginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\Settings\ImportPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\SettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\WordDetailPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\WordEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\WordGroupCreatePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\WordGroupDetailPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Pages\WordGroupListPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

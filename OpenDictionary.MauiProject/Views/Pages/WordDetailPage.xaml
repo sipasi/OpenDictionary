@@ -45,15 +45,12 @@
                             Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
                             CommandParameter="{Binding Audio}">
                             <ImageButton.Source>
-                                <FontImageSource
-                                    FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                                    Glyph="{x:Static fonts:AppIcons.Play}"
-                                    Color="{DynamicResource Primary}"/>
+                                <fonts:FontIconExtension Icon="Play" Color="{DynamicResource Primary}"/>
                             </ImageButton.Source>
                         </ImageButton>
                         <Label Grid.Column="1" 
-                               FontFamily="{x:Static fonts:AppIcons.FontFamily}" 
-                               Text="{Static fonts:AppIcons.Cloud}"
+                               FontFamily="{fonts:FontFamily}" 
+                               Text="{fonts:Icon Icon=Cloud}"
                                HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                         <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Secondary}" 
                                HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
@@ -151,20 +148,8 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                    Glyph="{x:Static fonts:AppIcons.DeleteBin}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-        <ToolbarItem Text="Edit" Command="{Binding RedirectToEditCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="{x:Static fonts:AppIcons.FontFamily}"
-                    Glyph="{x:Static fonts:AppIcons.Edit}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
+        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem Text="Edit" IconImageSource="{fonts:FontIcon Icon=Edit}" Command="{Binding RedirectToEditCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ScrollView VerticalScrollBarVisibility="Never">

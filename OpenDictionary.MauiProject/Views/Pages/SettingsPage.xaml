@@ -66,7 +66,7 @@
                             <Setter Property="ColumnSpacing" Value="20"/>
                         </Style>
                         <Style x:Key="IconStyle" TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}">
-                            <Setter Property="FontFamily" Value="{Static fonts:AppIcons.FontFamily}"/>
+                            <Setter Property="FontFamily" Value="{fonts:FontFamily}"/>
                             <Setter Property="HorizontalTextAlignment" Value="Center"/>
                             <Setter Property="VerticalTextAlignment" Value="Center"/>
                             <Setter Property="FontSize" Value="24"/>
@@ -79,34 +79,34 @@
                               RowSpacing="10" ColumnSpacing="20">
                         <Label Grid.Row="0" 
                                    Style="{StaticResource IconStyle}"
-                                   Text="{x:Static fonts:AppIcons.Download}" />
+                                   Text="{fonts:Icon Icon=Download}" />
                         <Button Grid.Row="0" Grid.Column="1" 
                                     Text="Import" Command="{Binding RedirectToImportCommand}"/>
 
-                        <Label 
-                                Grid.Row="1" 
-                                Style="{StaticResource IconStyle}" 
-                                Text="{x:Static fonts:AppIcons.Upload}" />
-                        <Button 
-                                Grid.Row="1" Grid.Column="1" 
-                                Text="Export" Command="{Binding RedirectToExportCommand}"/>
+                        <Label
+                            Grid.Row="1" 
+                            Style="{StaticResource IconStyle}" 
+                            Text="{fonts:Icon Icon=Upload}" />
+                        <Button
+                            Grid.Row="1" Grid.Column="1" 
+                            Text="Export" Command="{Binding RedirectToExportCommand}"/>
 
-                        <Label 
-                                Grid.Row="3" 
-                                Style="{StaticResource IconStyle}" 
-                                Text="{x:Static fonts:AppIcons.PreinstalledDictionaries}" />
-                        <Button 
-                                Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
-                                Command="{Binding WordGroup.AddPreinstalledCommand}"/>
+                        <Label
+                            Grid.Row="3" 
+                            Style="{StaticResource IconStyle}" 
+                            Text="{fonts:Icon Icon=PreinstalledDictionaries}" />
+                        <Button
+                            Grid.Row="3" Grid.Column="1" Text="Add preinstalled" 
+                            Command="{Binding WordGroup.AddPreinstalledCommand}"/>
 
-                        <Label 
-                                Grid.Row="4" 
-                                Style="{StaticResource IconStyle}" 
-                                Text="{x:Static fonts:AppIcons.DeleteAllDictionaries}" />
-                        <Button 
-                                Grid.Row="4" Grid.Column="1" Text="Delete All" 
-                                Style="{x:StaticResource ButtonOutlineRed}" 
-                                Command="{Binding WordGroup.DeleteAllCommand}"/>
+                        <Label
+                            Grid.Row="4" 
+                            Style="{StaticResource IconStyle}" 
+                            Text="{fonts:Icon Icon=DeleteAllDictionaries}" />
+                        <Button
+                            Grid.Row="4" Grid.Column="1" Text="Delete All" 
+                            Style="{x:StaticResource ButtonOutlineRed}" 
+                            Command="{Binding WordGroup.DeleteAllCommand}"/>
                     </Grid>
                 </VerticalStackLayout>
             </Frame>

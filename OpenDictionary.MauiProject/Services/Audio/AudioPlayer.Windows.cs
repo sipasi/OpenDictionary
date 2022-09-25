@@ -1,17 +1,10 @@
 ﻿using System;
 
-using Microsoft.Maui.Controls;
-
-using OpenDictionary.Platforms.Windows;
-
-using OpenDictionary.Services.Audio;
-
 using Windows.Media.Playback;
 
-[assembly: Dependency(typeof(AudioPlayer))]
-namespace OpenDictionary.Platforms.Windows;
+namespace OpenDictionary.Services.Audio;
 
-internal class AudioPlayer : IAudioPlayerServise
+internal sealed partial class AudioPlayer : IAudioPlayerServise
 {
     private readonly MediaPlayer player = new();
 
