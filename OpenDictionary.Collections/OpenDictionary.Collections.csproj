@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tools\**" />
+    <EmbeddedResource Remove="Tools\**" />
+    <None Remove="Tools\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OpenDictionary.Structures\OpenDictionary.Structures.csproj" />
   </ItemGroup>
 

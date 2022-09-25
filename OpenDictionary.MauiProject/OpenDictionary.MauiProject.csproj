@@ -257,6 +257,9 @@
 		<MauiXaml Update="Views\Controls\RefreshCollectionView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Controls\SoundPlayer.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Controls\WordConformityControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

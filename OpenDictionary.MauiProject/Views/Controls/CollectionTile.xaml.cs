@@ -42,7 +42,7 @@ public partial class CollectionTile : ContentView
 
     public CollectionTile()
     {
-        InitializeComponent(); CollectionView s;
+        InitializeComponent();
     }
 
     private static BindableProperty CreateObject(string name)
