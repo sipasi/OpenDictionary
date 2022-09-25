@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using MvvmHelpers;
-using MvvmHelpers.Commands;
 
 namespace OpenDictionary.ViewModels;
 

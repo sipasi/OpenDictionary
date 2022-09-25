@@ -8,8 +8,8 @@ using Framework.States;
 
 using MvvmHelpers;
 
+using OpenDictionary.Collections.Extensions;
 using OpenDictionary.Collections.Storages;
-using OpenDictionary.Collections.Tools;
 using OpenDictionary.Games.WordConformities.Observables;
 using OpenDictionary.Games.WordConformities.States;
 using OpenDictionary.Models;
@@ -78,7 +78,7 @@ public abstract partial class WordConformityViewModel
 
         Word[] array = group.Words.ToArray();
 
-        ListTool.Randomize(array);
+        array.Randomize();
 
         Words.AddRange(array);
 
@@ -88,8 +88,13 @@ public abstract partial class WordConformityViewModel
         Properties.Total = group.Words.Count;
     }
 
-    private Task OnTapped(AnswerButtonObservable info)
+    private Task OnTapped(AnswerButtonObservable? info)
     {
+        if (info is null)
+        {
+            return Task.CompletedTask;
+        }
+
         events.InvokeAnswered(info);
 
         return Task.CompletedTask;
