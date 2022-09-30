@@ -30,8 +30,7 @@ public sealed partial class ImportViewModel
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
-    public ObservableRangeCollection<WordGroup> Items { get; }
-    public ObservableRangeCollection<object> SelectedItems { get; }
+    public SelectableCollectionViewModel<WordGroup> Collection { get; }
 
     public ImportViewModel(IStorage<WordGroup> storage, INavigationService navigation, IToastMessageService toast)
     {
@@ -39,8 +38,7 @@ public sealed partial class ImportViewModel
         this.navigation = navigation;
         this.toast = toast;
 
-        Items = new();
-        SelectedItems = new();
+        Collection = new();
     }
 
     [RelayCommand]
@@ -64,21 +62,20 @@ public sealed partial class ImportViewModel
             return;
         }
 
-        Items.Clear();
-        SelectedItems.Clear();
+        Collection.Clear();
 
         foreach (var file in files)
         {
             WordGroup[]? loadled = await LoadFromJson(file.FullPath);
 
-            Items.AddRange(loadled!);
+            Collection.AddRange(loadled!);
         }
     }
 
     [RelayCommand]
     private async Task Import()
     {
-        var selected = SelectedItems;
+        var selected = Collection.SelectedItems;
         int count = selected.Count;
 
         if (count == 0)

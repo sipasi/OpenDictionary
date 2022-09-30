@@ -61,9 +61,9 @@ public sealed partial class ExportViewModel
             Count = group.Words.Count
         }).ToArrayAsync();
 
-        Collection.Items.Clear();
+        Collection.Clear();
 
-        Collection.Items.AddRange(groups);
+        Collection.AddRange(groups);
     }
 
     [RelayCommand]

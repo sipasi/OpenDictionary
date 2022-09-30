@@ -11,7 +11,7 @@
              
              x:DataType="viewModels:ExportViewModel"
               
-             Title="{Binding Collection.SelectedItems.Count, StringFormat='Selected: {0}'}" 
+             Title="{Binding Collection.SelectedItems.Count}" 
              
              x:Class="OpenDictionary.Views.Pages.Settings.ExportPage">
     <ContentPage.Resources>
@@ -23,7 +23,9 @@
     </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="*,auto" Padding="5,0">
-        <CollectionView ItemsSource="{Binding Collection.Items}" SelectedItems="{Binding Collection.SelectedItems}" Style="{StaticResource ExportCollection}"/>
+        <CollectionView ItemsSource="{Binding Collection.Items}" 
+                        SelectedItems="{Binding Collection.SelectedItems}"
+                        Style="{StaticResource ExportCollection}"/>
 
         <Frame Grid.Row="1" Margin="0,0,0,5" IsVisible="{Binding AtLeastOneSelected}">
             <Grid ColumnDefinitions="*,auto" ColumnSpacing="20">

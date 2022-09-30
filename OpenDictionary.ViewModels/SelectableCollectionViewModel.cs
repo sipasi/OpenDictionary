@@ -1,6 +1,8 @@
 ﻿#nullable enable
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,8 +19,11 @@ public sealed partial class SelectableCollectionViewModel<T> where T : class
 
     private readonly Action? selectionsChanged;
 
-    public ObservableRangeCollection<T> Items { get; }
-    public ObservableRangeCollection<object> SelectedItems { get; }
+    private readonly ObservableRangeCollection<T> items;
+    private readonly ObservableRangeCollection<object> selected;
+
+    public IReadOnlyList<T> Items => items;
+    public IReadOnlyList<object> SelectedItems => selected;
 
     public Action? SelectionsChanged { init => selectionsChanged = value; }
 
@@ -26,19 +31,29 @@ public sealed partial class SelectableCollectionViewModel<T> where T : class
     {
         state = SelectionStates.None;
 
-        Items = new();
-        SelectedItems = new();
+        items = new();
+        selected = new();
 
-        SelectedItems.CollectionChanged += SelectedItems_CollectionChanged;
+        selected.CollectionChanged += SelectedItems_CollectionChanged;
     }
 
-    private void SelectedItems_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    public void Clear()
+    {
+        items.Clear();
+        selected.Clear();
+    }
+    public void ClearSelected() => selected.Clear();
+
+    public void Add(T item) => items.Add(item);
+    public void AddRange(IEnumerable<T> items) => this.items.AddRange(items);
+
+    private void SelectedItems_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         selectionsChanged?.Invoke();
 
         const int empty = 0;
-        int selected = SelectedItems.Count;
-        int all = Items.Count;
+        int selected = this.selected.Count;
+        int all = items.Count;
 
         State = selected is empty
             ? SelectionStates.None
@@ -50,14 +65,14 @@ public sealed partial class SelectableCollectionViewModel<T> where T : class
     [RelayCommand]
     private void SelectAll()
     {
-        int all = Items.Count;
-        int selected = SelectedItems.Count;
+        int all = items.Count;
+        int selected = this.selected.Count;
 
-        SelectedItems.Clear();
+        this.selected.Clear();
 
         if (selected < all)
         {
-            SelectedItems.AddRange(Items);
+            this.selected.AddRange(items);
         }
     }
 }
