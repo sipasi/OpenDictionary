@@ -21,36 +21,38 @@
 
     <ContentPage.Content>
         <Grid RowDefinitions="auto,*">
-            <VerticalStackLayout Spacing="8">
-                <Label Text="Name" FontSize="Medium" FontAttributes="Bold"/>
-                <Entry Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
+            <Frame>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Name" FontSize="Medium" FontAttributes="Bold"/>
+                    <Entry Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
 
-                <Label Text="Words" FontSize="Medium" FontAttributes="Bold"/>
-                <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
-                    <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
-                    <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding OriginCopyCommand}"/>
-                    <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding OriginPasteCommand}"/>
-                </Grid>
-                <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
-                    <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
-                    <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding TranslationCopyCommand}"/>
-                    <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding TranslationPasteCommand}"/>
-                </Grid>
+                    <Label Text="Words" FontSize="Medium" FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
+                        <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
+                        <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding OriginCopyCommand}"/>
+                        <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding OriginPasteCommand}"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
+                        <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+                        <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding TranslationCopyCommand}"/>
+                        <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding TranslationPasteCommand}"/>
+                    </Grid>
 
-                <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" 
+                    <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" 
                         Margin="10" />
-            </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
 
             <CollectionView Grid.Row="1"
                             ItemsSource="{Binding Words}" 
                             SelectionMode="None" VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame IsClippedToBounds="True" HasShadow="False" CornerRadius="8">
-                            <Grid RowDefinitions="*,*" ColumnDefinitions="*,32" x:DataType="models:Word">
+                        <Frame IsClippedToBounds="True" HasShadow="False" CornerRadius="8" Margin="0,5,0,0">
+                            <Grid RowDefinitions="*,*" ColumnDefinitions="*,auto" x:DataType="models:Word">
                                 <Label Grid.Row="0" Text="{Binding Origin}"/>
                                 <Label Grid.Row="1" Text="{Binding Translation}"/>
                                 <ImageButton 
@@ -62,6 +64,16 @@
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+
+                <CollectionView.Footer>
+                    <VerticalStackLayout HeightRequest="5"/>
+                </CollectionView.Footer>
+
+                <CollectionView.EmptyView>
+                    <Label Text="Add your first word" TextColor="{DynamicResource Primary}" 
+                           FontAttributes="Bold" FontSize="Title" 
+                           VerticalOptions="Center" HorizontalOptions="Center"/>
+                </CollectionView.EmptyView>
             </CollectionView>
         </Grid>
     </ContentPage.Content>

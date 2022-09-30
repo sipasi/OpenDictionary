@@ -127,15 +127,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AndroidResource Remove="Views\Popups\**" />
-		<Compile Remove="Views\Popups\**" />
-		<EmbeddedResource Remove="Views\Popups\**" />
-		<MauiCss Remove="Views\Popups\**" />
-		<MauiXaml Remove="Views\Popups\**" />
-		<None Remove="Views\Popups\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<MauiXaml Remove="Resources\Styles\DefaultControls.xaml" />
 	</ItemGroup>
 
@@ -295,6 +286,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\Pages\WordGroupListPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Popups\PopupDialog.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 

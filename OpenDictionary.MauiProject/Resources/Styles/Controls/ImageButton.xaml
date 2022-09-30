@@ -8,6 +8,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style x:Key="ImageButtonBase" TargetType="ImageButton">
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BorderColor" Value="Transparent"/>
+        <Setter Property="BorderWidth" Value="0"/>
+
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -34,8 +38,6 @@
         </Setter>
     </Style>
     <Style x:Key="DeleteImageStyle" TargetType="ImageButton">
-        <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="Source">
             <fonts:FontIconExtension Icon="DeleteBin" Color="{StaticResource Red-500}" Size="32"/>
         </Setter>

@@ -69,7 +69,7 @@ internal static class ServiceBuilderExtensions
     {
         builder.singleton
             .Add<IAlertMessageService, AlertMessageService>()
-            .Add<IDialogMessageService, DialogMessageService>();
+            .Add<IDialogMessageService, PopupDialogMessageService>();
 
         return builder;
     }

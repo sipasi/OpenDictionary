@@ -1,10 +1,11 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace OpenDictionary.Fonts.Icons;
 
 public static class FontImageSourceCreator
 {
-    public static FontImageSource Create(FontIcon icon, double? size = null, object? colorResource = null)
+    public static FontImageSource Create(FontIcon icon, double? size = null, object? color = null)
     {
         var font = new FontImageSource()
         {
@@ -17,14 +18,13 @@ public static class FontImageSourceCreator
             font.Size = size.Value;
         }
 
-        if (colorResource is not null)
+        if (color is Color mauiColor)
         {
-            var resource = colorResource as Microsoft.Maui.Controls.Internals.DynamicResource;
-
-            if (resource is not null)
-            {
-                font.SetDynamicResource(FontImageSource.ColorProperty, resource.Key);
-            }
+            font.Color = mauiColor;
+        }
+        else if (color is Microsoft.Maui.Controls.Internals.DynamicResource resource)
+        {
+            font.SetDynamicResource(FontImageSource.ColorProperty, resource.Key);
         }
 
         return font;

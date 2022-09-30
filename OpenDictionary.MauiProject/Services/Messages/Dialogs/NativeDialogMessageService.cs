@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using System.Threading.Tasks;
 
 using Microsoft.Maui.Controls;
@@ -7,13 +8,13 @@ using OpenDictionary.Services.Messages.Dialogs;
 
 namespace OpenDictionary.MauiProject.Services.Messages.Dialogs;
 
-internal class DialogMessageService : IDialogMessageService
+internal sealed class NativeDialogMessageService
 {
     public async Task<DialogResult> Show(string title, string message, string accept, string cancel)
     {
-        var userAnswer = await Shell.Current.DisplayAlert(title, message, accept, cancel);
+        var answer = await Shell.Current.DisplayAlert(title, message, accept, cancel);
 
-        var result = userAnswer switch
+        var result = answer switch
         {
             true => DialogResult.Ok,
             _ => DialogResult.Cancel
