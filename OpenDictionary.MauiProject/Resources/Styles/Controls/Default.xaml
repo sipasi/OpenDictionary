@@ -12,6 +12,11 @@
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="HasShadow" Value="False"/>
     </Style>
+    <Style x:Key="DefaultRoundBorder" ApplyToDerivedTypes="True" TargetType="Border" >
+        <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="BackgroundColor" Value="{DynamicResource Surface}"/>
+    </Style>
     <Style x:Key="DefaultLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"/>
     </Style>
@@ -70,6 +75,7 @@
 
     <Style TargetType="Page" ApplyToDerivedTypes="True" BasedOn="{x:StaticResource DefaultPage}"/>
     <Style TargetType="Frame" BasedOn="{x:StaticResource DefaultFrame}"/>
+    <Style TargetType="Border" BasedOn="{x:StaticResource DefaultRoundBorder}"/>
     <Style TargetType="Label" BasedOn="{x:StaticResource DefaultLabel}"/>
     <Style TargetType="Entry" BasedOn="{x:StaticResource DefaultEntry}"/>
     <Style TargetType="Editor" BasedOn="{x:StaticResource DefaultEditor}"/>

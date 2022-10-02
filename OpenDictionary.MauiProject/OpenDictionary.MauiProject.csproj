@@ -242,9 +242,6 @@
 		<MauiXaml Update="Resources\Styles\Themes\DarkTheme.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Controls\CollectionTile.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Views\Controls\RefreshCollectionView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

@@ -65,13 +65,11 @@
     </Style>
 
     <ControlTemplate x:Key="FlatRadioButtonTemplate">
-        <Border
-                Background="{DynamicResource Surface}"
+        <Border Background="{DynamicResource Surface}"
                 Stroke="{DynamicResource Secondary}"
-                StrokeThickness="1">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="8"/>
-            </Border.StrokeShape>
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1" 
+                Padding="0">
 
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>

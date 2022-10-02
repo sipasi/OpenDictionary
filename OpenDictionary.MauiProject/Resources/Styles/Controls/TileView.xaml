@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style x:Key="TileBorder" BasedOn="{StaticResource DefaultRoundBorder}" ApplyToDerivedTypes="True" TargetType="Border">
+    </Style>
+    <Style x:Key="TileSelectableBorder" BasedOn="{StaticResource TileBorder}" ApplyToDerivedTypes="True" TargetType="Border">
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+    <Style x:Key="DefaultTileLabel" BasedOn="{StaticResource DefaultLabel}" TargetType="Label">
+        <Setter Property="MaxLines" Value="1"/>
+        <Setter Property="LineBreakMode" Value="TailTruncation"/>
+    </Style>
+    <Style x:Key="TileTitle" BasedOn="{StaticResource DefaultTileLabel}" TargetType="Label">
+        <Setter Property="FontSize" Value="Subtitle"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"/>
+    </Style>
+    <Style x:Key="TileSubTitle" BasedOn="{StaticResource DefaultTileLabel}" TargetType="Label">
+        <Setter Property="FontSize" Value="Caption"/>
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryText}"/>
+    </Style>
+</ResourceDictionary>

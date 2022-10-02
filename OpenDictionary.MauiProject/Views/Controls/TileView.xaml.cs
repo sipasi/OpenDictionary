@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls;
 
 namespace OpenDictionary.Views.Controls;
 
-public partial class CollectionTile : ContentView
+public partial class TileView : Border
 {
     public static readonly BindableProperty TitleProperty = CreateString(nameof(Title));
     public static readonly BindableProperty SubTitleProperty = CreateString(nameof(SubTitle));
@@ -40,21 +40,21 @@ public partial class CollectionTile : ContentView
         set => SetValue(CommandParameterProperty, value);
     }
 
-    public CollectionTile()
+    public TileView()
     {
         InitializeComponent();
     }
 
     private static BindableProperty CreateObject(string name)
     {
-        return BindableProperty.Create(name, typeof(object), typeof(CollectionTile), null);
+        return BindableProperty.Create(name, typeof(object), typeof(TileView), null);
     }
     private static BindableProperty CreateString(string name)
     {
-        return BindableProperty.Create(name, typeof(string), typeof(CollectionTile), string.Empty);
+        return BindableProperty.Create(name, typeof(string), typeof(TileView), string.Empty);
     }
     private static BindableProperty CreateCommand(string name)
     {
-        return BindableProperty.Create(name, typeof(ICommand), typeof(CollectionTile), null);
+        return BindableProperty.Create(name, typeof(ICommand), typeof(TileView), null);
     }
 }

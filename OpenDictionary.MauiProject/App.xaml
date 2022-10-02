@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/Styles/Controls/Default.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Controls/Button.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Controls/ImageButton.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Controls/TileView.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Controls/CollectionView.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
