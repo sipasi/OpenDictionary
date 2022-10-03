@@ -287,6 +287,9 @@
 		<MauiXaml Update="Views\Popups\PopupDialog.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Popups\PopupLoading.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -24,7 +24,9 @@
         <ToolbarItem Text="New" IconImageSource="{fonts:FontIcon Icon=AddNewEntity}" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
+    <Button Text="op" Clicked="Button_Clicked"/>
+
+    <!--<RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
         <CollectionView ItemsSource="{Binding Groups.Collection}" Style="{StaticResource WordGroupInfoCollection}"/>
-    </RefreshView>
+    </RefreshView>-->
 </ContentPage>

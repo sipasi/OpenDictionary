@@ -7,7 +7,7 @@
         Style="{StaticResource TileBorder}"
           
         x:Class="OpenDictionary.Views.Controls.TileView">
-    <Grid RowDefinitions="*,*" RowSpacing="10" BindingContext="{x:Reference control}">
+    <Grid RowDefinitions="auto,auto" RowSpacing="10" BindingContext="{x:Reference control}">
         <Label Grid.Row="0" Text="{Binding Title}" Style="{StaticResource TileTitle}"/>
         <Label Grid.Row="1" Text="{Binding SubTitle}" Style="{StaticResource TileSubTitle}"/>
     </Grid>

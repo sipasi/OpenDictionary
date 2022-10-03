@@ -55,6 +55,11 @@
                     CommandParameter="{Binding .}"/>
             </DataTemplate>
         </Setter>
+        <Setter Property="Header" x:DataType="models:WordGroup">
+            <Grid Margin="10,40">
+                <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
+            </Grid>
+        </Setter>
         <Setter Property="EmptyView">
             <Label Text="Add your first word" Style="{StaticResource EmptyViewLabel}"/>
         </Setter>
