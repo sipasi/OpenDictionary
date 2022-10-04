@@ -1,12 +1,7 @@
-using System.Threading.Tasks;
-
-using CommunityToolkit.Maui.Views;
-
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.DependencyInjection;
 using OpenDictionary.ViewModels;
-using OpenDictionary.Views.Popups;
 
 namespace OpenDictionary.Views.Pages;
 
