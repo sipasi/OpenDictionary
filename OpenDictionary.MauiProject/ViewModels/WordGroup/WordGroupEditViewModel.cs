@@ -108,6 +108,7 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 
             WordGroup group = await wordGroupStorage.Query().GetById(id);
 
+            group.Name = Name;
             group.Words = Words.ToList();
 
             await wordGroupStorage.UpdateAsync(group);
