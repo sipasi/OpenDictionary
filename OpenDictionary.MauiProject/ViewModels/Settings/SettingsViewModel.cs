@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
+using OpenDictionary.Services.Messages.Loadings;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
@@ -20,12 +21,12 @@ public sealed partial class SettingsViewModel
     public AppThemeObservable AppTheme { get; }
     public WordGroupDictionaryViewModel WordGroup { get; }
 
-    public SettingsViewModel(IStorage<WordGroup> storage, INavigationService navigation, IDialogMessageService dialog, IToastMessageService toast)
+    public SettingsViewModel(IStorage<WordGroup> storage, INavigationService navigation, IDialogMessageService dialog, IToastMessageService toast, ILoadingMessageService loading)
     {
         this.navigation = navigation;
 
         AppTheme = new AppThemeObservable();
-        WordGroup = new WordGroupDictionaryViewModel(storage, dialog, toast);
+        WordGroup = new WordGroupDictionaryViewModel(storage, dialog, toast, loading);
     }
 
     [RelayCommand]

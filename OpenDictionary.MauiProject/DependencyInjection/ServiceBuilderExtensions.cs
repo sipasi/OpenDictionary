@@ -16,6 +16,7 @@ using OpenDictionary.Services.DataTransfer;
 using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
+using OpenDictionary.Services.Messages.Loadings;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
@@ -65,10 +66,12 @@ internal static class ServiceBuilderExtensions
 
         return builder;
     }
-    public static ServiceBuilder ConfigureDialogs(this ServiceBuilder builder)
+    public static ServiceBuilder ConfigureMessagesDialogs(this ServiceBuilder builder)
     {
         builder.singleton
             .Add<IAlertMessageService, AlertMessageService>()
+            .Add<IToastMessageService, ToastMessageService>()
+            .Add<ILoadingMessageService, LoadingMessageService>()
             .Add<IDialogMessageService, PopupDialogMessageService>();
 
         return builder;
@@ -78,13 +81,6 @@ internal static class ServiceBuilderExtensions
         IAppDirectoryService appDirectory = new AppDirectoryService(FileSystem.AppDataDirectory, FileSystem.CacheDirectory);
 
         builder.singleton.Add<IAppDirectoryService>(appDirectory);
-
-        return builder;
-    }
-    public static ServiceBuilder ConfigureToastMessages(this ServiceBuilder builder)
-    {
-        builder.singleton
-            .Add<IToastMessageService, ToastMessageService>();
 
         return builder;
     }

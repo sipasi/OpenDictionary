@@ -8,16 +8,20 @@ namespace OpenDictionary.DependencyInjection;
 
 internal class DiContainer
 {
-    private static IDiContainer container;
+    private static readonly IDiContainer container = Build();
 
     public static void Init()
+    {
+        DatabaseConfigurator.Configure(container);
+    }
+
+    private static IDiContainer Build()
     {
         ServiceBuilder builder = new ServiceBuilder();
 
         builder
             .ConfigureViewModels()
-            .ConfigureDialogs()
-            .ConfigureToastMessages()
+            .ConfigureMessagesDialogs()
             .ConfigureNavigation()
             .ConfigureOnlineDictionary()
             .ConfigureIO()
@@ -27,9 +31,7 @@ internal class DiContainer
 
         IDiContainer container = builder.Build();
 
-        DatabaseConfigurator.Configure(container);
-
-        DiContainer.container = container;
+        return container;
     }
 
     public static T Get<T>() where T : class => container.Get<T>();

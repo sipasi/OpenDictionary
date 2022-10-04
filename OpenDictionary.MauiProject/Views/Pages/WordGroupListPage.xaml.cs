@@ -27,9 +27,4 @@ public partial class WordGroupListPage : ContentPage
 
         await viewModel.Groups.LoadCommand!.ExecuteAsync(default);
     }
-
-    private async void Button_Clicked(object sender, System.EventArgs e)
-    {
-        await Application.Current.MainPage.ShowPopupAsync(new PopupLoading("Title", "Message", () => Task.Delay(2000)));
-    }
 }

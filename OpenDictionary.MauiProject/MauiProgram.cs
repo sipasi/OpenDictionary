@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Markup;
 
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
@@ -16,6 +17,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
 
+            .UseMauiCommunityToolkitMarkup()
             .UseMauiCommunityToolkit()
 
             .ConfigureFonts(fonts =>
