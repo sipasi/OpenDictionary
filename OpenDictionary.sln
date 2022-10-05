@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Structures",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Observables", "OpenDictionary.Observables\OpenDictionary.Observables.csproj", "{6CA2B514-0B68-4994-9195-3F9D623FD7D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Games", "OpenDictionary.Games\OpenDictionary.Games.csproj", "{55EFED1B-0832-4112-9DB4-B2105346005F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Games.WordConformities", "OpenDictionary.Games\OpenDictionary.Games.WordConformities.csproj", "{55EFED1B-0832-4112-9DB4-B2105346005F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{15AAE89C-72E0-4F43-AB8E-22E0BDC6EBEE}"
 EndProject

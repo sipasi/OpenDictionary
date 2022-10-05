@@ -172,7 +172,7 @@
 		<ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
 		<ProjectReference Include="..\Framework.States\Framework.States.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
-		<ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.WordConformities.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
 		<ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
