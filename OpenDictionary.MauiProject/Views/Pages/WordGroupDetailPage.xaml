@@ -4,10 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     
     xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
-    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
     xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
-    
-    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls" 
     
     Padding="5,0"
       

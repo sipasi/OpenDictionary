@@ -4,7 +4,6 @@
              
              xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
-             xmlns:system="clr-namespace:System;assembly=System"
              
              xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
              
