@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     
     xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
-    xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
+    xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
     
     Padding="5,0"
       

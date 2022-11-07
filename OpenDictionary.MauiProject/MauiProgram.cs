@@ -4,7 +4,7 @@ using CommunityToolkit.Maui.Markup;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
-using OpenDictionary.Fonts.Icons;
+using OpenDictionary.Styles.Fonts.Icons;
 
 namespace OpenDictionary.MauiProject;
 

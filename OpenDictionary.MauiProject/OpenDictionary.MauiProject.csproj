@@ -177,6 +177,7 @@
 		<ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
 		<ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Styles.Fonts\OpenDictionary.Styles.Fonts.csproj" />
 		<ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
 	</ItemGroup>
 
@@ -189,21 +190,6 @@
 			<SubType>Designer</SubType>
 			<Generator></Generator>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="Resources\Styles\Themes\BlackTheme.xaml.cs">
-			<DependentUpon>BlackTheme.xaml</DependentUpon>
-		</Compile>
-		<Compile Update="Resources\Styles\Themes\LightTheme.xaml.cs">
-			<DependentUpon>LightTheme.xaml</DependentUpon>
-		</Compile>
-		<Compile Update="Resources\Styles\Themes\DraculaTheme.xaml.cs">
-			<DependentUpon>DraculaTheme.xaml</DependentUpon>
-		</Compile>
-		<Compile Update="Resources\Styles\Themes\PurpleTheme.xaml.cs">
-			<DependentUpon>PurpleTheme.xaml</DependentUpon>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -226,21 +212,6 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Resources\Styles\MauiStyles.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Themes\BlackTheme.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Themes\LightTheme.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Themes\DraculaTheme.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Themes\PurpleTheme.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Themes\DarkTheme.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\SoundPlayer.xaml">

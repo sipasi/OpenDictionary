@@ -5,7 +5,7 @@
              xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
              
-             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons" 
+             xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
              
              x:DataType="viewModels:WordEditViewModel"
              

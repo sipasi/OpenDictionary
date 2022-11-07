@@ -6,7 +6,7 @@ using System.Globalization;
 
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.Fonts.Icons;
+using OpenDictionary.Styles.Fonts.Icons;
 
 namespace OpenDictionary.ViewModels;
 

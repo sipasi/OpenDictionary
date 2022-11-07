@@ -4,7 +4,7 @@
              
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
-             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+             xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
 
              x:DataType="viewModels:WordGroupEditViewModel"
              

@@ -4,7 +4,7 @@
              
              xmlns:themes="clr-namespace:OpenDictionary.Resources.Styles.Themes"
              xmlns:settings="clr-namespace:OpenDictionary.ViewModels.Settings"
-             xmlns:fonts="clr-namespace:OpenDictionary.Fonts.Icons"
+             xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
              
              xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              
