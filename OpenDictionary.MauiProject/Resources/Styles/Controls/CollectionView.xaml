@@ -60,9 +60,6 @@
                 <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
             </Grid>
         </Setter>
-        <Setter Property="EmptyView">
-            <Label Text="Add your first word" Style="{StaticResource EmptyViewLabel}"/>
-        </Setter>
     </Style>
 
     <Style x:Key="ImportExportBorder" TargetType="controls:TileView" BasedOn="{StaticResource TileSelectableBorder}">
