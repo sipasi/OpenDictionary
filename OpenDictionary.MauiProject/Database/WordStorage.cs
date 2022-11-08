@@ -1,14 +1,12 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.AppDatabase;
+namespace OpenDictionary.Databases;
 
-internal sealed class WordStorage : DatabaseStorage<Word>
+internal sealed class WordStorage : AppDatabaseStorage<Word>
 {
-    public WordStorage(IDatabasePath path)
-        : base(path) { }
+    public WordStorage(IDatabasePath path) : base(path) { }
 
-    protected override DbSet<Word> GetContext(DatabaseContext context) => context.Words;
+    protected override DbSet<Word> GetContext(DatabaseContextBase context) => Cast(context).Words;
 }

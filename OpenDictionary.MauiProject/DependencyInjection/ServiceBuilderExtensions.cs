@@ -3,7 +3,7 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
-using OpenDictionary.AppDatabase;
+using OpenDictionary.Databases;
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.MauiProject.Services.Messages.Alerts;
 using OpenDictionary.MauiProject.Services.Messages.Dialogs;
@@ -49,10 +49,8 @@ internal static class ServiceBuilderExtensions
     }
     public static ServiceBuilder ConfigureDatabase(this ServiceBuilder builder)
     {
-        IDatabasePath path = new UniversalDatabasePath();
-
         builder.singleton
-            .Add<IDatabasePath>(path)
+            .Add<IDatabasePath, UniversalDatabasePath>()
             .Add<IStorage<Word>, WordStorage>()
             .Add<IStorage<WordGroup>, WordGroupStorage>()
             .Add<IStorage<WordMetadata>, WordMetadataStorage>();

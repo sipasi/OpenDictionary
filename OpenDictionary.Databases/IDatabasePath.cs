@@ -1,4 +1,4 @@
-﻿namespace OpenDictionary.AppDatabase;
+﻿namespace OpenDictionary.Databases;
 
 public interface IDatabasePath
 {

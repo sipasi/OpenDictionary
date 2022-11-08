@@ -1,30 +1,16 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.EntityFrameworkCore;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.AppDatabase;
+namespace OpenDictionary.Databases;
 
-internal class DatabaseContext : DbContext
+internal class DatabaseContext : DatabaseContextBase
 {
-    private readonly string databasePath;
-
     public DbSet<Word> Words { get; set; }
     public DbSet<WordMetadata> WordMetadatas { get; set; }
     public DbSet<WordGroup> WordGroups { get; set; }
 
-    public DatabaseContext(string databasePath)
-    {
-        this.databasePath = databasePath;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder builder)
-    {
-        builder.UseSqlite($"Filename={databasePath}");
-
-        builder.EnableSensitiveDataLogging(true);
-    }
+    public DatabaseContext(string databasePath) : base(databasePath) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

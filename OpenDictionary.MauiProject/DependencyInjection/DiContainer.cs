@@ -1,7 +1,7 @@
 ﻿
 using Framework.DependencyInjection;
 
-using OpenDictionary.AppDatabase.Configurators;
+using OpenDictionary.Databases.Configurators;
 using OpenDictionary.DependencyInjection.Extensions;
 
 namespace OpenDictionary.DependencyInjection;

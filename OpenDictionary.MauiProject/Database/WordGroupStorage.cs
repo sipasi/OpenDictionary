@@ -3,12 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.AppDatabase;
+namespace OpenDictionary.Databases;
 
-internal sealed class WordGroupStorage : DatabaseStorage<WordGroup>
+internal sealed class WordGroupStorage : AppDatabaseStorage<WordGroup>
 {
-    public WordGroupStorage(IDatabasePath path)
-        : base(path) { }
+    public WordGroupStorage(IDatabasePath path) : base(path) { }
 
-    protected override DbSet<WordGroup> GetContext(DatabaseContext context) => context.WordGroups;
+    protected override DbSet<WordGroup> GetContext(DatabaseContextBase context) => Cast(context).WordGroups;
 }

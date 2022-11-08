@@ -1,7 +1,7 @@
 ﻿
 using Framework.DependencyInjection;
 
-namespace OpenDictionary.AppDatabase.Configurators;
+namespace OpenDictionary.Databases.Configurators;
 
 internal static class DatabaseConfigurator
 {

@@ -1,19 +1,12 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 using Microsoft.EntityFrameworkCore;
 
 using OpenDictionary.Collections.Storages;
-using OpenDictionary.Models;
 
-namespace OpenDictionary.AppDatabase;
+namespace OpenDictionary.Databases;
 
-internal abstract class DatabaseStorage<T> : IStorage<T>
-    where T : class, IEntity
+public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity : class
 {
     private readonly string path;
 
@@ -22,11 +15,11 @@ internal abstract class DatabaseStorage<T> : IStorage<T>
         this.path = path.Path;
     }
 
-    public async ValueTask<bool> AddAsync(T item)
+    public async ValueTask<bool> AddAsync(TEntity item)
     {
         try
         {
-            Open(out DatabaseContext database, out DbSet<T> context);
+            Open(out DatabaseContextBase database, out DbSet<TEntity> context);
 
             var entity = await context.AddAsync(item);
 
@@ -41,11 +34,11 @@ internal abstract class DatabaseStorage<T> : IStorage<T>
 
         return true;
     }
-    public async ValueTask<bool> AddRangeAsync(IEnumerable<T> items)
+    public async ValueTask<bool> AddRangeAsync(IEnumerable<TEntity> items)
     {
         try
         {
-            Open(out DatabaseContext database, out DbSet<T> context);
+            Open(out DatabaseContextBase database, out DbSet<TEntity> context);
 
             await context.AddRangeAsync(items);
 
@@ -60,11 +53,11 @@ internal abstract class DatabaseStorage<T> : IStorage<T>
 
         return true;
     }
-    public async ValueTask<bool> DeleteAsync(T item)
+    public async ValueTask<bool> DeleteAsync(TEntity item)
     {
         try
         {
-            Open(out DatabaseContext database, out DbSet<T> context);
+            Open(out DatabaseContextBase database, out DbSet<TEntity> context);
 
             var entity = context.Remove(item);
 
@@ -80,11 +73,11 @@ internal abstract class DatabaseStorage<T> : IStorage<T>
         return true;
     }
 
-    public async ValueTask<bool> DeleteRangeAsync(IEnumerable<T> items)
+    public async ValueTask<bool> DeleteRangeAsync(IEnumerable<TEntity> items)
     {
         try
         {
-            Open(out DatabaseContext database, out DbSet<T> context);
+            Open(out DatabaseContextBase database, out DbSet<TEntity> context);
 
             context.RemoveRange(items);
 
@@ -100,11 +93,11 @@ internal abstract class DatabaseStorage<T> : IStorage<T>
         return true;
     }
 
-    public async ValueTask<bool> UpdateAsync(T item)
+    public async ValueTask<bool> UpdateAsync(TEntity item)
     {
         try
         {
-            Open(out DatabaseContext database, out DbSet<T> context);
+            Open(out DatabaseContextBase database, out DbSet<TEntity> context);
 
             var entity = context.Update(item);
 
@@ -122,34 +115,29 @@ internal abstract class DatabaseStorage<T> : IStorage<T>
 
     public bool Any()
     {
-        Open(out DatabaseContext _, out DbSet<T> context);
+        Open(out DatabaseContextBase _, out DbSet<TEntity> context);
 
         return context.Any();
     }
 
-    public IQueryable<T> Query()
+    public IQueryable<TEntity> Query()
     {
-        Open(out DatabaseContext _, out DbSet<T> context);
+        Open(out DatabaseContextBase _, out DbSet<TEntity> context);
 
-        IQueryable<T> query = context.AsNoTracking();
+        IQueryable<TEntity> query = context.AsNoTracking();
 
         return query;
     }
 
-    private void Open(out DatabaseContext database, out DbSet<T> context)
+    private void Open(out DatabaseContextBase database, out DbSet<TEntity> context)
     {
-        database = Open();
+        database = Open(path);
         context = GetContext(database);
     }
 
-    protected abstract DbSet<T> GetContext(DatabaseContext context);
+    protected abstract DbSet<TEntity> GetContext(DatabaseContextBase context);
 
-    private DatabaseContext Open()
-    {
-        DatabaseContext context = new DatabaseContext(path);
-
-        return context;
-    }
+    protected abstract DatabaseContextBase Open(string path);
 
     private static void WritenException(Exception exception)
     {
