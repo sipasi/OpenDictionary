@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenDictionary.Styles.Fonts.Icons;
+﻿namespace OpenDictionary.Styles.Fonts.Icons;
 
 internal static class IconDictionary
 {

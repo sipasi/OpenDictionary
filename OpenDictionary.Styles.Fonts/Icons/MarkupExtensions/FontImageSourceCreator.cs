@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-
-namespace OpenDictionary.Styles.Fonts.Icons;
+﻿namespace OpenDictionary.Styles.Fonts.Icons;
 
 public static class FontImageSourceCreator
 {

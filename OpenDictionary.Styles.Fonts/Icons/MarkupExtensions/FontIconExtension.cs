@@ -1,10 +1,4 @@
-﻿
-using System;
-
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
-
-namespace OpenDictionary.Styles.Fonts.Icons;
+﻿namespace OpenDictionary.Styles.Fonts.Icons;
 
 public class FontIconExtension : IMarkupExtension<FontImageSource>
 {
