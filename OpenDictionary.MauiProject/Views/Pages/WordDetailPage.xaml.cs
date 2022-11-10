@@ -1,15 +1,15 @@
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.DependencyInjection;
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Views.Pages;
+
 public partial class WordDetailPage : ContentPage
 {
-    public WordDetailPage()
+    public WordDetailPage(WordDetailViewModel viewModel)
     {
         InitializeComponent();
 
-        BindingContext = DiContainer.Get<WordDetailViewModel>();
+        BindingContext = viewModel;
     }
 }

@@ -1,18 +1,18 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Layouts;
 
-using OpenDictionary.DependencyInjection;
+
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Views.Pages;
 
 public partial class WordEditPage : ContentPage
 {
-    public WordEditPage()
+    public WordEditPage(WordEditViewModel viewModel)
     {
         InitializeComponent();
 
-        BindingContext = DiContainer.Get<WordEditViewModel>();
+        BindingContext = viewModel;
     }
 
     private void AddEntity_Clicked(object sender, System.EventArgs e)

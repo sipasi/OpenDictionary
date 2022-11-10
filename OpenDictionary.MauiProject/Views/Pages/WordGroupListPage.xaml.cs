@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.DependencyInjection;
+
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Views.Pages;
@@ -9,11 +9,11 @@ public partial class WordGroupListPage : ContentPage
 {
     private readonly WordGroupInfoList viewModel;
 
-    public WordGroupListPage()
+    public WordGroupListPage(WordGroupInfoList viewModel)
     {
         InitializeComponent();
 
-        BindingContext = viewModel = DiContainer.Get<WordGroupInfoList>();
+        BindingContext = this.viewModel = viewModel;
     }
 
     protected async override void OnAppearing()

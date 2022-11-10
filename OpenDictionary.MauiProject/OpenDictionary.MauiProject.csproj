@@ -159,19 +159,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
-		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="1.2.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0-preview1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Framework.DependencyInjections\Framework.DependencyInjection.csproj" />
 		<ProjectReference Include="..\Framework.States\Framework.States.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.WordConformities.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Maui.Services\OpenDictionary.Maui.Services.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Observables\OpenDictionary.Observables.csproj" />
 		<ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
@@ -258,6 +257,10 @@
 		<MauiXaml Update="Views\Popups\PopupLoading.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="DependencyInjection\" />
 	</ItemGroup>
 
 </Project>

@@ -1,19 +1,17 @@
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.DependencyInjection;
+
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Views.Pages.Settings;
 
 public partial class ExportPage : ContentPage
 {
-    private readonly ExportViewModel viewModel;
-
-    public ExportPage()
+    public ExportPage(ExportViewModel viewModel)
     {
         InitializeComponent();
 
-        BindingContext = viewModel = DiContainer.Get<ExportViewModel>();
+        BindingContext = viewModel;
 
         viewModel.LoadCommand.Execute(null);
     }

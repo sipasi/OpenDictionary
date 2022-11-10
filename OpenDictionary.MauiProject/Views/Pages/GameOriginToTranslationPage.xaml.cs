@@ -1,16 +1,16 @@
 using Microsoft.Maui.Controls;
 
-using OpenDictionary.DependencyInjection;
+
 using OpenDictionary.ViewModels.Games;
 
 namespace OpenDictionary.Views.Pages;
 
 public partial class GameOriginToTranslationPage : ContentPage
 {
-    public GameOriginToTranslationPage()
+    public GameOriginToTranslationPage(OriginToTranslationViewModel viewModel)
     {
         InitializeComponent();
 
-        BindingContext = DiContainer.Get<OriginToTranslationViewModel>();
+        BindingContext = viewModel;
     }
 }
