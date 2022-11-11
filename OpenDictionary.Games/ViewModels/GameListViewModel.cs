@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,6 @@ using OpenDictionary.Collections.Storages;
 using OpenDictionary.Games.Observables;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
-using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Games.WordConformities.ViewModels;
@@ -33,7 +33,7 @@ public class GameListViewModel
 
     public CollectionViewModel<GameInfo> Games { get; }
 
-    public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation)
+    public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation, Routes routes)
     {
         this.id = string.Empty;
         this.storage = storage;
@@ -48,7 +48,7 @@ public class GameListViewModel
                 Image = "icon_origin_to_translation.png",
                 Name = "Origin to translation",
                 Description = "",
-                Route = AppRoutes.Game.OriginToTranslation,
+                Route = routes.OriginToTranslation,
                 CountToUnlock = 8,
             },
             new GameInfo
@@ -56,7 +56,7 @@ public class GameListViewModel
                 Image = "icon_translation_to_origin.png",
                 Name = "Translation to origin",
                 Description = "",
-                Route = AppRoutes.Game.TranslationToOrigin,
+                Route = routes.TranslationToOrigin,
                 CountToUnlock = 8,
             },
         };
@@ -85,5 +85,18 @@ public class GameListViewModel
         return game is null
             ? Task.CompletedTask
             : navigation.GoToAsync(game.Route, nameof(WordGroup.Id), id);
+    }
+
+    public readonly struct Routes
+    {
+        public required string OriginToTranslation { get; init; }
+        public required string TranslationToOrigin { get; init; }
+
+        [SetsRequiredMembers]
+        public Routes(string originToTranslation, string translationToOrigin)
+        {
+            OriginToTranslation = originToTranslation;
+            TranslationToOrigin = translationToOrigin;
+        }
     }
 }
