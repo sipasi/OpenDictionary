@@ -163,7 +163,6 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0-preview1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -261,7 +260,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="DependencyInjection\" />
+		<Folder Include="DependencyInjection\" />
 	</ItemGroup>
 
 </Project>
