@@ -8,7 +8,7 @@ using OpenDictionary.Services.Messages.Dialogs;
 
 namespace OpenDictionary.Maui.Services.Messages.Dialogs;
 
-internal sealed class NativeDialogMessageService
+internal sealed class NativeDialogMessageService : IDialogMessageService
 {
     public async Task<DialogResult> Show(string title, string message, string accept, string cancel)
     {
