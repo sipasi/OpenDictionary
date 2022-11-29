@@ -55,7 +55,7 @@
                     CommandParameter="{Binding .}"/>
             </DataTemplate>
         </Setter>
-        <Setter Property="Header" x:DataType="models:WordGroup">
+        <Setter Property="Header" x:DataType="viewModels:WordGroupDetailViewModel">
             <Grid Margin="10,40">
                 <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
             </Grid>
