@@ -3,10 +3,12 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using OpenDictionary.Maui.Services.Messages.Alerts;
+using OpenDictionary.Maui.Services.Messages.Dialogs;
 using OpenDictionary.Maui.Services.Messages.Toasts;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.DataTransfer;
 using OpenDictionary.Services.Messages.Alerts;
+using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
@@ -51,6 +53,7 @@ public static class ServiceBuilderExtensions
     {
         services
             .AddSingleton<IAlertMessageService, AlertMessageService>()
+            .AddSingleton<IDialogMessageService, NativeDialogMessageService>()
             .AddSingleton<IToastMessageService, ToastMessageService>();
 
         return services;

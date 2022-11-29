@@ -3,6 +3,7 @@
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
+using OpenDictionary.Databases;
 using OpenDictionary.Maui.Services;
 using OpenDictionary.Services;
 using OpenDictionary.Styles.Fonts.Icons;
@@ -38,6 +39,10 @@ public static class MauiProgram
             .ConfigureViewModels()
             .ConfigureViews();
 
-        return builder.Build();
+        var app = builder.Build();
+
+        DatabaseChecker.Check(app.Services);
+
+        return app;
     }
 }

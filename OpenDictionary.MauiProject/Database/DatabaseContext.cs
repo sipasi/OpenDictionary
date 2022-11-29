@@ -10,7 +10,7 @@ internal class DatabaseContext : DatabaseContextBase
     public DbSet<WordMetadata> WordMetadatas { get; set; }
     public DbSet<WordGroup> WordGroups { get; set; }
 
-    public DatabaseContext(string databasePath) : base(databasePath) { }
+    public DatabaseContext(IDatabasePath path) : base(path.Path) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

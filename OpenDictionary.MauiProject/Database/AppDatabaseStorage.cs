@@ -4,7 +4,7 @@ internal abstract class AppDatabaseStorage<T> : DatabaseStorage<T> where T : cla
 {
     protected AppDatabaseStorage(IDatabasePath path) : base(path) { }
 
-    protected sealed override DatabaseContextBase Open(string path) => new DatabaseContext(path);
+    protected sealed override DatabaseContextBase Open(IDatabasePath path) => new DatabaseContext(path);
 
     protected DatabaseContext Cast(DatabaseContextBase context) => (context as DatabaseContext)!;
 }

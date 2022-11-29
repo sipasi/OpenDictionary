@@ -8,11 +8,11 @@ namespace OpenDictionary.Databases;
 
 public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity : class
 {
-    private readonly string path;
+    private readonly IDatabasePath path;
 
     public DatabaseStorage(IDatabasePath path)
     {
-        this.path = path.Path;
+        this.path = path;
     }
 
     public async ValueTask<bool> AddAsync(TEntity item)
@@ -137,7 +137,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
 
     protected abstract DbSet<TEntity> GetContext(DatabaseContextBase context);
 
-    protected abstract DatabaseContextBase Open(string path);
+    protected abstract DatabaseContextBase Open(IDatabasePath path);
 
     private static void WritenException(Exception exception)
     {
