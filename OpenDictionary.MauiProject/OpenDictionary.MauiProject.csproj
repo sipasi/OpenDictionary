@@ -125,6 +125,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="DependencyInjection\**" />
+	  <Compile Remove="DependencyInjection\**" />
+	  <EmbeddedResource Remove="DependencyInjection\**" />
+	  <MauiCss Remove="DependencyInjection\**" />
+	  <MauiXaml Remove="DependencyInjection\**" />
+	  <None Remove="DependencyInjection\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<MauiXaml Remove="Resources\Styles\DefaultControls.xaml" />
 	</ItemGroup>
 
@@ -257,10 +266,6 @@
 		<MauiXaml Update="Views\Popups\PopupLoading.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="DependencyInjection\" />
 	</ItemGroup>
 
 </Project>
