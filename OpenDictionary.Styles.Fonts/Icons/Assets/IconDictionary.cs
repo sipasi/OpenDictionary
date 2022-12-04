@@ -1,6 +1,6 @@
 ﻿namespace OpenDictionary.Styles.Fonts.Icons;
 
-internal static class IconDictionary
+public static class IconDictionary
 {
     public static string Get(FontIcon icon)
     {
