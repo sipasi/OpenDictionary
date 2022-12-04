@@ -1,4 +1,4 @@
-﻿namespace OpenDictionary.Resources.Styles.Themes;
+﻿namespace OpenDictionary.Theming;
 
 public enum Theme
 {

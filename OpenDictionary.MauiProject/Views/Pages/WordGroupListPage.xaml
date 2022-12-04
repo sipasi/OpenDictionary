@@ -12,11 +12,6 @@
              x:DataType="viewModels:WordGroupInfoList"
                
              x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
-
-    <Page.Behaviors>
-        <behaviors:StatusBarBehavior StatusBarColor="{StaticResource Surface}" StatusBarStyle="LightContent"/>
-    </Page.Behaviors>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" IconImageSource="{fonts:FontIcon Icon=AddNewEntity}" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>

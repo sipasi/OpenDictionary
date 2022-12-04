@@ -2,7 +2,9 @@
 
 using Microsoft.Maui.Controls;
 
-namespace OpenDictionary.Resources.Styles.Themes;
+using OpenDictionary.Resources.Styles.Themes;
+
+namespace OpenDictionary.Theming;
 
 public static class ThemeContainer
 {

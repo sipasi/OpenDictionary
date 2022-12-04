@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
-
 using OpenDictionary.ViewModels.Settings;
 
 namespace OpenDictionary.Views.Pages;
@@ -17,6 +16,8 @@ public partial class SettingsPage : ContentPage
         InitializeComponent();
 
         BindingContext = this.viewModel = viewModel;
+
+
     }
 
     protected override void OnAppearing()

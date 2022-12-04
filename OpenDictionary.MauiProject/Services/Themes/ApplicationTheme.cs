@@ -4,12 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using CommunityToolkit.Maui.Core.Platform;
+
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Storage;
 
-using OpenDictionary.Resources.Styles.Themes;
 using OpenDictionary.Services.Keys;
+using OpenDictionary.Theming;
 
 namespace OpenDictionary.Services.Themes;
 
@@ -56,6 +59,19 @@ public static class ApplicationTheme
         merged.Remove(replace);
 
         ResourceDictionary theme = ThemeContainer.Get(Current);
+
+#if ANDROID 
+        if (OperatingSystem.IsAndroidVersionAtLeast(23))
+        {
+            if (theme.TryGetValue("Primary", out var value))
+            {
+
+                Color? color = value as Color;
+
+                StatusBar.SetColor(color);
+            }
+        }
+#endif
 
         merged.Add(theme);
 
