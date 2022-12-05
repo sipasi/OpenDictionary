@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 
 using OpenDictionary.Services.Navigations.Routes;
+using OpenDictionary.Services.Themes;
 using OpenDictionary.Views.Pages;
 using OpenDictionary.Views.Pages.Settings;
 
@@ -23,5 +24,12 @@ public partial class AppShell : Shell
 
         Routing.RegisterRoute(AppRoutes.Settings.Export, typeof(ExportPage));
         Routing.RegisterRoute(AppRoutes.Settings.Import, typeof(ImportPage));
+
+        Loaded += AppShell_Loaded;
+    }
+
+    private void AppShell_Loaded(object? sender, System.EventArgs e)
+    {
+        ApplicationTheme.SetLastTheme();
     }
 }

@@ -62,40 +62,40 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
     {
         services
-            .AddSingleton<WordDetailViewModel>()
-            .AddSingleton<WordEditViewModel>()
+            .AddTransient<WordDetailViewModel>()
+            .AddTransient<WordEditViewModel>()
 
-            .AddSingleton<WordGroupDetailViewModel>()
-            .AddSingleton<WordGroupEditViewModel>()
-            .AddSingleton<WordGroupInfoList>()
+            .AddTransient<WordGroupDetailViewModel>()
+            .AddTransient<WordGroupEditViewModel>()
+            .AddTransient<WordGroupInfoList>()
 
-            .AddSingleton<GameListViewModel>()
-            .AddSingleton<OriginToTranslationViewModel>()
-            .AddSingleton<TranslationToOriginViewModel>()
+            .AddTransient<GameListViewModel>()
+            .AddTransient<OriginToTranslationViewModel>()
+            .AddTransient<TranslationToOriginViewModel>()
 
-            .AddSingleton<SettingsViewModel>()
-            .AddSingleton<ExportViewModel>()
-            .AddSingleton<ImportViewModel>();
+            .AddTransient<SettingsViewModel>()
+            .AddTransient<ExportViewModel>()
+            .AddTransient<ImportViewModel>();
 
         return services;
     }
     public static IServiceCollection ConfigureViews(this IServiceCollection services)
     {
         services
-            .AddSingleton<OpenDictionary.Views.Pages.Settings.ExportPage>()
-            .AddSingleton<OpenDictionary.Views.Pages.Settings.ImportPage>()
-            .AddSingleton<OpenDictionary.Views.Pages.SettingsPage>()
+            .AddTransient<Views.Pages.Settings.ExportPage>()
+            .AddTransient<Views.Pages.Settings.ImportPage>()
+            .AddTransient<Views.Pages.SettingsPage>()
 
-            .AddSingleton<OpenDictionary.Views.Pages.GameListPage>()
-            .AddSingleton<OpenDictionary.Views.Pages.GameOriginToTranslationPage>()
-            .AddSingleton<OpenDictionary.Views.Pages.GameTranslationToOriginPage>()
+            .AddTransient<Views.Pages.GameListPage>()
+            .AddTransient<Views.Pages.GameOriginToTranslationPage>()
+            .AddTransient<Views.Pages.GameTranslationToOriginPage>()
 
-            .AddSingleton<OpenDictionary.Views.Pages.WordDetailPage>()
-            .AddSingleton<OpenDictionary.Views.Pages.WordEditPage>()
+            .AddTransient<Views.Pages.WordDetailPage>()
+            .AddTransient<Views.Pages.WordEditPage>()
 
-            .AddSingleton<OpenDictionary.Views.Pages.WordGroupCreatePage>()
-            .AddSingleton<OpenDictionary.Views.Pages.WordGroupDetailPage>()
-            .AddSingleton<OpenDictionary.Views.Pages.WordGroupListPage>();
+            .AddTransient<Views.Pages.WordGroupCreatePage>()
+            .AddTransient<Views.Pages.WordGroupDetailPage>()
+            .AddTransient<Views.Pages.WordGroupListPage>();
 
         return services;
     }

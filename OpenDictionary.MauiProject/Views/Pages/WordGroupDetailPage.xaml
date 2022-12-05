@@ -7,6 +7,8 @@
     xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
     
     Padding="5,0"
+    
+    Shell.TabBarIsVisible="False"
       
     x:DataType="viewModels:WordGroupDetailViewModel"
     

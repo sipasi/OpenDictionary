@@ -9,6 +9,8 @@
              
              x:DataType="viewModels:ImportViewModel"
              
+             Shell.TabBarIsVisible="False"
+             
              Title="{Binding Collection.SelectedItems.Count}"
              
              x:Class="OpenDictionary.Views.Pages.Settings.ImportPage">
@@ -64,9 +66,9 @@
                         Style="{StaticResource ImportCollection}"/>
 
         <Frame Grid.Row="1" Margin="0,0,0,5">
-            <Grid ColumnDefinitions="*,auto" ColumnSpacing="20">
+            <Grid ColumnDefinitions="*,auto">
                 <Button Grid.Column="0" Text="Select File" Command="{Binding SelectFileCommand}" Style="{StaticResource ButtonOutline}" />
-                <Button Grid.Column="1" Text="Import" Command="{Binding ImportCommand}" 
+                <Button Grid.Column="1" Text="Import" Command="{Binding ImportCommand}" Margin="20,0,0,0" 
                         IsVisible="{Binding  Collection.SelectedItems.Count}" Style="{StaticResource ButtonOutline}" />
             </Grid>
         </Frame>

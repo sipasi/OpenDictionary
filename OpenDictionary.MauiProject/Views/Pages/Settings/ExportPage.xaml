@@ -11,6 +11,8 @@
              
              x:DataType="viewModels:ExportViewModel"
               
+             Shell.TabBarIsVisible="False"
+             
              Title="{Binding Collection.SelectedItems.Count}" 
              
              x:Class="OpenDictionary.Views.Pages.Settings.ExportPage">
@@ -28,12 +30,12 @@
                         Style="{StaticResource ExportCollection}"/>
 
         <Frame Grid.Row="1" Margin="0,0,0,5" IsVisible="{Binding AtLeastOneSelected}">
-            <Grid ColumnDefinitions="*,auto" ColumnSpacing="20">
+            <Grid ColumnDefinitions="*,auto">
                 <Button Grid.Column="0" Text="As Single" 
                         Command="{Binding ExportAsSingleCommand}"
                         HorizontalOptions="FillAndExpand"
                         Style="{StaticResource ButtonOutline}" />
-                <Button Grid.Column="1" Text="As Multiple"
+                <Button Grid.Column="1" Text="As Multiple" Margin="20,0,0,0"
                         Command="{Binding ExportAsMultipleCommand}"
                         IsVisible="{Binding CanMultipleExport}"
                         Style="{StaticResource ButtonOutline}"/>

@@ -63,9 +63,8 @@ public static class ApplicationTheme
 #if ANDROID 
         if (OperatingSystem.IsAndroidVersionAtLeast(23))
         {
-            if (theme.TryGetValue("Primary", out var value))
+            if (theme.TryGetValue("Surface", out var value))
             {
-
                 Color? color = value as Color;
 
                 StatusBar.SetColor(color);

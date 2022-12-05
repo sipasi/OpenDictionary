@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls;
+
 using OpenDictionary.Theming;
 
 namespace OpenDictionary.Resources.Styles.Themes;

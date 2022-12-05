@@ -7,6 +7,8 @@
              
              x:DataType="viewModels:GameListViewModel" 
              
+             Shell.TabBarIsVisible="False"
+             
              Title="Games"
              Padding="10"
              

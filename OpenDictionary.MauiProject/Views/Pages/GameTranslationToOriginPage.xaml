@@ -7,6 +7,8 @@
              
              x:DataType="viewModels:WordConformityViewModel"
              
+             Shell.TabBarIsVisible="False"
+             
              Title="Translation to Origin"
              Padding="10"
              

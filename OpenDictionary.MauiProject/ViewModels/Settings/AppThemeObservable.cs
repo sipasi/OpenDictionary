@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+
 using OpenDictionary.Services.Themes;
 using OpenDictionary.Theming;
 

@@ -6,13 +6,25 @@
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
 
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             
              x:DataType="viewModels:WordGroupEditViewModel"
+             
+             Shell.TabBarIsVisible="False"
              
              Title="{Binding Name, TargetNullValue='Create Group'}"
              
              Padding="10,10,10,0"
              
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
+
+    <ContentPage.Resources>
+        <Style x:Key="TitleLable" TargetType="Label" BasedOn="{StaticResource DefaultLabel}">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+        </Style>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Discard" IconImageSource="{fonts:FontIcon Icon=ArrowGoBack}" Command="{Binding DiscardCommand}"/>
@@ -23,17 +35,17 @@
         <Grid RowDefinitions="auto,*">
             <Frame>
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Name" FontSize="Medium" FontAttributes="Bold"/>
-                    <Entry Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
+                    <Label Text="Name" Style="{StaticResource TitleLable}"/>
+                    <controls:TextInputLine Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
 
-                    <Label Text="Words" FontSize="Medium" FontAttributes="Bold"/>
+                    <Label Text="Words" Style="{StaticResource TitleLable}"/>
                     <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
-                        <Entry Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
+                        <controls:TextInputLine Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
                         <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding OriginCopyCommand}"/>
                         <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding OriginPasteCommand}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
-                        <Entry Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+                        <controls:TextInputLine Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
                         <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding TranslationCopyCommand}"/>
                         <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding TranslationPasteCommand}"/>
                     </Grid>
