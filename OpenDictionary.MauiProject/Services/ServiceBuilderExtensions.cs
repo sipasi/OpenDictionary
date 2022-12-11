@@ -1,8 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.Json;
+
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Storage;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Databases;
+using OpenDictionary.DataTransfer;
+using OpenDictionary.DataTransfer.Json;
+using OpenDictionary.Maui.Services;
 using OpenDictionary.MauiProject.Services.Messages.Dialogs;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
@@ -19,13 +24,36 @@ namespace OpenDictionary.Services;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection ConfigureAudio(this IServiceCollection services)
+    public static IServiceCollection ConfigureOpenDictionary(this IServiceCollection services)
+    {
+        IFileExporter exporter = new JsonFileExporter()
+        {
+            CacheDirectory = FileSystem.CacheDirectory,
+            Options = new JsonSerializerOptions
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                PropertyNamingPolicy = new WordGroupNamingPolicy()
+            }
+        };
+
+        return services.ConfigureMauiServices()
+            .ConfigureDataTransfer(exporter)
+            .ConfigureAudio()
+            .ConfigureDatabase()
+            .ConfigureMessagesDialogs()
+            .ConfigureIO()
+            .ConfigureOnlineDictionary()
+            .ConfigureViewModels()
+            .ConfigureViews();
+    }
+
+    private static IServiceCollection ConfigureAudio(this IServiceCollection services)
     {
         services.AddSingleton<IPhoneticFilesService, PhoneticFilesService>();
 
         return services;
     }
-    public static IServiceCollection ConfigureDatabase(this IServiceCollection services)
+    private static IServiceCollection ConfigureDatabase(this IServiceCollection services)
     {
         services
             .AddSingleton<IDatabasePath, UniversalDatabasePath>()
@@ -35,7 +63,7 @@ internal static class ServiceCollectionExtensions
 
         return services;
     }
-    public static IServiceCollection ConfigureMessagesDialogs(this IServiceCollection services)
+    private static IServiceCollection ConfigureMessagesDialogs(this IServiceCollection services)
     {
         services
             .AddSingleton<ILoadingMessageService, LoadingMessageService>()
@@ -43,7 +71,7 @@ internal static class ServiceCollectionExtensions
 
         return services;
     }
-    public static IServiceCollection ConfigureIO(this IServiceCollection services)
+    private static IServiceCollection ConfigureIO(this IServiceCollection services)
     {
         IAppDirectoryService appDirectory = new AppDirectoryService(FileSystem.AppDataDirectory, FileSystem.CacheDirectory);
 
@@ -51,7 +79,7 @@ internal static class ServiceCollectionExtensions
 
         return services;
     }
-    public static IServiceCollection ConfigureOnlineDictionary(this IServiceCollection services)
+    private static IServiceCollection ConfigureOnlineDictionary(this IServiceCollection services)
     {
         services
             .AddSingleton<IJsonParser, DictionaryApiJsonParser>()
@@ -59,7 +87,7 @@ internal static class ServiceCollectionExtensions
 
         return services;
     }
-    public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
+    private static IServiceCollection ConfigureViewModels(this IServiceCollection services)
     {
         services
             .AddTransient<WordDetailViewModel>()
@@ -74,12 +102,12 @@ internal static class ServiceCollectionExtensions
             .AddTransient<TranslationToOriginViewModel>()
 
             .AddTransient<SettingsViewModel>()
-            .AddTransient<ExportViewModel>()
-            .AddTransient<ImportViewModel>();
+            .AddTransient<WordGroupExportViewModel>()
+            .AddTransient<WordGroupImportViewModel>();
 
         return services;
     }
-    public static IServiceCollection ConfigureViews(this IServiceCollection services)
+    private static IServiceCollection ConfigureViews(this IServiceCollection services)
     {
         services
             .AddTransient<Views.Pages.Settings.ExportPage>()
@@ -98,5 +126,14 @@ internal static class ServiceCollectionExtensions
             .AddTransient<Views.Pages.WordGroupListPage>();
 
         return services;
+    }
+
+    private sealed class WordGroupNamingPolicy : JsonNamingPolicy
+    {
+        public override string ConvertName(string name) => name switch
+        {
+            nameof(FileData<object>.Datas) => nameof(WordGroup.Words),
+            _ => name
+        };
     }
 }

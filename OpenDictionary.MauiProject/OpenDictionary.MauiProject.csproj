@@ -186,6 +186,7 @@
 		<ProjectReference Include="..\Framework.States\Framework.States.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
+		<ProjectReference Include="..\OpenDictionary.DataTransfer.Maui\OpenDictionary.DataTransfer.Maui.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.WordConformities.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Maui.Services\OpenDictionary.Maui.Services.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />

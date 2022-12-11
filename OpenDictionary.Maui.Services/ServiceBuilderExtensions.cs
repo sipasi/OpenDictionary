@@ -6,7 +6,6 @@ using OpenDictionary.Maui.Services.Messages.Alerts;
 using OpenDictionary.Maui.Services.Messages.Dialogs;
 using OpenDictionary.Maui.Services.Messages.Toasts;
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Services.DataTransfer;
 using OpenDictionary.Services.Messages.Alerts;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Toasts;
@@ -21,7 +20,6 @@ public static class ServiceBuilderExtensions
         return services
             .ConfigureAudio()
             .ConfigureNavigation()
-            .ConfigureDataTransfer()
             .ConfigureMessagesDialogs();
     }
 
@@ -33,16 +31,7 @@ public static class ServiceBuilderExtensions
 
         return services;
     }
-    private static IServiceCollection ConfigureDataTransfer(this IServiceCollection services)
-    {
-#if WINDOWS
-        services.AddSingleton<IFileExportService, DataShareServiceWindows>();
-#else
-        services.AddSingleton<IFileExportService, DataShareService>();
-#endif
 
-        return services;
-    }
     private static IServiceCollection ConfigureNavigation(this IServiceCollection services)
     {
         services.AddSingleton<INavigationService, ShellNavigationService>();

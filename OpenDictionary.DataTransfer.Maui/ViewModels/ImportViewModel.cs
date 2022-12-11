@@ -1,40 +1,32 @@
-﻿#nullable enable
+﻿using System.Text.Json;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Microsoft.Maui.Storage;
-
-using Newtonsoft.Json;
-
 using OpenDictionary.Collections.Storages;
-using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.ViewModels;
 using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.DataTransfer.ViewModels;
 
-[INotifyPropertyChanged]
-public sealed partial class ImportViewModel
+public partial class ImportJsonViewModel<T> : BindableObject where T : class
 {
-    private readonly IStorage<WordGroup> storage;
+    private readonly IStorage<T> storage;
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
-    public SelectableCollectionViewModel<WordGroup> Collection { get; }
+    public string FileExtension { get; }
 
-    public ImportViewModel(IStorage<WordGroup> storage, INavigationService navigation, IToastMessageService toast)
+    public SelectableCollectionViewModel<T> Collection { get; }
+
+    public ImportJsonViewModel(IStorage<T> storage, INavigationService navigation, IToastMessageService toast)
     {
         this.storage = storage;
         this.navigation = navigation;
         this.toast = toast;
+
+        FileExtension = "json";
 
         Collection = new();
     }
@@ -50,12 +42,12 @@ public sealed partial class ImportViewModel
         }
 
         var files = picked
-            .Where(file => file.FileName.EndsWith("json", StringComparison.OrdinalIgnoreCase))
+            .Where(file => file.FileName.EndsWith(FileExtension, StringComparison.OrdinalIgnoreCase))
             .ToArray();
 
         if (files.Length == 0)
         {
-            await toast.ShowError(message: "Please select a correct json files");
+            await toast.ShowError(message: $"Please select a correct {FileExtension} file");
 
             return;
         }
@@ -64,7 +56,7 @@ public sealed partial class ImportViewModel
 
         foreach (var file in files)
         {
-            WordGroup[]? loadled = await LoadFromJson(file.FullPath);
+            T[]? loadled = await LoadFromJson(file.FullPath);
 
             Collection.AddRange(loadled!);
         }
@@ -78,12 +70,12 @@ public sealed partial class ImportViewModel
 
         if (count == 0)
         {
-            _ = toast.ShowSuccess(message: $"Select at least one dictionary");
+            _ = toast.ShowSuccess(message: $"Select at least one item");
 
             return;
         }
 
-        IEnumerable<WordGroup?> import = selected.Select(word => word as WordGroup);
+        IEnumerable<T?> import = selected.Select(word => word as T);
 
         await storage.AddRangeAsync(import!);
 
@@ -91,23 +83,23 @@ public sealed partial class ImportViewModel
 
         await navigation.GoBackAsync();
     }
-    private async Task<WordGroup[]?> LoadFromJson(string path)
+    private async ValueTask<T[]?> LoadFromJson(string path)
     {
         StreamReader reader = new(path);
 
         string json = await reader.ReadToEndAsync();
 
-        WordGroup[]? groups = Deserialize(json);
+        T[]? groups = Deserialize(json);
 
         if (groups is null)
         {
-            await toast.ShowError(message: "Json file have incorrect format");
+            await toast.ShowError(message: $"{FileExtension} file have incorrect format");
 
             return null;
         }
         if (groups.Length is 0)
         {
-            await toast.ShowError(message: "Dictionaries are empty");
+            await toast.ShowError(message: "File are empty");
 
             return null;
         }
@@ -115,7 +107,7 @@ public sealed partial class ImportViewModel
         return groups;
     }
 
-    private static WordGroup[]? Deserialize(string json)
+    private static T[]? Deserialize(string json)
     {
         try
         {
@@ -123,10 +115,10 @@ public sealed partial class ImportViewModel
 
             if (isArray)
             {
-                return JsonConvert.DeserializeObject<WordGroup[]>(json);
+                return JsonSerializer.Deserialize<T[]>(json);
             }
 
-            var group = JsonConvert.DeserializeObject<WordGroup>(json);
+            var group = JsonSerializer.Deserialize<T>(json);
 
             if (group is not null)
             {

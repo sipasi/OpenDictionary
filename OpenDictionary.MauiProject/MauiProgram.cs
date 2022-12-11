@@ -4,6 +4,8 @@ using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
 using OpenDictionary.Databases;
+using OpenDictionary.DataTransfer;
+using OpenDictionary.DataTransfer.ViewModels;
 using OpenDictionary.Maui.Services;
 using OpenDictionary.Services;
 using OpenDictionary.Styles.Fonts.Icons;
@@ -29,15 +31,7 @@ public static class MauiProgram
                 fonts.AddFont(filename: "remixicon.ttf", alias: RemixIconAsset.Alias);
             });
 
-        builder.Services
-            .ConfigureMauiServices()
-            .ConfigureAudio()
-            .ConfigureDatabase()
-            .ConfigureMessagesDialogs()
-            .ConfigureIO()
-            .ConfigureOnlineDictionary()
-            .ConfigureViewModels()
-            .ConfigureViews();
+        builder.Services.ConfigureOpenDictionary();
 
         var app = builder.Build();
 

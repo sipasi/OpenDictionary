@@ -2,12 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    
+             xmlns:converters="clr-namespace:OpenDictionary.DataTransfer.Converters;assembly=OpenDictionary.DataTransfer.Maui"
+             
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              
-             x:DataType="viewModels:ImportViewModel"
+             x:DataType="viewModels:WordGroupImportViewModel"
              
              Shell.TabBarIsVisible="False"
              
@@ -15,7 +17,7 @@
              
              x:Class="OpenDictionary.Views.Pages.Settings.ImportPage">
     <ContentPage.Resources>
-        <viewModels:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
+        <converters:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
 
         <toolkit:IntToBoolConverter x:Key="NotZeroConverter"/>
 

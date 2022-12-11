@@ -6,10 +6,11 @@
              
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
              
+             xmlns:converters="clr-namespace:OpenDictionary.DataTransfer.Converters;assembly=OpenDictionary.DataTransfer.Maui"
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models" 
              
-             x:DataType="viewModels:ExportViewModel"
+             x:DataType="viewModels:WordGroupExportViewModel"
               
              Shell.TabBarIsVisible="False"
              
@@ -17,7 +18,7 @@
              
              x:Class="OpenDictionary.Views.Pages.Settings.ExportPage">
     <ContentPage.Resources>
-        <viewModels:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
+        <converters:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="All" IconImageSource="{Binding Collection.State, Converter={StaticResource SelectionStateToIcon}}"

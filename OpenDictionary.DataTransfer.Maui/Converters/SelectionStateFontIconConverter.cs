@@ -1,14 +1,11 @@
 ﻿#nullable enable
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 
-using Microsoft.Maui.Controls;
-
 using OpenDictionary.Styles.Fonts.Icons;
+using OpenDictionary.ViewModels;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.DataTransfer.Converters;
 
 public sealed class SelectionStateFontIconConverter : IValueConverter
 {

@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 
-using Microsoft.Maui;
+using OpenDictionary.DataTransfer;
+using OpenDictionary.DataTransfer.Services;
 
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
 namespace OpenDictionary.Services.DataTransfer;
 
-internal sealed class DataShareServiceWindows : IFileExportService
+internal sealed class FileExportServiceWindows : IFileExportService
 {
-    public async Task AsSingleFile(string title, string path)
+    public async ValueTask AsSingleFile(IFileSource file)
     {
-        var extension = Path.GetExtension(path);
+        var extension = Path.GetExtension(file.FullPath);
 
-        var picker = CreateFilePicker(name: "Dictionaries", extension);
+        var picker = CreateFilePicker(file.Name, extension);
 
         if (IsMauiWindow(out var window))
         {
@@ -31,15 +28,15 @@ internal sealed class DataShareServiceWindows : IFileExportService
             return;
         }
 
-        using Stream file = await result.OpenStreamForWriteAsync();
+        using Stream stream = await result.OpenStreamForWriteAsync();
 
-        file.SetLength(0);
+        stream.SetLength(0);
 
-        using Stream cache = OpenFile(path);
+        using Stream cache = OpenFile(file.FullPath);
 
-        await cache.CopyToAsync(file);
+        await cache.CopyToAsync(stream);
     }
-    public async Task AsMultipleFiles(string title, string[] paths)
+    public async ValueTask AsMultipleFiles(IReadOnlyList<IFileSource> files)
     {
         var picker = CreateFolderPicker();
 
@@ -55,19 +52,19 @@ internal sealed class DataShareServiceWindows : IFileExportService
             return;
         }
 
-        foreach (var path in paths)
+        foreach (var file in files)
         {
-            using Stream cache = OpenFile(path);
+            using Stream cache = OpenFile(file.FullPath);
 
-            string name = Path.GetFileName(path);
+            string name = Path.GetFileName(file.Name);
 
             StorageFile storageFile = await folder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
 
-            using Stream file = await storageFile.OpenStreamForWriteAsync();
+            using Stream stream = await storageFile.OpenStreamForWriteAsync();
 
-            await cache.CopyToAsync(file);
+            await cache.CopyToAsync(stream);
 
-            await file.FlushAsync();
+            await stream.FlushAsync();
         }
     }
 

@@ -7,7 +7,7 @@ namespace OpenDictionary.Views.Pages.Settings;
 
 public partial class ExportPage : ContentPage
 {
-    public ExportPage(ExportViewModel viewModel)
+    public ExportPage(WordGroupExportViewModel viewModel)
     {
         InitializeComponent();
 
