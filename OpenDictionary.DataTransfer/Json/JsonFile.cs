@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace OpenDictionary.DataTransfer.Json;

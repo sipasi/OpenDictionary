@@ -4,9 +4,6 @@ using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
 using OpenDictionary.Databases;
-using OpenDictionary.DataTransfer;
-using OpenDictionary.DataTransfer.ViewModels;
-using OpenDictionary.Maui.Services;
 using OpenDictionary.Services;
 using OpenDictionary.Styles.Fonts.Icons;
 

@@ -1,8 +1,4 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-
-using OpenDictionary.DataTransfer.Json;
-using OpenDictionary.DataTransfer.Services;
+﻿using OpenDictionary.DataTransfer.Services;
 using OpenDictionary.Services.DataTransfer;
 
 namespace OpenDictionary.DataTransfer;

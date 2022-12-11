@@ -56,7 +56,8 @@ public sealed partial class WordGroupInfoList
 
     private Task Tapped(WordGroupInfo? item)
     {
-        if (item is null) return Task.CompletedTask;
+        if (item is null)
+            return Task.CompletedTask;
 
         return navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString()!);
     }

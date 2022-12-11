@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace OpenDictionary.DataTransfer;
+﻿namespace OpenDictionary.DataTransfer;
 
 public interface IFileExporter
 {
