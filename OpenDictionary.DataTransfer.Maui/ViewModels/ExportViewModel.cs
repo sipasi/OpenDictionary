@@ -5,7 +5,6 @@ using OpenDictionary.DataTransfer.Services;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
-using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 namespace OpenDictionary.DataTransfer.ViewModels;
 

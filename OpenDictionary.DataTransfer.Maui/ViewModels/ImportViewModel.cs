@@ -6,7 +6,6 @@ using OpenDictionary.Collections.Storages;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
-using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 namespace OpenDictionary.DataTransfer.ViewModels;
 
@@ -70,7 +69,7 @@ public partial class ImportJsonViewModel<T> : BindableObject where T : class
 
         if (count == 0)
         {
-            _ = toast.ShowSuccess(message: $"Select at least one item");
+            await toast.ShowSuccess(message: $"Select at least one item");
 
             return;
         }
@@ -79,7 +78,7 @@ public partial class ImportJsonViewModel<T> : BindableObject where T : class
 
         await storage.AddRangeAsync(import!);
 
-        _ = toast.ShowSuccess(message: $"Imported: {count}");
+        await toast.ShowSuccess(message: $"Imported: {count}");
 
         await navigation.GoBackAsync();
     }

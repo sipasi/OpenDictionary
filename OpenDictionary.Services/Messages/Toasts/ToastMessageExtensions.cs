@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using OpenDictionary.Services.Messages.Toasts;
-
-namespace OpenDictionary.XamarinApp.Services.Messages.Toasts;
+namespace OpenDictionary.Services.Messages.Toasts;
 
 public static class ToastMessageExtensions
 {
