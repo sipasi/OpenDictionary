@@ -15,7 +15,7 @@ internal readonly ref struct ArrayElementParser
 
     public WordMetadata? Parse()
     {
-        string? name = element[0].GetProperty("word").ToString();
+        string? name = element[0].GetProperty("word").GetString();
 
         if (string.IsNullOrWhiteSpace(name))
         {

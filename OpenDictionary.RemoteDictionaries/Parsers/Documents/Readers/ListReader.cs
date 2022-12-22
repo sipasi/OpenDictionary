@@ -7,9 +7,9 @@ namespace OpenDictionary.RemoteDictionaries.Parsers.Documents.Readers;
 
 internal readonly ref struct ListReader<TReader, T> where TReader : IElementReader<T>, new()
 {
-    private readonly ref JsonElement source;
+    private readonly ref readonly JsonElement source;
 
-    public ListReader(ref JsonElement source) => this.source = ref source;
+    public ListReader(in JsonElement source) => this.source = ref source;
 
     public List<T> Read()
     {

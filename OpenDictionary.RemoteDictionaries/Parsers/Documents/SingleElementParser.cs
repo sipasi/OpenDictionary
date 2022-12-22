@@ -25,8 +25,8 @@ internal readonly ref struct SingleElementParser
         element.TryGetProperty("phonetics", out JsonElement phonetics);
         element.TryGetProperty("meanings", out JsonElement meanings);
 
-        ListReader<PhoneticReader, Phonetic> phoneticsReader = new(ref phonetics);
-        ListReader<MeaningReader, Meaning> meaningsReader = new(ref meanings);
+        ListReader<PhoneticReader, Phonetic> phoneticsReader = new(in phonetics);
+        ListReader<MeaningReader, Meaning> meaningsReader = new(in meanings);
 
         return new WordMetadata
         {

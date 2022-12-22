@@ -24,7 +24,7 @@ internal readonly struct MeaningReader : IElementReader<Meaning>
 
         SynonymsReader synonymsReader;
         AntonymsReader antonymsReader;
-        ListReader<DefinitionReader, Definition> listReader = new(ref definitionsElement);
+        ListReader<DefinitionReader, Definition> listReader = new(in definitionsElement);
 
         Synonyms? synonyms = synonymsReader.Read(in synonymsElement);
         Antonyms? antonyms = antonymsReader.Read(in antonymsElement);
