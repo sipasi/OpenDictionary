@@ -9,7 +9,7 @@ using Newtonsoft.Json.Serialization;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.RemoteDictionaries.Parsers.Resolvers;
+namespace OpenDictionary.RemoteDictionaries.Parsers.Newtonsoft.Resolvers;
 
 internal class DictionaryApiNameResolver : DefaultContractResolver
 {

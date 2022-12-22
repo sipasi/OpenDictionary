@@ -34,7 +34,7 @@ public class DictionaryApiRemoteSource : IDictionarySource
         {
             string response = await client.GetStringAsync(uri);
 
-            result = await parser.Parse(response);
+            result = parser.Parse(response);
         }
         catch { }
 

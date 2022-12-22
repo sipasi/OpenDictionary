@@ -11,11 +11,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="insist-json-empty-object.json" />
+    <None Remove="insist-json-empty-scopes.json" />
     <None Remove="insist-json-with-array-scopes.json" />
+    <None Remove="insist-json-with-null-properties.json" />
     <None Remove="insist-json-without-array-scopes.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="insist-json-empty-object.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="insist-json-empty-scopes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="insist-json-with-null-properties.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="insist-json-with-array-scopes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

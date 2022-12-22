@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 using OpenDictionary.Models;
 
-namespace OpenDictionary.RemoteDictionaries.Parsers.Converters;
+namespace OpenDictionary.RemoteDictionaries.Parsers.Newtonsoft.Converters;
 
 internal class SynonymConverter : JsonConverter<Synonyms>
 {

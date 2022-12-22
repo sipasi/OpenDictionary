@@ -5,12 +5,7 @@
     "phonetics": [
       {
         "text": "/ɪnˈsɪst/",
-        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/insist-us.mp3",
-        "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=2454108",
-        "license": {
-          "name": "BY-SA 3.0",
-          "url": "https://creativecommons.org/licenses/by-sa/3.0"
-        }
+        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/insist-us.mp3"
       }
     ],
     "meanings": [
@@ -70,13 +65,6 @@
           "antonyms"
         ]
       }
-    ],
-    "license": {
-      "name": "CC BY-SA 3.0",
-      "url": "https://creativecommons.org/licenses/by-sa/3.0"
-    },
-    "sourceUrls": [
-      "https://en.wiktionary.org/wiki/insist"
     ]
   }
 ]
