@@ -82,7 +82,7 @@ internal static class ServiceCollectionExtensions
     private static IServiceCollection ConfigureOnlineDictionary(this IServiceCollection services)
     {
         services
-            .AddSingleton<IJsonParser, DictionaryApiJsonParser>()
+            .AddSingleton<IJsonParser, RemoteDictionaries.Parsers.Documents.DictionaryApiJsonParser>()
             .AddSingleton<IDictionarySource, DictionaryApiRemoteSource>();
 
         return services;

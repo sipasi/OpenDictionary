@@ -3,14 +3,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Storage;
-
-using Newtonsoft.Json;
 
 using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
@@ -19,7 +18,6 @@ using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Loadings;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.ViewModels.Helpers;
-using OpenDictionary.XamarinApp.Services.Messages.Toasts;
 
 namespace OpenDictionary.ViewModels;
 
@@ -119,7 +117,7 @@ file static class WordGroupJsonFile
 
     public static WordGroup[]? DeserializeAndFillDates(string json)
     {
-        var result = JsonConvert.DeserializeObject<WordGroup[]>(json);
+        var result = JsonSerializer.Deserialize<WordGroup[]>(json);
 
         FillDates(result);
 

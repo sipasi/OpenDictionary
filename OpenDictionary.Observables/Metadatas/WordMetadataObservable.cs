@@ -92,8 +92,8 @@ public sealed partial class WordMetadataObservable
             var observable = new MeaningObservable
             {
                 PartOfSpeech = meaning.PartOfSpeech,
-                Synonyms = meaning.Synonyms.Value,
-                Antonyms = meaning.Antonyms.Value,
+                Synonyms = meaning.Synonyms?.Value,
+                Antonyms = meaning.Antonyms?.Value,
             };
 
 
