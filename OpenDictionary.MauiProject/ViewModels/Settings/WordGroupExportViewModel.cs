@@ -16,7 +16,7 @@ using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
 
-public sealed partial class WordGroupExportViewModel : ExportViewModel<WordGroupInfo, WordGroupExportViewModel.WordData>
+public sealed partial class WordGroupExportViewModel : ExportViewModel<WordGroupInfo, WordGroupExportViewModel.WordsInfo>
 {
     private readonly IStorage<WordGroup> storage;
 
@@ -35,38 +35,48 @@ public sealed partial class WordGroupExportViewModel : ExportViewModel<WordGroup
         return groups;
     }
 
-    protected override ValueTask<FileData<WordData>[]> PrepareExport()
+    protected override async ValueTask<FileData<WordsInfo>[]> PrepareExport()
     {
         var selected = Collection.SelectedItems;
         int count = selected.Count;
 
         if (count == 0)
         {
-            return ValueTask.FromResult(Array.Empty<FileData<WordData>>());
+            return Array.Empty<FileData<WordsInfo>>();
         }
 
         var hash = selected
             .Select(item => (item as WordGroupInfo)!.Id)
             .ToHashSet();
 
-        var groups = storage
+        var groups = await storage
             .Query()
             .Where(entity => hash.Contains(entity.Id))
-            .Select(static entity => new FileData<WordData>
+            .Select(static entity => new FileData<WordsInfo>
             {
                 Name = entity.Name,
-                Datas = entity.Words.Select(word => new WordData
+                Data = new WordsInfo
                 {
-                    Origin = word.Origin,
-                    Translation = word.Translation
-                }).ToArray()
+                    Name = entity.Name,
+                    Words = entity.Words.Select(word => new WordInfo
+                    {
+                        Origin = word.Origin,
+                        Translation = word.Translation
+                    }).ToArray()
+                }
             })
             .ToArrayAsync();
 
-        return new(groups);
+        return groups;
     }
 
-    public readonly struct WordData
+    public readonly struct WordsInfo
+    {
+        public required string Name { get; init; }
+        public required WordInfo[] Words { get; init; }
+    }
+
+    public readonly struct WordInfo
     {
         public required string Origin { get; init; }
         public required string Translation { get; init; }

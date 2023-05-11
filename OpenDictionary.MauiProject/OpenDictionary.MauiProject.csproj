@@ -1,11 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
-		<!--<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
-		<TargetFrameworks>net7.0-android;</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net7.0-windows10.0.19041</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+
 		<OutputType>Exe</OutputType>
 		<RootNamespace>OpenDictionary</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -24,21 +21,14 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>-->
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
 		<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
-		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>-->
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
-	  <EnableLLVM>True</EnableLLVM>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
-	  <EnableLLVM>True</EnableLLVM>
 	</PropertyGroup>
 
 	<!-- Android -->
@@ -133,15 +123,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="DependencyInjection\**" />
-	  <Compile Remove="DependencyInjection\**" />
-	  <EmbeddedResource Remove="DependencyInjection\**" />
-	  <MauiCss Remove="DependencyInjection\**" />
-	  <MauiXaml Remove="DependencyInjection\**" />
-	  <None Remove="DependencyInjection\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<MauiXaml Remove="Resources\Styles\DefaultControls.xaml" />
 	</ItemGroup>
 
@@ -176,9 +157,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0-preview1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	</ItemGroup>
 
@@ -187,6 +168,7 @@
 		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
 		<ProjectReference Include="..\OpenDictionary.DataTransfer.Maui\OpenDictionary.DataTransfer.Maui.csproj" />
+		<ProjectReference Include="..\OpenDictionary.DataTransfer\OpenDictionary.DataTransfer.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Games\OpenDictionary.Games.WordConformities.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Maui.Services\OpenDictionary.Maui.Services.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Models\OpenDictionary.Models.csproj" />
@@ -194,7 +176,11 @@
 		<ProjectReference Include="..\OpenDictionary.RemoteDictionaries\OpenDictionary.RemoteDictionaries.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Styles.Fonts\OpenDictionary.Styles.Fonts.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Styles.Themes\OpenDictionary.Styles.Themes.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Styles\OpenDictionary.Styles.csproj" />
 		<ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Views.Controls\OpenDictionary.Views.Controls.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Views.Popups\OpenDictionary.Views.Popups.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -209,25 +195,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="Resources\Styles\Colors.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Resources\Styles\Controls\ImageButton.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Controls\Button.xaml">
-			<SubType>Designer</SubType>
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Controls\CollectionView.xaml">
-			<SubType>Designer</SubType>
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Controls\Default.xaml">
-			<SubType>Designer</SubType>
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\MauiStyles.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\SoundPlayer.xaml">
@@ -267,12 +235,6 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Pages\WordGroupListPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\Popups\PopupDialog.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\Popups\PopupLoading.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>

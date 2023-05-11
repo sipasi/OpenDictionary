@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="OpenDictionary.Styles.Themes.Resources.PurpleTheme">
+    <Color x:Key="Primary">#7068ff</Color> 
+    <Color x:Key="Surface">#222239</Color>
+    <Color x:Key="Background">#171629</Color>
+    <Color x:Key="Error">Red</Color>
+
+    <Color x:Key="SecondaryText">#ced4da</Color>
+
+    <Color x:Key="OnPrimary">#ffffff</Color>
+    <Color x:Key="OnSurface">#ffffff</Color>
+    <Color x:Key="OnBackground">#ffffff</Color>
+    <Color x:Key="OnError">Red</Color> 
+</ResourceDictionary>

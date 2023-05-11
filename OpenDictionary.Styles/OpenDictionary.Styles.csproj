@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject> 
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Update="ImageButtonStyles.xaml.cs">
+			<DependentUpon>ImageButtonStyles.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="DefaultStyles.xaml.cs">
+			<DependentUpon>DefaultStyles.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="CollectionViewStyles.xaml.cs">
+			<DependentUpon>CollectionViewStyles.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="ImageButtonStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="DefaultStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="CollectionViewStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ButtonStyles - Copy %283%29.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ButtonStyles - Copy %285%29.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ButtonStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Colors.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+</Project>

@@ -5,38 +5,7 @@
     
     xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
      
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-    <Style x:Key="ImageButtonBase" TargetType="ImageButton">
-        <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="BorderColor" Value="Transparent"/>
-        <Setter Property="BorderWidth" Value="0"/>
-
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal"/>
-                    <VisualState x:Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Scale" Value="0.8" />
-                            <Setter Property="Opacity" Value="0.9" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="CopyImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
-        <Setter Property="Source">
-            <fonts:FontIconExtension Icon="Copy" Color="{DynamicResource Primary}" Size="32"/>
-        </Setter>
-    </Style>
-    <Style x:Key="PasteImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
-        <Setter Property="Source">
-            <fonts:FontIconExtension Icon="Paste" Color="{DynamicResource Primary}" Size="32"/>
-        </Setter>
-    </Style>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"> 
     <Style x:Key="DeleteImageStyle" TargetType="ImageButton">
         <Setter Property="Source">
             <fonts:FontIconExtension Icon="DeleteBin" Color="{StaticResource Red-500}" Size="32"/>

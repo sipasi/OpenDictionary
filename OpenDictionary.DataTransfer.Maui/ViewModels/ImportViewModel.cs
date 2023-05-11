@@ -76,9 +76,16 @@ public partial class ImportJsonViewModel<T> : BindableObject where T : class
 
         IEnumerable<T?> import = selected.Select(word => word as T);
 
-        await storage.AddRangeAsync(import!);
+        bool success = await storage.AddRangeAsync(import!);
 
-        await toast.ShowSuccess(message: $"Imported: {count}");
+        if (success)
+        {
+            await toast.ShowSuccess($"Imported: {count}");
+        }
+        else
+        {
+            await toast.ShowError("Cant import");
+        }
 
         await navigation.GoBackAsync();
     }

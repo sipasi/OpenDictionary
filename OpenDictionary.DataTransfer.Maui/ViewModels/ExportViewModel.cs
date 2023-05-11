@@ -51,12 +51,12 @@ public abstract partial class ExportViewModel<TView, TExport> : BindableObject w
     }
 
     [RelayCommand]
-    private Task ExportAsSingle() => TryExport(datas => exportService.AsSingleFile(exporter, datas));
+    private Task ExportAsSingle() => TryExport(exportService.AsSingleFile);
 
     [RelayCommand]
-    private Task ExportAsMultiple() => TryExport(datas => exportService.AsMultipleFiles(exporter, datas));
+    private Task ExportAsMultiple() => TryExport(exportService.AsMultipleFiles);
 
-    private async Task TryExport(Func<FileData<TExport>[], ValueTask> func)
+    private async Task TryExport(Func<IFileExporter, FileData<TExport>[], ValueTask> func)
     {
         FileData<TExport>[] datas = await PrepareExport();
 
@@ -67,7 +67,7 @@ public abstract partial class ExportViewModel<TView, TExport> : BindableObject w
             return;
         }
 
-        await func.Invoke(datas);
+        await func.Invoke(exporter, datas);
 
         await toast.ShowSuccess($"Exported: {datas.Length}");
 

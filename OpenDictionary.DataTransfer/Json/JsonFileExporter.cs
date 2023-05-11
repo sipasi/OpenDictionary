@@ -14,11 +14,13 @@ public sealed class JsonFileExporter : IFileExporter
         factory = CreateFile;
     }
 
-    public async ValueTask<IReadOnlyCacheContainer<IFile>> AsSingleFile<T>(FileData<T>[] datas)
+    public async ValueTask<IReadOnlyCacheContainer<IFile>> AsSingleFile<T>(FileData<T>[] infos)
     {
         CacheContainer<JsonFile> cache = new(CacheDirectory, factory);
 
         IFile file = cache.Create("Files");
+
+        IEnumerable<T> datas = infos.Select(data => data.Data);
 
         await file.Write(datas);
 
@@ -33,7 +35,7 @@ public sealed class JsonFileExporter : IFileExporter
         {
             var file = cache.Create(data.Name);
 
-            await file.Write(data);
+            await file.Write(data.Data);
         }
 
         return cache;

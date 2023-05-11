@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:slyles="clr-namespace:OpenDictionary.Styles;assembly=OpenDictionary.Styles"
+    
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    
+    Color="Transparent"
+    
+    x:Class="OpenDictionary.Views.Popups.PopupDialog">
+    <Border StrokeShape="RoundRectangle 10" BackgroundColor="{DynamicResource Surface}">
+        <Border.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <slyles:Colors/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+
+            <Style TargetType="Grid">
+                <Setter Property="RowDefinitions" Value="auto,*,auto"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="RowSpacing" Value="20"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource OnSurface}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+            </Style>
+        </Border.Resources>
+
+        <Grid>
+            <Label x:Name="title" Grid.Row="0" FontSize="Title" FontAttributes="Bold"/>
+            <Label x:Name="message" Grid.Row="1" FontSize="Body"/>
+
+            <HorizontalStackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="End">
+                <Button x:Name="cancel" TextColor="{DynamicResource SecondaryText}" Clicked="ClickedCancel"/>
+                <Button x:Name="accept" TextColor="{DynamicResource Primary}" Clicked="ClickedAccept"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </Border>
+</toolkit:Popup> 

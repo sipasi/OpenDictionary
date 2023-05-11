@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             xmlns:themes="clr-namespace:OpenDictionary.Theming"
+             xmlns:themes="clr-namespace:OpenDictionary.Styles.Themes;assembly=OpenDictionary.Styles.Themes"
              xmlns:settings="clr-namespace:OpenDictionary.ViewModels.Settings"
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
              
@@ -11,7 +11,7 @@
              x:DataType="settings:SettingsViewModel"
                
              Title="Settings"
-             Padding="10"
+             Padding="5"
              
              x:Class="OpenDictionary.Views.Pages.SettingsPage">
     <ContentPage.Resources>
@@ -28,30 +28,29 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Spacing="10">
-            <Frame>
+        <VerticalStackLayout Spacing="5">
+            <Border Padding="20">
                 <VerticalStackLayout>
                     <Label Text="Theme Color"/>
 
                     <FlexLayout 
                         x:Name="radioGroup" 
                         
-                        Direction="Row" Wrap="Wrap" AlignContent="Center"
-                        AlignItems="Center" JustifyContent="Start"
+                        Wrap="Wrap" AlignItems="Center" JustifyContent="Start"
                         
                         RadioButtonGroup.GroupName="theme-color" 
                         RadioButtonGroup.SelectedValue="{Binding AppTheme.Current, Mode=TwoWay}"
                         BindableLayout.ItemsSource="{Static themes:ThemeContainer.Values}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="themes:Theme">
-                                <RadioButton Style="{StaticResource FlatRadioButton}" Content="{Binding ., StringFormat='{0}'}" Value="{Binding .}"/>
+                                <RadioButton Style="{StaticResource FlatRadioButton}"  Content="{Binding ., StringFormat=' {0} '}" Value="{Binding .}"/>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </FlexLayout>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
-            <Frame>
+            <Border Padding="20">
                 <VerticalStackLayout>
                     <VerticalStackLayout.Resources>
                         <Style TargetType="Grid">
@@ -102,7 +101,7 @@
                             Command="{Binding WordGroup.DeleteAllCommand}"/>
                     </Grid>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

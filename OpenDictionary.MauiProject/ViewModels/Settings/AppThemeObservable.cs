@@ -9,7 +9,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.Services.Themes;
-using OpenDictionary.Theming;
+using OpenDictionary.Styles.Themes;
 
 namespace OpenDictionary.ViewModels.Settings;
 

@@ -1,11 +1,13 @@
 ﻿
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.ApplicationModel.DataTransfer;
 using Microsoft.Maui.Devices;
 
@@ -129,6 +131,30 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     private Task OriginCopy() => Copy(origin, toast);
     [RelayCommand]
     private Task OriginPaste() => Paste(text => Origin = text);
+
+    [RelayCommand]
+    private async Task OriginTranslate()
+    {
+        if (string.IsNullOrWhiteSpace(origin))
+        {
+            return;
+        }
+
+        string escaped = Uri.EscapeDataString(origin);
+
+        ILauncher launcher = Launcher.Default;
+
+        try
+        {
+            var url = new Uri($"https://translate.google.com/?sl=auto&tl=uk&text={escaped}&op=translate");
+
+            await launcher.OpenAsync(url);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e.Message);
+        }
+    }
 
     [RelayCommand]
     private Task TranslationCopy() => Copy(translation, toast);

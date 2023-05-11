@@ -6,7 +6,7 @@
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
 
-             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+             xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
              
              x:DataType="viewModels:WordGroupEditViewModel"
              
@@ -14,7 +14,7 @@
              
              Title="{Binding Name, TargetNullValue='Create Group'}"
              
-             Padding="10,10,10,0"
+             Padding="5"
              
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 
@@ -23,6 +23,22 @@
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+        </Style>
+
+        <Style x:Key="CopyImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
+            <Setter Property="Source">
+                <fonts:FontIconExtension Icon="Copy" Color="{DynamicResource Primary}" Size="32"/>
+            </Setter>
+        </Style>
+        <Style x:Key="PasteImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
+            <Setter Property="Source">
+                <fonts:FontIconExtension Icon="Paste" Color="{DynamicResource Primary}" Size="32"/>
+            </Setter>
+        </Style>
+        <Style x:Key="TranslateImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
+            <Setter Property="Source">
+                <fonts:FontIconExtension Icon="DarkMode" Color="{DynamicResource Primary}" Size="32"/>
+            </Setter>
         </Style>
     </ContentPage.Resources>
 
@@ -33,7 +49,7 @@
 
     <ContentPage.Content>
         <Grid RowDefinitions="auto,*">
-            <Frame>
+            <Border Padding="20">
                 <VerticalStackLayout Spacing="8">
                     <Label Text="Name" Style="{StaticResource TitleLable}"/>
                     <controls:TextInputLine Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
@@ -44,16 +60,17 @@
                         <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding OriginCopyCommand}"/>
                         <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding OriginPasteCommand}"/>
                     </Grid>
-                    <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
+                    <Grid ColumnDefinitions="*,auto,auto,auto" ColumnSpacing="5">
                         <controls:TextInputLine Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
                         <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding TranslationCopyCommand}"/>
                         <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding TranslationPasteCommand}"/>
+                        <ImageButton Grid.Column="3" Style="{StaticResource TranslateImageStyle}" Command="{Binding OriginTranslateCommand}"/>
                     </Grid>
 
-                    <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" 
-                        Margin="10" />
+
+                    <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" />
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <CollectionView Grid.Row="1"
                             ItemsSource="{Binding Words}" 
@@ -63,7 +80,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame IsClippedToBounds="True" HasShadow="False" CornerRadius="8" Margin="0,5,0,0">
+                        <Border Padding="20" Margin="0,5,0,0">
                             <Grid RowDefinitions="*,*" ColumnDefinitions="*,auto" x:DataType="models:Word">
                                 <Label Grid.Row="0" Text="{Binding Origin}"/>
                                 <Label Grid.Row="1" Text="{Binding Translation}"/>
@@ -73,7 +90,7 @@
                                     Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
                                     CommandParameter="{Binding .}"/>
                             </Grid>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 

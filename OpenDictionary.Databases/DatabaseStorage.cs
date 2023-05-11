@@ -27,7 +27,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
         }
         catch (Exception e)
         {
-            WritenException(e);
+            LogError(e);
 
             return false;
         }
@@ -46,7 +46,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
         }
         catch (Exception e)
         {
-            WritenException(e);
+            LogError(e);
 
             return false;
         }
@@ -65,7 +65,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
         }
         catch (Exception e)
         {
-            WritenException(e);
+            LogError(e);
 
             return false;
         }
@@ -85,7 +85,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
         }
         catch (Exception e)
         {
-            WritenException(e);
+            LogError(e);
 
             return false;
         }
@@ -105,7 +105,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
         }
         catch (Exception e)
         {
-            WritenException(e);
+            LogError(e);
 
             return false;
         }
@@ -139,7 +139,7 @@ public abstract class DatabaseStorage<TEntity> : IStorage<TEntity> where TEntity
 
     protected abstract DatabaseContextBase Open(IDatabasePath path);
 
-    private static void WritenException(Exception exception)
+    private static void LogError(Exception exception)
     {
         string message = $"Database exception.\nException: {exception.Message}.\nInner: {exception.InnerException?.Message ?? "Empty"}";
 

@@ -3,5 +3,5 @@
 public readonly struct FileData<T>
 {
     public required string Name { get; init; }
-    public required T[] Datas { get; init; }
+    public required T Data { get; init; }
 }

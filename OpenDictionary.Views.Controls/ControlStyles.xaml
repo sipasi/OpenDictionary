@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:styles="clr-namespace:OpenDictionary.Styles;assembly=OpenDictionary.Styles"
+    
+    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls"
+    
+    x:Class="OpenDictionary.Views.Controls.ControlStyles">
+    <ResourceDictionary.MergedDictionaries>
+        <styles:Colors/>
+        <styles:DefaultStyles/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="DefaultTextInputLine" TargetType="controls:TextInputLine">
+        <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+        <Setter Property="PlaceholderColor" Value="{DynamicResource Secondary}"/>
+    </Style>
+
+    <Style x:Key="TileViewSelectable" BasedOn="{StaticResource DefaultRoundBorder}" TargetType="controls:TileView">
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:TextInputLine" BasedOn="{StaticResource DefaultTextInputLine}"/>
+</ResourceDictionary>

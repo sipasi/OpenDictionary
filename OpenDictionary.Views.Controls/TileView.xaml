@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    x:Name="control"
+    
+    Style="{StaticResource DefaultRoundBorder}"
+      
+    x:Class="OpenDictionary.Views.Controls.TileView">
+
+    <Border.Resources>
+        <Style x:Key="DefaultTileLabel" BasedOn="{StaticResource DefaultLabel}" TargetType="Label">
+            <Setter Property="MaxLines" Value="1"/>
+            <Setter Property="LineBreakMode" Value="TailTruncation"/>
+        </Style>
+        <Style x:Key="TileTitle" BasedOn="{StaticResource DefaultTileLabel}" TargetType="Label">
+            <Setter Property="FontSize" Value="Subtitle"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"/>
+        </Style>
+        <Style x:Key="TileSubTitle" BasedOn="{StaticResource DefaultTileLabel}" TargetType="Label">
+            <Setter Property="FontSize" Value="Caption"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryText}"/>
+        </Style>
+    </Border.Resources>
+
+    <Grid RowDefinitions="auto,auto" RowSpacing="10">
+        <Label Grid.Row="0" x:Name="title" Style="{StaticResource TileTitle}"/>
+        <Label Grid.Row="1" x:Name="sub"   Style="{StaticResource TileSubTitle}"/>
+    </Grid>
+
+    <Border.GestureRecognizers>
+        <TapGestureRecognizer 
+            BindingContext="{x:Reference control}"  NumberOfTapsRequired="1" 
+            Command="{Binding Tap}" CommandParameter="{Binding TapParameter}"/>
+    </Border.GestureRecognizers>
+</Border>

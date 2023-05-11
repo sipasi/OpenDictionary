@@ -28,6 +28,9 @@ public partial class AppShell : Shell
         Loaded += AppShell_Loaded;
     }
 
+    public void SetListPage() => CurrentItem = list;
+    public void SetSettingsPage() => CurrentItem = list;
+
     private void AppShell_Loaded(object? sender, System.EventArgs e)
     {
         ApplicationTheme.SetLastTheme();

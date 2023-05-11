@@ -1,20 +1,31 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:OpenDictionary.MauiProject"
-             x:Class="OpenDictionary.MauiProject.App">
+<Application 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:local="clr-namespace:OpenDictionary.MauiProject"
+    xmlns:styles="clr-namespace:OpenDictionary.Styles;assembly=OpenDictionary.Styles"
+    xmlns:themes="clr-namespace:OpenDictionary.Styles.Themes.Resources;assembly=OpenDictionary.Styles.Themes"
+    
+    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
+    
+    x:Class="OpenDictionary.MauiProject.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <styles:Colors/>
 
-                <ResourceDictionary Source="Resources/Styles/Themes/PurpleTheme.xaml" />
+                <themes:PurpleTheme/>
 
-                <ResourceDictionary Source="Resources/Styles/Controls/Default.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Controls/Button.xaml" />
+                <styles:DefaultStyles/>
+                <styles:ButtonStyles/>
+                <styles:ImageButtonStyles/>
+
+                <styles:CollectionViewStyles/>
+
+                <controls:ControlStyles/>
+
                 <ResourceDictionary Source="Resources/Styles/Controls/ImageButton.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Controls/TileView.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Controls/CollectionView.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

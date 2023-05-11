@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
-             xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
-             
-             xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
-             
-             Padding="5,0"
-              
-             x:DataType="viewModels:WordGroupInfoList"
-               
-             x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
+    
+    xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
+    
+    xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
+    
+    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
+    
+    xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+    
+    Padding="5,0"
+     
+    x:DataType="viewModels:WordGroupInfoList"
+      
+    x:Class="OpenDictionary.Views.Pages.WordGroupListPage">
+    <ContentPage.Resources>
+        <Style x:Key="WordGroupInfoCollection" TargetType="CollectionView" BasedOn="{StaticResource FlexibleCollection}">
+            <Setter Property="ItemTemplate">
+                <DataTemplate x:DataType="models:WordGroupInfo">
+                    <controls:TileView
+                    Margin="0,5,0,0" Title="{Binding Name}" SubTitle="{Binding Count}"
+                    Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
+                    TapParameter="{Binding .}"/>
+                </DataTemplate>
+            </Setter>
+            <Setter Property="EmptyView">
+                <Label Style="{StaticResource EmptyViewLabel}"/>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" IconImageSource="{fonts:FontIcon Icon=AddNewEntity}" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>

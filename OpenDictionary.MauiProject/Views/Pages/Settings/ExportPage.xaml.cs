@@ -1,6 +1,5 @@
 using Microsoft.Maui.Controls;
 
-
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.Views.Pages.Settings;
