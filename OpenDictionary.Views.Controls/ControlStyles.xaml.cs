@@ -4,8 +4,8 @@ namespace OpenDictionary.Views.Controls;
 
 public partial class ControlStyles : ResourceDictionary
 {
-	public ControlStyles()
-	{
-		InitializeComponent();
-	}
+    public ControlStyles()
+    {
+        InitializeComponent();
+    }
 }

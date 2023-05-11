@@ -1,7 +1,5 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Platform;
 
 namespace OpenDictionary.Views.Controls;
 

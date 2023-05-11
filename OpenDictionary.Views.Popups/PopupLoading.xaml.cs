@@ -1,9 +1,4 @@
-using System;
-using System.Threading.Tasks;
-
 using CommunityToolkit.Maui.Views;
-
-using Microsoft.Maui.Controls;
 
 namespace OpenDictionary.Views.Popups;
 

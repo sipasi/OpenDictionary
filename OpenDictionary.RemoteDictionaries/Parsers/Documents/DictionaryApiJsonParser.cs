@@ -2,7 +2,6 @@
 
 using System;
 using System.Text.Json;
-using System.Xml.Linq;
 
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Logger;
