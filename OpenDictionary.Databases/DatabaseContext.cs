@@ -2,11 +2,11 @@
 
 namespace OpenDictionary.Databases;
 
-public abstract class DatabaseContextBase : DbContext
+public abstract class DatabaseContext : DbContext
 {
     private readonly string databasePath;
 
-    public DatabaseContextBase(string databasePath)
+    public DatabaseContext(string databasePath)
     {
         this.databasePath = databasePath;
     }
