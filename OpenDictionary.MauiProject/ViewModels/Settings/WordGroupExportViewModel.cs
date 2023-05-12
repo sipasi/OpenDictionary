@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using OpenDictionary.Collections.Storages;
+using OpenDictionary.Databases;
 using OpenDictionary.DataTransfer;
 using OpenDictionary.DataTransfer.Services;
 using OpenDictionary.DataTransfer.ViewModels;
@@ -18,19 +18,19 @@ namespace OpenDictionary.ViewModels;
 
 public sealed partial class WordGroupExportViewModel : ExportViewModel<WordGroupInfo, WordGroupExportViewModel.WordsInfo>
 {
-    private readonly IStorage<WordGroup> storage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
 
-    public WordGroupExportViewModel(IStorage<WordGroup> storage, IFileExportService exportService, IFileExporter exporter, INavigationService navigation, IToastMessageService toast)
-        : base(exportService, exporter, navigation, toast) => this.storage = storage;
+    public WordGroupExportViewModel(IDatabaseConnection<AppDatabaseContext> connection, IFileExportService exportService, IFileExporter exporter, INavigationService navigation, IToastMessageService toast)
+        : base(exportService, exporter, navigation, toast) => this.connection = connection;
 
     protected override async ValueTask<WordGroupInfo[]> OnLoad()
     {
-        var groups = await storage.Query().Select(group => new WordGroupInfo
+        var groups = await connection.Open(context => context.WordGroups.Select(group => new WordGroupInfo
         {
             Id = group.Id,
             Name = group.Name,
             Count = group.Words.Count
-        }).ToArrayAsync();
+        }).ToArrayAsync());
 
         return groups;
     }
@@ -49,8 +49,7 @@ public sealed partial class WordGroupExportViewModel : ExportViewModel<WordGroup
             .Select(item => (item as WordGroupInfo)!.Id)
             .ToHashSet();
 
-        var groups = await storage
-            .Query()
+        var groups = await connection.Open(context => context.WordGroups
             .Where(entity => hash.Contains(entity.Id))
             .Select(static entity => new FileData<WordsInfo>
             {
@@ -64,8 +63,7 @@ public sealed partial class WordGroupExportViewModel : ExportViewModel<WordGroup
                         Translation = word.Translation
                     }).ToArray()
                 }
-            })
-            .ToArrayAsync();
+            }).ToArrayAsync());
 
         return groups;
     }

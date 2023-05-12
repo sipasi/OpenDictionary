@@ -4,13 +4,13 @@ using OpenDictionary.Models;
 
 namespace OpenDictionary.Databases;
 
-internal class DatabaseContext : DatabaseContextBase
+public class AppDatabaseContext : DatabaseContext
 {
     public DbSet<Word> Words { get; set; }
     public DbSet<WordMetadata> WordMetadatas { get; set; }
     public DbSet<WordGroup> WordGroups { get; set; }
 
-    public DatabaseContext(IDatabasePath path) : base(path.Path) { }
+    public AppDatabaseContext(IDatabasePath path) : base(path.Path) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

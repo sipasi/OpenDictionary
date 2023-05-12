@@ -1,12 +1,13 @@
 ﻿using System.Text.Json;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
-using OpenDictionary.Collections.Storages;
+
 using OpenDictionary.Databases;
 using OpenDictionary.DataTransfer;
 using OpenDictionary.DataTransfer.Json;
@@ -114,10 +115,10 @@ internal static class ServiceCollectionExtensions
     private static IServiceCollection ConfigureDatabase(this IServiceCollection services)
     {
         services
-            .AddSingleton<IDatabasePath, UniversalDatabasePath>()
-            .AddSingleton<IStorage<Word>, WordStorage>()
-            .AddSingleton<IStorage<WordGroup>, WordGroupStorage>()
-            .AddSingleton<IStorage<WordMetadata>, WordMetadataStorage>();
+            .AddSingleton<IDatabasePath>(DatabasePath.Create("open-dictionary-default"))
+            .AddSingleton<IDatabaseConnection<AppDatabaseContext>, AppDatabaseConnection>()
+            .AddSingleton<IDatabaseConnection<DatabaseContext>>(static provider => provider.GetService<IDatabaseConnection<AppDatabaseContext>>()!)
+            .AddSingleton<IDatabaseConnection<DbContext>>(static provider => provider.GetService<IDatabaseConnection<AppDatabaseContext>>()!);
 
         return services;
     }

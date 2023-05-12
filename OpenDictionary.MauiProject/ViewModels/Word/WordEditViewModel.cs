@@ -8,8 +8,9 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.EntityFrameworkCore;
 
-using OpenDictionary.Collections.Storages;
+
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Services.Messages.Toasts;
@@ -20,14 +21,12 @@ namespace OpenDictionary.ViewModels;
 [Microsoft.Maui.Controls.QueryProperty(nameof(Id), nameof(Id))]
 public partial class WordEditViewModel : WordViewModel
 {
-    private readonly IStorage<Word> wordStorage;
-    private readonly IStorage<WordMetadata> metadataStorage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
 
-    public WordEditViewModel(IStorage<Word> wordStorage, IStorage<WordMetadata> metadataStorage, INavigationService navigation, IToastMessageService toast) : base(wordStorage, navigation, toast)
+    public WordEditViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast) : base(connection, navigation, toast)
     {
-        this.wordStorage = wordStorage;
-        this.metadataStorage = metadataStorage;
+        this.connection = connection;
         this.navigation = navigation;
 
         Word.PropertyChanged += (_, __) =>
@@ -43,10 +42,9 @@ public partial class WordEditViewModel : WordViewModel
             return;
         }
 
-        var stored = await metadataStorage
-            .Query()
+        var stored = await connection.Open(context => context.WordMetadatas
             .IncludeAll()
-            .GetByWord(Word.Origin);
+            .GetByWord(Word.Origin));
 
         if (stored is null)
         {
@@ -61,31 +59,35 @@ public partial class WordEditViewModel : WordViewModel
     {
         Guid guid = Guid.Parse(Id);
 
-        Word? word = await wordStorage
-            .Query()
-            .GetById(guid)
-            ?? throw new Exception();
+        await using AppDatabaseContext context = connection.Open();
+
+        Word? word = await context.Words.GetById(guid) ?? throw new Exception();
 
         word.Origin = Word.Origin;
         word.Translation = Word.Translation;
 
-        await wordStorage.UpdateAsync(word);
+        context.Words.Update(word);
 
-        WordMetadata? loaded = await metadataStorage
-            .Query()
-            .Select(entity => new WordMetadata { Id = entity.Id, Value = entity.Value })
+        WordMetadata? loaded = await context.WordMetadatas
+            .Select(entity => new WordMetadata
+            {
+                Id = entity.Id,
+                Value = entity.Value
+            })
             .FirstOrDefaultAsync(entity => entity.Value == word.Origin);
 
         if (loaded is not null)
         {
-            await metadataStorage.DeleteAsync(loaded);
+            context.WordMetadatas.Remove(loaded);
         }
 
         WordMetadata newMetadata = Metadata.AsMetadata();
 
         newMetadata.Value = Word.Origin;
 
-        await metadataStorage.AddAsync(newMetadata);
+        await context.WordMetadatas.AddAsync(newMetadata);
+
+        await context.SaveChangesAsync();
 
         await navigation.GoBackAsync();
     }

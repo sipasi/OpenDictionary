@@ -11,8 +11,9 @@ using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.ApplicationModel.DataTransfer;
 using Microsoft.Maui.Devices;
 
-using OpenDictionary.Collections.Storages;
+
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
@@ -26,15 +27,13 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     [ObservableProperty]
     private string? translation;
 
-    private readonly IStorage<WordGroup> wordGroupStorage;
-    private readonly IStorage<Word> wordStorage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
-    public WordGroupEditViewModel(IStorage<WordGroup> wordGroupStorage, IStorage<Word> wordStorage, INavigationService navigation, IToastMessageService toast)
+    public WordGroupEditViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast)
     {
-        this.wordGroupStorage = wordGroupStorage;
-        this.wordStorage = wordStorage;
+        this.connection = connection;
         this.navigation = navigation;
         this.toast = toast;
 
@@ -54,13 +53,14 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 
         Guid guid = Guid.Parse(Id);
 
-        var group = wordGroupStorage
-            .Query()
+        using AppDatabaseContext context = connection.Open();
+
+        var name = context.WordGroups
             .Where(entity => entity.Id == guid)
-            .Select(entity => new { entity.Name })
+            .Select(entity => entity.Name)
             .FirstOrDefault();
 
-        Name = group?.Name ?? throw new Exception();
+        Name = name ?? throw new Exception();
     }
 
     [RelayCommand(CanExecute = nameof(ValidateCanAdd))]
@@ -93,6 +93,8 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     [RelayCommand(CanExecute = nameof(ValidateCanSave))]
     private async Task Save()
     {
+        await using AppDatabaseContext context = connection.Open();
+
         if (string.IsNullOrWhiteSpace(Id))
         {
             WordGroup group = new WordGroup()
@@ -102,20 +104,21 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
                 Words = Words.ToList()
             };
 
-            await wordGroupStorage.AddAsync(group);
+            await context.WordGroups.AddAsync(group);
         }
         else
         {
             var id = Guid.Parse(Id);
 
-            WordGroup group = await wordGroupStorage.Query().GetById(id);
+            WordGroup group = (await context.WordGroups.GetById(id))!;
 
             group.Name = Name;
             group.Words = Words.ToList();
 
-            await wordGroupStorage.UpdateAsync(group);
+            context.WordGroups.Update(group);
         }
 
+        await context.SaveChangesAsync();
 
         await navigation.GoBackAsync();
     }

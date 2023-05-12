@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-using OpenDictionary.Collections.Storages;
+using OpenDictionary.Databases;
 using OpenDictionary.DataTransfer.ViewModels;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Toasts;
@@ -10,6 +10,6 @@ namespace OpenDictionary.ViewModels;
 
 public sealed class WordGroupImportViewModel : ImportJsonViewModel<WordGroup>
 {
-    public WordGroupImportViewModel(IStorage<WordGroup> storage, INavigationService navigation, IToastMessageService toast)
-        : base(storage, navigation, toast) { }
+    public WordGroupImportViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast)
+        : base(connection, navigation, toast) { }
 }

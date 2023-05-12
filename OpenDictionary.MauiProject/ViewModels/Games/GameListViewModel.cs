@@ -1,7 +1,7 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Controls;
 
-using OpenDictionary.Collections.Storages;
-using OpenDictionary.Models;
+using OpenDictionary.Databases;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 
@@ -10,6 +10,6 @@ namespace OpenDictionary.ViewModels.Games;
 [QueryProperty(nameof(Id), nameof(Id))]
 public class GameListViewModel : OpenDictionary.Games.WordConformities.ViewModels.GameListViewModel
 {
-    public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation)
-       : base(storage, navigation, new(AppRoutes.Game.OriginToTranslation, AppRoutes.Game.TranslationToOrigin)) { }
+    public GameListViewModel(IDatabaseConnection<DbContext> connection, INavigationService navigation)
+       : base(connection, navigation, new(AppRoutes.Game.OriginToTranslation, AppRoutes.Game.TranslationToOrigin)) { }
 }

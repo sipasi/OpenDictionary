@@ -6,25 +6,24 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.EntityFrameworkCore;
 
-using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 
 namespace OpenDictionary.ViewModels;
 
-[INotifyPropertyChanged]
-public sealed partial class WordGroupInfoList
+public sealed partial class WordGroupInfoList : ObservableObject
 {
-    private readonly IStorage<WordGroup> storage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
 
     public CollectionViewModel<WordGroupInfo> Groups { get; }
 
-    public WordGroupInfoList(IStorage<WordGroup> storage, INavigationService navigation)
+    public WordGroupInfoList(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation)
     {
-        this.storage = storage;
+        this.connection = connection;
         this.navigation = navigation;
 
         Groups = new(Load, Tapped);
@@ -34,12 +33,12 @@ public sealed partial class WordGroupInfoList
     {
         Groups.IsBusy = true;
 
-        var groups = await storage.Query().OrderByDateDescending().Select(group => new WordGroupInfo
+        var groups = await connection.Open(context => context.WordGroups.OrderByDateDescending().Select(group => new WordGroupInfo
         {
             Id = group.Id,
             Name = group.Name,
             Count = group.Words.Count,
-        }).ToArrayAsync();
+        }).ToArrayAsync());
 
         Groups.Collection.Clear();
 

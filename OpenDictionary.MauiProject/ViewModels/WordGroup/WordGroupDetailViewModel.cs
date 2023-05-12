@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
-using OpenDictionary.Collections.Storages;
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
@@ -17,15 +17,15 @@ namespace OpenDictionary.ViewModels;
 
 public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
 {
-    private readonly IStorage<WordGroup> wordGroupStorage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
     private readonly IDialogMessageService dialog;
 
     public Word? TappedItem { get; private set; }
 
-    public WordGroupDetailViewModel(IStorage<WordGroup> wordGroupStorage, INavigationService navigation, IDialogMessageService dialog)
+    public WordGroupDetailViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IDialogMessageService dialog)
     {
-        this.wordGroupStorage = wordGroupStorage;
+        this.connection = connection;
         this.navigation = navigation;
         this.dialog = dialog;
     }
@@ -38,11 +38,10 @@ public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
 
         Guid guid = Guid.Parse(Id);
 
-        var group = wordGroupStorage
-            .Query()
+        var group = connection.Open(context => context.WordGroups
             .Where(entity => entity.Id == guid)
             .Select(entity => new { entity.Name, entity.Words })
-            .FirstOrDefault();
+            .FirstOrDefault());
 
         if (group is null)
         {
@@ -79,7 +78,6 @@ public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
     [RelayCommand]
     private async Task Delete()
     {
-        IStorage<WordGroup> storage = wordGroupStorage;
 
         Guid guid = Guid.Parse(Id!);
 
@@ -87,9 +85,13 @@ public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
 
         if (result is DialogResult.Ok)
         {
-            WordGroup group = await storage.Query().IncludeAll().GetById(guid);
+            await using AppDatabaseContext context = connection.Open();
 
-            await storage.DeleteAsync(group);
+            WordGroup group = (await context.WordGroups.IncludeAll().GetById(guid))!;
+
+            context.Remove(group);
+
+            await context.SaveChangesAsync();
 
             await navigation.GoBackAsync();
         }

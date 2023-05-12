@@ -2,7 +2,9 @@
 
 using CommunityToolkit.Mvvm.Input;
 
-using OpenDictionary.Collections.Storages;
+using Microsoft.EntityFrameworkCore;
+
+using OpenDictionary.Databases;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
@@ -11,7 +13,7 @@ namespace OpenDictionary.DataTransfer.ViewModels;
 
 public partial class ImportJsonViewModel<T> : BindableObject where T : class
 {
-    private readonly IStorage<T> storage;
+    private readonly IDatabaseConnection<DbContext> connection;
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
@@ -19,10 +21,12 @@ public partial class ImportJsonViewModel<T> : BindableObject where T : class
 
     public SelectableCollectionViewModel<T> Collection { get; }
 
-    public ImportJsonViewModel(IStorage<T> storage, INavigationService navigation, IToastMessageService toast)
+    public ImportJsonViewModel(IDatabaseConnection<DbContext> connection, INavigationService navigation, IToastMessageService toast)
     {
-        this.storage = storage;
+        this.connection = connection;
+
         this.navigation = navigation;
+
         this.toast = toast;
 
         FileExtension = "json";
@@ -74,17 +78,21 @@ public partial class ImportJsonViewModel<T> : BindableObject where T : class
             return;
         }
 
-        IEnumerable<T?> import = selected.Select(word => word as T);
-
-        bool success = await storage.AddRangeAsync(import!);
-
-        if (success)
+        try
         {
+            await using DbContext context = connection.Open();
+
+            IEnumerable<T?> import = selected.Select(word => word as T);
+
+            await context.AddRangeAsync(import!);
+
+            await context.SaveChangesAsync();
+
             await toast.ShowSuccess($"Imported: {count}");
         }
-        else
+        catch (Exception e)
         {
-            await toast.ShowError("Cant import");
+            await toast.ShowError($"Cant import. Error - {e.Message}");
         }
 
         await navigation.GoBackAsync();

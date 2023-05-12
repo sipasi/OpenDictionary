@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using OpenDictionary.Collections.Storages;
+
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Observables.Words;
@@ -16,8 +17,7 @@ using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels;
 
-[INotifyPropertyChanged]
-public partial class WordViewModel
+public partial class WordViewModel : ObservableObject
 {
     private string id;
 
@@ -26,7 +26,7 @@ public partial class WordViewModel
     [ObservableProperty]
     private WordMetadataObservable metadata;
 
-    private readonly IStorage<Word> wordStorage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
@@ -41,9 +41,9 @@ public partial class WordViewModel
         }
     }
 
-    public WordViewModel(IStorage<Word> wordStorage, INavigationService navigation, IToastMessageService toast)
+    public WordViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast)
     {
-        this.wordStorage = wordStorage;
+        this.connection = connection;
         this.navigation = navigation;
         this.toast = toast;
 
@@ -70,17 +70,15 @@ public partial class WordViewModel
 
             Guid guid = Guid.Parse(id);
 
-            Word? loaded = await wordStorage
-                .Query()
-                .GetById(guid);
+            Word? loaded = await connection.Open(context => context.Words.GetById(guid));
 
             if (loaded is null)
             {
                 throw new Exception($"Cant load word by id: {id ?? "Empty"}");
             }
 
-            word.Origin = loaded.Origin;
-            word.Translation = loaded.Translation;
+            Word.Origin = loaded.Origin;
+            Word.Translation = loaded.Translation;
 
             await OnWordLoaded();
         }

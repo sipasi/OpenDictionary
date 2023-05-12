@@ -7,17 +7,18 @@ namespace OpenDictionary.Databases;
 
 internal static class DatabaseChecker
 {
-    public static void Check(IServiceProvider provider)
+    public static async void Check(IServiceProvider provider)
     {
-        IDatabasePath path = provider.GetService<IDatabasePath>()!;
-
-        DatabaseContext context = new DatabaseContext(path);
-
         try
         {
-            context.Database.EnsureCreated();
+            var connection = provider.GetService<IDatabaseConnection<DatabaseContext>>()!;
 
-            context.SaveChanges();
+            connection.Open(static context =>
+            {
+                context.Database.EnsureCreated();
+
+                context.SaveChanges();
+            });
         }
         catch (Exception e)
         {

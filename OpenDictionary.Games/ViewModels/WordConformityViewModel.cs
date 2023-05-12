@@ -7,8 +7,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 using Framework.States;
 
+using Microsoft.EntityFrameworkCore;
+
 using OpenDictionary.Collections.Extensions;
-using OpenDictionary.Collections.Storages;
+using OpenDictionary.Databases;
 using OpenDictionary.Games.WordConformities.Observables;
 using OpenDictionary.Games.WordConformities.States;
 using OpenDictionary.Models;
@@ -17,12 +19,11 @@ using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.Games.WordConformities.ViewModels;
 
-[INotifyPropertyChanged]
-public abstract partial class WordConformityViewModel
+public abstract partial class WordConformityViewModel : ObservableObject
 {
     private string id;
 
-    private readonly IStorage<WordGroup> storage;
+    private readonly IDatabaseConnection<DbContext> connection;
 
     private readonly IStateMachine<ConformityState> machine;
 
@@ -45,11 +46,11 @@ public abstract partial class WordConformityViewModel
     public GamePropertiesObservable Properties { get; }
     public AnswerButtonCollection Buttons { get; }
 
-    public WordConformityViewModel(IStorage<WordGroup> storage, IDialogMessageService dialog, INavigationService navigation)
+    public WordConformityViewModel(IDatabaseConnection<DbContext> connection, IDialogMessageService dialog, INavigationService navigation)
     {
         this.id = string.Empty;
 
-        this.storage = storage;
+        this.connection = connection;
 
         Buttons = new(OnTapped);
 
@@ -66,15 +67,15 @@ public abstract partial class WordConformityViewModel
         machine = creator.Create(Properties, events, ui, dialog, navigation);
     }
 
-    private void Load()
+    private async void Load()
     {
         Guid guid = Guid.Parse(id);
 
-        WordGroup group = storage
-            .Query()
+        WordGroup group = connection.Open(context => context.Set<WordGroup>()
             .Where(x => x.Id == guid)
             .Select(entity => new WordGroup { Name = entity.Name, Words = entity.Words })
-            .First();
+            .First()
+        );
 
         Word[] array = group.Words.ToArray();
 

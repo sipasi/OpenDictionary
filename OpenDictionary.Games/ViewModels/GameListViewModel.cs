@@ -4,7 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-using OpenDictionary.Collections.Storages;
+using Microsoft.EntityFrameworkCore;
+
+using OpenDictionary.Databases;
 using OpenDictionary.Games.Observables;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
@@ -16,7 +18,7 @@ public class GameListViewModel
 {
     private string id;
 
-    private readonly IStorage<WordGroup> storage;
+    private readonly IDatabaseConnection<DbContext> connection;
 
     private readonly INavigationService navigation;
 
@@ -33,15 +35,16 @@ public class GameListViewModel
 
     public CollectionViewModel<GameInfo> Games { get; }
 
-    public GameListViewModel(IStorage<WordGroup> storage, INavigationService navigation, Routes routes)
+    public GameListViewModel(IDatabaseConnection<DbContext> connection, INavigationService navigation, Routes routes)
     {
         this.id = string.Empty;
-        this.storage = storage;
+
+        this.connection = connection;
         this.navigation = navigation;
 
         Games = new CollectionViewModel<GameInfo>(OnLoad, OnTapped);
 
-        var infos = new List<GameInfo>()
+        var info = new List<GameInfo>()
         {
             new GameInfo
             {
@@ -61,18 +64,18 @@ public class GameListViewModel
             },
         };
 
-        Games.Collection.AddRange(infos);
+        Games.Collection.AddRange(info);
     }
 
     public async Task OnLoad()
     {
         Guid guid = Guid.Parse(id);
 
-        var query = storage
-            .Query()
-            .Select(x => new { x.Id, x.Words.Count });
-
-        var group = await Task.Run(() => query.First(x => x.Id == guid));
+        var group = await connection.Open(context => context
+            .Set<WordGroup>()
+            .Select(static x => new { x.Id, x.Words.Count })
+            .FirstAsync(x => x.Id == guid)
+        );
 
         foreach (var game in Games.Collection)
         {

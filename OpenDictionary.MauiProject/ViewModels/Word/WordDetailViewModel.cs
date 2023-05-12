@@ -10,8 +10,9 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Networking;
 
-using OpenDictionary.Collections.Storages;
+
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
@@ -26,8 +27,7 @@ namespace OpenDictionary.ViewModels;
 [QueryProperty(nameof(Id), nameof(Id))]
 public sealed partial class WordDetailViewModel : WordViewModel
 {
-    private readonly IStorage<Word> wordStorage;
-    private readonly IStorage<WordMetadata> metadataStorage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
     private readonly IDialogMessageService dialog;
     private readonly IAudioPlayerServise audioPlayer;
@@ -40,17 +40,15 @@ public sealed partial class WordDetailViewModel : WordViewModel
     private string? metadataCustomState;
 
     public WordDetailViewModel(
-        IStorage<Word> wordStorage,
-        IStorage<WordMetadata> metadataStorage,
+        IDatabaseConnection<AppDatabaseContext> connection,
         INavigationService navigation,
         IDialogMessageService dialog,
         IToastMessageService toast,
         IAudioPlayerServise audioPlayer,
         IPhoneticFilesService phoneticFiles,
-        IDictionarySource source) : base(wordStorage, navigation, toast)
+        IDictionarySource source) : base(connection, navigation, toast)
     {
-        this.wordStorage = wordStorage;
-        this.metadataStorage = metadataStorage;
+        this.connection = connection;
         this.navigation = navigation;
         this.dialog = dialog;
         this.audioPlayer = audioPlayer;
@@ -142,7 +140,7 @@ public sealed partial class WordDetailViewModel : WordViewModel
     [RelayCommand]
     private async Task OnDelete()
     {
-        IStorage<Word> storage = wordStorage;
+        await using AppDatabaseContext context = connection.Open();
 
         Guid id = Guid.Parse(Id);
 
@@ -150,9 +148,11 @@ public sealed partial class WordDetailViewModel : WordViewModel
 
         if (result is DialogResult.Ok)
         {
-            Word group = await storage.Query().GetById(id);
+            Word group = (await context.Words.GetById(id))!;
 
-            await storage.DeleteAsync(group);
+            context.Remove(group);
+
+            await context.SaveChangesAsync();
 
             await navigation.GoBackAsync();
         }
@@ -166,8 +166,9 @@ public sealed partial class WordDetailViewModel : WordViewModel
 
     private async Task<WordMetadata?> GetMetadataFrom(string word)
     {
-        WordMetadata? metadata = await metadataStorage
-            .Query()
+        await using AppDatabaseContext context = connection.Open();
+
+        WordMetadata? metadata = await context.WordMetadatas
             .IncludeAll()
             .GetByWord(word);
 
@@ -180,7 +181,9 @@ public sealed partial class WordDetailViewModel : WordViewModel
                 return null;
             }
 
-            await metadataStorage.AddAsync(metadata);
+            await context.WordMetadatas.AddAsync(metadata);
+
+            await context.SaveChangesAsync();
         }
 
         return metadata;

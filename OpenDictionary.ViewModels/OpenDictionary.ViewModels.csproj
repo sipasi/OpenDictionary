@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
+    <ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
   </ItemGroup>
 
 </Project>

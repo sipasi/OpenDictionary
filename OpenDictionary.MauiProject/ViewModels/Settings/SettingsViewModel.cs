@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
-using OpenDictionary.Collections.Storages;
+using Microsoft.EntityFrameworkCore;
+
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Loadings;
@@ -21,12 +23,12 @@ public sealed partial class SettingsViewModel
     public AppThemeObservable AppTheme { get; }
     public WordGroupDictionaryViewModel WordGroup { get; }
 
-    public SettingsViewModel(IStorage<WordGroup> storage, INavigationService navigation, IDialogMessageService dialog, IToastMessageService toast, ILoadingMessageService loading)
+    public SettingsViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IDialogMessageService dialog, IToastMessageService toast, ILoadingMessageService loading)
     {
         this.navigation = navigation;
 
         AppTheme = new AppThemeObservable();
-        WordGroup = new WordGroupDictionaryViewModel(storage, dialog, toast, loading);
+        WordGroup = new WordGroupDictionaryViewModel(connection, dialog, toast, loading);
     }
 
     [RelayCommand]

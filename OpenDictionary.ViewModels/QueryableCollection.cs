@@ -3,27 +3,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-using OpenDictionary.Collections.Storages;
+using Microsoft.EntityFrameworkCore;
+
+using OpenDictionary.Databases;
 
 namespace OpenDictionary.ViewModels;
 
 public delegate IQueryable<TOut> QueryFactory<TIn, TOut>(IQueryable<TIn> query);
 
 public class QueryableCollection<T> : QueryableCollection<T, T>
+    where T : class
 {
-    public QueryableCollection(IStorage<T> storage, QueryFactory<T, T> query, Func<T?, Task> tappedCommand)
-        : base(storage, query, tappedCommand) { }
+    public QueryableCollection(IDatabaseConnection<DbContext> connection, QueryFactory<T, T> query, Func<T?, Task> tappedCommand)
+        : base(connection, query, tappedCommand) { }
 }
 
 public class QueryableCollection<TStorage, TElement> : CollectionViewModel<TElement>
+    where TStorage : class
 {
-    private readonly IStorage<TStorage> storage;
+    private readonly IDatabaseConnection<DbContext> connection;
 
     public QueryFactory<TStorage, TElement> Query { get; }
 
-    public QueryableCollection(IStorage<TStorage> storage, QueryFactory<TStorage, TElement> query, Func<TElement?, Task> tappedCommand)
+    public QueryableCollection(IDatabaseConnection<DbContext> connection, QueryFactory<TStorage, TElement> query, Func<TElement?, Task> tappedCommand)
     {
-        this.storage = storage;
+        this.connection = connection;
 
         Query = query;
 
@@ -36,13 +40,15 @@ public class QueryableCollection<TStorage, TElement> : CollectionViewModel<TElem
     {
         IsBusy = true;
 
-        IQueryable<TElement> query = Query.Invoke(storage.Query());
+        await using DbContext context = connection.Open();
+
+        IQueryable<TElement> query = Query.Invoke(context.Set<TStorage>());
 
         TElement[]? items = default;
 
         try
         {
-            items = await Task.Run(query.ToArray);
+            items = await query.ToArrayAsync();
         }
         catch (Exception e)
         {

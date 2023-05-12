@@ -11,8 +11,9 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Storage;
 
-using OpenDictionary.Collections.Storages;
+
 using OpenDictionary.Collections.Storages.Extensions;
+using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Loadings;
@@ -23,16 +24,16 @@ namespace OpenDictionary.ViewModels;
 
 public sealed partial class WordGroupDictionaryViewModel
 {
-    private readonly IStorage<WordGroup> storage;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly ILoadingMessageService loading;
     private readonly IDialogMessageService dialog;
     private readonly IToastMessageService toast;
 
     public IAsyncRelayCommand AddPreinstalledCommand { get; }
 
-    public WordGroupDictionaryViewModel(IStorage<WordGroup> storage, IDialogMessageService dialog, IToastMessageService toast, ILoadingMessageService loading)
+    public WordGroupDictionaryViewModel(IDatabaseConnection<AppDatabaseContext> connection, IDialogMessageService dialog, IToastMessageService toast, ILoadingMessageService loading)
     {
-        this.storage = storage;
+        this.connection = connection;
         this.loading = loading;
         this.dialog = dialog;
         this.toast = toast;
@@ -53,20 +54,23 @@ public sealed partial class WordGroupDictionaryViewModel
 
         int count = 0;
 
+        await using AppDatabaseContext context = connection.Open();
+
         foreach (var group in groups)
         {
-            var result = await storage
-                .Query()
-                .Select(entity => new { Name = entity.Name })
-                .FirstOrDefaultAsync(entity => entity.Name == group.Name);
+            var result = await context.WordGroups
+                .Select(entity => entity.Name)
+                .FirstOrDefaultAsync(entity => entity == group.Name);
 
             if (result is null)
             {
                 count++;
 
-                await storage.AddAsync(group);
+                await context.WordGroups.AddAsync(group);
             }
         }
+
+        await context.SaveChangesAsync();
 
         string message = count > 0 ? $"{count} dictionaries are installed" : "All dictionaries have already preinstalled";
 
@@ -83,18 +87,21 @@ public sealed partial class WordGroupDictionaryViewModel
 
             await loading.Show("Deleting", string.Empty, async () =>
             {
-                var groups = await storage.Query().IncludeAll().ToArrayAsync();
-
-                if (groups.Length is 0)
+                count = await connection.Open(static async context =>
                 {
-                    return;
-                }
+                    var groups = await context.WordGroups.IncludeAll().ToArrayAsync();
 
-                await Task.Delay(500);
+                    if (groups.Length is 0)
+                    {
+                        return 0;
+                    }
 
-                count = groups.Length;
+                    context.WordGroups.RemoveRange(groups);
 
-                await storage.DeleteRangeAsync(groups);
+                    await context.SaveChangesAsync();
+
+                    return groups.Length;
+                });
             });
 
             string message = count > 0 ? "All dictionaries have been removed" : "Have no dictionaries to remove";
