@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 
 using OpenDictionary.Databases;
-using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 

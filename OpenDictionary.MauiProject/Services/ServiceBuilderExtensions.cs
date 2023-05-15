@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
 using OpenDictionary.Databases;
@@ -15,7 +12,6 @@ using OpenDictionary.DataTransfer.Json;
 using OpenDictionary.ExternalAppTranslation;
 using OpenDictionary.ExternalAppTranslation.GoogleServices;
 using OpenDictionary.Maui.Services;
-using OpenDictionary.MauiProject;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;

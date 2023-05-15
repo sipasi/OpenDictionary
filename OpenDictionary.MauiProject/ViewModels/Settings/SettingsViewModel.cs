@@ -4,10 +4,7 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
-using Microsoft.EntityFrameworkCore;
-
 using OpenDictionary.Databases;
-using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Messages.Loadings;
 using OpenDictionary.Services.Messages.Toasts;

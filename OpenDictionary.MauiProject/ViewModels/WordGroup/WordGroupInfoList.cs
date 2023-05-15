@@ -49,7 +49,7 @@ public sealed partial class WordGroupInfoList : ObservableObject
 
     [RelayCommand]
     private Task RedirectToCreate() => navigation.GoToAsync(AppRoutes.WordGroup.Create);
-     
+
     private Task Tapped(WordGroupInfo? item) => item is null
         ? Task.CompletedTask
         : navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString()!);
