@@ -12,7 +12,7 @@ using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.ViewModels.WordGroups;
 
 public sealed partial class WordGroupInfoList : ObservableObject
 {
@@ -48,16 +48,10 @@ public sealed partial class WordGroupInfoList : ObservableObject
     }
 
     [RelayCommand]
-    private Task RedirectToCreate()
-    {
-        return navigation.GoToAsync(AppRoutes.WordGroup.Create);
-    }
+    private Task RedirectToCreate() => navigation.GoToAsync(AppRoutes.WordGroup.Create);
+     
+    private Task Tapped(WordGroupInfo? item) => item is null
+        ? Task.CompletedTask
+        : navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString()!);
 
-    private Task Tapped(WordGroupInfo? item)
-    {
-        if (item is null)
-            return Task.CompletedTask;
-
-        return navigation.GoToAsync(AppRoutes.WordGroup.Detail, parameter: nameof(WordGroup.Id), value: item.Id.ToString()!);
-    }
 }
