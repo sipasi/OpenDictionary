@@ -2,22 +2,19 @@
 
 using Microsoft.Maui.Controls;
 
-using MvvmHelpers;
-
 using OpenDictionary.Models;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.ViewModels.WordGroups;
 
-[INotifyPropertyChanged]
 [QueryProperty(nameof(Id), nameof(Id))]
-public abstract partial class WordGroupViewModel
+public abstract partial class WordGroupViewModel : ObservableObject
 {
     private string? id;
 
     [ObservableProperty]
     private string? name;
 
-    public ObservableRangeCollection<Word> Words { get; } = new();
+    public MvvmHelpers.ObservableRangeCollection<Word> Words { get; } = new();
 
     public string? Id
     {
