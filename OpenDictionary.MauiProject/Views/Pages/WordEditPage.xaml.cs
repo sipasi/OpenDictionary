@@ -1,6 +1,4 @@
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Layouts;
-
 
 using OpenDictionary.ViewModels;
 
@@ -13,10 +11,5 @@ public partial class WordEditPage : ContentPage
         InitializeComponent();
 
         BindingContext = viewModel;
-    }
-
-    private void AddEntity_Clicked(object sender, System.EventArgs e)
-    {
-        meaningsLayout.ComputeDesiredSize(0, 0);
     }
 }
