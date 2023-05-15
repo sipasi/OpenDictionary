@@ -23,6 +23,7 @@ using OpenDictionary.ViewModels;
 using OpenDictionary.ViewModels.Games;
 using OpenDictionary.ViewModels.Settings;
 using OpenDictionary.ViewModels.WordGroups;
+using OpenDictionary.ViewModels.Words;
 
 namespace OpenDictionary.Services;
 

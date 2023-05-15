@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.Words" 
              xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -41,8 +41,8 @@
                     <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10"
                           IsVisible="{Binding Audio, Converter={x:StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                         <ImageButton 
-                            Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0"
-                            Command="{Binding PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
+                            Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0" 
+                            Command="{Binding Commands.AudioPlayer.PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
                             CommandParameter="{Binding Audio}">
                             <ImageButton.Source>
                                 <fonts:FontIconExtension Icon="Play" Color="{DynamicResource Primary}"/>
@@ -119,41 +119,16 @@
                         BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
                 </VerticalStackLayout>
             </DataTemplate>
-
-            <Style x:Key="LayoutStateLoadingSection" TargetType="VerticalStackLayout">
-                <Setter Property="IsVisible" Value="{Binding 
-                    MetadataLoadState, 
-                    Converter={x:StaticResource LoadingConverter}, 
-                    ConverterParameter={x:Static toolkit:LayoutState.Loading}}"/>
-            </Style>
-            <Style x:Key="LayoutStateSuccessSection" TargetType="VerticalStackLayout">
-                <Setter Property="IsVisible" Value="{Binding 
-                    MetadataLoadState, 
-                    Converter={x:StaticResource LoadingConverter}, 
-                    ConverterParameter={x:Static toolkit:LayoutState.Success}}"/>
-            </Style>
-            <Style x:Key="LayoutStateNotFoundSection" TargetType="VerticalStackLayout">
-                <Setter Property="IsVisible" Value="{Binding 
-                    MetadataLoadState, 
-                    Converter={x:StaticResource LoadingConverter}, 
-                    ConverterParameter={x:Static toolkit:LayoutState.Error}}"/>
-            </Style>
-            <Style x:Key="LayoutStateNotInternetSection" TargetType="VerticalStackLayout">
-                <Setter Property="IsVisible" Value="{Binding 
-                    MetadataLoadState, 
-                    Converter={x:StaticResource LoadingConverter}, 
-                    ConverterParameter={x:Static toolkit:LayoutState.Error}}"/>
-            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding Commands.WordStorage.DeleteCommand}"/>
         <ToolbarItem Text="Edit" IconImageSource="{fonts:FontIcon Icon=Edit}" Command="{Binding RedirectToEditCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ScrollView VerticalScrollBarVisibility="Never">
-        <VerticalStackLayout Spacing="10" Padding="10">
+        <VerticalStackLayout Spacing="5" Padding="5">
             <Frame>
                 <VerticalStackLayout>
                     <Label>
@@ -174,11 +149,6 @@
                     </Label>
                 </VerticalStackLayout>
             </Frame>
-
-            <VerticalStackLayout Style="{x:StaticResource LayoutStateLoadingSection}">
-                <ActivityIndicator IsRunning="True"/>
-                <Label Text="Finding..." HorizontalTextAlignment="Center"/>
-            </VerticalStackLayout>
 
             <Frame>
                 <VerticalStackLayout>
@@ -203,14 +173,6 @@
                         Spacing="10"/>
                 </VerticalStackLayout>
             </Frame>
-
-            <VerticalStackLayout Style="{x:StaticResource LayoutStateNotInternetSection}">
-                <Label Text="No internet connetion" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-            </VerticalStackLayout>
-
-            <VerticalStackLayout Style="{x:StaticResource LayoutStateNotFoundSection}">
-                <Label Text="Word not found in online dictionary" HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold"/>
-            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
