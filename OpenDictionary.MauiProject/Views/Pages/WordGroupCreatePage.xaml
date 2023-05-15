@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
-             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels" 
+             xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.WordGroups" 
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
 
@@ -43,8 +43,8 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Discard" IconImageSource="{fonts:FontIcon Icon=ArrowGoBack}" Command="{Binding DiscardCommand}"/>
-        <ToolbarItem Text="Done" IconImageSource="{fonts:FontIcon Icon=Copy}" Command="{Binding SaveCommand}"/>
+        <ToolbarItem Text="Discard" IconImageSource="{fonts:FontIcon Icon=ArrowGoBack}" Command="{Binding Commands.OnDiscardCommand}"/>
+        <ToolbarItem Text="Done" IconImageSource="{fonts:FontIcon Icon=Copy}" Command="{Binding Commands.StorageOperation.SaveCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -57,18 +57,18 @@
                     <Label Text="Words" Style="{StaticResource TitleLable}"/>
                     <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
                         <controls:TextInputLine Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
-                        <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding OriginCopyCommand}"/>
-                        <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding OriginPasteCommand}"/>
+                        <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding Commands.CopyPaste.OriginCopyCommand}"/>
+                        <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding Commands.CopyPaste.OriginPasteCommand}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,auto,auto,auto" ColumnSpacing="5">
                         <controls:TextInputLine Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
-                        <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding TranslationCopyCommand}"/>
-                        <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding TranslationPasteCommand}"/>
-                        <ImageButton Grid.Column="3" Style="{StaticResource TranslateImageStyle}" Command="{Binding OriginTranslateCommand}"/>
+                        <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding Commands.CopyPaste.TranslationCopyCommand}"/>
+                        <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding Commands.CopyPaste.TranslationPasteCommand}"/>
+                        <ImageButton Grid.Column="3" Style="{StaticResource TranslateImageStyle}" Command="{Binding Commands.Translate.OriginTranslateCommand}"/>
                     </Grid>
 
 
-                    <Button Text="Add" Command="{Binding AddWordCommand}" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" />
+                    <Button Text="Add" Command="{Binding Commands.Collection.AddWordCommand}" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" />
                 </VerticalStackLayout>
             </Border>
 
@@ -87,7 +87,7 @@
                                 <ImageButton 
                                     Grid.RowSpan="2" Grid.Column="1"
                                     Style="{StaticResource DeleteImageStyle}"
-                                    Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=DeleteWordCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=Commands.Collection.DeleteWordCommand}"
                                     CommandParameter="{Binding .}"/>
                             </Grid>
                         </Border>

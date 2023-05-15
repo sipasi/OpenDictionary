@@ -1,7 +1,6 @@
 using Microsoft.Maui.Controls;
 
-
-using OpenDictionary.ViewModels;
+using OpenDictionary.ViewModels.WordGroups;
 
 namespace OpenDictionary.Views.Pages;
 

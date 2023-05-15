@@ -5,7 +5,7 @@
     
     xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
     
-    xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
+    xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.WordGroups"
     
     xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
     
