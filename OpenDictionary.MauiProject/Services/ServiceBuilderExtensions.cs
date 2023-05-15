@@ -1,27 +1,32 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
-
 
 using OpenDictionary.Databases;
 using OpenDictionary.DataTransfer;
 using OpenDictionary.DataTransfer.Json;
+using OpenDictionary.ExternalAppTranslation;
+using OpenDictionary.ExternalAppTranslation.GoogleServices;
 using OpenDictionary.Maui.Services;
 using OpenDictionary.MauiProject;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Services.ExternalAppTranslation;
 using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
 using OpenDictionary.ViewModels.Games;
 using OpenDictionary.ViewModels.Settings;
+using OpenDictionary.ViewModels.WordGroups;
 
 namespace OpenDictionary.Services;
 
@@ -34,47 +39,6 @@ internal static class ServiceCollectionExtensions
             nameof(FileData<object>.Data) => nameof(WordGroup.Words),
             _ => name
         };
-    }
-    private sealed class NavigationService : INavigationService
-    {
-        public NavigationService()
-        {
-            Shell.Current.Navigating += Navigating;
-        }
-
-        public Task GoToAsync(string route) => Shell.Current.GoToAsync(route);
-        public Task GoToAsync(string route, string parameter, string value) => Shell.Current.GoToAsync($"{route}?{parameter}={value}");
-        public Task GoBackAsync() => Shell.Current.GoToAsync("..");
-
-        private async void Navigating(object? sender, ShellNavigatingEventArgs e)
-        {
-            AppShell? shell = Shell.Current as AppShell;
-
-            if (shell is null)
-            {
-                return;
-            }
-
-            if (e.CanCancel is false)
-            {
-                return;
-            }
-
-            if (e.Source is not ShellNavigationSource.Pop)
-            {
-                return;
-            }
-
-
-            if (shell.CurrentPage is Views.Pages.WordGroupListPage)
-            { }
-            if (shell.CurrentPage is Views.Pages.SettingsPage)
-            {
-                e.Cancel();
-
-                shell.SetListPage();
-            }
-        }
     }
 
     public static IServiceCollection ConfigureOpenDictionary(this IServiceCollection services)
@@ -97,7 +61,8 @@ internal static class ServiceCollectionExtensions
             .ConfigureIO()
             .ConfigureOnlineDictionary()
             .ConfigureViewModels()
-            .ConfigureViews();
+            .ConfigureViews()
+            .ConfigureTranslator();
 
         services.Replace(new(typeof(INavigationService), typeof(NavigationService), ServiceLifetime.Singleton));
 
@@ -176,6 +141,17 @@ internal static class ServiceCollectionExtensions
             .AddTransient<Views.Pages.WordGroupCreatePage>()
             .AddTransient<Views.Pages.WordGroupDetailPage>()
             .AddTransient<Views.Pages.WordGroupListPage>();
+
+        return services;
+    }
+
+    private static IServiceCollection ConfigureTranslator(this IServiceCollection services)
+    {
+        services
+            .AddSingleton<ILauncher>(Launcher.Default)
+            .AddSingleton<IAppOrBrowserLauncher, AppOrBrowserLauncher>()
+            .AddSingleton<IExternalTranslator, GoogleExternalTranslator>()
+            .AddSingleton<ITranslatorUrlMaker, GoogleUriMaker>();
 
         return services;
     }
