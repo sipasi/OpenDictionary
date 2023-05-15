@@ -1,24 +1,16 @@
 ﻿
 using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.ApplicationModel.DataTransfer;
-using Microsoft.Maui.Devices;
-
-
-using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
-using OpenDictionary.Models;
+using OpenDictionary.ExternalAppTranslation;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.ViewModels.WordGroups.Commands;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.ViewModels.WordGroups;
 
 public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 {
@@ -27,20 +19,25 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     [ObservableProperty]
     private string? translation;
 
-    private readonly IDatabaseConnection<AppDatabaseContext> connection;
-    private readonly INavigationService navigation;
-    private readonly IToastMessageService toast;
+    [ObservableProperty]
+    private string? originCulture;
+    [ObservableProperty]
+    private string? translationCulture;
 
-    public WordGroupEditViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast)
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
+
+    public WordGroupEditCommands Commands { get; }
+
+    public WordGroupEditViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast, IExternalTranslator translator)
     {
         this.connection = connection;
-        this.navigation = navigation;
-        this.toast = toast;
+
+        Commands = new(this, connection, navigation, toast, translator);
 
         PropertyChanged += (_, __) =>
         {
-            AddWordCommand.NotifyCanExecuteChanged();
-            SaveCommand.NotifyCanExecuteChanged();
+            Commands.Collection.AddWordCommand.NotifyCanExecuteChanged();
+            Commands.StorageOperation.SaveCommand.NotifyCanExecuteChanged();
         };
     }
 
@@ -53,164 +50,12 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 
         Guid guid = Guid.Parse(Id);
 
-        using AppDatabaseContext context = connection.Open();
-
-        var name = context.WordGroups
+        var name = connection.Open(context => context.WordGroups
             .Where(entity => entity.Id == guid)
             .Select(entity => entity.Name)
-            .FirstOrDefault();
+            .FirstOrDefault()
+        );
 
         Name = name ?? throw new Exception();
-    }
-
-    [RelayCommand(CanExecute = nameof(ValidateCanAdd))]
-    private void AddWord()
-    {
-        Word word = new Word
-        {
-            Date = DateTime.Now,
-            Origin = origin!,
-            Translation = translation!
-        };
-
-        Origin = null;
-        Translation = null;
-
-        Words.Add(word);
-    }
-
-    [RelayCommand]
-    private void DeleteWord(Word word)
-    {
-        if (word is null)
-        {
-            return;
-        }
-
-        Words.Remove(word);
-    }
-
-    [RelayCommand(CanExecute = nameof(ValidateCanSave))]
-    private async Task Save()
-    {
-        await using AppDatabaseContext context = connection.Open();
-
-        if (string.IsNullOrWhiteSpace(Id))
-        {
-            WordGroup group = new WordGroup()
-            {
-                Date = DateTime.Now,
-                Name = Name!,
-                Words = Words.ToList()
-            };
-
-            await context.WordGroups.AddAsync(group);
-        }
-        else
-        {
-            var id = Guid.Parse(Id);
-
-            WordGroup group = (await context.WordGroups.GetById(id))!;
-
-            group.Name = Name;
-            group.Words = Words.ToList();
-
-            context.WordGroups.Update(group);
-        }
-
-        await context.SaveChangesAsync();
-
-        await navigation.GoBackAsync();
-    }
-
-    [RelayCommand]
-    private Task OnDiscard()
-    {
-        return navigation.GoBackAsync();
-    }
-
-
-    [RelayCommand]
-    private Task OriginCopy() => Copy(origin, toast);
-    [RelayCommand]
-    private Task OriginPaste() => Paste(text => Origin = text);
-
-    [RelayCommand]
-    private async Task OriginTranslate()
-    {
-        if (string.IsNullOrWhiteSpace(origin))
-        {
-            return;
-        }
-
-        string escaped = Uri.EscapeDataString(origin);
-
-        ILauncher launcher = Launcher.Default;
-
-        try
-        {
-            var url = new Uri($"https://translate.google.com/?sl=auto&tl=uk&text={escaped}&op=translate");
-
-            await launcher.OpenAsync(url);
-        }
-        catch (Exception e)
-        {
-            Debug.WriteLine(e.Message);
-        }
-    }
-
-    [RelayCommand]
-    private Task TranslationCopy() => Copy(translation, toast);
-    [RelayCommand]
-    private Task TranslationPaste() => Paste(text => Translation = text);
-
-    private static async Task Copy(string? text, IToastMessageService toast)
-    {
-        if (text is null)
-        {
-            return;
-        }
-
-        await Clipboard.Default.SetTextAsync(text);
-
-        TryVibrate();
-
-        await toast.Show("Text has been copied");
-    }
-
-    private static async Task Paste(Action<string> propertySet)
-    {
-        string? text = await Clipboard.Default.GetTextAsync();
-
-        if (text is null)
-        {
-            return;
-        }
-
-        propertySet.Invoke(text);
-
-        TryVibrate();
-    }
-
-    private static void TryVibrate()
-    {
-        var vibration = HapticFeedback.Default;
-
-        if (vibration.IsSupported is false)
-        {
-            return;
-        }
-
-        vibration.Perform(HapticFeedbackType.Click);
-    }
-
-    private bool ValidateCanAdd()
-    {
-        return string.IsNullOrWhiteSpace(origin) == false &&
-               string.IsNullOrWhiteSpace(translation) == false;
-    }
-    private bool ValidateCanSave()
-    {
-        return string.IsNullOrWhiteSpace(Name) == false;
     }
 }
