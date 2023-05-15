@@ -13,7 +13,7 @@ using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels.Helpers;
 
-namespace OpenDictionary.ViewModels;
+namespace OpenDictionary.ViewModels.WordGroups;
 
 public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
 {
@@ -78,7 +78,6 @@ public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
     [RelayCommand]
     private async Task Delete()
     {
-
         Guid guid = Guid.Parse(Id!);
 
         DialogResult result = await EntityDeleteDialog.Show(dialog);
