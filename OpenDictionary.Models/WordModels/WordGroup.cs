@@ -11,5 +11,8 @@ public class WordGroup : IEntity
 
     public string Name { get; set; }
 
+    public string OriginCulture { get; set; }
+    public string TranslationCulture { get; set; }
+
     public ICollection<Word> Words { get; set; }
 }

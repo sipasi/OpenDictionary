@@ -12,5 +12,8 @@ public class WordGroupInfo
 
     public string? Name { get; set; }
 
+    public string? OriginCulture { get; set; }
+    public string? TranslationCulture { get; set; }
+
     public int? Count { get; set; }
 }
