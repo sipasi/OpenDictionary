@@ -1,9 +1,14 @@
 ﻿
 using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
+
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Maui.Platform;
 
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
@@ -33,32 +38,43 @@ public sealed class WordGroupStorageCommands
     {
         await using AppDatabaseContext context = connection.Open();
 
+        WordGroup group = new()
+        {
+            Date = DateTime.Now,
+            Name = viewModel.Name?.Trim()!,
+            OriginCulture = viewModel.OriginCulture?.Trim()!,
+            TranslationCulture = viewModel.TranslationCulture?.Trim()!,
+            Words = viewModel.Words.ToList()
+        };
+
         if (string.IsNullOrWhiteSpace(viewModel.Id))
         {
-            WordGroup group = new WordGroup()
-            {
-                Date = DateTime.Now,
-                Name = viewModel.Name!,
-                Words = viewModel.Words.ToList()
-            };
-
             await context.WordGroups.AddAsync(group);
         }
         else
         {
-            var id = Guid.Parse(viewModel.Id);
-
-            WordGroup group = (await context.WordGroups.GetById(id))!;
-
-            group.Name = viewModel.Name!;
-            group.Words = viewModel.Words.ToList();
+            group.Id = Guid.Parse(viewModel.Id);
 
             context.WordGroups.Update(group);
         }
-        await context.SaveChangesAsync();
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e.Message);
+        }
+
 
         await navigation.GoBackAsync();
     }
 
-    private bool ValidateCanSave() => string.IsNullOrWhiteSpace(viewModel.Name) == false;
+    private bool ValidateCanSave() =>
+        IsValideString(viewModel.Name) &&
+        IsValideString(viewModel.OriginCulture) &&
+        IsValideString(viewModel.TranslationCulture);
+
+    private static bool IsValideString(string? text) => string.IsNullOrWhiteSpace(text) is false;
 }
