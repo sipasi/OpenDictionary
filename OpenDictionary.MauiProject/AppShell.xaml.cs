@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
 
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.Services.Themes;
@@ -33,6 +34,8 @@ public partial class AppShell : Shell
 
     private void AppShell_Loaded(object? sender, System.EventArgs e)
     {
+        App.Current!.UserAppTheme = AppTheme.Dark;
+
         ApplicationTheme.SetLastTheme();
     }
 }
