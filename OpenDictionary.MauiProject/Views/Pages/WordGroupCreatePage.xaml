@@ -8,6 +8,8 @@
 
              xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
              
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             
              x:DataType="viewModels:WordGroupEditViewModel"
              
              Shell.TabBarIsVisible="False"
@@ -47,40 +49,55 @@
         <ToolbarItem Text="Done" IconImageSource="{fonts:FontIcon Icon=Copy}" Command="{Binding Commands.StorageOperation.SaveCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
-        <Grid RowDefinitions="auto,*">
-            <Border Padding="20">
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Name" Style="{StaticResource TitleLable}"/>
-                    <controls:TextInputLine Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
+    <Grid>
+        <Border Padding="20" VerticalOptions="Start" IsVisible="{Binding State.IsEditInfo}">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Name" Style="{StaticResource TitleLable}"/>
+                <controls:TextInputLine Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
 
-                    <Label Text="Words" Style="{StaticResource TitleLable}"/>
+                <Label Text="Origin Culture" Style="{StaticResource TitleLable}"/>
+                <controls:TextInputLine Text="{Binding OriginCulture,Mode=TwoWay}" Placeholder="Enter name"/>
+
+                <Label Text="Translation Culture" Style="{StaticResource TitleLable}"/>
+                <controls:TextInputLine Text="{Binding TranslationCulture,Mode=TwoWay}" Placeholder="Enter name"/>
+
+                <Button Text="Add words" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" 
+                        Command="{Binding State.ChangeStateCommand}"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Grid RowDefinitions="auto,*" IsVisible="{Binding State.IsAddWords}">
+            <Border Grid.Row="0">
+                <VerticalStackLayout Spacing="10">
                     <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
-                        <controls:TextInputLine Text="{Binding Origin, Mode=TwoWay}" Placeholder="Enter word"/>
+                        <controls:TextInputLine Text="{Binding Origin, Mode=TwoWay}" Placeholder="origin"/>
                         <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding Commands.CopyPaste.OriginCopyCommand}"/>
                         <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding Commands.CopyPaste.OriginPasteCommand}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,auto,auto,auto" ColumnSpacing="5">
-                        <controls:TextInputLine Text="{Binding Translation, Mode=TwoWay}" Placeholder="Enter translation"/>
+                        <controls:TextInputLine Text="{Binding Translation, Mode=TwoWay}" Placeholder="translation"/>
                         <ImageButton Grid.Column="1" Style="{StaticResource CopyImageStyle}" Command="{Binding Commands.CopyPaste.TranslationCopyCommand}"/>
                         <ImageButton Grid.Column="2" Style="{StaticResource PasteImageStyle}" Command="{Binding Commands.CopyPaste.TranslationPasteCommand}"/>
                         <ImageButton Grid.Column="3" Style="{StaticResource TranslateImageStyle}" Command="{Binding Commands.Translate.OriginTranslateCommand}"/>
                     </Grid>
 
+                    <Grid ColumnDefinitions="*,2*" ColumnSpacing="10">
+                        <Button Grid.Column="0" Text="Edit info" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0"
+                                Command="{Binding State.ChangeStateCommand}"/>
 
-                    <Button Text="Add" Command="{Binding Commands.Collection.AddWordCommand}" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" />
+                        <Button Grid.Column="1" Text="Add" Command="{Binding Commands.Collection.AddWordCommand}" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" />
+                    </Grid>
                 </VerticalStackLayout>
             </Border>
 
-            <CollectionView Grid.Row="1"
-                            ItemsSource="{Binding Words}" 
+            <CollectionView ItemsSource="{Binding Words}" Grid.Row="1"
                             SelectionMode="None" VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="20" Margin="0,5,0,0">
+                        <Border Padding="10" Margin="0,5,0,0">
                             <Grid RowDefinitions="*,*" ColumnDefinitions="*,auto" x:DataType="models:Word">
                                 <Label Grid.Row="0" Text="{Binding Origin}"/>
                                 <Label Grid.Row="1" Text="{Binding Translation}"/>
@@ -94,16 +111,19 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
+                <CollectionView.Header>
+                    <Label Text="Add new words" Style="{StaticResource TitleLable}" 
+                           HorizontalTextAlignment="Center" FontSize="24" Padding="0,20,0,0"/>
+                </CollectionView.Header>
                 <CollectionView.Footer>
                     <VerticalStackLayout HeightRequest="5"/>
                 </CollectionView.Footer>
 
                 <CollectionView.EmptyView>
                     <Label Text="Add your first word" TextColor="{DynamicResource Primary}" 
-                           FontAttributes="Bold" FontSize="Title" 
-                           VerticalOptions="Center" HorizontalOptions="Center"/>
+                           FontAttributes="Bold" />
                 </CollectionView.EmptyView>
             </CollectionView>
         </Grid>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>

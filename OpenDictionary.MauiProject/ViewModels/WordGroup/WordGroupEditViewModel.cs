@@ -26,11 +26,17 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 
     private readonly IDatabaseConnection<AppDatabaseContext> connection;
 
+    public WordGroupEditState State { get; }
+
     public WordGroupEditCommands Commands { get; }
 
     public WordGroupEditViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast, IExternalTranslator translator)
     {
         this.connection = connection;
+
+        State = new();
+
+        State.AsEditInfo();
 
         Commands = new(this, connection, navigation, toast, translator);
 
@@ -45,17 +51,24 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
     {
         if (string.IsNullOrWhiteSpace(Id))
         {
+            State.AsEditInfo();
+
             return;
         }
 
         Guid guid = Guid.Parse(Id);
 
-        var name = connection.Open(context => context.WordGroups
-            .Where(entity => entity.Id == guid)
-            .Select(entity => entity.Name)
-            .FirstOrDefault()
-        );
+        var group = connection.Open(context => context.WordGroups.FirstOrDefault(entity => entity.Id == guid));
 
-        Name = name ?? throw new Exception();
+        if (group == null)
+        {
+            return;
+        }
+
+        State.AsAddWords();
+
+        Name = group.Name;
+        OriginCulture = group.OriginCulture;
+        TranslationCulture = group.TranslationCulture;
     }
 }
