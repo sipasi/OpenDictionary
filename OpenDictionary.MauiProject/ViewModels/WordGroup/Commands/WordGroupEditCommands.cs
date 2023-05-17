@@ -8,7 +8,7 @@ using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels.WordGroups.Commands;
- 
+
 public sealed class WordGroupEditCommands
 {
     private readonly INavigationService navigation;

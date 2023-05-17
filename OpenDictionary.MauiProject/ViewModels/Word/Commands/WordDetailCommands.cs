@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using Microsoft.EntityFrameworkCore;
 
 namespace OpenDictionary.ViewModels.Words.Commands;
 

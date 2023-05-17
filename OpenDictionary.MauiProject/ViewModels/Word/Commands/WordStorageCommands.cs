@@ -1,14 +1,16 @@
 ﻿#nullable enable
 
+using System;
+using System.Threading.Tasks;
+
 using CommunityToolkit.Mvvm.Input;
+
+using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Messages.Dialogs;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels.Helpers;
-using System.Threading.Tasks;
-using System;
-using OpenDictionary.Collections.Storages.Extensions;
 
 namespace OpenDictionary.ViewModels.Words.Commands;
 

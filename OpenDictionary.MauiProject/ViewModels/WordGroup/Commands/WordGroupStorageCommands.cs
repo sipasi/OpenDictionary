@@ -1,16 +1,11 @@
 ﻿
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Maui.Platform;
-
-using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Services.Navigations;

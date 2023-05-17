@@ -1,11 +1,11 @@
 ﻿#nullable enable
 
+using System.Threading.Tasks;
+
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.RemoteDictionaries.Sources;
-
-using System.Threading.Tasks;
 
 namespace OpenDictionary.ViewModels.Words.Commands;
 

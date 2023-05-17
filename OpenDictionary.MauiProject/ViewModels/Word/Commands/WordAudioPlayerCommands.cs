@@ -1,10 +1,12 @@
 ﻿#nullable enable
 
-using CommunityToolkit.Mvvm.Input;
-using OpenDictionary.Services.Audio;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System;
+
+using CommunityToolkit.Mvvm.Input;
+
+using OpenDictionary.Services.Audio;
 
 namespace OpenDictionary.ViewModels.Words.Commands;
 

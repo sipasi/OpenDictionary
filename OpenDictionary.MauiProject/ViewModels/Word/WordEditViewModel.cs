@@ -1,18 +1,14 @@
 ﻿#nullable enable
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
-
-using Microsoft.EntityFrameworkCore;
 
 
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
-using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
