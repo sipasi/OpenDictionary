@@ -8,11 +8,10 @@ using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.ViewModels.WordGroups.Commands;
-
+ 
 public sealed class WordGroupEditCommands
 {
     private readonly INavigationService navigation;
-    private readonly IExternalTranslator translator;
 
     public WordGroupCollectionCommands Collection { get; }
     public WordGroupCopyPasteCommands CopyPaste { get; }
@@ -27,7 +26,6 @@ public sealed class WordGroupEditCommands
         INavigationService navigation, IToastMessageService toast, IExternalTranslator translator)
     {
         this.navigation = navigation;
-        this.translator = translator;
         Collection = new(viewModel);
         CopyPaste = new(viewModel, toast);
         StorageOperation = new(viewModel, connection, navigation);
