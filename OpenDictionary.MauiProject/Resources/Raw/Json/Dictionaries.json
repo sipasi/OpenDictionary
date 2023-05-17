@@ -1,6 +1,8 @@
 [
   {
     "Name": "Rest and Leisure",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "holiday",
@@ -242,6 +244,8 @@
   },
   {
     "Name": "Human body",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "body",
@@ -611,6 +615,8 @@
   },
   {
     "Name": "Appearance",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "appearance",
@@ -784,6 +790,8 @@
   },
   {
     "Name": "Family",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "mother",
@@ -1049,6 +1057,8 @@
   },
   {
     "Name": "Weather",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "weather",
@@ -1154,6 +1164,8 @@
   },
   {
     "Name": "Character",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "main characterictic",
@@ -1291,6 +1303,8 @@
   },
   {
     "Name": "Feelings and Mood",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "feeling",
@@ -1360,6 +1374,8 @@
   },
   {
     "Name": "Clothes",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "clothes",
@@ -1469,6 +1485,8 @@
   },
   {
     "Name": "My Hobby and Free time",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "collect",
@@ -1666,6 +1684,8 @@
   },
   {
     "Name": "Nature",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "nature",
@@ -1799,6 +1819,8 @@
   },
   {
     "Name": "Home",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "home",
@@ -1888,6 +1910,8 @@
   },
   {
     "Name": "Top English Words",
+    "OriginCulture": "en",
+    "TranslationCulture": "uk",
     "Words": [
       {
         "Origin": "opinion",
