@@ -24,7 +24,12 @@ internal sealed class NavigationService : INavigationService
             return;
         }
 
-        if (e is { CanCancel: false, Source: not ShellNavigationSource.Pop })
+        if (e.CanCancel is false)
+        {
+            return;
+        }
+
+        if (e.Source is not ShellNavigationSource.Pop)
         {
             return;
         }
