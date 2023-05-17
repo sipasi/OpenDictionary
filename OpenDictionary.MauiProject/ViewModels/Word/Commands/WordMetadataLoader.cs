@@ -9,8 +9,19 @@ using System.Threading.Tasks;
 
 namespace OpenDictionary.ViewModels.Words.Commands;
 
-internal sealed class WordMetadataLoader(WordDetailViewModel viewModel, IDictionarySource source, IDatabaseConnection<AppDatabaseContext> connection)
+internal sealed class WordMetadataLoader
 {
+    private readonly WordDetailViewModel viewModel;
+    private readonly IDictionarySource source;
+    private readonly IDatabaseConnection<AppDatabaseContext> connection;
+
+    public WordMetadataLoader(WordDetailViewModel viewModel, IDictionarySource source, IDatabaseConnection<AppDatabaseContext> connection)
+    {
+        this.viewModel = viewModel;
+        this.source = source;
+        this.connection = connection;
+    }
+
     public async Task Load()
     {
         if (string.IsNullOrWhiteSpace(viewModel.Word.Origin))

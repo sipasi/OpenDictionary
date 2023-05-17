@@ -7,8 +7,12 @@ using OpenDictionary.ExternalAppTranslation;
 
 namespace OpenDictionary.Services.ExternalAppTranslation;
 
-internal sealed class AppOrBrowserLauncher(ILauncher launcher) : IAppOrBrowserLauncher
+internal sealed class AppOrBrowserLauncher : IAppOrBrowserLauncher
 {
+    private readonly ILauncher launcher;
+
+    public AppOrBrowserLauncher(ILauncher launcher) => this.launcher = launcher;
+
     public async ValueTask OpenAsync(Uri uri)
     {
         await launcher.OpenAsync(uri);
