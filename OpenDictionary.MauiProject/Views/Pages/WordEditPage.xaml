@@ -8,6 +8,8 @@
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
              
              x:DataType="viewModels:WordEditViewModel"
+    
+             Shell.TabBarIsVisible="False"
              
              Title="{Binding Word.Origin}" 
              
