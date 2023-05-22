@@ -6,8 +6,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 using OpenDictionary.Databases;
 using OpenDictionary.ExternalAppTranslation;
+using OpenDictionary.Services.Globalization;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
+using OpenDictionary.ViewModels.Shared;
 using OpenDictionary.ViewModels.WordGroups.Commands;
 
 namespace OpenDictionary.ViewModels.WordGroups;
@@ -28,11 +30,17 @@ public sealed partial class WordGroupEditViewModel : WordGroupViewModel
 
     public WordGroupEditState State { get; }
 
+    public CultureInfoViewModel CultureInfo { get; }
+
     public WordGroupEditCommands Commands { get; }
 
-    public WordGroupEditViewModel(IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation, IToastMessageService toast, IExternalTranslator translator)
+    public WordGroupEditViewModel(
+        IDatabaseConnection<AppDatabaseContext> connection, INavigationService navigation,
+        IToastMessageService toast, IExternalTranslator translator, ICultureInfoService cultureService)
     {
         this.connection = connection;
+
+        CultureInfo = new(cultureService);
 
         State = new();
 

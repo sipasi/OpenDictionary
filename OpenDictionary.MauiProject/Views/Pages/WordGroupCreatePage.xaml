@@ -28,19 +28,16 @@
         </Style>
 
         <Style x:Key="CopyImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
-            <Setter Property="Source">
-                <fonts:FontIconExtension Icon="Copy" Color="{DynamicResource Primary}" Size="32"/>
-            </Setter>
+            <Setter Property="Source"
+                    Value="{fonts:FontIcon Icon=Copy, Color={DynamicResource Primary},Size=32}"/>
         </Style>
         <Style x:Key="PasteImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
-            <Setter Property="Source">
-                <fonts:FontIconExtension Icon="Paste" Color="{DynamicResource Primary}" Size="32"/>
-            </Setter>
+            <Setter Property="Source"
+                    Value="{fonts:FontIcon Icon=Paste, Color={DynamicResource Primary},Size=32}"/>
         </Style>
         <Style x:Key="TranslateImageStyle" BasedOn="{StaticResource ImageButtonBase}" TargetType="ImageButton">
-            <Setter Property="Source">
-                <fonts:FontIconExtension Icon="DarkMode" Color="{DynamicResource Primary}" Size="32"/>
-            </Setter>
+            <Setter Property="Source" 
+                    Value="{fonts:FontIcon Icon=Translate, Color={DynamicResource Primary},Size=32}"/>
         </Style>
     </ContentPage.Resources>
 
@@ -56,10 +53,19 @@
                 <controls:TextInputLine Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
 
                 <Label Text="Origin Culture" Style="{StaticResource TitleLable}"/>
-                <controls:TextInputLine Text="{Binding OriginCulture,Mode=TwoWay}" Placeholder="Enter name"/>
+                <Picker ItemsSource="{Binding CultureInfo.Cultures}"
+                        SelectedItem="{Binding CultureInfo.Origin}" 
+                        ItemDisplayBinding="{Binding DisplayName}"
+                        TextColor="{DynamicResource Primary}"
+                        SelectedIndexChanged="OriginCultureChanged"/>
 
                 <Label Text="Translation Culture" Style="{StaticResource TitleLable}"/>
-                <controls:TextInputLine Text="{Binding TranslationCulture,Mode=TwoWay}" Placeholder="Enter name"/>
+
+                <Picker ItemsSource="{Binding CultureInfo.Cultures}" 
+                        SelectedItem="{Binding CultureInfo.Translation}" 
+                        ItemDisplayBinding="{Binding DisplayName}"
+                        TextColor="{DynamicResource Primary}"
+                        SelectedIndexChanged="TranslationCultureChanged"/>
 
                 <Button Text="Add words" Style="{x:StaticResource ButtonOutline}" Margin="0,10,0,0" 
                         Command="{Binding State.ChangeStateCommand}"/>

@@ -49,6 +49,25 @@
                     </FlexLayout>
                 </VerticalStackLayout>
             </Border>
+            <Border Padding="20">
+                <VerticalStackLayout>
+                    <Label Text="Default Languages"/>
+
+                    <Grid ColumnDefinitions="*,auto,*" ColumnSpacing="10">
+                        <Picker x:Name="originPicker" Grid.Column="0" TextColor="{DynamicResource Primary}"  
+                                ItemsSource="{Binding CultureInfo.Cultures}" 
+                                ItemDisplayBinding="{Binding DisplayName}" 
+                                SelectedIndexChanged="OriginCultureChanged"/>
+
+                        <Label  Grid.Column="1" Text="to"/>
+
+                        <Picker x:Name="translationPicker" Grid.Column="2" TextColor="{DynamicResource Primary}"  
+                                ItemsSource="{Binding CultureInfo.Cultures}" 
+                                ItemDisplayBinding="{Binding DisplayName}" 
+                                SelectedIndexChanged="TranslationCultureChanged" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
 
             <Border Padding="20">
                 <VerticalStackLayout>
