@@ -8,4 +8,10 @@ public static class PreferencesKeys
     {
         public static string UserAppTheme => "UserAppTheme";
     }
+
+    public static class CultureInfo
+    {
+        public static string PreferOrigin => nameof(PreferOrigin);
+        public static string PreferTranslation => nameof(PreferTranslation);
+    }
 }
