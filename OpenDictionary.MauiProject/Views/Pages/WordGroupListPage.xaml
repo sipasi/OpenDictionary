@@ -37,7 +37,8 @@
         <ToolbarItem Text="New" IconImageSource="{fonts:FontIcon Icon=AddNewEntity}" Command="{Binding RedirectToCreateCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}">
+    <RefreshView Command="{Binding Groups.LoadCommand}" IsRefreshing="{Binding Groups.IsBusy, Mode=TwoWay}" 
+                 BackgroundColor="{DynamicResource Background}" RefreshColor="{DynamicResource Primary}">
         <CollectionView ItemsSource="{Binding Groups.Collection}" Style="{StaticResource WordGroupInfoCollection}"/>
     </RefreshView>
 </ContentPage>
