@@ -17,6 +17,7 @@ using OpenDictionary.RemoteDictionaries.Parsers;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.ExternalAppTranslation;
+using OpenDictionary.Services.Globalization;
 using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.ViewModels;
@@ -59,7 +60,8 @@ internal static class ServiceCollectionExtensions
             .ConfigureOnlineDictionary()
             .ConfigureViewModels()
             .ConfigureViews()
-            .ConfigureTranslator();
+            .ConfigureTranslator()
+            .ConfigureGlobalization();
 
         services.Replace(new(typeof(INavigationService), typeof(NavigationService), ServiceLifetime.Singleton));
 
@@ -149,6 +151,13 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<IAppOrBrowserLauncher, AppOrBrowserLauncher>()
             .AddSingleton<IExternalTranslator, GoogleExternalTranslator>()
             .AddSingleton<ITranslatorUrlMaker, GoogleUriMaker>();
+
+        return services;
+    }
+
+    private static IServiceCollection ConfigureGlobalization(this IServiceCollection services)
+    {
+        services.AddSingleton<ICultureInfoService, CultureService>();
 
         return services;
     }
