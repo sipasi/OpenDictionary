@@ -9,7 +9,7 @@ public sealed class RemixIconAsset : IIconAsset
     public string Edit => RemixIconAlias.EditLine;
     public string DeleteBin => RemixIconAlias.DeleteBinLine;
     public string AddNewEntity => RemixIconAlias.FileAddLine;
-    public string Gamepad => RemixIconAlias.GameLine;
+    public string Gamepad => RemixIconAlias.GamepadLine;
     public string Settings => RemixIconAlias.SettingsLine;
 
     public string Copy => RemixIconAlias.FileCopyLine;
