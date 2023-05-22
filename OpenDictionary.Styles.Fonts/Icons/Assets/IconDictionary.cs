@@ -29,6 +29,7 @@ public static class IconDictionary
             FontIcon.CheckboxIndeterminateCircle => asset.CheckboxIndeterminateCircle,
             FontIcon.CheckboxBlankCircle => asset.CheckboxBlankCircle,
             FontIcon.CheckboxCircle => asset.CheckboxCircle,
+            FontIcon.Translate => asset.Translate,
 
             _ => throw new NotImplementedException($"{typeof(IconDictionary).FullName}"),
         };

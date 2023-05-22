@@ -1,7 +1,12 @@
-﻿namespace OpenDictionary.Styles.Fonts.Icons;
+﻿using OpenDictionary.CodeAnalysis;
 
+namespace OpenDictionary.Styles.Fonts.Icons;
+
+[EnumToInterface(InterfaceName = "IIconAsset")]
 public enum FontIcon
 {
+    FontFamily,
+
     Edit,
     DeleteBin,
     AddNewEntity,
@@ -32,4 +37,6 @@ public enum FontIcon
     CheckboxIndeterminateCircle,
     CheckboxBlankCircle,
     CheckboxCircle,
+
+    Translate,
 }

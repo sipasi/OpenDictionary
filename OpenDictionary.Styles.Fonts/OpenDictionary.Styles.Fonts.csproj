@@ -8,4 +8,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\OpenDictionary.CodeAnalysis.EnumToInterface\OpenDictionary.CodeAnalysis.EnumToInterface.csproj"
+						  OutputItemType="Analyzer"
+						  ReferenceOutputAssembly="false" />
+	</ItemGroup>
 </Project>

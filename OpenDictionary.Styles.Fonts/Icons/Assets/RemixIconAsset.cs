@@ -6,34 +6,36 @@ public sealed class RemixIconAsset : IIconAsset
     public const string Alias = nameof(RemixIconAsset);
     public string FontFamily => Alias;
 
-    public string Edit => "\uec80";
-    public string DeleteBin => "\uec24";
-    public string AddNewEntity => "\uea12";
-    public string Gamepad => "\uedab";
-    public string Settings => "\uf0e6";
+    public string Edit => RemixIconAlias.EditLine;
+    public string DeleteBin => RemixIconAlias.DeleteBinLine;
+    public string AddNewEntity => RemixIconAlias.FileAddLine;
+    public string Gamepad => RemixIconAlias.GameLine;
+    public string Settings => RemixIconAlias.SettingsLine;
 
-    public string Copy => "\uecd3";
-    public string Paste => "\ueb91";
+    public string Copy => RemixIconAlias.FileCopyLine;
+    public string Paste => RemixIconAlias.ClipboardLine;
 
-    public string Save => "\uf0b3";
+    public string Save => RemixIconAlias.SaveLine;
 
-    public string DarkMode => "\uef75";
-    public string LightMode => "\uf1bf";
+    public string DarkMode => RemixIconAlias.MoonClearLine;
+    public string LightMode => RemixIconAlias.SunLine;
 
-    public string Download => "\uec54";
-    public string Upload => "\uf24a";
+    public string Download => RemixIconAlias.Download2Line;
+    public string Upload => RemixIconAlias.Upload2Line;
 
-    public string PreinstalledDictionaries => "\uee68";
-    public string DeleteAllDictionaries => "\uf246";
+    public string PreinstalledDictionaries => RemixIconAlias.InstallLine;
+    public string DeleteAllDictionaries => RemixIconAlias.UninstallLine;
 
-    public string Play => "\uf009";
+    public string Play => RemixIconAlias.PlayLine;
 
-    public string ArrowGoBack => "\uea58";
+    public string ArrowGoBack => RemixIconAlias.ArrowGoBackLine;
 
-    public string Cloud => "\ueb9f";
-    public string CloudDone => "\ueb9d";
+    public string Cloud => RemixIconAlias.CloudOffLine;
+    public string CloudDone => RemixIconAlias.CloudLine;
 
-    public string CheckboxIndeterminateCircle => "\uee57";
-    public string CheckboxBlankCircle => "\ueb7d";
-    public string CheckboxCircle => "\ueb81";
+    public string CheckboxIndeterminateCircle => RemixIconAlias.IndeterminateCircleLine;
+    public string CheckboxBlankCircle => RemixIconAlias.CheckboxBlankCircleLine;
+    public string CheckboxCircle => RemixIconAlias.CheckboxCircleLine;
+
+    public string Translate => RemixIconAlias.Translate;
 }
