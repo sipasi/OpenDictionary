@@ -7,15 +7,19 @@ namespace OpenDictionary.Views.Controls;
 
 public partial class TileView : Border
 {
-    public static readonly BindableProperty TitleProperty = BindableBuilder.Create<TileView, string>(nameof(Title))
-        .WithPropertyChanged<TileView, string>(OnTitlePropertyChanged);
-    public static readonly BindableProperty SubTitleProperty = BindableBuilder.Create<TileView, string>(nameof(SubTitle))
-        .WithPropertyChanged<TileView, string>(OnSubTitlePropertyChanged);
+    public static readonly BindableProperty TitleProperty = BindableBuilder.Create<TileView, string>()
+        .WithName(nameof(Title))
+        .WithPropertyChanged(static (view, _, current) => view.title.Text = current);
+    public static readonly BindableProperty SubTitleProperty = BindableBuilder.Create<TileView, string>()
+        .WithName(nameof(SubTitle))
+        .WithPropertyChanged<TileView, string>(static (view, _, current) => view.sub.Text = current);
 
-    public static readonly BindableProperty TitleColorProperty = BindableBuilder.Create<TileView, Color>(nameof(TitleColor))
-        .WithPropertyChanged<TileView, Color>(OnTitleColorPropertyChanged);
-    public static readonly BindableProperty SubTitleColorProperty = BindableBuilder.Create<TileView, Color>(nameof(SubTitleColor))
-        .WithPropertyChanged<TileView, Color>(OnSubTitleColorPropertyChanged);
+    public static readonly BindableProperty TitleColorProperty = BindableBuilder.Create<TileView, Color>()
+        .WithName(nameof(TitleColor))
+        .WithPropertyChanged(static (view, _, current) => view.title.TextColor = current);
+    public static readonly BindableProperty SubTitleColorProperty = BindableBuilder.Create<TileView, Color>()
+        .WithName(nameof(SubTitleColor))
+        .WithPropertyChanged(static (view, _, current) => view.sub.TextColor = current);
 
     public static readonly BindableProperty TapProperty = BindableBuilder.Create<TileView, ICommand>(nameof(Tap));
     public static readonly BindableProperty LongPressProperty = BindableBuilder.Create<TileView, ICommand>(nameof(LongPress));
@@ -64,23 +68,5 @@ public partial class TileView : Border
     public TileView()
     {
         InitializeComponent();
-    }
-
-    private static void OnTitlePropertyChanged(TileView view, string old, string current)
-    {
-        view.title.Text = current;
-    }
-    private static void OnSubTitlePropertyChanged(TileView view, string old, string current)
-    {
-        view.sub.Text = current;
-    }
-
-    private static void OnTitleColorPropertyChanged(TileView view, Color old, Color current)
-    {
-        view.title.TextColor = current;
-    }
-    private static void OnSubTitleColorPropertyChanged(TileView view, Color old, Color current)
-    {
-        view.sub.TextColor = current;
     }
 }
