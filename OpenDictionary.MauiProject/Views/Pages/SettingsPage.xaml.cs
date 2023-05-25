@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Globalization;
 
-using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
@@ -23,15 +21,6 @@ public partial class SettingsPage : ContentPage
 
         originPicker.SelectedItem = cultureService.PreferOrigin;
         translationPicker.SelectedItem = cultureService.PreferTranslation;
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-
-        IList<IView> container = radioGroup;
-
-        viewModel.AppTheme.UpdateRadioButtonsCommand.Execute(container);
     }
 
     private void OriginCultureChanged(object sender, System.EventArgs e)
