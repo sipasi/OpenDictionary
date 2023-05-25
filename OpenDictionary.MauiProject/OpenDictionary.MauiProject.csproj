@@ -168,6 +168,7 @@
 		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Controls.Chips\OpenDictionary.Controls.Chips.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Controls.Layouts\OpenDictionary.Controls.Layouts.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Controls.Popups\OpenDictionary.Controls.Popups.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Controls.Tiles\OpenDictionary.Controls.Tiles.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
 		<ProjectReference Include="..\OpenDictionary.DataTransfer.Maui\OpenDictionary.DataTransfer.Maui.csproj" />
@@ -184,7 +185,6 @@
 		<ProjectReference Include="..\OpenDictionary.Styles\OpenDictionary.Styles.csproj" />
 		<ProjectReference Include="..\OpenDictionary.ViewModels\OpenDictionary.ViewModels.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Views.Controls\OpenDictionary.Views.Controls.csproj" />
-		<ProjectReference Include="..\OpenDictionary.Views.Popups\OpenDictionary.Views.Popups.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,6 +1,4 @@
-﻿using System;
-
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 
 using static Microsoft.Maui.Controls.BindableProperty;
 

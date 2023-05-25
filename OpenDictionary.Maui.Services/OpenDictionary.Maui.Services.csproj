@@ -48,10 +48,11 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+		<PackageReference Include="Mopups" Version="1.1.1" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\OpenDictionary.Controls.Popups\OpenDictionary.Controls.Popups.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Services\OpenDictionary.Services.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Styles.Themes\OpenDictionary.Styles.Themes.csproj" />
-		<ProjectReference Include="..\OpenDictionary.Views.Popups\OpenDictionary.Views.Popups.csproj" />
 	</ItemGroup>
 </Project>
