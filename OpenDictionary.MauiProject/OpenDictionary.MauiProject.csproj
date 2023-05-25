@@ -166,6 +166,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Framework.States\Framework.States.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Collections\OpenDictionary.Collections.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Controls.Chips\OpenDictionary.Controls.Chips.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Controls.Layouts\OpenDictionary.Controls.Layouts.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
 		<ProjectReference Include="..\OpenDictionary.DataTransfer.Maui\OpenDictionary.DataTransfer.Maui.csproj" />
 		<ProjectReference Include="..\OpenDictionary.DataTransfer\OpenDictionary.DataTransfer.csproj" />
