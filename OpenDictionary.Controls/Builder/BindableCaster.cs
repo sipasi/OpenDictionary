@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 
-namespace OpenDictionary.Views.Controls;
+namespace OpenDictionary.Controls;
 
 public static class BindableCaster
 {

@@ -1,8 +1,10 @@
-﻿using Microsoft.Maui.Controls;
+﻿using System;
+
+using Microsoft.Maui.Controls;
 
 using static Microsoft.Maui.Controls.BindableProperty;
 
-namespace OpenDictionary.Views.Controls;
+namespace OpenDictionary.Controls;
 
 public class Context<TDeclare, TValue>
 {

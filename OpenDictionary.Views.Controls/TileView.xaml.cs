@@ -3,6 +3,8 @@ using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 
+using OpenDictionary.Controls;
+
 namespace OpenDictionary.Views.Controls;
 
 public partial class TileView : Border

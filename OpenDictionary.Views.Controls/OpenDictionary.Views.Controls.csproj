@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\OpenDictionary.Controls\OpenDictionary.Controls.csproj" />
 	  <ProjectReference Include="..\OpenDictionary.Styles\OpenDictionary.Styles.csproj" />
 	</ItemGroup>
 

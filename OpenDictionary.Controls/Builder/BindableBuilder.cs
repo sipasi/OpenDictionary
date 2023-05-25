@@ -2,7 +2,7 @@
 
 using static Microsoft.Maui.Controls.BindableProperty;
 
-namespace OpenDictionary.Views.Controls;
+namespace OpenDictionary.Controls;
 
 public static class BindableBuilder
 {
@@ -28,18 +28,6 @@ public static class BindableBuilder
 
         return context;
     }
-    public static Context<TDeclare, TValue> WithPropertyChanged<TDeclare, TValue>(this Context<TDeclare, TValue> context, BindingPropertyChangedDelegate value)
-    {
-        context.propertyChanged = value;
-
-        return context;
-    }
-    public static Context<TDeclare, TValue> WithPropertyChanging<TDeclare, TValue>(this Context<TDeclare, TValue> context, BindingPropertyChangingDelegate value)
-    {
-        context.propertyChanging = value;
-
-        return context;
-    }
     public static Context<TDeclare, TValue> WithPropertyChanged<TDeclare, TValue>(this Context<TDeclare, TValue> context, Context<TDeclare, TValue>.PropertyChanged value)
         where TDeclare : BindableObject
     {
@@ -55,7 +43,7 @@ public static class BindableBuilder
 
         return context;
     }
-    public static Context<TDeclare, TValue> WithPropertyChangingd<TDeclare, TValue>(this Context<TDeclare, TValue> context, Context<TDeclare, TValue>.PropertyChanged value)
+    public static Context<TDeclare, TValue> WithPropertyChanging<TDeclare, TValue>(this Context<TDeclare, TValue> context, Context<TDeclare, TValue>.PropertyChanged value)
         where TDeclare : BindableObject
     {
         context.propertyChanging = (bindable, oldValue, newValue) =>
