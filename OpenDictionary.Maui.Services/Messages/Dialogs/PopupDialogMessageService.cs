@@ -15,15 +15,15 @@ internal sealed class PopupDialogMessageService : IDialogMessageService
 {
     public async Task<DialogResult> Show(string title, string message, string accept, string cancel)
     {
-        PopupDialog dialog = new(title, message, accept, cancel);
+        DialogPopup dialog = new(title, message, accept, cancel);
 
-        var result = await Shell.Current.ShowPopupAsync(dialog) as PopupDialog.Result;
+        var result = await Shell.Current.ShowPopupAsync(dialog) as DialogPopup.Result;
 
-        if (result is null)
+        return result switch
         {
-            return DialogResult.Cancel;
-        }
+            DialogPopup.Result.Accept => DialogResult.Accept,
 
-        return result.IsOk() ? DialogResult.Ok : DialogResult.Cancel;
+            _ => DialogResult.Cancel,
+        };
     }
 }

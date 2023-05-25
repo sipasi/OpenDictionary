@@ -16,7 +16,7 @@ internal sealed class NativeDialogMessageService : IDialogMessageService
 
         var result = answer switch
         {
-            true => DialogResult.Ok,
+            true => DialogResult.Accept,
             _ => DialogResult.Cancel
         };
 
