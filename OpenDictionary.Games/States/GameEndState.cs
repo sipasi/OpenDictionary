@@ -28,7 +28,7 @@ internal class GameEndState : WordConformityState
 
         ConformityState state = result switch
         {
-            DialogResult.Ok => ConformityState.GameRestart,
+            DialogResult.Accept => ConformityState.GameRestart,
             DialogResult.Cancel => ConformityState.GameExit,
 
             _ => throw new System.NotImplementedException(),

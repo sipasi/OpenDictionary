@@ -42,7 +42,7 @@ public sealed class WordStorageCommands
 
         DialogResult result = await EntityDeleteDialog.Show(dialog);
 
-        if (result is DialogResult.Ok)
+        if (result is DialogResult.Accept)
         {
             Word group = (await context.Words.GetById(id))!;
 

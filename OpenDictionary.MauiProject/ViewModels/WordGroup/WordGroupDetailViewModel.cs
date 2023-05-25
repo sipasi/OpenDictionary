@@ -82,7 +82,7 @@ public sealed partial class WordGroupDetailViewModel : WordGroupViewModel
 
         DialogResult result = await EntityDeleteDialog.Show(dialog);
 
-        if (result is DialogResult.Ok)
+        if (result is DialogResult.Accept)
         {
             await using AppDatabaseContext context = connection.Open();
 

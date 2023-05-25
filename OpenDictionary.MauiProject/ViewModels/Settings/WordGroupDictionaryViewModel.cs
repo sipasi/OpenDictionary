@@ -81,7 +81,7 @@ public sealed partial class WordGroupDictionaryViewModel
     {
         DialogResult result = await EntityDeleteDialog.Show(dialog);
 
-        if (result is DialogResult.Ok)
+        if (result is DialogResult.Accept)
         {
             int count = 0;
 
