@@ -7,7 +7,7 @@
     
     Style="{StaticResource DefaultRoundBorder}"
       
-    x:Class="OpenDictionary.Views.Controls.TileView">
+    x:Class="OpenDictionary.Controls.Tiles.TileView">
 
     <Border.Resources>
         <Style x:Key="DefaultTileLabel" BasedOn="{StaticResource DefaultLabel}" TargetType="Label">
