@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             x:Name="root" 
+             
+             VerticalOptions="Start" HorizontalOptions="Start"
+             
+             Padding="0" Margin="0"
+               
+             x:Class="OpenDictionary.Controls.Chips.Chip">
+
+    <ContentView.Resources>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="StrokeShape" Value="RoundRectangle, 8"/>
+            <Setter Property="Stroke" Value="{DynamicResource Secondary}"/>
+
+            <Setter Property="BackgroundColor" Value="{DynamicResource Surface}"/>
+
+            <Setter Property="HeightRequest" Value="32"/>
+            <Setter Property="MinimumHeightRequest" Value="32"/>
+            <Setter Property="MaximumHeightRequest" Value="32"/>
+
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="Border" BasedOn="{StaticResource BorderStyle}" x:Key="SelectedBorderStyle">
+            <Setter Property="Stroke" Value="{DynamicResource Primary}"/>
+        </Style>
+
+        <Style TargetType="Image" x:Key="IconBase">
+            <Setter Property="HeightRequest" Value="16"/>
+
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Image" x:Key="LeftIcon" BasedOn="{StaticResource IconBase}">
+            <Setter Property="Margin" Value="8,0,4,0"/>
+        </Style>
+        <Style TargetType="Image" x:Key="RightIcon" BasedOn="{StaticResource IconBase}">
+            <Setter Property="Margin" Value="4,0,8,0"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="HeightRequest" Value="18"/>
+
+            <Setter Property="Padding" Value="8,0,8,0"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+
+            <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"/>
+        </Style>
+    </ContentView.Resources>
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="ChipStates">
+            <VisualState x:Name="Normal" />
+            <VisualState x:Name="Selected">
+                <VisualState.Setters>
+                    <Setter TargetName="border" Property="Border.Style" Value="{StaticResource SelectedBorderStyle}"/>
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <Border x:Name="border" Style="{StaticResource BorderStyle}">
+        <HorizontalStackLayout Spacing="0">
+            <Image x:Name="leftIcon" Style="{StaticResource LeftIcon}"/>
+
+            <Label x:Name="text" />
+
+            <Image x:Name="rightIcon" Style="{StaticResource RightIcon}" />
+        </HorizontalStackLayout>
+    </Border>
+</ContentView> 
