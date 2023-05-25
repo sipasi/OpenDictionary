@@ -3,20 +3,17 @@
 using System.Collections.Generic;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
 
 using OpenDictionary.Services.Themes;
 using OpenDictionary.Styles.Themes;
 
 namespace OpenDictionary.ViewModels.Settings;
 
-[INotifyPropertyChanged]
-public partial class AppThemeObservable
+public partial class AppThemeObservable : ObservableObject
 {
     private Theme current;
+
+    public IReadOnlyList<Theme> Themes { get; }
 
     public Theme Current
     {
@@ -35,28 +32,7 @@ public partial class AppThemeObservable
     public AppThemeObservable()
     {
         current = ApplicationTheme.Current;
-    }
 
-    [RelayCommand]
-    private void UpdateRadioButtons(IList<IView> children)
-    {
-        foreach (var item in children)
-        {
-            var radioButton = item as RadioButton;
-
-            if (radioButton is null)
-            {
-                return;
-            }
-
-            Theme theme = (Theme)radioButton.Value;
-
-            if (theme == current)
-            {
-                radioButton.IsChecked = true;
-
-                return;
-            }
-        }
+        Themes = ThemeContainer.Values;
     }
 }
