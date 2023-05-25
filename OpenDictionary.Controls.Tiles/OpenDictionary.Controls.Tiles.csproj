@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -18,19 +18,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\OpenDictionary.Controls\OpenDictionary.Controls.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Controls\OpenDictionary.Controls.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="TileView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
+		<Compile Update="TileView.xaml.cs">
+			<DependentUpon>%(Filename)</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="TileView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="TileStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="TileView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

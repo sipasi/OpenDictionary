@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+
+    xmlns:local="clr-namespace:OpenDictionary.Controls.Tiles"
+           
+    x:Class="OpenDictionary.Controls.Tiles.TileStyles">
+    <Style x:Key="DefaultRoundTile" ApplyToDerivedTypes="True" TargetType="local:TileView" >
+        <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="BackgroundColor" Value="{DynamicResource Surface}"/>
+    </Style>
+
+    <Style x:Key="TileViewSelectable" BasedOn="{StaticResource DefaultRoundTile}" TargetType="local:TileView">
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultRoundTile}" TargetType="local:TileView"/>
+</ResourceDictionary>

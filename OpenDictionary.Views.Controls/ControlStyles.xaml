@@ -17,21 +17,5 @@
         <Setter Property="PlaceholderColor" Value="{DynamicResource Secondary}"/>
     </Style>
 
-    <Style x:Key="TileViewSelectable" BasedOn="{StaticResource DefaultRoundBorder}" TargetType="controls:TileView">
-        <Setter Property="InputTransparent" Value="True"/>
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="CommonStates">
-                    <VisualState Name="Normal" />
-                    <VisualState Name="Selected">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
     <Style TargetType="controls:TextInputLine" BasedOn="{StaticResource DefaultTextInputLine}"/>
 </ResourceDictionary>
