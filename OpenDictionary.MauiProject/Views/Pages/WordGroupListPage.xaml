@@ -9,7 +9,7 @@
     
     xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
     
-    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
+    xmlns:tiles="clr-namespace:OpenDictionary.Controls.Tiles;assembly=OpenDictionary.Controls.Tiles"
     
     xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
     
@@ -22,10 +22,10 @@
         <Style x:Key="WordGroupInfoCollection" TargetType="CollectionView" BasedOn="{StaticResource FlexibleCollection}">
             <Setter Property="ItemTemplate">
                 <DataTemplate x:DataType="models:WordGroupInfo">
-                    <controls:TileView
-                    Margin="0,5,0,0" Title="{Binding Name}" SubTitle="{Binding Count}"
-                    Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
-                    TapParameter="{Binding .}"/>
+                    <tiles:TileView
+                        Margin="0,5,0,0" Title="{Binding Name}" SubTitle="{Binding Count}"
+                        Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupInfoList}}, Path=Groups.TappedCommand}"
+                        TapParameter="{Binding .}"/>
                 </DataTemplate>
             </Setter>
             <Setter Property="EmptyView">

@@ -11,7 +11,7 @@
     xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels"
     xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models" 
     
-    xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
+    xmlns:tiles="clr-namespace:OpenDictionary.Controls.Tiles;assembly=OpenDictionary.Controls.Tiles"
     
     x:DataType="viewModels:WordGroupExportViewModel"
      
@@ -24,7 +24,7 @@
         <converters:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
 
         <DataTemplate x:Key="TileViewSelectableTemplate" x:DataType="models:WordGroupInfo">
-            <controls:TileView Title="{Binding Name}" SubTitle="{Binding Count}" Style="{StaticResource TileViewSelectable}" Margin="0,5,0,0"/>
+            <tiles:TileView Title="{Binding Name}" SubTitle="{Binding Count}" Style="{StaticResource TileViewSelectable}" Margin="0,5,0,0"/>
         </DataTemplate>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
