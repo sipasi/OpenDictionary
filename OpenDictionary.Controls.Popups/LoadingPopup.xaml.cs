@@ -1,12 +1,17 @@
+using System;
+using System.Threading.Tasks;
+
 using CommunityToolkit.Maui.Views;
 
-namespace OpenDictionary.Views.Popups;
+using Microsoft.Maui.Controls;
 
-public partial class PopupLoading : Popup
+namespace OpenDictionary.Controls.Popups;
+
+public partial class LoadingPopup : Popup
 {
     private readonly Func<Task> task;
 
-    public PopupLoading(string title, string message, Func<Task> task)
+    public LoadingPopup(string title, string message, Func<Task> task)
     {
         InitializeComponent();
 
