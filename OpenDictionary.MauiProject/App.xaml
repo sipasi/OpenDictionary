@@ -9,6 +9,8 @@
     
     xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
     
+    xmlns:tiles="clr-namespace:OpenDictionary.Controls.Tiles;assembly=OpenDictionary.Controls.Tiles"
+    
     x:Class="OpenDictionary.MauiProject.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -24,6 +26,8 @@
                 <styles:CollectionViewStyles/>
 
                 <controls:ControlStyles/>
+
+                <tiles:TileStyles/>
 
                 <ResourceDictionary Source="Resources/Styles/Controls/ImageButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
