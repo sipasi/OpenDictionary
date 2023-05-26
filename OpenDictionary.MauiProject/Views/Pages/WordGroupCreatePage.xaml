@@ -2,10 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
+             x:Name="this"
+             
              xmlns:viewModels="clr-namespace:OpenDictionary.ViewModels.WordGroups" 
              xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
 
+             xmlns:tiles="clr-namespace:OpenDictionary.Controls.Tiles;assembly=OpenDictionary.Controls.Tiles"
+             
              xmlns:controls="clr-namespace:OpenDictionary.Views.Controls;assembly=OpenDictionary.Views.Controls"
              
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -15,8 +19,6 @@
              Shell.TabBarIsVisible="False"
              
              Title="{Binding Name, TargetNullValue='Create Group'}"
-             
-             Padding="5"
              
              x:Class="OpenDictionary.Views.Pages.WordGroupCreatePage" >
 
@@ -47,7 +49,7 @@
     </ContentPage.ToolbarItems>
 
     <Grid>
-        <Border Padding="20" VerticalOptions="Start" IsVisible="{Binding State.IsEditInfo}">
+        <Border Padding="20" Margin="5" VerticalOptions="Start" IsVisible="{Binding State.IsEditInfo}">
             <VerticalStackLayout Spacing="4">
                 <Label Text="Name" Style="{StaticResource TitleLable}"/>
                 <controls:TextInputLine Text="{Binding Name,Mode=TwoWay}" Placeholder="Enter name"/>
@@ -73,7 +75,7 @@
         </Border>
 
         <Grid RowDefinitions="auto,*" IsVisible="{Binding State.IsAddWords}">
-            <Border Grid.Row="0">
+            <Border Grid.Row="0" Padding="20" Margin="5">
                 <VerticalStackLayout Spacing="10">
                     <Grid ColumnDefinitions="*,auto,auto" ColumnSpacing="5">
                         <controls:TextInputLine Text="{Binding Origin, Mode=TwoWay}" Placeholder="origin"/>
@@ -96,39 +98,37 @@
                 </VerticalStackLayout>
             </Border>
 
-            <CollectionView ItemsSource="{Binding Words}" Grid.Row="1"
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Words}"
                             SelectionMode="None" VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical"/>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Padding="10" Margin="0,5,0,0">
-                            <Grid RowDefinitions="*,*" ColumnDefinitions="*,auto" x:DataType="models:Word">
-                                <Label Grid.Row="0" Text="{Binding Origin}"/>
-                                <Label Grid.Row="1" Text="{Binding Translation}"/>
-                                <ImageButton 
-                                    Grid.RowSpan="2" Grid.Column="1"
-                                    Style="{StaticResource DeleteImageStyle}"
-                                    Command="{Binding Source={RelativeSource AncestorType={Type viewModels:WordGroupEditViewModel}}, Path=Commands.Collection.DeleteWordCommand}"
-                                    CommandParameter="{Binding .}"/>
-                            </Grid>
-                        </Border>
+                    <DataTemplate x:DataType="models:Word">
+                        <SwipeView Margin="5,0">
+                            <SwipeView.RightItems>
+                                <SwipeItemView Command="{Binding BindingContext.Commands.Collection.DeleteWordCommand, Source={x:Reference this}}"
+                                               CommandParameter="{Binding .}">
+                                    <Border BackgroundColor="{DynamicResource Primary}" Margin="6" Padding="10">
+                                        <Label TextColor="{DynamicResource OnPrimary}"
+                                            Text="Delete" FontAttributes="Bold" FontSize="18"
+                                            VerticalOptions="CenterAndExpand" 
+                                            HorizontalOptions="CenterAndExpand"/>
+                                    </Border>
+                                </SwipeItemView>
+                            </SwipeView.RightItems>
+                            <tiles:TileView Title="{Binding Origin}" SubTitle="{Binding Translation}"/>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
                 <CollectionView.Header>
                     <Label Text="Add new words" Style="{StaticResource TitleLable}" 
-                           HorizontalTextAlignment="Center" FontSize="24" Padding="0,20,0,0"/>
+                           HorizontalTextAlignment="Center" FontSize="24" Padding="0,20"/>
                 </CollectionView.Header>
                 <CollectionView.Footer>
                     <VerticalStackLayout HeightRequest="5"/>
                 </CollectionView.Footer>
-
-                <CollectionView.EmptyView>
-                    <Label Text="Add your first word" TextColor="{DynamicResource Primary}" 
-                           FontAttributes="Bold" />
-                </CollectionView.EmptyView>
             </CollectionView>
         </Grid>
     </Grid>
