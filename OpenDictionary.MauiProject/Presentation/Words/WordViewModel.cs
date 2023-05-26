@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Observables.Words;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
-
-using OpenDictionary.Collections.Storages.Extensions;
 
 namespace OpenDictionary.Words.ViewModels;
 
