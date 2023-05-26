@@ -9,7 +9,7 @@ public partial class TileView : Border
         .WithPropertyChanged(static (view, _, current) => view.title.Text = current);
     public static readonly BindableProperty SubTitleProperty = BindableBuilder.Create<TileView, string>()
         .WithName(nameof(SubTitle))
-        .WithPropertyChanged<TileView, string>(static (view, _, current) => view.sub.Text = current);
+        .WithPropertyChanged(static (view, _, current) => view.sub.Text = current);
 
     public static readonly BindableProperty TitleColorProperty = BindableBuilder.Create<TileView, Color>()
         .WithName(nameof(TitleColor))

@@ -25,10 +25,10 @@
         </Style>
     </Border.Resources>
 
-    <Grid RowDefinitions="auto,auto" RowSpacing="10">
-        <Label Grid.Row="0" x:Name="title" Style="{StaticResource TileTitle}"/>
-        <Label Grid.Row="1" x:Name="sub"   Style="{StaticResource TileSubTitle}"/>
-    </Grid>
+    <VerticalStackLayout Spacing="10">
+        <Label x:Name="title" Style="{StaticResource TileTitle}"/>
+        <Label x:Name="sub"   Style="{StaticResource TileSubTitle}"/>
+    </VerticalStackLayout>
 
     <Border.GestureRecognizers>
         <TapGestureRecognizer 
