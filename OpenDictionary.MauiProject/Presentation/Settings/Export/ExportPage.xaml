@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    
+    xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts"
+    
+    xmlns:converters="clr-namespace:OpenDictionary.DataTransfer.Converters;assembly=OpenDictionary.DataTransfer.Maui"
+    xmlns:viewModels="clr-namespace:OpenDictionary.Settings.ViewModels"
+    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models" 
+    
+    xmlns:tiles="clr-namespace:OpenDictionary.Controls.Tiles;assembly=OpenDictionary.Controls.Tiles"
+    
+    x:DataType="viewModels:WordGroupExportViewModel"
+     
+    Shell.TabBarIsVisible="False"
+    
+    Title="{Binding Collection.SelectedItems.Count}" 
+    
+    x:Class="OpenDictionary.Settings.Pages.ExportPage">
+    <ContentPage.Resources>
+        <converters:SelectionStateFontIconConverter x:Key="SelectionStateToIcon"/>
+
+        <DataTemplate x:Key="TileViewSelectableTemplate" x:DataType="models:WordGroupInfo">
+            <tiles:TileView Title="{Binding Name}" SubTitle="{Binding Count}" Style="{StaticResource TileViewSelectable}" Margin="0,5,0,0"/>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="All" IconImageSource="{Binding Collection.State, Converter={StaticResource SelectionStateToIcon}}"
+                     Command="{Binding Collection.SelectAllCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*,auto" Padding="5,0">
+        <CollectionView ItemsSource="{Binding Collection.Items}" 
+                        SelectionMode="Multiple"
+                        SelectedItems="{Binding Collection.SelectedItems}"
+                        Style="{StaticResource FlexibleCollection}"
+                        ItemTemplate="{StaticResource TileViewSelectableTemplate}"/>
+
+        <Frame Grid.Row="1" Margin="0,0,0,5" IsVisible="{Binding AtLeastOneSelected}">
+            <Grid ColumnDefinitions="*,auto">
+                <Button Grid.Column="0" Text="As Single" 
+                        Command="{Binding ExportAsSingleCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource ButtonOutline}" />
+                <Button Grid.Column="1" Text="As Multiple" Margin="20,0,0,0"
+                        Command="{Binding ExportAsMultipleCommand}"
+                        IsVisible="{Binding CanMultipleExport}"
+                        Style="{StaticResource ButtonOutline}"/>
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentPage> 

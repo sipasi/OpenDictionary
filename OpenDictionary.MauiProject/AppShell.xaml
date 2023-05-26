@@ -6,10 +6,11 @@
     xmlns:local="clr-namespace:OpenDictionary.MauiProject"
     
     xmlns:pages="clr-namespace:OpenDictionary.Views.Pages"
+    xmlns:settings="clr-namespace:OpenDictionary.Settings.Pages"
  
     x:Class="OpenDictionary.MauiProject.AppShell">
     <TabBar>
         <ShellContent x:Name="list"     Title="Dictionaries" Icon="icon_book.png" ContentTemplate="{DataTemplate pages:WordGroupListPage}"/>
-        <ShellContent x:Name="settings" Title="Settings" Icon="icon_settings.png" ContentTemplate="{DataTemplate pages:SettingsPage}" />
+        <ShellContent x:Name="settings" Title="Settings" Icon="icon_settings.png" ContentTemplate="{DataTemplate settings:SettingsPage}" />
     </TabBar>
 </Shell>

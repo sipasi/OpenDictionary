@@ -34,7 +34,7 @@ internal sealed class NavigationService : INavigationService
             return;
         }
 
-        if (shell.CurrentPage is Views.Pages.SettingsPage)
+        if (shell.CurrentPage is Settings.Pages.SettingsPage)
         {
             e.Cancel();
 

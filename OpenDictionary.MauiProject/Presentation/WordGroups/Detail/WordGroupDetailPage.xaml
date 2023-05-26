@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:models="clr-namespace:OpenDictionary.Models;assembly=OpenDictionary.Models"
+             
+    xmlns:viewModels="clr-namespace:OpenDictionary.WordGroups.ViewModels" 
+    
+    xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
+    
+    xmlns:tiles="clr-namespace:OpenDictionary.Controls.Tiles;assembly=OpenDictionary.Controls.Tiles"
+    
+    Padding="5,0"
+    
+    Shell.TabBarIsVisible="False"
+      
+    x:DataType="viewModels:WordGroupDetailViewModel"
+    
+    x:Class="OpenDictionary.Views.Pages.WordGroupDetailPage">
+    <ContentPage.Resources>
+        <Style x:Key="WordCollection" TargetType="CollectionView" BasedOn="{StaticResource FlexibleCollection}">
+            <Setter Property="ItemTemplate">
+                <DataTemplate x:DataType="models:Word">
+                    <tiles:TileView Margin="0,5,0,0" 
+                        Title="{Binding Origin}" 
+                        SubTitle="{Binding Translation}" 
+                        Tap="{Binding Source={RelativeSource AncestorType={x:Type viewModels:WordGroupDetailViewModel}}, Path=TappedCommand}"
+                        TapParameter="{Binding .}"/>
+                </DataTemplate>
+            </Setter>
+            <Setter Property="Header" x:DataType="viewModels:WordGroupDetailViewModel">
+                <Grid Margin="10,40">
+                    <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
+                </Grid>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem Text="Edit" IconImageSource="{fonts:FontIcon Icon=Edit}" Command="{Binding RedirectToEditCommand}"/>
+        <ToolbarItem Text="Game" IconImageSource="{fonts:FontIcon Icon=Gamepad}" Command="{Binding RedirectToGameCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <CollectionView x:Name="collectionView" ItemsSource="{Binding Words}" Style="{StaticResource WordCollection}"/>
+</ContentPage>

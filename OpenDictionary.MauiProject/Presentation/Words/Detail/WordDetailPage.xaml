@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:viewModels="clr-namespace:OpenDictionary.Words.ViewModels" 
+             
+             xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
+             
+             xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
+ 
+             x:DataType="viewModels:WordDetailViewModel"
+             
+             x:Name="this"
+    
+             Shell.TabBarIsVisible="False"
+             
+             Title="Word Details"
+             
+             x:Class="OpenDictionary.Words.Pages.WordDetailPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="EmptyViewTemplate">
+                <VerticalStackLayout>
+                    <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Medium"
+                           HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
+                <VerticalStackLayout Spacing="10">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Pronunciation: " FontAttributes="Bold" 
+                                      TextColor="{x:StaticResource Green-200}"/>
+                                <Span Text="{Binding Value}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10"
+                          IsVisible="{Binding Audio, Converter={x:StaticResource IsNotNull}}">
+                        <ImageButton 
+                            Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0" 
+                            Command="{Binding Commands.AudioPlayer.PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
+                            CommandParameter="{Binding Audio}">
+                            <ImageButton.Source>
+                                <fonts:FontIconExtension Icon="Play" Color="{DynamicResource Primary}"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+                        <Label Grid.Column="1" 
+                               FontFamily="{fonts:FontFamily}" 
+                               Text="{fonts:Icon Icon=Cloud}"
+                               HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Secondary}" 
+                               HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
+                <Grid ColumnSpacing="10" ColumnDefinitions="5,*" RowDefinitions="*">
+                    <Rectangle BackgroundColor="{DynamicResource Primary}" WidthRequest="4"/>
+
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label LineBreakMode="CharacterWrap">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Definition: " FontAttributes="Bold" 
+                                          TextColor="{x:StaticResource Blue-300}"/>
+                                    <Span Text="{Binding Value}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label IsVisible="{Binding Example, Converter={x:StaticResource IsNotNull}}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Example: " FontAttributes="Bold" TextColor="{x:StaticResource Indigo-300}"/>
+                                    <Span Text="{Binding Example}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MeaningObservableItemTemplate" x:DataType="observables:MeaningObservable">
+                <VerticalStackLayout Spacing="10">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Part of speech: " FontAttributes="Bold" 
+                                      TextColor="{x:StaticResource Green-200}"/>
+                                <Span Text="{Binding PartOfSpeech}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label IsVisible="{Binding Synonyms, Converter={x:StaticResource IsNotNull}}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Synonyms: " FontAttributes="Bold" 
+                                      TextColor="{x:StaticResource Green-200}"/>
+                                <Span Text="{Binding Synonyms}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label IsVisible="{Binding Antonyms, Converter={x:StaticResource IsNotNull}}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Antonyms: " FontAttributes="Bold" 
+                                      TextColor="{x:StaticResource Green-200}"/>
+                                <Span Text="{Binding Antonyms}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <VerticalStackLayout 
+                        Spacing="10" 
+                        BindableLayout.ItemsSource="{Binding Definitions}"
+                        BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding Commands.WordStorage.DeleteCommand}"/>
+        <ToolbarItem Text="Edit" IconImageSource="{fonts:FontIcon Icon=Edit}" Command="{Binding RedirectToEditCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="5" Padding="5">
+            <Frame>
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Origin: " FontAttributes="Bold"/>
+                                <Span Text="{Binding Word.Origin}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Translation: " FontAttributes="Bold"/>
+                                <Span Text="{Binding Word.Translation}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame>
+                <VerticalStackLayout>
+                    <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+
+                    <VerticalStackLayout 
+                        BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
+                        BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
+                        BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                        Spacing="10"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame>
+                <VerticalStackLayout>
+                    <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
+
+                    <VerticalStackLayout 
+                        BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
+                        BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
+                        BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                        Spacing="10"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

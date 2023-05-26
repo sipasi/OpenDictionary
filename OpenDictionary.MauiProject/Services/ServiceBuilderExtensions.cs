@@ -20,11 +20,7 @@ using OpenDictionary.Services.ExternalAppTranslation;
 using OpenDictionary.Services.Globalization;
 using OpenDictionary.Services.IO;
 using OpenDictionary.Services.Navigations;
-using OpenDictionary.ViewModels;
-using OpenDictionary.ViewModels.Games;
-using OpenDictionary.ViewModels.Settings;
-using OpenDictionary.ViewModels.WordGroups;
-using OpenDictionary.ViewModels.Words;
+
 
 namespace OpenDictionary.Services;
 
@@ -106,36 +102,36 @@ internal static class ServiceCollectionExtensions
     private static IServiceCollection ConfigureViewModels(this IServiceCollection services)
     {
         services
-            .AddTransient<WordDetailViewModel>()
-            .AddTransient<WordEditViewModel>()
+            .AddTransient<Words.ViewModels.WordDetailViewModel>()
+            .AddTransient<Words.ViewModels.WordEditViewModel>()
 
-            .AddTransient<WordGroupDetailViewModel>()
-            .AddTransient<WordGroupEditViewModel>()
-            .AddTransient<WordGroupInfoList>()
+            .AddTransient<WordGroups.ViewModels.WordGroupDetailViewModel>()
+            .AddTransient<WordGroups.ViewModels.WordGroupEditViewModel>()
+            .AddTransient<WordGroups.ViewModels.WordGroupInfoList>()
 
-            .AddTransient<GameListViewModel>()
-            .AddTransient<OriginToTranslationViewModel>()
-            .AddTransient<TranslationToOriginViewModel>()
+            .AddTransient<Games.ViewModels.GameListViewModel>()
+            .AddTransient<Games.WordConformities.ViewModels.OriginToTranslation>()
+            .AddTransient<Games.WordConformities.ViewModels.TranslationToOrigin>()
 
-            .AddTransient<SettingsViewModel>()
-            .AddTransient<WordGroupExportViewModel>()
-            .AddTransient<WordGroupImportViewModel>();
+            .AddTransient<Settings.ViewModels.SettingsViewModel>()
+            .AddTransient<Settings.ViewModels.WordGroupExportViewModel>()
+            .AddTransient<Settings.ViewModels.WordGroupImportViewModel>();
 
         return services;
     }
     private static IServiceCollection ConfigureViews(this IServiceCollection services)
     {
         services
-            .AddTransient<Views.Pages.Settings.ExportPage>()
-            .AddTransient<Views.Pages.Settings.ImportPage>()
-            .AddTransient<Views.Pages.SettingsPage>()
+            .AddTransient<Settings.Pages.ExportPage>()
+            .AddTransient<Settings.Pages.ImportPage>()
+            .AddTransient<Settings.Pages.SettingsPage>()
 
-            .AddTransient<Views.Pages.GameListPage>()
-            .AddTransient<Views.Pages.GameOriginToTranslationPage>()
-            .AddTransient<Views.Pages.GameTranslationToOriginPage>()
+            .AddTransient<Games.Pages.GameListPage>()
+            .AddTransient<Games.WordConformities.Pages.GameOriginToTranslationPage>()
+            .AddTransient<Games.WordConformities.Pages.GameTranslationToOriginPage>()
 
-            .AddTransient<Views.Pages.WordDetailPage>()
-            .AddTransient<Views.Pages.WordEditPage>()
+            .AddTransient<Words.Pages.WordDetailPage>()
+            .AddTransient<Words.Pages.WordEditPage>()
 
             .AddTransient<Views.Pages.WordGroupCreatePage>()
             .AddTransient<Views.Pages.WordGroupDetailPage>()

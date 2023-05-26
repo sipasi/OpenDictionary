@@ -157,7 +157,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
@@ -202,45 +202,40 @@
 		<MauiXaml Update="Resources\Styles\Controls\ImageButton.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Controls\SoundPlayer.xaml">
+		<MauiXaml Update="Presentation\Games\WordConformity\WordConformityControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Controls\WordConformityControl.xaml">
+		<MauiXaml Update="Presentation\Settings\Export\ExportPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\Settings\ExportPage.xaml">
+		<MauiXaml Update="Presentation\Games\List\GameListPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\GameListPage.xaml">
+		<MauiXaml Update="Presentation\Games\WordConformity\GameOriginToTranslationPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\GameOriginToTranslationPage.xaml">
+		<MauiXaml Update="Presentation\Games\WordConformity\GameTranslationToOriginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\GameTranslationToOriginPage.xaml">
+		<MauiXaml Update="Presentation\Settings\Import\ImportPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\Settings\ImportPage.xaml">
+		<MauiXaml Update="Presentation\Settings\SettingsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\SettingsPage.xaml">
+		<MauiXaml Update="Presentation\WordGroups\Edit\WordGroupCreatePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\WordDetailPage.xaml">
+		<MauiXaml Update="Presentation\WordGroups\Detail\WordGroupDetailPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\WordEditPage.xaml">
+		<MauiXaml Update="Presentation\WordGroups\List\WordGroupListPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Pages\WordGroupCreatePage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\Pages\WordGroupDetailPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\Pages\WordGroupListPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Presentation\Settings\ViewModels\" />
 	</ItemGroup>
 
 </Project>
