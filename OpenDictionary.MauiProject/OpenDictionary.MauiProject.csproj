@@ -9,6 +9,8 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+ 
+		<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
 
 		<!-- Display name -->
 		<ApplicationTitle>Open Dictionary</ApplicationTitle>

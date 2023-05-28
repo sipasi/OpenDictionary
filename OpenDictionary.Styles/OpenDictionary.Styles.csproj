@@ -5,7 +5,9 @@
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		
 		<UseMaui>true</UseMaui>
-		<SingleProject>true</SingleProject> 
+		<SingleProject>true</SingleProject>
+		
+		<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
