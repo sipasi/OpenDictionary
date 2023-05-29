@@ -2,11 +2,15 @@
 
 namespace OpenDictionary.Observables.Metadatas;
 
-[INotifyPropertyChanged]
-public sealed partial class PhoneticObservable
+public sealed partial class PhoneticObservable : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
 {
     [ObservableProperty]
-    private string? value = string.Empty;
+    private string? word;
     [ObservableProperty]
-    private string? audio = string.Empty;
+    private string? pronunciation;
+    [ObservableProperty]
+    private string? source;
+
+    [ObservableProperty]
+    private bool isWebSource;
 }

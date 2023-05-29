@@ -2,11 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
+             xmlns:controls="clr-namespace:OpenDictionary.Words.Controls" 
+             
              xmlns:viewModels="clr-namespace:OpenDictionary.Words.ViewModels" 
              
              xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
              
              xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
+             
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
  
              x:DataType="viewModels:WordDetailViewModel"
              
@@ -20,6 +24,8 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsNotNull"/>
+
             <DataTemplate x:Key="EmptyViewTemplate">
                 <VerticalStackLayout>
                     <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Medium"
@@ -28,35 +34,9 @@
             </DataTemplate>
 
             <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
-                <VerticalStackLayout Spacing="10">
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Pronunciation: " FontAttributes="Bold" 
-                                      TextColor="{x:StaticResource Green-200}"/>
-                                <Span Text="{Binding Value}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                    <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10"
-                          IsVisible="{Binding Audio, Converter={x:StaticResource IsNotNull}}">
-                        <ImageButton 
-                            Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0" 
-                            Command="{Binding Commands.AudioPlayer.PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"
-                            CommandParameter="{Binding Audio}">
-                            <ImageButton.Source>
-                                <fonts:FontIconExtension Icon="Play" Color="{DynamicResource Primary}"/>
-                            </ImageButton.Source>
-                        </ImageButton>
-                        <Label Grid.Column="1" 
-                               FontFamily="{fonts:FontFamily}" 
-                               Text="{fonts:Icon Icon=Cloud}"
-                               HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="2" Text="{Binding Audio}" TextColor="{StaticResource Secondary}" 
-                               HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                    </Grid>
-                </VerticalStackLayout>
+                <controls:PhoneticControl Pronunciation="{Binding Word}" Sourse="{Binding Source}" IsCahceExists="True"
+                                          Word="{Binding Word}"
+                                          PlayCommand="{Binding AudioPlayer.PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"/>
             </DataTemplate>
 
             <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
@@ -124,7 +104,7 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding Commands.WordStorage.DeleteCommand}"/>
+        <ToolbarItem Text="Delete" IconImageSource="{fonts:FontIcon Icon=DeleteBin}" Command="{Binding WordStorage.DeleteCommand}"/>
         <ToolbarItem Text="Edit" IconImageSource="{fonts:FontIcon Icon=Edit}" Command="{Binding RedirectToEditCommand}"/>
     </ContentPage.ToolbarItems>
 

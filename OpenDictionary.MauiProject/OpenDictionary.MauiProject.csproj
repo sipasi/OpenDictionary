@@ -201,6 +201,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="Presentation\Words\Controls\PhoneticControl.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Resources\Styles\Controls\ImageButton.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -238,6 +241,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Presentation\Settings\ViewModels\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Presentation\Words\Controls\PhoneticControl.xaml.cs">
+	    <DependentUpon>PhoneticControl.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

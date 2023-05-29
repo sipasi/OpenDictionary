@@ -2,17 +2,16 @@
 
 using MvvmHelpers;
 
-
 namespace OpenDictionary.Observables.Metadatas;
 
-[INotifyPropertyChanged]
-public sealed partial class MeaningObservable
+public sealed partial class MeaningObservable : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
 {
     [ObservableProperty]
     private string? partOfSpeech;
 
     [ObservableProperty]
     private string? synonyms;
+
     [ObservableProperty]
     private string? antonyms;
 

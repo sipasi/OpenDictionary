@@ -8,6 +8,7 @@ using Microsoft.Maui.Controls;
 
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
+using OpenDictionary.Observables;
 using OpenDictionary.RemoteDictionaries.Sources;
 using OpenDictionary.Services.Audio;
 using OpenDictionary.Services.Messages.Dialogs;
@@ -48,7 +49,14 @@ public sealed partial class WordDetailViewModel : WordViewModel
     {
         WordMetadataLoader metadataLoader = new(connection, source);
 
-        await metadataLoader.Load(Word.Origin);
+        WordMetadata? metadata = await metadataLoader.Load(Word.Origin);
+
+        if (metadata is null)
+        {
+            return;
+        }
+
+        Metadata.Copy(from: metadata);
     }
 
     [RelayCommand]

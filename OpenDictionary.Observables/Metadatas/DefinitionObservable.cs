@@ -3,8 +3,7 @@
 
 namespace OpenDictionary.Observables.Metadatas;
 
-[INotifyPropertyChanged]
-public sealed partial class DefinitionObservable
+public sealed partial class DefinitionObservable : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
 {
     [ObservableProperty]
     private string? value;

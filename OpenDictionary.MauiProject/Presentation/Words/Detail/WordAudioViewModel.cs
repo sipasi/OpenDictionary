@@ -8,20 +8,16 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using OpenDictionary.Services.Audio;
+using OpenDictionary.Words.Controls;
 
 namespace OpenDictionary.Words.ViewModels;
 
-public sealed partial class WordAudioViewModel : ObservableObject
+public sealed class WordAudioViewModel
 {
     private readonly IAudioPlayerServise player;
     private readonly IPhoneticFilesService files;
 
-    [ObservableProperty]
-    private string? word;
-    [ObservableProperty]
-    private string? path;
-
-    public AsyncRelayCommand PlayAudioCommand { get; set; }
+    public AsyncRelayCommand<PlayAudioInfo> PlayAudioCommand { get; set; }
 
     public WordAudioViewModel(IAudioPlayerServise player, IPhoneticFilesService files)
     {
@@ -31,26 +27,26 @@ public sealed partial class WordAudioViewModel : ObservableObject
         PlayAudioCommand = new(PlayAudio);
     }
 
-    private async Task PlayAudio()
+    private async Task PlayAudio(PlayAudioInfo info)
     {
-        string? word = Word;
-        string? path = Path;
+        string? word = info.Word;
+        string? source = info.Source;
 
-        if (string.IsNullOrWhiteSpace(word) || string.IsNullOrWhiteSpace(path))
+        if (string.IsNullOrWhiteSpace(word) || string.IsNullOrWhiteSpace(source))
         {
             return;
         }
 
         try
         {
-            string? source = await GetOrLoadFilePath(word, url: path);
+            string? path = await GetOrLoadFilePath(word, url: source);
 
-            if (source == null)
+            if (path == null)
             {
                 return;
             }
 
-            player.Play(source);
+            player.Play(path);
         }
         catch (Exception e)
         {
