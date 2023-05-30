@@ -8,12 +8,12 @@ using OpenDictionary.Services.Audio;
 
 namespace OpenDictionary.Words.ViewModels;
 
-public sealed class WordAudioViewModel
+public sealed class PhoneticViewModel
 {
     private readonly IAudioPlayerServise player;
     private readonly IPhoneticFilesService files;
 
-    public WordAudioViewModel(IAudioPlayerServise player, IPhoneticFilesService files)
+    public PhoneticViewModel(IAudioPlayerServise player, IPhoneticFilesService files)
     {
         this.player = player;
         this.files = files;
