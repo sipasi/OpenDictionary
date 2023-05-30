@@ -26,6 +26,21 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Style TargetType="Border" BasedOn="{StaticResource DefaultRoundBorder}">
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="Margin" Value="-2"/>
+                <Setter Property="StrokeShape" Value="Rectangle"/>
+            </Style>
+
+            <Style x:Key="TitleLabel" TargetType="Label" BasedOn="{StaticResource DefaultLabel}">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Padding" Value="0,10,0,10"/>
+                <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+            </Style>
+
             <DataTemplate x:Key="EmptyViewTemplate">
                 <VerticalStackLayout>
                     <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Medium"
@@ -34,7 +49,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
-                <controls:PhoneticControl Word="{Binding Word}" Pronunciation="{Binding Pronunciation}" Sourse="{Binding Source}" 
+                <controls:PhoneticControl Word="{Binding Word}" Pronunciation="{Binding Pronunciation}" Source="{Binding Source}" 
                                           ViewModel="{Binding BindingContext.AudioPlayer, Source={x:Reference this}}"/>
             </DataTemplate>
 
@@ -108,80 +123,89 @@
     </ContentPage.ToolbarItems>
 
     <ScrollView VerticalScrollBarVisibility="Never">
-        <VerticalStackLayout Padding="5"
+        <VerticalStackLayout Padding="0">
+
+            <Label Style="{StaticResource TitleLabel}" Text="Definition" />
+
+            <Border>
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Origin: " FontAttributes="Bold"/>
+                                <Span Text="{Binding Word.Origin}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Translation: " FontAttributes="Bold"/>
+                                <Span Text="{Binding Word.Translation}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Style="{StaticResource TitleLabel}" Text="Phonetics Synteze" />
+
+            <Border>
+                <VerticalStackLayout>
+                    <controls:PhoneticControl Word="{Binding Word.Origin}" ViewModel="{Binding BindingContext.AudioPlayer, Source={x:Reference this}}"/>
+                </VerticalStackLayout>
+            </Border>
+            <VerticalStackLayout
                              toolkit:StateContainer.CurrentState="{Binding State.Current}"
                              toolkit:StateContainer.CanStateChange="{Binding State.CanChange}">
-
-            <toolkit:StateContainer.StateViews>
-                <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}">
-                    <VerticalStackLayout 
+                <toolkit:StateContainer.StateViews>
+                    <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}">
+                        <VerticalStackLayout 
                                      VerticalOptions="Center" HorizontalOptions="Center"
                                      Spacing="10">
-                        <ActivityIndicator IsRunning="True"/>
-                        <Label FontSize="Large">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span FontAttributes="Bold"
+                            <ActivityIndicator IsRunning="True"/>
+                            <Label FontSize="Large">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontAttributes="Bold"
                                           Text="Loading "/>
-                                    <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}"
+                                        <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}"
                                           Text="word" />
-                                    <Span FontAttributes="Bold" 
+                                        <Span FontAttributes="Bold" 
                                           Text=" and "/>
-                                    <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}" 
+                                        <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}" 
                                           Text="metadata" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </VerticalStackLayout>
-                </Border>
-
-                <VerticalStackLayout toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Success}" Spacing="5">
-                    <Frame>
-                        <VerticalStackLayout>
-                            <Label>
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="Origin: " FontAttributes="Bold"/>
-                                        <Span Text="{Binding Word.Origin}"/>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label>
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="Translation: " FontAttributes="Bold"/>
-                                        <Span Text="{Binding Word.Translation}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </VerticalStackLayout>
-                    </Frame>
+                    </Border>
 
-                    <Frame>
-                        <VerticalStackLayout>
-                            <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+                    <VerticalStackLayout toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Success}" Spacing="5">
 
+                        <Label Style="{StaticResource TitleLabel}" Text="From Web" />
+
+                        <Border>
                             <VerticalStackLayout 
                                 BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
                                 BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
                                 BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
                                 Spacing="10"/>
-                        </VerticalStackLayout>
-                    </Frame>
+                        </Border>
 
-                    <Frame>
-                        <VerticalStackLayout>
-                            <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Style="{StaticResource TitleLabel}" Text="Meanings" />
 
+                        <Border>
                             <VerticalStackLayout 
-                        BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
-                        BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
-                        BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
-                        Spacing="10"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </VerticalStackLayout>
-            </toolkit:StateContainer.StateViews>
+                                BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
+                                BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
+                                BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                                Spacing="10"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </toolkit:StateContainer.StateViews>
+            </VerticalStackLayout>
+            <VerticalStackLayout HeightRequest="20"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
