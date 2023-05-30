@@ -161,6 +161,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="CompiledBindings.MAUI" Version="1.0.16" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	</ItemGroup>
