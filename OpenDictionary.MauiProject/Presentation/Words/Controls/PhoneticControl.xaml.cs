@@ -17,7 +17,7 @@ namespace OpenDictionary.Words.Controls;
 
 public partial class PhoneticControl : ContentView
 {
-    private readonly WordAudioViewModel viewModel;
+    private readonly WordAudioViewModel? viewModel;
 
     public static readonly BindableProperty WordProperty = BindableBuilder.Create<PhoneticControl, string>()
         .WithName(nameof(Word));
@@ -50,26 +50,20 @@ public partial class PhoneticControl : ContentView
     public PhoneticControl()
     {
         InitializeComponent();
-         
+
         Loaded += OnLoaded;
 
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
 
-        try
-        {
-            if (services is not null)
-            {
-                var audio = services.GetService<IAudioPlayerServise>();
-                var files = services.GetService<IPhoneticFilesService>();
 
-                viewModel = new(audio!, files!);
-
-                play.Command = new AsyncRelayCommand(OnPlay);
-            }
-        }
-        catch (Exception e)
+        if (services is not null)
         {
-            throw;
+            var audio = services.GetService<IAudioPlayerServise>();
+            var files = services.GetService<IPhoneticFilesService>();
+
+            viewModel = new(audio!, files!);
+
+            play.Command = new AsyncRelayCommand(OnPlay);
         }
     }
 
@@ -77,6 +71,11 @@ public partial class PhoneticControl : ContentView
 
     private async Task OnPlay()
     {
+        if (viewModel is null)
+        {
+            return;
+        }
+
         await viewModel.PlayAudio(word: Word, source: Sourse);
 
         UpdateChacheIcon();
@@ -84,6 +83,11 @@ public partial class PhoneticControl : ContentView
 
     private void UpdateChacheIcon()
     {
+        if (viewModel is null)
+        {
+            return;
+        }
+
         bool cached = viewModel.CacheContains(Word, Sourse);
 
         cacheIcon.FontFamily = AppIcons.Asset.FontFamily;
