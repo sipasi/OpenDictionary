@@ -4,11 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
 using OpenDictionary.Services.Audio;
-using OpenDictionary.Words.Controls;
 
 namespace OpenDictionary.Words.ViewModels;
 
@@ -17,21 +13,24 @@ public sealed class WordAudioViewModel
     private readonly IAudioPlayerServise player;
     private readonly IPhoneticFilesService files;
 
-    public AsyncRelayCommand<PlayAudioInfo> PlayAudioCommand { get; set; }
-
     public WordAudioViewModel(IAudioPlayerServise player, IPhoneticFilesService files)
     {
         this.player = player;
         this.files = files;
-
-        PlayAudioCommand = new(PlayAudio);
     }
 
-    private async Task PlayAudio(PlayAudioInfo info)
+    public bool CacheContains(string? word, string? source)
     {
-        string? word = info.Word;
-        string? source = info.Source;
+        if (word is null || source is null)
+        {
+            return false;
+        }
 
+        return files.Contains(word, source);
+    }
+
+    public async ValueTask PlayAudio(string? word, string? source)
+    {
         if (string.IsNullOrWhiteSpace(word) || string.IsNullOrWhiteSpace(source))
         {
             return;
@@ -39,7 +38,7 @@ public sealed class WordAudioViewModel
 
         try
         {
-            string? path = await GetOrLoadFilePath(word, url: source);
+            string? path = await GetOrLoadFilePath(word, address: source);
 
             if (path == null)
             {
@@ -54,13 +53,13 @@ public sealed class WordAudioViewModel
         }
     }
 
-    private async ValueTask<string?> GetOrLoadFilePath(string word, string url)
+    private async ValueTask<string?> GetOrLoadFilePath(string word, string address)
     {
-        if (files.Contains(url, word) || await files.AddFromWebAsync(url, word))
+        if (files.Contains(word, address) || await files.AddFromWebAsync(word, address))
         {
-            return files.GetFilePath(url, word);
+            return files.GetFilePath(word, address);
         }
 
-        return url;
+        return address;
     }
 }

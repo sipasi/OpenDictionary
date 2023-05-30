@@ -4,17 +4,21 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.Controls;
+using OpenDictionary.MauiProject;
+using OpenDictionary.Services.Audio;
 using OpenDictionary.Styles.Fonts.Icons;
+using OpenDictionary.Words.ViewModels;
 
 namespace OpenDictionary.Words.Controls;
 
-public readonly record struct PlayAudioInfo(string? Word, string? Source);
-
 public partial class PhoneticControl : ContentView
 {
+    private readonly WordAudioViewModel viewModel;
+
     public static readonly BindableProperty WordProperty = BindableBuilder.Create<PhoneticControl, string>()
         .WithName(nameof(Word));
 
@@ -25,36 +29,6 @@ public partial class PhoneticControl : ContentView
     public static readonly BindableProperty SourseProperty = BindableBuilder.Create<PhoneticControl, string>()
         .WithName(nameof(Sourse))
         .WithPropertyChanged((view, old, current) => view.audioSource.Text = current);
-
-    public static readonly BindableProperty IsCahceExistsProperty = BindableBuilder.Create<PhoneticControl, bool>()
-        .WithName(nameof(IsCahceExists))
-        .WithPropertyChanged(static (view, old, current) =>
-        {
-            view.cacheIcon.FontFamily = AppIcons.Asset.FontFamily;
-
-            view.cacheIcon.Text = current switch
-            {
-                true => IconDictionary.Get(FontIcon.CloudDone),
-                false => IconDictionary.Get(FontIcon.Cloud),
-            };
-        });
-
-    public static readonly BindableProperty PlayCommandProperty = BindableBuilder.Create<PhoneticControl, IAsyncRelayCommand<PlayAudioInfo>>()
-        .WithName(nameof(PlayCommand));
-
-    private async Task OnPlay()
-    {
-        if (PlayCommand is null)
-        {
-            return;
-        }
-
-        await PlayCommand.ExecuteAsync(new()
-        {
-            Word = Word,
-            Source = Sourse,
-        });
-    }
 
     public string Word
     {
@@ -73,22 +47,51 @@ public partial class PhoneticControl : ContentView
         set => SetValue(SourseProperty, value);
     }
 
-    public bool IsCahceExists
-    {
-        get => (bool)GetValue(IsCahceExistsProperty);
-        set => SetValue(IsCahceExistsProperty, value);
-    }
-
-    public IAsyncRelayCommand<PlayAudioInfo> PlayCommand
-    {
-        get => (IAsyncRelayCommand<PlayAudioInfo>)GetValue(PlayCommandProperty);
-        set => SetValue(PlayCommandProperty, value);
-    }
-
     public PhoneticControl()
     {
         InitializeComponent();
+         
+        Loaded += OnLoaded;
 
-        play.Command = new AsyncRelayCommand(OnPlay);
+        IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
+
+        try
+        {
+            if (services is not null)
+            {
+                var audio = services.GetService<IAudioPlayerServise>();
+                var files = services.GetService<IPhoneticFilesService>();
+
+                viewModel = new(audio!, files!);
+
+                play.Command = new AsyncRelayCommand(OnPlay);
+            }
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
+    }
+
+    private void OnLoaded(object? sender, EventArgs e) => UpdateChacheIcon();
+
+    private async Task OnPlay()
+    {
+        await viewModel.PlayAudio(word: Word, source: Sourse);
+
+        UpdateChacheIcon();
+    }
+
+    private void UpdateChacheIcon()
+    {
+        bool cached = viewModel.CacheContains(Word, Sourse);
+
+        cacheIcon.FontFamily = AppIcons.Asset.FontFamily;
+
+        cacheIcon.Text = cached switch
+        {
+            true => IconDictionary.Get(FontIcon.CloudDone),
+            false => IconDictionary.Get(FontIcon.Cloud),
+        };
     }
 }
