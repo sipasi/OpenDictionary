@@ -21,7 +21,7 @@ public partial class PhoneticControl : ContentView
         .WithName(nameof(Pronunciation))
         .WithPropertyChanged(static (view, old, current) => view.pronunciation.Text = current);
 
-    public static readonly BindableProperty SourseProperty = BindableBuilder.Create<PhoneticControl, string>()
+    public static readonly BindableProperty SourceProperty = BindableBuilder.Create<PhoneticControl, string>()
         .WithName(nameof(Source))
         .WithPropertyChanged(static (view, old, current) =>
         {
@@ -47,8 +47,8 @@ public partial class PhoneticControl : ContentView
 
     public string Source
     {
-        get => (string)GetValue(SourseProperty);
-        set => SetValue(SourseProperty, value);
+        get => (string)GetValue(SourceProperty);
+        set => SetValue(SourceProperty, value);
     }
 
     public required PhoneticViewModel? ViewModel
