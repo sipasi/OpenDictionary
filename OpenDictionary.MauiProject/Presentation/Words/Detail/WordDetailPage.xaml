@@ -155,24 +155,22 @@
                     <controls:PhoneticControl Word="{Binding Word.Origin}" ViewModel="{Binding BindingContext.AudioPlayer, Source={x:Reference this}}"/>
                 </VerticalStackLayout>
             </Border>
+            
             <VerticalStackLayout
                              toolkit:StateContainer.CurrentState="{Binding State.Current}"
                              toolkit:StateContainer.CanStateChange="{Binding State.CanChange}">
                 <toolkit:StateContainer.StateViews>
-                    <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}">
+                    <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}"
+                            Margin="-2,20">
                         <VerticalStackLayout 
                                      VerticalOptions="Center" HorizontalOptions="Center"
-                                     Spacing="10">
+                                     Spacing="20">
                             <ActivityIndicator IsRunning="True"/>
                             <Label FontSize="Large">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontAttributes="Bold"
-                                          Text="Loading "/>
-                                        <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}"
-                                          Text="word" />
-                                        <Span FontAttributes="Bold" 
-                                          Text=" and "/>
+                                          Text="Loading "/> 
                                         <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}" 
                                           Text="metadata" />
                                     </FormattedString>
