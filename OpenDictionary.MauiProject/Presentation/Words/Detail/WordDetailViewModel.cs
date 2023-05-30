@@ -26,7 +26,7 @@ public sealed partial class WordDetailViewModel : WordViewModel
     private readonly IDictionarySource source;
 
     public WordStorageViewModel WordStorage { get; }
-    public WordAudioViewModel AudioPlayer { get; }
+    public PhoneticViewModel AudioPlayer { get; }
 
     public WordDetailViewModel(
         IDatabaseConnection<DatabaseContext> connection,
