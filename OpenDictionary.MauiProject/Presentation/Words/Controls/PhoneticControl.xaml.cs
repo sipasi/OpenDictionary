@@ -3,13 +3,9 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 
 using OpenDictionary.Controls;
-using OpenDictionary.MauiProject;
-using OpenDictionary.Services.Audio;
 using OpenDictionary.Styles.Fonts.Icons;
 using OpenDictionary.Words.ViewModels;
 
@@ -17,8 +13,6 @@ namespace OpenDictionary.Words.Controls;
 
 public partial class PhoneticControl : ContentView
 {
-    private readonly WordAudioViewModel? viewModel;
-
     public static readonly BindableProperty WordProperty = BindableBuilder.Create<PhoneticControl, string>()
         .WithName(nameof(Word));
 
@@ -30,11 +24,15 @@ public partial class PhoneticControl : ContentView
         .WithName(nameof(Sourse))
         .WithPropertyChanged((view, old, current) => view.audioSource.Text = current);
 
+    public static readonly BindableProperty ViewModelProperty = BindableBuilder.Create<PhoneticControl, PhoneticViewModel?>()
+        .WithName(nameof(ViewModel));
+
     public string Word
     {
         get => (string)GetValue(WordProperty);
         set => SetValue(WordProperty, value);
     }
+
     public string Pronunciation
     {
         get => (string)GetValue(PronunciationProperty);
@@ -47,30 +45,27 @@ public partial class PhoneticControl : ContentView
         set => SetValue(SourseProperty, value);
     }
 
+    public required PhoneticViewModel? ViewModel
+    {
+        get => (PhoneticViewModel?)GetValue(ViewModelProperty);
+        set => SetValue(ViewModelProperty, value);
+    }
+
     public PhoneticControl()
     {
         InitializeComponent();
 
         Loaded += OnLoaded;
 
-        IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
-
-
-        if (services is not null)
-        {
-            var audio = services.GetService<IAudioPlayerServise>();
-            var files = services.GetService<IPhoneticFilesService>();
-
-            viewModel = new(audio!, files!);
-
-            play.Command = new AsyncRelayCommand(OnPlay);
-        }
+        play.Command = new AsyncRelayCommand(OnPlay);
     }
 
     private void OnLoaded(object? sender, EventArgs e) => UpdateChacheIcon();
 
     private async Task OnPlay()
     {
+        PhoneticViewModel? viewModel = ViewModel;
+
         if (viewModel is null)
         {
             return;
@@ -83,6 +78,8 @@ public partial class PhoneticControl : ContentView
 
     private void UpdateChacheIcon()
     {
+        PhoneticViewModel? viewModel = ViewModel;
+
         if (viewModel is null)
         {
             return;
