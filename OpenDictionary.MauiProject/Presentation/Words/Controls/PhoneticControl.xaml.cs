@@ -66,10 +66,12 @@ public partial class PhoneticControl : ContentView
     {
         PhoneticViewModel? viewModel = ViewModel;
 
-        if (viewModel is null)
+        if (viewModel is null || Word is null || Sourse is null)
         {
             return;
         }
+
+        await LoadAudioIfNotExists(viewModel);
 
         await viewModel.PlayAudio(word: Word, source: Sourse);
 
@@ -94,5 +96,28 @@ public partial class PhoneticControl : ContentView
             true => IconDictionary.Get(FontIcon.CloudDone),
             false => IconDictionary.Get(FontIcon.Cloud),
         };
+    }
+
+    private async Task LoadAudioIfNotExists(PhoneticViewModel viewModel)
+    {
+        string word = Word;
+        string source = Sourse;
+
+        if (viewModel.CacheContains(word, source))
+        {
+            return;
+        }
+
+        LoadState(running: true);
+
+        await viewModel.LoadAudioIfNotExists(word, source);
+
+        LoadState(running: false);
+    }
+
+    private void LoadState(bool running)
+    {
+        cacheIcon.IsVisible = !running;
+        activity.IsRunning = running;
     }
 }

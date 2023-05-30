@@ -21,11 +21,16 @@
                 Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0" 
                 Source="{fonts:FontIcon Icon=Play, Color={DynamicResource Primary}}"/>
 
-            <Label Grid.Column="1" FontFamily="{fonts:FontFamily}" Text="{fonts:Icon Icon=Cloud}"
-                   HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
-                   x:Name="cacheIcon"/>
-            <Label Grid.Column="2" TextColor="{StaticResource Secondary}"
-                   HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+
+            <ActivityIndicator Grid.Column="1" WidthRequest="22" HeightRequest="22" 
+                               Color="{DynamicResource Primary}" IsRunning="False"
+                               x:Name="activity"/>
+            <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                   FontFamily="{fonts:FontFamily}" Text="{fonts:Icon Icon=Cloud}" FontSize="18"
+                   x:Name="cacheIcon" IsVisible="True"/>
+
+            <Label Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  
+                   TextColor="{StaticResource Secondary}" 
                    x:Name="audioSource"/>
         </Grid>
     </VerticalStackLayout>
