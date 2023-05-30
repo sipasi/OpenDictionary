@@ -6,8 +6,8 @@ namespace OpenDictionary.Services.Audio;
 
 public interface IPhoneticFilesService
 {
-    Task<bool> AddFromWebAsync(string address, string word);
-    bool Contains(string address, string word);
+    Task<bool> AddFromWebAsync(string word, string address);
+    bool Contains(string word, string address);
     bool Any(string word);
-    string? GetFilePath(string address, string word);
+    string? GetFilePath(string word, string address);
 }

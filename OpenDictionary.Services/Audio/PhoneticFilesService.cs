@@ -20,14 +20,14 @@ public class PhoneticFilesService : IPhoneticFilesService
         storage = new AudioStorage(path, extensions: ".mp3");
     }
 
-    public Task<bool> AddFromWebAsync(string address, string name)
+    public Task<bool> AddFromWebAsync(string name, string address)
     {
         return storage.AddFromWebAsync(address, name);
     }
 
     public bool Any(string word) => storage.Any(word);
 
-    public bool Contains(string addres, string word) => storage.Contains(addres, word);
+    public bool Contains(string word, string addres) => storage.Contains(addres, word);
 
-    public string? GetFilePath(string addres, string word) => storage.GetFilePath(addres, word);
+    public string? GetFilePath(string word, string addres) => storage.GetFilePath(addres, word);
 }
