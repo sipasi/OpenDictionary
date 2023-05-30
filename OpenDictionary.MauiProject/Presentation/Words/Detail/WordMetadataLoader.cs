@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using System.Linq;
 using System.Threading.Tasks;
 
 using OpenDictionary.Collections.Storages.Extensions;
@@ -32,28 +33,60 @@ internal readonly struct WordMetadataLoader
         return metadata;
     }
 
-    private async Task<WordMetadata?> GetMetadataFrom(string word)
+    private async ValueTask<WordMetadata?> GetMetadataFrom(string word) => await GetFromDatabase(word) ?? await GetFromWeb(word);
+
+    private async ValueTask<WordMetadata?> GetFromDatabase(string word)
     {
         await using DatabaseContext context = connection.Open();
 
         WordMetadata? metadata = await context.Set<WordMetadata>()
-            .IncludeAll()
-            .GetByWord(word);
-
-        if (metadata == null)
-        {
-            metadata = await source.GetWord(word);
-
-            if (metadata is null)
-            {
-                return null;
-            }
-
-            await context.Set<WordMetadata>().AddAsync(metadata);
-
-            await context.SaveChangesAsync();
-        }
+           .IncludeAll()
+           .GetByWord(word);
 
         return metadata;
+    }
+    private async ValueTask<WordMetadata?> GetFromWeb(string word)
+    {
+        if (await source.GetWord(word) is not WordMetadata metadata)
+        {
+            return null;
+        }
+
+        WordMetadata entity = Filter(metadata);
+
+        await SaveToDatabase(entity);
+
+        return entity;
+    }
+
+    private async ValueTask SaveToDatabase(WordMetadata metadata)
+    {
+        await using DatabaseContext context = connection.Open();
+
+        await context
+            .Set<WordMetadata>()
+            .AddAsync(metadata);
+
+        await context.SaveChangesAsync();
+    }
+
+    private static WordMetadata Filter(WordMetadata metadata)
+    {
+        WordMetadata result = new()
+        {
+            Value = metadata.Value,
+            Meanings = metadata.Meanings,
+            Phonetics = metadata.Phonetics.Where(IsEligiblePhonetic).ToList(),
+        };
+
+        return result;
+    }
+
+    private static bool IsEligiblePhonetic(Phonetic phonetic)
+    {
+        bool result = string.IsNullOrWhiteSpace(phonetic.Value) is false &&
+                      string.IsNullOrWhiteSpace(phonetic.Audio) is false;
+
+        return result;
     }
 }
