@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Media;
 
 using OpenDictionary.Controls;
 using OpenDictionary.Styles.Fonts.Icons;
@@ -18,11 +19,16 @@ public partial class PhoneticControl : ContentView
 
     public static readonly BindableProperty PronunciationProperty = BindableBuilder.Create<PhoneticControl, string>()
         .WithName(nameof(Pronunciation))
-        .WithPropertyChanged((view, old, current) => view.pronunciation.Text = current);
+        .WithPropertyChanged(static (view, old, current) => view.pronunciation.Text = current);
 
     public static readonly BindableProperty SourseProperty = BindableBuilder.Create<PhoneticControl, string>()
-        .WithName(nameof(Sourse))
-        .WithPropertyChanged((view, old, current) => view.audioSource.Text = current);
+        .WithName(nameof(Source))
+        .WithPropertyChanged(static (view, old, current) =>
+        {
+            view.audioSource.Text = string.IsNullOrWhiteSpace(current)
+                ? "No audio source, using TextToSpeech instead"
+                : current;
+        });
 
     public static readonly BindableProperty ViewModelProperty = BindableBuilder.Create<PhoneticControl, PhoneticViewModel?>()
         .WithName(nameof(ViewModel));
@@ -39,7 +45,7 @@ public partial class PhoneticControl : ContentView
         set => SetValue(PronunciationProperty, value);
     }
 
-    public string Sourse
+    public string Source
     {
         get => (string)GetValue(SourseProperty);
         set => SetValue(SourseProperty, value);
@@ -66,16 +72,39 @@ public partial class PhoneticControl : ContentView
     {
         PhoneticViewModel? viewModel = ViewModel;
 
-        if (viewModel is null || Word is null || Sourse is null)
+        string? word = Word;
+        string? source = Source;
+
+        if (word is null)
         {
             return;
         }
 
-        await LoadAudioIfNotExists(viewModel);
+        if (viewModel is not null && source is not null)
+        {
+            await LoadAudioIfNotExists(viewModel);
+        }
 
-        await viewModel.PlayAudio(word: Word, source: Sourse);
+        await PlayAudio(word, source, viewModel);
 
         UpdateChacheIcon();
+    }
+
+    private static async ValueTask PlayAudio(string word, string? source, PhoneticViewModel? viewModel)
+    {
+        if (string.IsNullOrWhiteSpace(source))
+        {
+            await TextToSpeech.Default.SpeakAsync(word);
+
+            return;
+        }
+
+        if (viewModel is null)
+        {
+            return;
+        }
+
+        await viewModel.PlayAudio(word: word, source: source);
     }
 
     private void UpdateChacheIcon()
@@ -87,7 +116,7 @@ public partial class PhoneticControl : ContentView
             return;
         }
 
-        bool cached = viewModel.CacheContains(Word, Sourse);
+        bool cached = viewModel.CacheContains(Word, Source);
 
         cacheIcon.FontFamily = AppIcons.Asset.FontFamily;
 
@@ -101,7 +130,7 @@ public partial class PhoneticControl : ContentView
     private async Task LoadAudioIfNotExists(PhoneticViewModel viewModel)
     {
         string word = Word;
-        string source = Sourse;
+        string source = Source;
 
         if (viewModel.CacheContains(word, source))
         {
