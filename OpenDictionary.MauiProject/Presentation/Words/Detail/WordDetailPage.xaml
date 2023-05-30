@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
+             xmlns:system="using:System"
+             
              xmlns:controls="clr-namespace:OpenDictionary.Words.Controls" 
              
              xmlns:viewModels="clr-namespace:OpenDictionary.Words.ViewModels" 
@@ -24,8 +26,6 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsNotNull"/>
-
             <DataTemplate x:Key="EmptyViewTemplate">
                 <VerticalStackLayout>
                     <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Medium"
@@ -34,9 +34,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
-                <controls:PhoneticControl Pronunciation="{Binding Word}" Sourse="{Binding Source}" IsCahceExists="True"
-                                          Word="{Binding Word}"
-                                          PlayCommand="{Binding AudioPlayer.PlayAudioCommand, Source={RelativeSource AncestorType={x:Type viewModels:WordDetailViewModel}}}"/>
+                <controls:PhoneticControl Word="{Binding Word}" Pronunciation="{Binding Word}" Sourse="{Binding Source}"/>
             </DataTemplate>
 
             <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
@@ -53,7 +51,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label IsVisible="{Binding Example, Converter={x:StaticResource IsNotNull}}">
+                        <Label IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(Example)}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Example: " FontAttributes="Bold" TextColor="{x:StaticResource Indigo-300}"/>
@@ -76,7 +74,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Label IsVisible="{Binding Synonyms, Converter={x:StaticResource IsNotNull}}">
+                    <Label IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(Synonyms)}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Synonyms: " FontAttributes="Bold" 
@@ -85,7 +83,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Label IsVisible="{Binding Antonyms, Converter={x:StaticResource IsNotNull}}">
+                    <Label IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(Antonyms)}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Antonyms: " FontAttributes="Bold" 
