@@ -34,7 +34,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="PhoneticObservableItemTemplate" x:DataType="observables:PhoneticObservable">
-                <controls:PhoneticControl Word="{Binding Word}" Pronunciation="{Binding Word}" Sourse="{Binding Source}" 
+                <controls:PhoneticControl Word="{Binding Word}" Pronunciation="{Binding Pronunciation}" Sourse="{Binding Source}" 
                                           ViewModel="{Binding BindingContext.AudioPlayer, Source={x:Reference this}}"/>
             </DataTemplate>
 
