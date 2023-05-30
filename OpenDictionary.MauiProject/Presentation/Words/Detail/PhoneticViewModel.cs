@@ -29,6 +29,16 @@ public sealed class PhoneticViewModel
         return files.Contains(word, source);
     }
 
+    public async Task LoadAudioIfNotExists(string? word, string? source)
+    {
+        if (string.IsNullOrWhiteSpace(word) || string.IsNullOrWhiteSpace(source))
+        {
+            return;
+        }
+
+        await GetOrLoadFilePath(word, address: source);
+    }
+
     public async ValueTask PlayAudio(string? word, string? source)
     {
         if (string.IsNullOrWhiteSpace(word) || string.IsNullOrWhiteSpace(source))
