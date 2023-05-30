@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              
              xmlns:system="using:System"
-             
+              
              xmlns:controls="clr-namespace:OpenDictionary.Words.Controls" 
              
              xmlns:viewModels="clr-namespace:OpenDictionary.Words.ViewModels" 
@@ -108,51 +108,80 @@
     </ContentPage.ToolbarItems>
 
     <ScrollView VerticalScrollBarVisibility="Never">
-        <VerticalStackLayout Spacing="5" Padding="5">
-            <Frame>
-                <VerticalStackLayout>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Origin: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Origin}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Translation: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Translation}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </VerticalStackLayout>
-            </Frame>
+        <VerticalStackLayout Padding="5"
+                             toolkit:StateContainer.CurrentState="{Binding State.Current}"
+                             toolkit:StateContainer.CanStateChange="{Binding State.CanChange}">
 
-            <Frame>
-                <VerticalStackLayout>
-                    <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
-
+            <toolkit:StateContainer.StateViews>
+                <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}">
                     <VerticalStackLayout 
-                        BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
-                        BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
-                        BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
-                        Spacing="10"/>
-                </VerticalStackLayout>
-            </Frame>
+                                     VerticalOptions="Center" HorizontalOptions="Center"
+                                     Spacing="10">
+                        <ActivityIndicator IsRunning="True"/>
+                        <Label FontSize="Large">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontAttributes="Bold"
+                                          Text="Loading "/>
+                                    <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}"
+                                          Text="word" />
+                                    <Span FontAttributes="Bold" 
+                                          Text=" and "/>
+                                    <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}" 
+                                          Text="metadata" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Frame>
-                <VerticalStackLayout>
-                    <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
+                <VerticalStackLayout toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Success}" Spacing="5">
+                    <Frame>
+                        <VerticalStackLayout>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Origin: " FontAttributes="Bold"/>
+                                        <Span Text="{Binding Word.Origin}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Translation: " FontAttributes="Bold"/>
+                                        <Span Text="{Binding Word.Translation}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </Frame>
 
-                    <VerticalStackLayout 
+                    <Frame>
+                        <VerticalStackLayout>
+                            <Label Text="Phonetics" FontAttributes="Bold" FontSize="Medium"/>
+
+                            <VerticalStackLayout 
+                                BindableLayout.ItemsSource="{Binding Metadata.Phonetics}" 
+                                BindableLayout.ItemTemplate="{StaticResource PhoneticObservableItemTemplate}" 
+                                BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
+                                Spacing="10"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame>
+                        <VerticalStackLayout>
+                            <Label Text="Meanings" FontAttributes="Bold" FontSize="Medium"/>
+
+                            <VerticalStackLayout 
                         BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
                         BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
                         BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
                         Spacing="10"/>
+                        </VerticalStackLayout>
+                    </Frame>
                 </VerticalStackLayout>
-            </Frame>
+            </toolkit:StateContainer.StateViews>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

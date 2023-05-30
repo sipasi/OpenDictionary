@@ -25,6 +25,8 @@ public sealed partial class WordDetailViewModel : WordViewModel
     private readonly INavigationService navigation;
     private readonly IDictionarySource source;
 
+    public WordDetailState State { get; }
+
     public WordStorageViewModel WordStorage { get; }
     public PhoneticViewModel AudioPlayer { get; }
 
@@ -41,6 +43,8 @@ public sealed partial class WordDetailViewModel : WordViewModel
         this.navigation = navigation;
         this.source = source;
 
+        State = new();
+
         AudioPlayer = new(audioPlayer, phoneticFiles);
         WordStorage = new(connection, navigation, dialog);
     }
@@ -50,6 +54,8 @@ public sealed partial class WordDetailViewModel : WordViewModel
         WordMetadataLoader metadataLoader = new(connection, source);
 
         WordMetadata? metadata = await metadataLoader.Load(Word.Origin);
+
+        State.AsSuccess();
 
         if (metadata is null)
         {
