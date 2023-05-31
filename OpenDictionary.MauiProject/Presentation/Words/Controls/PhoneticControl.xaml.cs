@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Media;
 
 using OpenDictionary.Controls;
-using OpenDictionary.Models;
 using OpenDictionary.Styles.Fonts.Icons;
 using OpenDictionary.Words.ViewModels;
 
