@@ -6,32 +6,45 @@
     xmlns:fonts="clr-namespace:OpenDictionary.Styles.Fonts.Icons;assembly=OpenDictionary.Styles.Fonts" 
              
     x:Class="OpenDictionary.Words.Controls.PhoneticControl">
+    <ContentView.Resources>
+        <Style TargetType="ImageButton">
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="BorderWidth" Value="0"/>
+            <Setter Property="Source" Value="{fonts:FontIcon Icon=Play, Color={DynamicResource Primary}}"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ActivityIndicator">
+            <Setter Property="WidthRequest" Value="22"/>
+            <Setter Property="HeightRequest" Value="22"/>
+            <Setter Property="Color" Value="{DynamicResource Primary}"/>
+            <Setter Property="IsRunning" Value="False"/>
+        </Style>
+    </ContentView.Resources>
+
     <VerticalStackLayout Spacing="10">
         <Label>
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Pronunciation: " FontAttributes="Bold" TextColor="{x:StaticResource Green-200}"/>
-                    <Span x:Name="pronunciation"/>
+                    <Span Text="Pronunciation: " FontAttributes="Bold" TextColor="{DynamicResource Primary}"/>
+                    <Span x:Name="pronunciation" FontAttributes="Bold" TextColor="{DynamicResource SecondaryText}"/>
                 </FormattedString>
             </Label.FormattedText>
         </Label>
 
         <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10">
-            <ImageButton x:Name="play"
-                Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" BorderWidth="0" 
-                Source="{fonts:FontIcon Icon=Play, Color={DynamicResource Primary}}"/>
+            <ImageButton Grid.Column="0" x:Name="play"/>
 
 
-            <ActivityIndicator Grid.Column="1" WidthRequest="22" HeightRequest="22" 
-                               Color="{DynamicResource Primary}" IsRunning="False"
-                               x:Name="activity"/>
-            <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
-                   FontFamily="{fonts:FontFamily}" Text="{fonts:Icon Icon=Cloud}" FontSize="18"
-                   x:Name="cacheIcon" IsVisible="True"/>
+            <ActivityIndicator Grid.Column="1" x:Name="activity"/>
 
-            <Label Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  
-                   TextColor="{StaticResource Secondary}" 
-                   x:Name="audioSource"/>
+            <Label Grid.Column="1" x:Name="cacheIcon" 
+                   FontFamily="{fonts:FontFamily}" FontSize="18" Text="{fonts:Icon Icon=Cloud}"/>
+
+            <Label Grid.Column="2" x:Name="audioSource" TextColor="{DynamicResource Secondary}"/>
         </Grid>
     </VerticalStackLayout>
 </ContentView>
