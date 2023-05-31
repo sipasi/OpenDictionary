@@ -6,6 +6,8 @@
               
              xmlns:controls="clr-namespace:OpenDictionary.Words.Controls" 
              
+             xmlns:synthesis="clr-namespace:OpenDictionary.Controls.SpeechSynthesis;assembly=OpenDictionary.Controls.SpeechSynthesis"
+             
              xmlns:viewModels="clr-namespace:OpenDictionary.Words.ViewModels" 
              
              xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
@@ -128,12 +130,12 @@
             <Label Style="{StaticResource TitleLabel}" Text="Definition" />
 
             <Border>
-                <VerticalStackLayout>
+                <VerticalStackLayout Spacing="10">
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Origin: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Origin}"/>
+                                <Span Text="{Binding Word.Origin}" TextColor="{DynamicResource Primary}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -141,21 +143,19 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Translation: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Translation}"/>
+                                <Span Text="{Binding Word.Translation}" TextColor="{DynamicResource Primary}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                 </VerticalStackLayout>
             </Border>
 
-            <Label Style="{StaticResource TitleLabel}" Text="Phonetics Synteze" />
+            <Label Style="{StaticResource TitleLabel}" Text="Synthesis" />
 
             <Border>
-                <VerticalStackLayout>
-                    <controls:PhoneticControl Word="{Binding Word.Origin}" ViewModel="{Binding BindingContext.AudioPlayer, Source={x:Reference this}}"/>
-                </VerticalStackLayout>
+                <synthesis:SpeechControl Text="{Binding Word.Origin}" ImageSource="{fonts:FontIcon Icon=Play, Color={DynamicResource Primary}}"/>
             </Border>
-            
+
             <VerticalStackLayout
                              toolkit:StateContainer.CurrentState="{Binding State.Current}"
                              toolkit:StateContainer.CanStateChange="{Binding State.CanChange}">
@@ -170,7 +170,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontAttributes="Bold"
-                                          Text="Loading "/> 
+                                          Text="Loading "/>
                                         <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}" 
                                           Text="metadata" />
                                     </FormattedString>
