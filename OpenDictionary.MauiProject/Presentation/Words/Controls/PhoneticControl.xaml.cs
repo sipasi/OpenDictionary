@@ -7,6 +7,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Media;
 
 using OpenDictionary.Controls;
+using OpenDictionary.Models;
 using OpenDictionary.Styles.Fonts.Icons;
 using OpenDictionary.Words.ViewModels;
 
@@ -70,48 +71,26 @@ public partial class PhoneticControl : ContentView
 
     private async Task OnPlay()
     {
-        PhoneticViewModel? viewModel = ViewModel;
-
-        string? word = Word;
-        string? source = Source;
-
-        if (word is null)
+        if (ViewModel is not PhoneticViewModel viewModel)
         {
             return;
         }
 
-        if (viewModel is not null && source is not null)
+        if (Source is not string source || Word is not string word)
         {
-            await LoadAudioIfNotExists(viewModel);
+            return;
         }
 
-        await PlayAudio(word, source, viewModel);
+        await LoadAudioIfNotExists(viewModel, word, source);
+
+        await viewModel.PlayAudio(word: word, source: source);
 
         UpdateChacheIcon();
     }
 
-    private static async ValueTask PlayAudio(string word, string? source, PhoneticViewModel? viewModel)
-    {
-        if (string.IsNullOrWhiteSpace(source))
-        {
-            await TextToSpeech.Default.SpeakAsync(word);
-
-            return;
-        }
-
-        if (viewModel is null)
-        {
-            return;
-        }
-
-        await viewModel.PlayAudio(word: word, source: source);
-    }
-
     private void UpdateChacheIcon()
     {
-        PhoneticViewModel? viewModel = ViewModel;
-
-        if (viewModel is null)
+        if (ViewModel is not PhoneticViewModel viewModel)
         {
             return;
         }
@@ -127,11 +106,8 @@ public partial class PhoneticControl : ContentView
         };
     }
 
-    private async Task LoadAudioIfNotExists(PhoneticViewModel viewModel)
+    private async Task LoadAudioIfNotExists(PhoneticViewModel viewModel, string word, string source)
     {
-        string word = Word;
-        string source = Source;
-
         if (viewModel.CacheContains(word, source))
         {
             return;
