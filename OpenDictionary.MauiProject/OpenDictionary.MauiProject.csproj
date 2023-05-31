@@ -172,6 +172,7 @@
 		<ProjectReference Include="..\OpenDictionary.Controls.Chips\OpenDictionary.Controls.Chips.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Controls.Layouts\OpenDictionary.Controls.Layouts.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Controls.Popups\OpenDictionary.Controls.Popups.csproj" />
+		<ProjectReference Include="..\OpenDictionary.Controls.TextToSpeech\OpenDictionary.Controls.SpeechSynthesis.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Controls.Tiles\OpenDictionary.Controls.Tiles.csproj" />
 		<ProjectReference Include="..\OpenDictionary.Databases\OpenDictionary.Databases.csproj" />
 		<ProjectReference Include="..\OpenDictionary.DataTransfer.Maui\OpenDictionary.DataTransfer.Maui.csproj" />

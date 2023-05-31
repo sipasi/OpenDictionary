@@ -69,6 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Styles", "Styles", "{C7F55D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenDictionary.Controls.Popups", "OpenDictionary.Controls.Popups\OpenDictionary.Controls.Popups.csproj", "{50BDBC9E-7745-4680-AA51-4B7A908E5E6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDictionary.Controls.SpeechSynthesis", "OpenDictionary.Controls.TextToSpeech\OpenDictionary.Controls.SpeechSynthesis.csproj", "{5E402B33-333C-494B-909E-2252A66A6792}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -537,6 +539,22 @@ Global
 		{50BDBC9E-7745-4680-AA51-4B7A908E5E6B}.Release|x64.Build.0 = Release|Any CPU
 		{50BDBC9E-7745-4680-AA51-4B7A908E5E6B}.Release|x86.ActiveCfg = Release|Any CPU
 		{50BDBC9E-7745-4680-AA51-4B7A908E5E6B}.Release|x86.Build.0 = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|arm64.Build.0 = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|x64.Build.0 = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Debug|x86.Build.0 = Debug|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|arm64.ActiveCfg = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|arm64.Build.0 = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|x64.ActiveCfg = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|x64.Build.0 = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|x86.ActiveCfg = Release|Any CPU
+		{5E402B33-333C-494B-909E-2252A66A6792}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -573,6 +591,7 @@ Global
 		{EAFD4858-EF33-454F-9E54-9220EA832344} = {A783ECD0-7138-4353-B21A-E7EA5452B47F}
 		{C7F55DEC-7F13-4324-B425-F46CE509A384} = {6E94D6B5-CAA3-4994-A5DE-86B27F77A3DF}
 		{50BDBC9E-7745-4680-AA51-4B7A908E5E6B} = {A783ECD0-7138-4353-B21A-E7EA5452B47F}
+		{5E402B33-333C-494B-909E-2252A66A6792} = {A783ECD0-7138-4353-B21A-E7EA5452B47F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21D67BBD-9611-4551-8913-FD16833412F1}
