@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
+    xmlns:system="using:System"
+  
+    xmlns:local="clr-namespace:OpenDictionary.Words.Controls"
+    
+    xmlns:observables="clr-namespace:OpenDictionary.Observables.Metadatas;assembly=OpenDictionary.Observables"
+    
+    x:Class="OpenDictionary.Words.Controls.MeaningControl">
+    <ContentView.Resources>
+        <Style TargetType="Span" x:Key="SpanPrimary">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+        </Style>
+        <Style TargetType="Span" x:Key="SpanSecondary">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryText}"/>
+        </Style>
+    </ContentView.Resources>
+    <VerticalStackLayout Spacing="10" Padding="20" BackgroundColor="{DynamicResource Surface}">
+        <Border BackgroundColor="{DynamicResource Background}" HorizontalOptions="Start" Padding="10" Margin="-22,-22,-22,0" >
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,0,8"/>
+            </Border.StrokeShape>
+            <Label x:Name="partOfSpeech" FontAttributes="Bold" FontSize="Medium" TextColor="{DynamicResource Primary}"/>
+        </Border>
+
+        <Label Grid.Row="1" IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(synonyms.Text)}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Synonyms: " Style="{StaticResource SpanPrimary}"/>
+                    <Span x:Name="synonyms" Style="{StaticResource SpanSecondary}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Grid.Row="2" IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(antonyms.Text)}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Antonyms: " Style="{StaticResource SpanPrimary}"/>
+                    <Span x:Name="antonyms" Style="{StaticResource SpanSecondary}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <VerticalStackLayout x:Name="definitionLayout" Grid.Row="3" Spacing="10">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="observables:DefinitionObservable">
+                    <local:DefinitionControl Definition="{Binding .}"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+            <BindableLayout.EmptyView>
+                <Label Text="No definitions found yet" TextColor="{DynamicResource Primary}" FontSize="Large"/>
+            </BindableLayout.EmptyView>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

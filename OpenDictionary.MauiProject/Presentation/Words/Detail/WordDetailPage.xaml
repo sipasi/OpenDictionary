@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:OpenDictionary.Words.Controls" 
              
              xmlns:synthesis="clr-namespace:OpenDictionary.Controls.SpeechSynthesis;assembly=OpenDictionary.Controls.SpeechSynthesis"
+             xmlns:chips="clr-namespace:OpenDictionary.Controls.Chips;assembly=OpenDictionary.Controls.Chips"
              
              xmlns:viewModels="clr-namespace:OpenDictionary.Words.ViewModels" 
              
@@ -43,6 +44,15 @@
                 <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
             </Style>
 
+            <Style TargetType="Span" x:Key="SpanPrimary">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+            </Style>
+            <Style TargetType="Span" x:Key="SpanSecondary">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryText}"/>
+            </Style>
+
             <DataTemplate x:Key="EmptyViewTemplate">
                 <VerticalStackLayout>
                     <Label Text="Empty" TextColor="{DynamicResource Primary}" FontAttributes="Bold" FontSize="Medium"
@@ -55,66 +65,8 @@
                                           ViewModel="{Binding BindingContext.AudioPlayer, Source={x:Reference this}}"/>
             </DataTemplate>
 
-            <DataTemplate x:Key="DefinitionObservableItemTemplate" x:DataType="observables:DefinitionObservable">
-                <Grid ColumnSpacing="10" ColumnDefinitions="5,*" RowDefinitions="*">
-                    <Rectangle BackgroundColor="{DynamicResource Primary}" WidthRequest="4"/>
-
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label LineBreakMode="CharacterWrap">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Definition: " FontAttributes="Bold" 
-                                          TextColor="{x:StaticResource Blue-300}"/>
-                                    <Span Text="{Binding Value}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(Example)}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Example: " FontAttributes="Bold" TextColor="{x:StaticResource Indigo-300}"/>
-                                    <Span Text="{Binding Example}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </VerticalStackLayout>
-                </Grid>
-            </DataTemplate>
-
             <DataTemplate x:Key="MeaningObservableItemTemplate" x:DataType="observables:MeaningObservable">
-                <VerticalStackLayout Spacing="10">
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Part of speech: " FontAttributes="Bold" 
-                                      TextColor="{x:StaticResource Green-200}"/>
-                                <Span Text="{Binding PartOfSpeech}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(Synonyms)}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Synonyms: " FontAttributes="Bold" 
-                                      TextColor="{x:StaticResource Green-200}"/>
-                                <Span Text="{Binding Synonyms}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(Antonyms)}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Antonyms: " FontAttributes="Bold" 
-                                      TextColor="{x:StaticResource Green-200}"/>
-                                <Span Text="{Binding Antonyms}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <VerticalStackLayout 
-                        Spacing="10" 
-                        BindableLayout.ItemsSource="{Binding Definitions}"
-                        BindableLayout.ItemTemplate="{x:StaticResource DefinitionObservableItemTemplate}"/>
-                </VerticalStackLayout>
+                <controls:MeaningControl Meaning="{Binding .}"/>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -193,13 +145,12 @@
 
                         <Label Style="{StaticResource TitleLabel}" Text="Meanings" />
 
-                        <Border>
-                            <VerticalStackLayout 
+                        <VerticalStackLayout 
                                 BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
                                 BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
                                 BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
                                 Spacing="10"/>
-                        </Border>
+
                     </VerticalStackLayout>
                 </toolkit:StateContainer.StateViews>
             </VerticalStackLayout>

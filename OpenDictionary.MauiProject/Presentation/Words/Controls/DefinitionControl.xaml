@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+     
+    xmlns:system="using:System"
+ 
+    
+    x:Class="OpenDictionary.Words.Controls.DefinitionControl">
+    <ContentView.Resources>
+        <Style TargetType="Span" x:Key="SpanPrimary">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+        </Style>
+        <Style TargetType="Span" x:Key="SpanSecondary">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryText}"/>
+        </Style>
+    </ContentView.Resources>
+    <Grid ColumnSpacing="10" ColumnDefinitions="5,*" RowDefinitions="auto,auto">
+        <Rectangle Grid.Column="0" Grid.RowSpan="2" 
+                   BackgroundColor="{DynamicResource Primary}" WidthRequest="4"/>
+ 
+        <Label Grid.Column="1" Grid.Row="0" LineBreakMode="CharacterWrap">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Definition: " Style="{StaticResource SpanPrimary}"/>
+                    <Span x:Name="definition" Style="{StaticResource SpanSecondary}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label Grid.Column="1" Grid.Row="1" IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(example.Text)}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Example: " Style="{StaticResource SpanPrimary}"/>
+                    <Span x:Name="example" Style="{StaticResource SpanSecondary}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </Grid>
+</ContentView>
