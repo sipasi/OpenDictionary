@@ -30,7 +30,7 @@
         </Style>
     </ContentPage.Resources>
 
-    <ScrollView>
+    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
         <VerticalStackLayout Spacing="5">
             <Border Padding="20">
                 <VerticalStackLayout>
