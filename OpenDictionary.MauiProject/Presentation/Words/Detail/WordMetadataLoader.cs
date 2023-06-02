@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,7 +53,7 @@ internal readonly struct WordMetadataLoader
             return null;
         }
 
-        WordMetadata entity = Filter(metadata);
+        WordMetadata entity = new WordMetadataFilter(metadata).Filter();
 
         await SaveToDatabase(entity);
 
@@ -68,25 +69,5 @@ internal readonly struct WordMetadataLoader
             .AddAsync(metadata);
 
         await context.SaveChangesAsync();
-    }
-
-    private static WordMetadata Filter(WordMetadata metadata)
-    {
-        WordMetadata result = new()
-        {
-            Value = metadata.Value,
-            Meanings = metadata.Meanings,
-            Phonetics = metadata.Phonetics.Where(IsEligiblePhonetic).ToList(),
-        };
-
-        return result;
-    }
-
-    private static bool IsEligiblePhonetic(Phonetic phonetic)
-    {
-        bool result = string.IsNullOrWhiteSpace(phonetic.Value) is false &&
-                      string.IsNullOrWhiteSpace(phonetic.Audio) is false;
-
-        return result;
     }
 }
