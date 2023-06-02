@@ -203,6 +203,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="Presentation\Words\Controls\DefinitionControl.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Presentation\Words\Controls\MeaningControl.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Presentation\Words\Controls\PhoneticControl.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
