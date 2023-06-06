@@ -35,7 +35,7 @@ public partial class MeaningControl : ContentView
         owner.synonyms.Text = current.Synonyms;
         owner.antonyms.Text = current.Antonyms;
 
-        if (current.Definitions.Count > 0)
+        if (current.Definitions?.Count > 0)
         {
             BindableLayout.SetItemsSource(owner.definitionLayout, current.Definitions);
         }

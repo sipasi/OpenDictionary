@@ -19,13 +19,22 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="{DynamicResource SecondaryText}"/>
         </Style>
+        <Style TargetType="Border" x:Key="Badge">
+            <Setter Property="BackgroundColor" Value="{DynamicResource Background}"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 0,0,0,8"/>
+            <Setter Property="Margin" Value="-22,-22,-22,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="BadgeLabel">
+            <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
     </ContentView.Resources>
     <VerticalStackLayout Spacing="10" Padding="20" BackgroundColor="{DynamicResource Surface}">
-        <Border BackgroundColor="{DynamicResource Background}" HorizontalOptions="Start" Padding="10" Margin="-22,-22,-22,0" >
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="0,0,0,8"/>
-            </Border.StrokeShape>
-            <Label x:Name="partOfSpeech" FontAttributes="Bold" FontSize="Medium" TextColor="{DynamicResource Primary}"/>
+        <Border Style="{StaticResource Badge}" >
+            <Label x:Name="partOfSpeech" Style="{StaticResource BadgeLabel}" />
         </Border>
 
         <Label Grid.Row="1" IsVisible="{x:Bind not system:String.IsNullOrWhiteSpace(synonyms.Text)}">
@@ -53,7 +62,9 @@
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
             <BindableLayout.EmptyView>
-                <Label Text="No definitions found yet" TextColor="{DynamicResource Primary}" FontSize="Large"/>
+                <Border>
+                    <Label Text="No definitions found yet" TextColor="{DynamicResource Primary}" FontSize="Large"/>
+                </Border>
             </BindableLayout.EmptyView>
         </VerticalStackLayout>
     </VerticalStackLayout>
