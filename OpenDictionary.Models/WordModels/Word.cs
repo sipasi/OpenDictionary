@@ -8,6 +8,9 @@ public class Word : IEntity
 
     public DateTime Date { get; set; }
 
-    public string Origin { get; set; }
-    public string Translation { get; set; }
+    public string Origin { get; set; } = null!;
+    public string Translation { get; set; } = null!;
+
+    public Guid GroupId { get; set; }
+    public WordGroup Group { get; set; } = null!;
 }
