@@ -86,16 +86,16 @@
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Origin: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Origin}" TextColor="{DynamicResource Primary}"/>
+                                <Span Text="Origin: " Style="{StaticResource SpanSecondary}"/>
+                                <Span Text="{Binding Word.Origin}" Style="{StaticResource SpanPrimary}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Translation: " FontAttributes="Bold"/>
-                                <Span Text="{Binding Word.Translation}" TextColor="{DynamicResource Primary}"/>
+                                <Span Text="Translation: " Style="{StaticResource SpanSecondary}"/>
+                                <Span Text="{Binding Word.Translation}" Style="{StaticResource SpanPrimary}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -112,19 +112,14 @@
                              toolkit:StateContainer.CurrentState="{Binding State.Current}"
                              toolkit:StateContainer.CanStateChange="{Binding State.CanChange}">
                 <toolkit:StateContainer.StateViews>
-                    <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}"
-                            Margin="-2,20">
-                        <VerticalStackLayout 
-                                     VerticalOptions="Center" HorizontalOptions="Center"
-                                     Spacing="20">
+                    <Border toolkit:StateView.StateKey="{Static viewModels:WordDetailState.Loading}" Margin="-2,20">
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
                             <ActivityIndicator IsRunning="True"/>
                             <Label FontSize="Large">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span FontAttributes="Bold"
-                                          Text="Loading "/>
-                                        <Span FontAttributes="Bold" TextColor="{DynamicResource Primary}" 
-                                          Text="metadata" />
+                                        <Span Text="Loading " Style="{StaticResource SpanSecondary}"/>
+                                        <Span Text="metadata" Style="{StaticResource SpanPrimary}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -148,7 +143,6 @@
                         <VerticalStackLayout 
                                 BindableLayout.ItemsSource="{Binding Metadata.Meanings}" 
                                 BindableLayout.ItemTemplate="{x:StaticResource MeaningObservableItemTemplate}"
-                                BindableLayout.EmptyViewTemplate="{StaticResource EmptyViewTemplate}"
                                 Spacing="10"/>
 
                     </VerticalStackLayout>
