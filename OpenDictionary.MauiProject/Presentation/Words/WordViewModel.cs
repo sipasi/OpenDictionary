@@ -20,11 +20,6 @@ public partial class WordViewModel : ObservableObject
 {
     private string id;
 
-    [ObservableProperty]
-    private WordObservable word;
-    [ObservableProperty]
-    private WordMetadataObservable metadata;
-
     private readonly IDatabaseConnection<DatabaseContext> connection;
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
@@ -40,6 +35,9 @@ public partial class WordViewModel : ObservableObject
         }
     }
 
+    public WordObservable Word { get; }
+    public WordMetadataObservable Metadata { get; }
+
     public WordViewModel(IDatabaseConnection<DatabaseContext> connection, INavigationService navigation, IToastMessageService toast)
     {
         this.connection = connection;
@@ -48,8 +46,8 @@ public partial class WordViewModel : ObservableObject
 
         id = string.Empty;
 
-        word = new();
-        metadata = new();
+        Word = new();
+        Metadata = new();
     }
 
     protected virtual Task OnWordLoaded()
@@ -62,6 +60,11 @@ public partial class WordViewModel : ObservableObject
     {
         try
         {
+            Word.Origin = null!;
+            Word.Translation = null!;
+
+            Metadata.Clear();
+
             if (string.IsNullOrWhiteSpace(id))
             {
                 throw new NotSupportedException();
