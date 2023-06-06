@@ -9,10 +9,13 @@ public class WordGroup : IEntity
 
     public DateTime Date { get; set; }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public string OriginCulture { get; set; }
-    public string TranslationCulture { get; set; }
+    public string OriginCulture { get; set; } = null!;
+    public string TranslationCulture { get; set; } = null!;
 
-    public ICollection<Word> Words { get; set; }
+    public ICollection<Word> Words { get; set; } = null!;
+
+    public Guid? FolderId { get; set; } = null!;
+    public Folder? Folder { get; set; } = null!;
 }
