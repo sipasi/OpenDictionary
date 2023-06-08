@@ -1,39 +1,31 @@
 ﻿#nullable enable
 
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
 
-using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
 using OpenDictionary.Observables.Metadatas;
 using OpenDictionary.Observables.Words;
+using OpenDictionary.Presentation.Shared;
 using OpenDictionary.Services.Messages.Toasts;
 using OpenDictionary.Services.Navigations;
 
 namespace OpenDictionary.Words.ViewModels;
 
-public partial class WordViewModel : ObservableObject
+public partial class WordViewModel : AsyncObservableObject
 {
-    private string id;
-
     private readonly IDatabaseConnection<DatabaseContext> connection;
     private readonly INavigationService navigation;
     private readonly IToastMessageService toast;
 
-    public string Id
-    {
-        get => id;
-        set
-        {
-            SetProperty(ref id, value);
+    public string? Id { get; set; }
 
-            LoadWordDataCommand.ExecuteAsync(default);
-        }
-    }
+    public string GroupName { get; private set; }
 
     public WordObservable Word { get; }
     public WordMetadataObservable Metadata { get; }
@@ -44,59 +36,61 @@ public partial class WordViewModel : ObservableObject
         this.navigation = navigation;
         this.toast = toast;
 
-        id = string.Empty;
+        GroupName = "Details";
 
         Word = new();
         Metadata = new();
     }
 
-    protected virtual Task OnWordLoaded()
+    protected override async Task OnInitialize()
     {
-        return Task.CompletedTask;
-    }
+        Word.Origin = null!;
+        Word.Translation = null!;
 
-    [RelayCommand]
-    private async Task LoadWordData()
-    {
-        try
+        Metadata.Clear();
+
+        if (string.IsNullOrWhiteSpace(Id))
         {
-            Word.Origin = null!;
-            Word.Translation = null!;
-
-            Metadata.Clear();
-
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new NotSupportedException();
-            }
-
-            Guid guid = Guid.Parse(id);
-
-            Word? loaded = await connection.Open(context => context.Set<Word>().GetById(guid));
-
-            if (loaded is null)
-            {
-                throw new Exception($"Cant load word by id: {id ?? "Empty"}");
-            }
-
-            Word.Origin = loaded.Origin;
-            Word.Translation = loaded.Translation;
-
-            await OnWordLoaded();
+            throw new NotSupportedException("Id can't be null");
         }
-        catch (Exception e)
+
+        if (await LoadWord(Id) is not WordInfo loaded)
         {
-            await ErrorMessage(e);
-
-            await navigation.GoBackAsync();
+            throw new Exception($"Cant load word by id: {Id}");
         }
-    }
 
-    protected Task ErrorMessage(Exception exception)
+        GroupName = loaded.GroupName;
+
+        Word.Origin = loaded.Origin;
+        Word.Translation = loaded.Translation;
+
+        await OnWordLoaded();
+    }
+    protected override void OnInitializationFailed(string message, string? inner)
     {
-        string name = GetType().Name;
-        string message = $"ViewModel[{name}]: {exception.Message}. Inner: {exception.InnerException?.Message ?? "Non"}";
+        Debug.WriteLine($"ViewModel[{GetType().Name}]: {message}. Inner: {inner ?? "Non"}");
 
-        return toast.Show(message);
+        navigation.GoBackAsync().SafeFireAndForget();
     }
+
+    private async ValueTask<WordInfo?> LoadWord(string id)
+    {
+        Guid guid = Guid.Parse(id);
+
+        await using var context = connection.Open();
+
+        var loaded = await context.Set<Word>().Select(static word => new WordInfo
+        {
+            Id = word.Id,
+            Origin = word.Origin,
+            Translation = word.Translation,
+            GroupName = word.Group.Name,
+        }).FirstOrDefaultAsync(x => x.Id == guid);
+
+        return loaded;
+    }
+
+    protected virtual Task OnWordLoaded() => Task.CompletedTask;
+
+    private readonly record struct WordInfo(Guid Id, string Origin, string Translation, string GroupName);
 }
