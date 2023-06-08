@@ -7,9 +7,9 @@ public class WordMetadata : IEntity
 {
     public Guid Id { get; set; }
 
-    public string Value { get; set; }
+    public string Value { get; set; } = null!;
 
-    public ICollection<Phonetic> Phonetics { get; set; }
+    public ICollection<Phonetic> Phonetics { get; set; } = null!;
 
-    public ICollection<Meaning> Meanings { get; set; }
+    public ICollection<Meaning> Meanings { get; set; } = null!;
 }
