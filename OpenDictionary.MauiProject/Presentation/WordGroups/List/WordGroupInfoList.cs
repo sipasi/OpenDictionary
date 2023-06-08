@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.EntityFrameworkCore;
@@ -9,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using OpenDictionary.Collections.Storages.Extensions;
 using OpenDictionary.Databases;
 using OpenDictionary.Models;
+using OpenDictionary.Presentation.Shared;
 using OpenDictionary.Services.Navigations;
 using OpenDictionary.Services.Navigations.Routes;
 using OpenDictionary.ViewModels;
 
 namespace OpenDictionary.WordGroups.ViewModels;
 
-public sealed partial class WordGroupInfoList : ObservableObject
+public sealed partial class WordGroupInfoList : AsyncObservableObject
 {
     private readonly IDatabaseConnection<AppDatabaseContext> connection;
     private readonly INavigationService navigation;
@@ -27,10 +27,10 @@ public sealed partial class WordGroupInfoList : ObservableObject
         this.connection = connection;
         this.navigation = navigation;
 
-        Groups = new(Load, Tapped);
+        Groups = new(OnInitialize, Tapped);
     }
 
-    private async Task Load()
+    protected override async Task OnInitialize()
     {
         Groups.IsBusy = true;
 
