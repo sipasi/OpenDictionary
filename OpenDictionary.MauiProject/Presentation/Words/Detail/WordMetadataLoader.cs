@@ -1,7 +1,5 @@
 ﻿#nullable enable
 
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 using OpenDictionary.Collections.Storages.Extensions;
@@ -53,12 +51,10 @@ internal readonly struct WordMetadataLoader
             return null;
         }
 
-        WordMetadata entity = new WordMetadataFilter(metadata).Filter();
+            await context.Set<WordMetadata>().AddAsync(metadata);
 
-        await SaveToDatabase(entity);
-
-        return entity;
-    }
+            await context.SaveChangesAsync();
+        }
 
     private async ValueTask SaveToDatabase(WordMetadata metadata)
     {
@@ -70,4 +66,20 @@ internal readonly struct WordMetadataLoader
 
         await context.SaveChangesAsync();
     }
+
+    private static WordMetadata Filter(WordMetadata metadata)
+    {
+        WordMetadata result = new()
+        {
+            Value = metadata.Value,
+            Meanings = metadata.Meanings,
+            Phonetics = metadata.Phonetics.Where(IsEligiblePhonetic).ToList(),
+        };
+
+        return result;
+    }
+
+    private static bool IsEligiblePhonetic(Phonetic phonetic) =>
+        string.IsNullOrWhiteSpace(phonetic.Value) is false &&
+        string.IsNullOrWhiteSpace(phonetic.Audio) is false;
 }
