@@ -6,9 +6,10 @@ namespace OpenDictionary.Databases;
 
 public class AppDatabaseContext : DatabaseContext
 {
-    public DbSet<Word> Words { get; set; }
-    public DbSet<WordMetadata> WordMetadatas { get; set; }
-    public DbSet<WordGroup> WordGroups { get; set; }
+    public DbSet<Word> Words { get; set; } = null!;
+    public DbSet<WordMetadata> WordMetadatas { get; set; } = null!;
+    public DbSet<WordGroup> WordGroups { get; set; } = null!;
+    public DbSet<Folder> Folders { get; set; } = null!;
 
     public AppDatabaseContext(IDatabasePath path) : base(path.Path) { }
 
@@ -16,39 +17,15 @@ public class AppDatabaseContext : DatabaseContext
     {
         base.OnModelCreating(builder);
 
-        builder
-            .Entity<WordGroup>()
-            .HasMany(entity => entity.Words)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.ApplyConfiguration(new WordConfiguration());
+        builder.ApplyConfiguration(new WordGroupConfiguration());
 
-        builder
-            .Entity<WordMetadata>()
-            .HasMany(entity => entity.Phonetics)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Cascade);
-        builder
-            .Entity<WordMetadata>()
-            .HasMany(entity => entity.Meanings)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Cascade);
-        builder
-            .Entity<Meaning>()
-            .HasMany(entity => entity.Definitions)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.ApplyConfiguration(new FolderConfiguration());
 
-        builder
-            .Entity<Meaning>()
-            .HasOne(entity => entity.Synonyms)
-            .WithOne()
-            .HasForeignKey<Synonyms>(e => e.Id)
-            .OnDelete(DeleteBehavior.Cascade);
-        builder
-            .Entity<Meaning>()
-            .HasOne(entity => entity.Antonyms)
-            .WithOne()
-            .HasForeignKey<Antonyms>(e => e.Id)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.ApplyConfiguration(new WordMetadataConfiguration());
+        builder.ApplyConfiguration(new PhoneticConfiguration());
+        builder.ApplyConfiguration(new MeaningConfiguration());
+        builder.ApplyConfiguration(new SynonymsConfiguration());
+        builder.ApplyConfiguration(new AntonymsConfiguration());
     }
 }
