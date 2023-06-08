@@ -7,7 +7,7 @@ namespace OpenDictionary.Databases;
 
 internal static class DatabaseChecker
 {
-    public static async void Check(IServiceProvider provider)
+    public static void Check(IServiceProvider provider)
     {
         try
         {
