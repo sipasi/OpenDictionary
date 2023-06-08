@@ -51,10 +51,12 @@ internal readonly struct WordMetadataLoader
             return null;
         }
 
-            await context.Set<WordMetadata>().AddAsync(metadata);
+        WordMetadata entity = new WordMetadataFilter(metadata).Filter();
 
-            await context.SaveChangesAsync();
-        }
+        await SaveToDatabase(entity);
+
+        return entity;
+    }
 
     private async ValueTask SaveToDatabase(WordMetadata metadata)
     {
@@ -66,20 +68,4 @@ internal readonly struct WordMetadataLoader
 
         await context.SaveChangesAsync();
     }
-
-    private static WordMetadata Filter(WordMetadata metadata)
-    {
-        WordMetadata result = new()
-        {
-            Value = metadata.Value,
-            Meanings = metadata.Meanings,
-            Phonetics = metadata.Phonetics.Where(IsEligiblePhonetic).ToList(),
-        };
-
-        return result;
-    }
-
-    private static bool IsEligiblePhonetic(Phonetic phonetic) =>
-        string.IsNullOrWhiteSpace(phonetic.Value) is false &&
-        string.IsNullOrWhiteSpace(phonetic.Audio) is false;
 }
